@@ -1,0 +1,9 @@
+# Ignore environment variables
+.env
+
+# Ignore temp and backup files
+*.tmp
+*.log
+
+# Node modules (if ever installed)
+node_modules/

@@ -1,0 +1,20 @@
+
+export const planValues = {
+    productId : "wmproductId",
+    code : "Code",
+    name : "Name",
+    validity :"Days",
+    isLimited : "Limited",
+    dataCap : "FUP",
+    reducedSpeed : "Reduced speed",
+    price : "Price",
+    isReloadable : "Reloadable",
+    countryCodes : "Country Codes",
+    ipRoute : "IP Route",
+    operators : "Operators",
+    apn : "APN",
+    salePrice : "Sell Price",
+    networkType : "4G/5G",
+    dateReset : "Date Reset",
+    isPopular : "is popular",
+};
