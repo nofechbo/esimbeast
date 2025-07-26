@@ -1,5 +1,5 @@
-import { sendVerificationEmail } from "@/utils/email/sendVerificationEmail";
-import { verificationCache } from "@/utils/email/emailVerificationCache";
+import { sendVerificationEmail } from "@/lib/email/sendVerificationEmail";
+import { verificationCache } from "@/lib/email/emailVerificationCache";
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {

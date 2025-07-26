@@ -166,3 +166,153 @@ a.secondary {
     filter: invert();
   }
 }
+
+
+/* my adds */
+.container {
+  position: relative;
+  background-color: #1a1a1a;
+  min-height: 100vh;
+}
+
+.contentContainer {
+  position: relative;
+  height: 100vh; /* Use height instead of min-height */
+  overflow: hidden; /* Prevent expansion */
+}
+.backgroundImage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backgroundImage img {
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mainContent {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 51px;
+  line-height: 64px;
+  font-family: var(--font-kanit);
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #8D2DF2 0%, #FF82BA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.searchContainer {
+  position: relative;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 500px;
+}
+
+.pinIcon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+}
+
+.searchInput {
+  padding: 15px 60px 15px 45px;
+  font-size: 12px;
+  width: 100%;
+  border: 2px solid #e2dfe7;
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+
+.searchButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.searchButton img {
+  width: 66px;
+  height: 66px;
+}
+
+.suggestionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.suggestionItem {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  background-color: transparent;
+  color: inherit;
+}
+
+.suggestionItem:hover,
+.suggestionItem.selected {
+  background-color: #f0f8ff;
+  color: #0070f3;
+}
+
+.noResults {
+  padding: 0.5rem 1rem;
+  color: #666;
+  font-style: italic;
+}

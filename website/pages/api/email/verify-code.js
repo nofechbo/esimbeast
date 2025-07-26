@@ -1,4 +1,4 @@
-import { verificationCache } from "@/utils/email/emailVerificationCache";
+import { verificationCache } from "@/lib/email/emailVerificationCache";
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
