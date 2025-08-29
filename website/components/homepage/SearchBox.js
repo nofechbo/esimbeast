@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { filterSuggestions, findExactMatch } from '@/utils/homepage/searchUtils';
+import styles from '../../styles/Home.module.css';
 
 export default function SearchBox({ planList, onNavigate }) {
   const [query, setQuery] = useState("");
@@ -6,11 +8,7 @@ export default function SearchBox({ planList, onNavigate }) {
   const selectedRef = useRef(null);
 
   // Filter suggestions based on query
-  const suggestions = query.trim() ? planList.filter(p => {
-    const searchWords = query.trim().toLowerCase().split(/\s+/);
-    const planName = p.planName.toLowerCase();
-    return searchWords.every(word => planName.includes(word));
-  }) : [];
+  const suggestions = filterSuggestions(planList, query);
 
   // Reset selected index when suggestions change
   useEffect(() => {
@@ -37,9 +35,7 @@ export default function SearchBox({ planList, onNavigate }) {
     }
 
     // Otherwise, try exact match
-    const match = planList.find(p => 
-      p.planName.toLowerCase() === query.trim().toLowerCase()
-    );
+    const match = findExactMatch(planList, query);
     if (!match) return; // prevent invalid nav
 
     onNavigate(`/plans/${encodeURIComponent(match.slug)}`);
@@ -81,24 +77,10 @@ export default function SearchBox({ planList, onNavigate }) {
     <div style={{ position: 'relative' }}>
       <form 
         onSubmit={handleSearch} 
-        style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          gap: '1rem' 
-        }}
+        className={styles.searchForm}
       >
-        <div style={{ 
-          position: 'relative',
-          width: '500px'
-        }}>
-          <div style={{
-            position: 'absolute',
-            left: '15px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 1
-          }}>
+        <div className={styles.searchWrapper}>
+          <div className={styles.pinIcon}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/icons/pin.svg"
@@ -114,34 +96,12 @@ export default function SearchBox({ planList, onNavigate }) {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Enter a plan name (e.g. usa 5gb 7 days)"
-            style={{
-              padding: '15px 60px 15px 45px',
-              fontSize: '12px',
-              width: '100%',
-              border: '2px solid #e2dfe7',
-              borderRadius: '25px',
-              boxSizing: 'border-box'
-            }}
+            className={styles.searchInput}
           />
 
           <button
             type="submit"
-            style={{
-              position: 'absolute',
-              right: '8px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: '40px',
-              height: '40px',
-              color: 'white',
-              border: 'none',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '16px'
-            }}
+            className={styles.searchButton}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -154,47 +114,22 @@ export default function SearchBox({ planList, onNavigate }) {
       </form>
 
       {query && (
-        <ul style={{
-          listStyle: 'none',
-          padding: 0,
-          margin: 0,
-          maxHeight: '200px',
-          overflowY: 'auto',
-          width: '90%',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          background: '#fff',
-          position: 'absolute',
-          top: '100%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10
-        }}>
+        <ul className={styles.suggestionsList}>
           {suggestions.length > 0 ? (
             suggestions.map((s, index) => (
               <li
                 key={s.slug}
                 ref={selectedIndex === index && index < suggestions.length ? selectedRef : null}
-                style={{
-                  padding: '0.5rem 1rem',
-                  cursor: 'pointer',
-                  borderBottom: '1px solid #eee',
-                  backgroundColor: selectedIndex === index ? '#f0f8ff' : 'transparent',
-                  color: selectedIndex === index ? '#0070f3' : 'inherit'
-                }}
+                className={`${styles.suggestionItem} ${selectedIndex === index ? styles.selectedItem : ''}`}
                 onClick={() => onNavigate(`/plans/${encodeURIComponent(s.slug)}`)}
               >
-                {s.planName}
+                <a href={`/plans/${encodeURIComponent(s.slug)}`}>
+                    {s.planName}
+                  </a>
               </li>
             ))
           ) : (
-            <li style={{
-              padding: '0.5rem 1rem',
-              color: '#666',
-              fontStyle: 'italic'
-            }}>
-              No plans found
-            </li>
+            <li className={styles.noSuggestions}>No plans found</li>
           )}
         </ul>
       )}

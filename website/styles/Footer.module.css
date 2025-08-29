@@ -1,0 +1,93 @@
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  color: #f3f4f6;
+  padding: 72px 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto 0 auto;
+  background-color: transparent;
+  z-index: 10;
+  pointer-events: auto;
+  margin-top: 40px;
+}
+
+.footerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.logoContainer {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 24px;
+  margin-right: 64px;
+}
+
+.linkSections {
+  display: flex;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #fff;
+  font-family: var(--font-kanit);
+  font-size: 16px;
+  line-height: 18px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  width: 200px;
+  height: 18px;
+}
+
+.sectionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 32px;
+  color: #74828b;
+  font-family: var(--font-kanit);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  width: 200px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #3e484e;
+  margin: 0px 0 24px 0;
+}
+
+.bottomNote {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  color: #74828b;
+  font-family: var(--font-montserrat);
+  font-weight: 600;
+  line-height: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 16px;
+}
+
+.legalLink {
+  text-decoration: underline;
+  font-family: var(--font-kanit);
+  font-weight: 600;
+  line-height: 20px;
+}

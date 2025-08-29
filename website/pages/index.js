@@ -37,20 +37,21 @@ export default function Home() {
 
 
   return (
-    <div className={styles.container}>
+    <div className={`relative w-full ${styles.pageContainer}`}>
       <NavBar />     
       
-      <div className={styles.contentContainer}>
-        <div className={styles.backgroundImage}>
+      <div className={styles.heroWrapper}>
+        <div className="absolute inset-0 z-0 flex items-center justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/hp_bg.svg"
             alt="Background illustration"
+            // className="min-w-full min-h-full object-cover pointer-events-none select-none"
           />
         </div>
 
-          <div className={styles.mainContent}>
-          <h1 className={styles.title}>
+          <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>
             Best eSIM Match Based on<br />Your Travel Needs
           </h1>
 
