@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PlanOrder {
+  id           Int      @id @default(autoincrement())
+  orderId      String
+  email        String
+  wmProductId  String
+  productName  String
+  countryCodes String[]        // array of country codes (e.g. ["US", "IL"])
+  data         Decimal         // e.g., 3.0 = 3GB, 0.5 = 500MB, 0 = Unlimited
+  duration     Int             // number of days
+  Price        Decimal
+  orderTime    DateTime
+  qrLink       String?         // nullable
+  lpa          String?         // nullable
+
+
+  @@index([orderId])  // optional index for performance
+}
