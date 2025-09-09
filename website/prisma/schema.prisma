@@ -23,5 +23,5 @@ model PlanOrder {
   lpa          String?         // nullable
 
 
-  @@index([orderId])  // optional index for performance
+  @@index([orderId])
 }

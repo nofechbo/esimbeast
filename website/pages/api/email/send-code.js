@@ -31,7 +31,7 @@ export default async function handler(req, res) {
 
     } catch (err) {
         res.status(500).json({ error: 'Failed to send verification code' });
-        console.error(err.message);
+        console.error(`error in sendCode: ${err.message}`);
         return;
     }
 

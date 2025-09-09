@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         }
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: purchasedPlan.productcPrice * 100, //cents
+            amount: purchasedPlan.productcPrice * 100, // stripe expects price in cents
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
             receipt_email: email, // optional
