@@ -24,11 +24,24 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "Plan not found" });
         }
 
+        const metadata = {
+            email,
+            productList: [{
+                wmproductId,
+                qty,
+                productN,
+                planName,
+                data,
+                duration,
+                price,
+            }],
+        }
+
         const paymentIntent = await stripe.paymentIntents.create({
             amount: purchasedPlan.productcPrice * 100, // stripe expects price in cents
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
-            receipt_email: email, // optional
+            receipt_email: email,
             metadata: {
                 slug,
                 planName: purchasedPlan.planName,

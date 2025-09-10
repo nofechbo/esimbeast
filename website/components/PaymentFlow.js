@@ -98,15 +98,6 @@ export default function PaymentFlow({ plan, slug }) {
     const [ verificationSuccess, setVerificationSuccess ] = useState('');
     const codeInputRef = useRef(null);
 
-    // useEffect(() => {
-    //     const initializePayment = async () => {
-    //         if (plan?.wmproductId) {
-    //             await createPaymentIntent('temp@temp.com'); // This will be updated when email is verified
-    //         }
-    //     };
-    //     initializePayment();
-    // }, [plan]); // eslint-disable-line react-hooks/exhaustive-deps
-
     if (!plan) {
         return <p>Plan not found.</p>;
     }

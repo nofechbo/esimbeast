@@ -1,5 +1,5 @@
 export default function slugify(plan) {
-    const combined = `${plan.productName} ${plan.wmproductId}`;
+    const combined = `${plan.name} ${plan.productId}`;
 
     return combined
         .toLowerCase()

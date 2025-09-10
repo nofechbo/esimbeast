@@ -10,14 +10,27 @@ const parseCSV = (text) => {
 }
 
 function normalizeBooleanFields(rows, fields) {
+  return rows.map((row) => {
+    const normalized = { ...row };
+    for (const key of fields) {
+      const v = normalized[key];
+      if (typeof v === "string") {
+        const val = v.toLowerCase().trim();
+        if (val === "yes" || val === "true") normalized[key] = true;
+        else if (val === "no" || val === "false") normalized[key] = false;
+      }
+    }
+    return normalized;
+  });
+}
+
+function normalizeHeaders(rows, mapCamelToCsv) {
     return rows.map((row) => {
-        const normalized = { ...row };
-        for (const key of fields) {
-            const value = row[key]?.toLowerCase().trim();
-            if (value === "yes") normalized[key] = true;
-            else if (value === "no") normalized[key] = false;
+        const out = {};
+        for (const [camelKey, csvHeader] of Object.entries(mapCamelToCsv)) {
+            out[camelKey] = row[csvHeader];
         }
-        return normalized;
+        return out;
     });
 }
 
@@ -44,10 +57,8 @@ export async function fetchAndParseCSV(sheetUrl) {
         throw new Error("CSV appears to be empty or malformed.");
     }
 
-    const booleanFields = [
-        planValues.isLimited,
-        planValues.isReloadable,
-        planValues.isPopular,
-    ];
-    return normalizeBooleanFields(records, booleanFields);;
+    const normalized = normalizeHeaders(records, planValues);
+    const booleanFields = ["isLimited", "isReloadable", "isPopular"];
+    return normalizeBooleanFields(normalized, booleanFields);
+
 }

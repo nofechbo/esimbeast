@@ -12,6 +12,7 @@ export async function getStaticPaths () {
     paths.push( { params: { slug } });
   }
 
+  console.log('parhs:', paths)
   return { paths, fallback: 'blocking' };
 }
 
@@ -52,12 +53,12 @@ export default function PlanPage({ plan, slug }) {
       paddingRight: '1rem',
       textAlign: 'center'
     }}>
-      <h1 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '1rem' }}>{plan.productName}</h1>
+      <h1 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '1rem' }}>{plan.name}</h1>
       <p style={{ fontSize: '18px', margin: '0.5rem 0' }}>
-        <strong>Price:</strong> ${plan.productcPrice}
+        <strong>Price:</strong> ${plan.price}
       </p>
       <p style={{ fontSize: '18px', margin: '0.5rem 0' }}>
-        <strong>Coverage:</strong> {plan.productRegion}
+        <strong>Coverage:</strong> {plan.countryCodes}
       </p>
 
       {!showPayment ? (
