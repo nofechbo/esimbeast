@@ -169,7 +169,7 @@ export default function PaymentFlow({ plan, slug }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-               wmproductId: plan.wmproductId,
+               productId: plan.productId,
                slug,
                email: emailToUse || email,
             }),

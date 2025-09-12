@@ -1,3 +1,4 @@
+import { fetchAndParseCSV } from "@/lib/plans/fetchAndParseCSV";
 import { fetchPlans } from "@/utils/fetchPlans";
 import Stripe from "stripe";
 
@@ -11,15 +12,16 @@ export default async function handler(req, res) {
         return res.status(405).end('Method Not Allowed');
     }
 
-    const { wmproductId, slug, email } = req.body;
-    if (!wmproductId || !slug || !email) {
+    console.log(req.body)
+    const { productId, slug, email } = req.body;
+    if (!productId || !slug || !email) {
         return res.status(400).json({ error: 'Missing wmproductId, slug or email' });
     }
 
     try {
-        const plans = await fetchPlans();
+        const plans = await fetchAndParseCSV();
 
-        const purchasedPlan = plans.find(p => p.wmproductId === wmproductId);
+        const purchasedPlan = plans.find(p => p.productId === productId);
         if (!purchasedPlan) {
             return res.status(400).json({ error: "Plan not found" });
         }
@@ -27,24 +29,23 @@ export default async function handler(req, res) {
         const metadata = {
             email,
             productList: [{
-                wmproductId,
-                qty,
-                productN,
-                planName,
-                data,
-                duration,
-                price,
+                wmproductId: productId,
+                // qty,
+                // planName,
+                // data,
+                // duration,
+                // price,
             }],
         }
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: purchasedPlan.productcPrice * 100, // stripe expects price in cents
+            amount: purchasedPlan.price * 100, // stripe expects price in cents
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
             receipt_email: email,
             metadata: {
                 slug,
-                planName: purchasedPlan.planName,
+                planName: purchasedPlan.name,
             },
         });
 

@@ -30,18 +30,25 @@ function normalizeBooleanFields(rows, fields) {
 
 function normalizeHeaders(rows, mapCamelToCsv) {
     return rows.map((row) => {
-        const out = {};
+        const normalized = {};
         for (const [camelKey, csvHeader] of Object.entries(mapCamelToCsv)) {
-            out[camelKey] = row[csvHeader];
+            let value = row[csvHeader];
+
+            if (csvHeader === "Price") {
+                const num = Number(value);
+                if (!isNaN(num)) value = Math.trunc(num * 100) / 100;
+            }
+
+        normalized[camelKey] = value;
         }
-        return out;
+    return normalized;
     });
 }
 
 export async function fetchAndParseCSV() {
     let records;
     let response;
-    console.log("FETCHING@@@")
+
     try {
         response = await fetch(SHEET_URL);
     } catch (err) {
@@ -64,7 +71,6 @@ export async function fetchAndParseCSV() {
     const normalized = normalizeHeaders(records, planValues);
     const booleanFields = ["isLimited", "isReloadable", "isPopular"];
 
-    console.log('FETCHED! @@')
     return normalizeBooleanFields(normalized, booleanFields);
 
 }
