@@ -17,11 +17,36 @@ model PlanOrder {
   countryCodes String[]        // array of country codes (e.g. ["US", "IL"])
   data         Decimal         // e.g., 3.0 = 3GB, 0.5 = 500MB, 0 = Unlimited
   duration     Int             // number of days
-  Price        Decimal
+  price        Decimal
   orderTime    DateTime
   qrLink       String?         // nullable
   lpa          String?         // nullable
 
-
   @@index([orderId])
+}
+
+model Plan {
+  id            Int       @id @default(autoincrement())
+  uniqueName    String    @unique  // computed: productId + name-slug + days + fup-slug
+  productId     String
+  code          String
+  name          String
+  days          Int
+  limited       Boolean
+  fup           String    // represents data, but can contain strings
+  data          Decimal   // GB, taken from fup
+  reducedSpeed  Int       // kbps
+  price         Decimal
+  reloadable    Boolean
+  countryCodes  String[]
+  ipRoute       String?
+  operators     String[]  @default([])
+  apn           String?
+  salePrice     Decimal?
+  // 4/5G?
+  // dataRest?
+
+  @@index([productId])
+  @@index([countryCodes], type: Gin)
+  @@index([uniqueName])
 }
