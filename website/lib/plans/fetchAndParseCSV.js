@@ -1,6 +1,10 @@
 import { parse } from "csv-parse/sync";
 import { planValues } from "@/utils/planHeaders";
 
+// const sheetId = "19FMgoB6l9znMsI4F5fzW7zR8vxfej_5YLM7YTx1r3nw";
+const sheetId = "1gYn3DuZLtY22EK2RN-iHaFOnxBU4lTQVh6Oe26O6jJg"; //test sheet
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
+
 const parseCSV = (text) => {
     return parse(text, {
         columns: true,
@@ -34,12 +38,12 @@ function normalizeHeaders(rows, mapCamelToCsv) {
     });
 }
 
-export async function fetchAndParseCSV(sheetUrl) {
+export async function fetchAndParseCSV() {
     let records;
     let response;
-    
+    console.log("FETCHING@@@")
     try {
-        response = await fetch(sheetUrl);
+        response = await fetch(SHEET_URL);
     } catch (err) {
         throw new Error(`Fatal error fetching sheet: ${err.message}`);
     }
@@ -59,6 +63,8 @@ export async function fetchAndParseCSV(sheetUrl) {
 
     const normalized = normalizeHeaders(records, planValues);
     const booleanFields = ["isLimited", "isReloadable", "isPopular"];
+
+    console.log('FETCHED! @@')
     return normalizeBooleanFields(normalized, booleanFields);
 
 }

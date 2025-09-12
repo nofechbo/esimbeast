@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { planValues } from '@/utils/planHeaders';
 import styles from '../../styles/Home.module.css'
 
 export default function PopularPlansCarousel({ popularPlans }) {
@@ -48,19 +47,19 @@ export default function PopularPlansCarousel({ popularPlans }) {
             <div className={styles.flagPlaceholder}>🏳️</div>
             
             {/* Country/Plan name */}
-            <h3 className={styles.popularPlanName}>{p[planValues.name]}</h3>
+            <h3 className={styles.popularPlanName}>{p.name}</h3>
             
             {/* Plan details */}
             <div style={{marginBottom: '1rem'}}>
               <p className={styles.popularDetailsText}>
-                {p[planValues.validity]} days | {p[planValues.dataCap]}
+                {p.validity} days | {p.dataCap}
               </p>
             </div>
             
             {/* Price */}
             <div className={styles.popularPrice}>
               <span className={styles.popularPriceValue}>
-                ${p[planValues.price]}
+                ${p.price}
               </span>
             </div>
           </div>

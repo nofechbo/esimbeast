@@ -2,7 +2,7 @@
 
 export async function fetchPlans() {
     try {
-          const response = await fetch('http://localhost:3000/api/plans');
+          const response = await fetch('/api/plans'); //not really good...........
           const plans = await response.json();
             if (!response.ok) {
                 throw new Error(plans?.msg || plans?.error || `error ${response.status}`);

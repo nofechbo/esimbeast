@@ -19,14 +19,14 @@ export default function Home() {
       const plans = await response.json();
       setPlanList(plans);
     }
-
+    
     loadPlans();
   }, []);
 
   //set popular plans list
   useEffect(() => {
     if (planList.length === 0) return;
-    const popular = planList.filter(p => p[planValues.isPopular]=== true);
+    const popular = planList.filter(p => p.isPopular === true);
     setPopularPlans(popular);
   }, [planList]);
 

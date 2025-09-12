@@ -1,10 +1,10 @@
-import { fetchPlans } from '@/utils/fetchPlans';
 import { useState } from 'react';
 import slugify from '@/utils/slugify';
 import PaymentFlow from '@/components/PaymentFlow';
+import { fetchAndParseCSV } from '@/lib/plans/fetchAndParseCSV';
 
 export async function getStaticPaths () {
-  const plans = await fetchPlans();
+  const plans = await fetchAndParseCSV();
   const paths = [];
 
   for (const plan of plans) {
@@ -12,13 +12,13 @@ export async function getStaticPaths () {
     paths.push( { params: { slug } });
   }
 
-  console.log('parhs:', paths)
+  console.log('paths:', paths)
   return { paths, fallback: 'blocking' };
 }
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const plans = await fetchPlans();
+  const plans = await fetchAndParseCSV();
 
   const plan = plans.find(p => {
     const slugified = slugify(p);
