@@ -1,5 +1,4 @@
 import { fetchAndParseCSV } from "@/lib/plans/fetchAndParseCSV";
-import { fetchPlans } from "@/utils/fetchPlans";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -12,10 +11,9 @@ export default async function handler(req, res) {
         return res.status(405).end('Method Not Allowed');
     }
 
-    console.log(req.body)
-    const { productId, slug, email } = req.body;
-    if (!productId || !slug || !email) {
-        return res.status(400).json({ error: 'Missing wmproductId, slug or email' });
+    const { productId, email } = req.body;
+    if (!productId || !email) {
+        return res.status(400).json({ error: 'Missing productId or email' });
     }
 
     try {
@@ -26,26 +24,18 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "Plan not found" });
         }
 
-        const metadata = {
-            email,
-            productList: [{
-                wmproductId: productId,
-                // qty,
-                // planName,
-                // data,
-                // duration,
-                // price,
-            }],
-        }
-
         const paymentIntent = await stripe.paymentIntents.create({
             amount: purchasedPlan.price * 100, // stripe expects price in cents
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
             receipt_email: email,
             metadata: {
-                slug,
+                productId: productId, //purchasedPlan.productId
+                qty: 1, //current plug
                 planName: purchasedPlan.name,
+                data: purchasedPlan.dataCap,
+                duration: purchasedPlan.validity,
+                price: purchasedPlan.price //do we need it? we have amount...
             },
         });
 

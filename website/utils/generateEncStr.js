@@ -1,14 +1,18 @@
 import { createHash } from 'crypto';
 
-/**
- * Generates the SHA1 `encStr` expected by Worldmove APIs.
- *
- * @param {string[]} fields - All relevant fields in exact concat order (as strings).
- * @param {string} token - The token provided by Worldmove.
- * @returns {string} encStr - The SHA1 hex digest.
-**/
-
-export function generateEncStr(fields, token) {
-    const concatenated = fields.map(String).join('') + token;
+export function generateEncStr({ merchantId, deptId, qrcodeType, prodList }, token) {
+    if (!merchantId || !deptId || qrcodeType == null || !Array.isArray(prodList) || prodList.length === 0) {
+        throw new Error('Missing required fields for encStr');
+    }
+    
+    const fields = [
+        merchantId,
+        deptId,
+        String(qrcodeType),
+        ...prodList.flatMap(p => [p.wmproductId, String(p.qty)])
+    ].map(v => String(v).trim());
+    
+    
+    const concatenated = fields.join('') + String(token).trim();
     return createHash('sha1').update(concatenated).digest('hex');
 }

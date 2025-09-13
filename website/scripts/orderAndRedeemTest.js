@@ -7,20 +7,23 @@ const merchantId = process.env.TEST_MERCHANT_ID;
 const deptId = process.env.TEST_DEPT_ID;
 const token = process.env.TEST_TOKEN;
 
-const wmproductId = 'WM_000003';
+const wmproductId = 'WM_000030';
 const qty = 2;
-const qrcodeType = 2; // 0 or 2? store in db just the link or the LPA string as well (allows to recreate qr)
+const qrcodeType = 2;
+const prodList= [{ wmproductId, qty }]
 
-const encStr = generateEncStr(
-    [merchantId, deptId, String(qrcodeType), wmproductId, String(qty)],
-    token
-);
+const encStr = generateEncStr({
+    merchantId,
+    deptId,
+    qrcodeType,
+    prodList
+  }, token);
 
 const requestBody = {
     merchantId,
     deptId,
     qrcodeType,
-    prodList: [{ wmproductId, qty }],
+    prodList,
     encStr
 };
 

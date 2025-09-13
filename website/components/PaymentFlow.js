@@ -6,8 +6,56 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import styled from "@emotion/styled";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+const PaymentWrapper = styled('div')({
+    maxWidth: 600,
+    margin: '0 auto',
+    padding: '2rem 1rem',
+    fontFamily: 'system-ui, sans-serif',
+    textAlign: 'center',
+
+    'h2': { fontSize: '22px', marginBottom: '1rem' }
+})
+
+const EmailVerification = styled('div')({
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems: 'center', 
+    gap: '1rem', 
+    marginBottom: '2rem' 
+})
+
+const SendCode = styled('div')({
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '0.75rem',
+    width: '90%',
+    maxWidth: '600px',
+
+    'input': {
+        flex: 1,
+        padding: '12px',
+        fontSize: '14px',
+        border: '1px solid #ccc',
+        borderRadius: '6px'
+    }
+})
+
+const SendCodeButton = styled('button')({
+    width: '28%',
+    padding: 10,
+    fontSize: 12,
+    backgroundColor: '#8D2DF2',
+    color: 'white',
+    border: 'none',
+    borderRadius: 6,
+    cursor: 'pointer'
+})
+
+const Info = styled('p')({ color: 'blue', fontWeight: 'bold' })
 
 function CheckoutForm({ isVerified }) {
   const stripe = useStripe();
@@ -170,7 +218,6 @@ export default function PaymentFlow({ plan, slug }) {
             },
             body: JSON.stringify({
                productId: plan.productId,
-               slug,
                email: emailToUse || email,
             }),
         });
@@ -197,55 +244,24 @@ export default function PaymentFlow({ plan, slug }) {
     } : null;
 
     return (
-        <div style={{
-            maxWidth: '600px',
-            margin: '0 auto',
-            padding: '2rem 1rem',
-            fontFamily: 'system-ui, sans-serif',
-            textAlign: 'center'
-        }}>
-            <h2 style={{ fontSize: '22px', marginBottom: '1rem' }}>Complete your purchase:</h2>
+        <PaymentWrapper>
+            <h2 >Complete your purchase:</h2>
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '0.75rem',
-                    width: '90%',
-                    maxWidth: '600px'
-                }}>
-                <input
-                    type="email"
-                    placeholder="Your email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && onSendCode()}
-                    style={{
-                        flex: 1,
-                        padding: '12px',
-                        fontSize: '14px',
-                        border: '1px solid #ccc',
-                        borderRadius: '6px'
-                    }}
-                />
-                <button
-                    onClick={onSendCode}
-                    style={{
-                        width: '28%',
-                        padding: '10px',
-                        fontSize: '12px',
-                        backgroundColor: '#8D2DF2',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Send verification code
-                </button>
-                </div>
+            <EmailVerification>
+                <SendCode>
+                    <input
+                        type="email"
+                        placeholder="Your email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && onSendCode()}
+                    />
+                    <SendCodeButton onClick={onSendCode} >
+                        Send verification code
+                    </SendCodeButton>
+                </SendCode>
 
-                {info && !isVerified && <p style={{ color: 'blue', fontWeight: 'bold' }}>{info}</p>}
+                {info && !isVerified && <Info>{info}</Info>}
 
                 <div style={{
                     display: 'flex',
@@ -285,7 +301,7 @@ export default function PaymentFlow({ plan, slug }) {
                     Verify email
                 </button>
                 </div>
-            </div>
+            </EmailVerification>
 
             {verificationSuccess && <p style={{ color: 'green', fontWeight: 'bold' }}>{verificationSuccess}</p>}
             {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
@@ -297,7 +313,7 @@ export default function PaymentFlow({ plan, slug }) {
                 </div>
             </Elements>
             )}
-        </div>
+        </PaymentWrapper>
     );
 
 }
