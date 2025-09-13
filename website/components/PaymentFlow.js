@@ -28,7 +28,7 @@ const EmailVerification = styled('div')({
     marginBottom: '2rem' 
 })
 
-const SendCode = styled('div')({
+const VerificationInput = styled('div')({
     display: 'flex',
     justifyContent: 'center',
     gap: '0.75rem',
@@ -44,7 +44,7 @@ const SendCode = styled('div')({
     }
 })
 
-const SendCodeButton = styled('button')({
+const VerificationButton = styled('button')({
     width: '28%',
     padding: 10,
     fontSize: 12,
@@ -56,6 +56,8 @@ const SendCodeButton = styled('button')({
 })
 
 const Info = styled('p')({ color: 'blue', fontWeight: 'bold' })
+const Success = styled('p')({  color: 'green', fontWeight: 'bold'})
+const Error = styled('p')({ color: 'red', fontWeight: 'bold' })
 
 function CheckoutForm({ isVerified }) {
   const stripe = useStripe();
@@ -154,6 +156,15 @@ export default function PaymentFlow({ plan, slug }) {
         setError('');
         setInfo('');
         setVerificationSuccess('');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.trim())) {
+            setError("Please enter a valid email address.");
+            return;
+        }
+        setInfo("Check your email for a 6-digit verification code.");
+        setTimeout(() => codeInputRef.current?.focus(), 100); // Focus the code input field
+        
         const response = await fetch('/api/email/send-code', {
             method: 'POST',
             headers: {
@@ -165,10 +176,7 @@ export default function PaymentFlow({ plan, slug }) {
         });
         const data = await response.json();
         if (response.ok) {
-            setInfo("Check your email for a 6-digit verification code.");
             setError('');
-            // Focus the code input field
-            setTimeout(() => codeInputRef.current?.focus(), 100);
         } else {
             setError("Unable to send verification code");
             setVerificationSuccess('');
@@ -248,7 +256,7 @@ export default function PaymentFlow({ plan, slug }) {
             <h2 >Complete your purchase:</h2>
 
             <EmailVerification>
-                <SendCode>
+                <VerificationInput>
                     <input
                         type="email"
                         placeholder="Your email"
@@ -256,55 +264,30 @@ export default function PaymentFlow({ plan, slug }) {
                         onChange={e => setEmail(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && onSendCode()}
                     />
-                    <SendCodeButton onClick={onSendCode} >
+                    <VerificationButton onClick={onSendCode} >
                         Send verification code
-                    </SendCodeButton>
-                </SendCode>
+                    </VerificationButton>
+                </VerificationInput>
 
                 {info && !isVerified && <Info>{info}</Info>}
 
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '0.75rem',
-                    width: '90%',
-                    maxWidth: '600px'
-                }}>
-                <input
-                    ref={codeInputRef}
-                    type="text"
-                    placeholder="verification code"
-                    value={code}
-                    onChange={e => setCode(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && code.trim().length > 0 && onVerifyCode()}
-                    style={{
-                        flex: 1,
-                        padding: '12px',
-                        fontSize: '14px',
-                        border: '1px solid #ccc',
-                        borderRadius: '6px'
-                    }}
-                />
-                <button
-                    onClick={onVerifyCode}
-                    style={{
-                        width: '28%',
-                        padding: '10px',
-                        fontSize: '12px',
-                        backgroundColor: '#8D2DF2',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Verify email
-                </button>
-                </div>
+                <VerificationInput>
+                    <input
+                        ref={codeInputRef}
+                        type="text"
+                        placeholder="verification code"
+                        value={code}
+                        onChange={e => setCode(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && code.trim().length > 0 && onVerifyCode()}
+                    />
+                    <VerificationButton onClick={onVerifyCode} >
+                        Verify email
+                    </VerificationButton>
+                </VerificationInput>
             </EmailVerification>
 
-            {verificationSuccess && <p style={{ color: 'green', fontWeight: 'bold' }}>{verificationSuccess}</p>}
-            {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
+            {verificationSuccess && <Success>{verificationSuccess}</Success>}
+            {error && <Error>{error}</Error>}
 
             {clientSecret && (
             <Elements stripe={stripePromise} options={stripeOptions} key={clientSecret}>

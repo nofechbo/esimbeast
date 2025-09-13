@@ -2,6 +2,41 @@ import { useState } from 'react';
 import slugify from '@/utils/slugify';
 import PaymentFlow from '@/components/PaymentFlow';
 import { fetchAndParseCSV } from '@/lib/plans/fetchAndParseCSV';
+import styled from '@emotion/styled';
+
+const PlanPageWrapper = styled('div')({
+  fontFamily: 'system-ui, sans-serif',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  paddingTop: 80,
+  paddingLeft: '1rem',
+  paddingRight: '1rem',
+  textAlign: 'center'
+})
+
+const PlanTitle = styled('h2')({
+  fontSize: 28, fontWeight: 600, marginBottom: '1rem' 
+})
+
+const PlanDetails = styled('p')({
+  fontSize: 18, margin: '0.5rem 0'
+})
+
+const PurchaseButton = styled('button')({
+  marginTop: '1.5rem',
+  padding: '10px 20px',
+  fontSize: 16,
+  borderRadius: 6,
+  border: 'none',
+  backgroundColor: '#8D2DF2',
+  color: 'white',
+  cursor: 'pointer'
+})
+
+const PaymentFormWrapper = styled('div')({
+  marginTop: '2rem', width: '100%' 
+})
 
 export async function getStaticPaths () {
   const plans = await fetchAndParseCSV();
@@ -39,50 +74,29 @@ export default function PlanPage({ plan, slug }) {
   const [showPayment, setShowPayment] = useState(false);
 
   if (!plan) {
-    return <p>Plan not found.</p>;
+    return <PlanTitle>Plan not found.</PlanTitle>;
   }
 
   return (
-    <div style={{
-      fontFamily: 'system-ui, sans-serif',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      paddingTop: '80px',
-      paddingLeft: '1rem',
-      paddingRight: '1rem',
-      textAlign: 'center'
-    }}>
-      <h1 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '1rem' }}>{plan.name}</h1>
-      <p style={{ fontSize: '18px', margin: '0.5rem 0' }}>
+    <PlanPageWrapper>
+      <PlanTitle>{plan.name}</PlanTitle>
+      <PlanDetails>
         <strong>Price:</strong> ${plan.price}
-      </p>
-      <p style={{ fontSize: '18px', margin: '0.5rem 0' }}>
+      </PlanDetails>
+      <PlanDetails>
         <strong>Coverage:</strong> {plan.countryCodes}
-      </p>
+      </PlanDetails>
 
       {!showPayment ? (
-        <button
-          onClick={() => setShowPayment(true)}
-          style={{
-            marginTop: '1.5rem',
-            padding: '10px 20px',
-            fontSize: '16px',
-            borderRadius: '6px',
-            border: 'none',
-            backgroundColor: '#8D2DF2',
-            color: 'white',
-            cursor: 'pointer'
-          }}
-        >
+        <PurchaseButton onClick={() => setShowPayment(true)} >
           Purchase Plan
-        </button>
+        </PurchaseButton>
       ) : (
-        <div style={{ marginTop: '2rem', width: '100%' }}>
+        <PaymentFormWrapper>
           <PaymentFlow plan={plan} slug={slug} />
-        </div>
+        </PaymentFormWrapper>
       )}
-    </div>
+    </PlanPageWrapper>
   );
 
 }
