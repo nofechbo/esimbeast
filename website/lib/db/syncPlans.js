@@ -2,37 +2,49 @@ import { fetchAndParseCSV } from '../plans/fetchAndParseCSV.js';
 import { prisma } from './prisma.js';
 import { Decimal } from 'decimal.js';
 
-function parseDataValue(fupString) {
-  if (!fupString || typeof fupString !== 'string') {
-    return new Decimal(0);
+function extractNumberAndUnit(fieldName, str) {
+  if (!str || typeof str !== 'string') {
+    throw new Error(`${fieldName} must be a non-empty string`);
   }
+
+  const normalized = str.toLowerCase().trim();
+  const match = normalized.match(/(\d+(?:\.\d+)?)\s*([a-zA-Z]+)?/i);
   
-  const fup = fupString.toLowerCase().trim();
-  
-  if (fup === 'unlimited' || fup === 'infinite') {
-    return new Decimal(0);
-  }
-  
-  // Extract number and unit
-  const match = fup.match(/(\d+(?:\.\d+)?)\s*(gb|mb|g|m)?/i);
   if (!match) {
-    return new Decimal(0);
+    return null;
+  }
+
+  return {
+    value: parseFloat(match[1]),
+    unit: match[2]?.toLowerCase() || null
+  };
+}
+
+function parseDataValue(fupString) {
+  const parsed = extractNumberAndUnit('FUP', fupString);
+
+  if (!parsed) {
+    return new Decimal(0); // for "unlimited" etc
   }
   
-  const value = parseFloat(match[1]);
-  const unit = match[2]?.toLowerCase() || 'gb';
+  if (!parsed.unit) {
+    throw new Error(`Data unit missing in FUP string: ${fupString}`);
+  }
+  if (parsed.unit !== 'gb' && parsed.unit !== 'mb') {
+    throw new Error(`Unknown data unit: ${parsed.unit}`);
+  }
   
   // Convert to GB
-  if (unit === 'mb' || unit === 'm') {
-    return new Decimal(value / 1000);
+  if (parsed.unit === 'mb') {
+    return new Decimal(parsed.value / 1000);
   }
   
-  return new Decimal(value);
+  return new Decimal(parsed.value);
 }
 
 function parseCountryCodes(countryCodesString) {
   if (!countryCodesString || typeof countryCodesString !== 'string') {
-    return [];
+    throw new Error('countryCodes must be a non-empty string');
   }
   
   return countryCodesString
@@ -53,27 +65,25 @@ function parseOperators(operatorsString) {
 }
 
 function parseReducedSpeed(speedString) {
-  if (!speedString || typeof speedString !== 'string') {
+  const parsed = extractNumberAndUnit('Reduced speed', speedString);
+  
+  if (!parsed) {
     return 0;
   }
   
-  const speed = speedString.toLowerCase().trim();
-  
-  // Extract number and unit
-  const match = speed.match(/(\d+(?:\.\d+)?)\s*(kbps|mbps|k|m)?/i);
-  if (!match) {
-    return 0;
+  if (!parsed.unit) {
+    throw new Error(`Speed unit missing in reduced speed string: ${speedString}`);
   }
-  
-  const value = parseFloat(match[1]);
-  const unit = match[2]?.toLowerCase() || 'kbps';
+  if (parsed.unit !== 'mbps' && parsed.unit !== 'kbps') {
+    throw new Error(`Unknown data unit: ${parsed.unit}`);
+  }
   
   // Convert to kbps
-  if (unit === 'mbps' || unit === 'm') {
-    return Math.round(value * 1000);
+  if (parsed.unit === 'mbps') {
+    return Math.round(parsed.value * 1000);
   }
   
-  return Math.round(value);
+  return Math.round(parsed.value);
 }
 
 function createSlug(text) {
@@ -89,70 +99,53 @@ function createSlug(text) {
     .replace(/-+/g, '-');
 }
 
-function generateUniqueName({ productId, name, days, fup }) {
-  const nameSlug = createSlug(name || '');
-  const fupSlug = createSlug(fup || '');
-  
-  return `${productId}-${nameSlug}-${days}d-${fupSlug}`;
+function generateUniqueName(planData) {
+  const combined = `${planData.productId}-${planData.name}-${planData.days}-${planData.fup}`;
+  return createSlug(combined);
 }
 
-function transformCsvDataToPlan(csvData) {
-  console.log('CSV DATA:', csvData);
-  
+function transformCsvDataToPlan(planCsvData) { 
   const planData = {
-    productId: csvData.productId || '',
-    code: csvData.code || '',
-    name: csvData.name || '',
-    days: parseInt(csvData.validity) || 0,
-    limited: Boolean(csvData.isLimited),
-    fup: csvData.dataCap || '',
-    data: parseDataValue(csvData.dataCap),
-    reducedSpeed: parseReducedSpeed(csvData.reducedSpeed),
-    price: new Decimal(csvData.price || 0),
-    reloadable: Boolean(csvData.isReloadable),
-    countryCodes: parseCountryCodes(csvData.countryCodes),
-    ipRoute: csvData.ipRoute || null,
-    operators: parseOperators(csvData.operators),
-    apn: csvData.apn || null,
-    salePrice: csvData.salePrice ? new Decimal(csvData.salePrice) : null,
+    productId: planCsvData.productId,
+    code: planCsvData.code,
+    name: planCsvData.name,
+    days: parseInt(planCsvData.validity),
+    limited: Boolean(planCsvData.isLimited),
+    fup: planCsvData.dataCap,
+    data: parseDataValue(planCsvData.dataCap),
+    reducedSpeed: parseReducedSpeed(planCsvData.reducedSpeed),
+    price: new Decimal(planCsvData.price),
+    reloadable: Boolean(planCsvData.isReloadable),
+    countryCodes: parseCountryCodes(planCsvData.countryCodes),
+    ipRoute: planCsvData.ipRoute || null,
+    operators: parseOperators(planCsvData.operators),
+    apn: planCsvData.apn || null,
+    salePrice: planCsvData.salePrice ? new Decimal(planCsvData.salePrice) : null,
   };
   
-  // Generate unique name
-  planData.uniqueName = generateUniqueName({
-    productId: planData.productId,
-    name: planData.name,
-    days: planData.days,
-    fup: planData.fup
-  });
+  planData.uniqueName = generateUniqueName(planData);
   
   return planData;
 }
 
-export async function syncPlansFromCSV(options = {}) {
-  const { batchSize = 50 } = options;
-  
-  console.log('🔄 Starting plan sync from CSV...');
+export async function syncPlansFromCSV() {
   
   try {
     // Fetch CSV data
-    console.log('📥 Fetching CSV data...');
-    const csvData = await fetchAndParseCSV();
-    console.log(`📊 Found ${csvData.length} plans in CSV`);
+    console.log('Fetching CSV data...');
+    const allCsvData = await fetchAndParseCSV();
+    console.log(`Found ${allCsvData.length} plans in CSV`);
     
     // Transform data
-    console.log('🔄 Transforming data...');
-    const transformedPlans = csvData.map(transformCsvDataToPlan);
+    const transformedPlans = allCsvData.map(transformCsvDataToPlan);
     const csvUniqueNames = new Set(transformedPlans.map(p => p.uniqueName));
     
     // Get existing uniqueNames from database
-    console.log('🔍 Checking existing plans...');
-    const existingPlans = await prisma.plan.findMany({
-      select: { uniqueName: true }
-    });
+    const existingPlans = await prisma.plan.findMany({});
     const existingUniqueNames = new Set(existingPlans.map(p => p.uniqueName));
     
     // Upsert plans (create + update)
-    console.log('💾 Upserting plans...');
+    console.log('Upserting plans...');
     let upserted = 0;
     
     for (const planData of transformedPlans) {
@@ -165,20 +158,21 @@ export async function syncPlansFromCSV(options = {}) {
         upserted++;
         
         if (upserted % 10 === 0) {
-          console.log(`💾 Upserted ${upserted}/${transformedPlans.length} plans`);
+          console.log(`Upserted ${upserted}/${transformedPlans.length} plans`);
         }
       } catch (error) {
         console.error(`❌ Error upserting plan ${planData.uniqueName}:`, error.message);
         // Continue with next plan
       }
     }
-    
+    console.log(`Upserted ${upserted} plans total`);
+
     // Delete plans not in CSV anymore
     const plansToDelete = [...existingUniqueNames].filter(name => !csvUniqueNames.has(name));
     let deleted = 0;
     
     if (plansToDelete.length > 0) {
-      console.log(`🗑️  Deleting ${plansToDelete.length} removed plans...`);
+      console.log(`Deleting ${plansToDelete.length} removed plans...`);
       try {
         const deleteResult = await prisma.plan.deleteMany({
           where: {
@@ -186,18 +180,18 @@ export async function syncPlansFromCSV(options = {}) {
           }
         });
         deleted = deleteResult.count;
-        console.log(`🗑️  Deleted ${deleted} plans`);
+        console.log(`Deleted ${deleted} plans`);
       } catch (error) {
         console.error(`❌ Error deleting plans:`, error.message);
       }
     }
     
-    console.log(`✅ Plan sync completed! Upserted: ${upserted}, Deleted: ${deleted}`);
+    console.log(`Plan sync completed! Upserted: ${upserted}, Deleted: ${deleted}`);
     
     // Return summary
     return {
       success: true,
-      totalFromCsv: csvData.length,
+      totalFromCsv: allCsvData.length,
       upserted,
       deleted
     };
