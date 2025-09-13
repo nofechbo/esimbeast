@@ -37,9 +37,6 @@ export default async function handler(req, res) {
             encStr
         };
 
-        console.log(requestBody)
-        console.log('json:', JSON.stringify(requestBody))
-
         const wmRes = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -47,14 +44,12 @@ export default async function handler(req, res) {
             agent // required to bypass TLS rejection in Worldmove test env
         });
 
-        console.log()
-
         const json = await wmRes.json();
         if (json.code !== 0) {
             return res.status(502).json({ error: 'Worldmove rejected request', details: json });
         }
 
-        console.log('🎯 Callback should hit your endpoint shortly.');
+        console.log('🎯 Callback should hit callback endpoint shortly.');
         
         //add write data to db
         

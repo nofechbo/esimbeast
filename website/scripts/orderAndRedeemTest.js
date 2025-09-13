@@ -7,7 +7,7 @@ const merchantId = process.env.TEST_MERCHANT_ID;
 const deptId = process.env.TEST_DEPT_ID;
 const token = process.env.TEST_TOKEN;
 
-const wmproductId = 'WM_000030';
+const wmproductId = 'WM_000003';
 const qty = 2;
 const qrcodeType = 2;
 const prodList= [{ wmproductId, qty }]

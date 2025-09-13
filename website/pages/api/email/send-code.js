@@ -24,10 +24,7 @@ export default async function handler(req, res) {
     try {
         const code = await sendVerificationEmail(email);
         const success = verificationCache.set(email, code);
-        console.log(`Set code result: ${success}`); // should be true
         const stored = verificationCache.get(email);
-        console.log(`Stored: ${stored}, Given: ${code}`);
-        console.log(`Set code "${code}" for "${email}"`);
 
     } catch (err) {
         res.status(500).json({ error: 'Failed to send verification code' });
