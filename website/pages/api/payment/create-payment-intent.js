@@ -33,6 +33,7 @@ export default async function handler(req, res) {
                 productId: productId, //purchasedPlan.productId
                 qty: 1, //current plug
                 planName: purchasedPlan.name,
+                countryCodes: purchasedPlan.countryCodes,
                 data: purchasedPlan.dataCap,
                 duration: purchasedPlan.validity,
                 price: purchasedPlan.price //do we need it? we have amount...
