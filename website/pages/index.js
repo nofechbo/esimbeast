@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import NavBar from '@/components/NavBar.js';
 import Footer from '@/components/Footer.js';
-import { planValues } from '@/utils/planHeaders';
 import PopularPlansCarousel from '@/components/homepage/PopularPlansCarousel';
 import SearchBox from '@/components/homepage/SearchBox';
 import styles from '@/styles/Home.module.css';
@@ -16,6 +15,7 @@ export default function Home() {
   useEffect(() => {
     async function loadPlans() {
       const response = await fetch('/api/plans');
+      /** @type {any} */
       const plans = await response.json();
       setPlanList(plans);
     }

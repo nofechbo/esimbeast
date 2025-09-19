@@ -69,10 +69,7 @@ export default function SuccessPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: intent.receipt_email,
-            metadata: {
-              productId: intent.metadata.productId,
-              qty: Number(intent.metadata.qty),
-            },
+            metadata: intent.metadata,
           }),
         });
         

@@ -113,7 +113,7 @@ function CheckoutForm({ isVerified }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: '1rem' }}>
-        <PaymentElement disabled={!isVerified} />
+        <PaymentElement />
         <button 
             type="submit" 
             disabled={isSubmitting || !stripe}
@@ -174,6 +174,7 @@ export default function PaymentFlow({ plan, slug }) {
                email,
             }),
         });
+        /** @type {any} */
         const data = await response.json();
         if (response.ok) {
             setError('');
@@ -202,6 +203,7 @@ export default function PaymentFlow({ plan, slug }) {
                code,
             }),
         });
+        /** @type {any} */
         const data = await response.json();
         if (response.ok) {
             setIsVerified(true);
@@ -229,6 +231,7 @@ export default function PaymentFlow({ plan, slug }) {
                email: emailToUse || email,
             }),
         });
+        /** @type {any} */
         const data = await response.json();
         if (response.ok) {
             setClientSecret(data.clientSecret);
@@ -290,6 +293,7 @@ export default function PaymentFlow({ plan, slug }) {
             {error && <Error>{error}</Error>}
 
             {clientSecret && (
+                // @ts-expect-error Stripe types are too strict here
             <Elements stripe={stripePromise} options={stripeOptions} key={clientSecret}>
                 <div style={{ marginTop: '2rem' }}>
                 <CheckoutForm isVerified={isVerified} />

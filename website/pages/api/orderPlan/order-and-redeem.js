@@ -1,4 +1,3 @@
-
 /*************************************
  * 
  * 
@@ -7,10 +6,12 @@
  * 
  *************************************/
 
-import { RequiredOrderMetadata } from '@/lib/VerifyMetadata';
+import { prisma } from '@/lib/db/prisma';
+import { isValidMetadata } from '@/lib/VerifyMetadata';
 import { generateEncStr } from '@/utils/generateEncStr';
 import 'dotenv/config';
 import https from 'https';
+
 
 const url = process.env.TEST_ORDER_AND_REDEEM_URL
 const merchantId = process.env.TEST_MERCHANT_ID;
@@ -28,7 +29,8 @@ export default async function handler(req, res) {
     }
 
     const { email,  metadata } = req.body;
-    if (!email || !RequiredOrderMetadata(metadata) || !metadata?.qty) {
+    console.log('metadata: ', metadata);
+    if (!email || !isValidMetadata(metadata) || !metadata?.qty) {
         return res.status(400).json({ error: 'Missing email or metadata' });
     }
 
@@ -37,6 +39,7 @@ export default async function handler(req, res) {
         qty: metadata.qty
     }]
 
+    /** @type {any} */
     let json;
 
     try {
@@ -54,6 +57,7 @@ export default async function handler(req, res) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody),
+            // @ts-ignore
             agent // required to bypass TLS rejection in Worldmove test env
         });
 
@@ -70,20 +74,49 @@ export default async function handler(req, res) {
     }
 
     //create row in db qty times
-    await Promise.all(Array.from({ length: qty }, () => createOrderInDB(metadata)));
+   await Promise.all(
+        Array.from({ length: metadata.qty }, () =>
+            createOrderInDB(json.orderId, email, metadata)
+        )
+    );
     
     return res.status(200).json({ ok: true, orderId: json.orderId });
 }
 
 async function createOrderInDB(orderId, email, orderMetadata) {
-        const {
+        let {
             productId,
             planName,
             countryCodes,
             data,
             duration,
-            price, //can get from stripe instead of metadata
-        } = orderMetadata
+            price,
+        } = orderMetadata;
+
+        // normalize countryCodes to array
+        if (!Array.isArray(countryCodes)) {
+            countryCodes = [countryCodes];
+        }
+        
+        // normalize data → GB (Decimal or Float)
+        if (typeof data === "string") {
+            const normalized = data.toLowerCase().trim();
+
+            if (normalized.endsWith("gb")) {
+                data = parseFloat(normalized.replace("gb", "").trim());
+            } else if (normalized.endsWith("mb")) {
+                data = parseFloat(normalized.replace("mb", "").trim()) / 1000;
+            } else {
+                // fallback: just try parseFloat, could be "1.5" already
+                data = parseFloat(normalized);
+            }
+        }
+        
+        // duration: ensure Int
+        duration = parseInt(duration, 10);
+
+        // price: ensure Decimal-friendly number
+        price = parseFloat(price);
 
         const newOrder = await prisma.planOrder.create({
             data: {

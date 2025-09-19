@@ -40,7 +40,7 @@ async function run() {
         body: JSON.stringify(requestBody),
         agent // required to bypass TLS rejection in Worldmove test env
     });
-
+    /** @type {any} */
     const json = await res.json();
     console.log('✅ Worldmove response:', json);
 

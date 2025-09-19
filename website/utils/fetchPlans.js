@@ -3,6 +3,7 @@
 export async function fetchPlans() {
     try {
           const response = await fetch('/api/plans');
+          /** @type {any} */
           const plans = await response.json();
             if (!response.ok) {
                 throw new Error(plans?.msg || plans?.error || `error ${response.status}`);
