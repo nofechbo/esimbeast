@@ -121,6 +121,7 @@ function transformCsvDataToPlan(planCsvData) {
     operators: parseOperators(planCsvData.operators),
     apn: planCsvData.apn || null,
     salePrice: planCsvData.salePrice ? new Decimal(planCsvData.salePrice) : null,
+    isPopular: Boolean(planCsvData.isPopular),
   };
   
   planData.uniqueName = generateUniqueName(planData);

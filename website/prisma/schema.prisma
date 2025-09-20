@@ -43,6 +43,7 @@ model Plan {
   operators     String[]  @default([])
   apn           String?
   salePrice     Decimal?
+  isPopular     Boolean   @default(false)
   // 4/5G?
   // dataRest?
 
