@@ -86,53 +86,21 @@ export default async function handler(req, res) {
 }
 
 async function createOrderInDB(orderId, email, plan) {
-        let {
+    const { productId, name, countryCodes, data, days, price, } = plan;
+
+    const newOrder = await prisma.planOrder.create({
+        data: {
+            orderId,
+            email,
             productId,
-            name,
+            productName: name,
             countryCodes,
             data,
-            days,
+            duration: days,
             price,
-        } = plan;
-
-        // normalize countryCodes to array
-        if (!Array.isArray(countryCodes)) {
-            countryCodes = [countryCodes];
+            orderTime: new Date()
         }
-        
-        // normalize data → GB (Decimal or Float)
-        if (typeof data === "string") {
-            const normalized = data.toLowerCase().trim();
+    })
 
-            if (normalized.endsWith("gb")) {
-                data = parseFloat(normalized.replace("gb", "").trim());
-            } else if (normalized.endsWith("mb")) {
-                data = parseFloat(normalized.replace("mb", "").trim()) / 1000;
-            } else {
-                // fallback: just try parseFloat, could be "1.5" already
-                data = parseFloat(normalized);
-            }
-        }
-        
-        // duration: ensure Int
-        const duration = parseInt(days, 10);
-
-        // price: ensure Decimal-friendly number
-        price = parseFloat(price);
-
-        const newOrder = await prisma.planOrder.create({
-            data: {
-                orderId,
-                email,
-                productId,
-                productName: name,
-                countryCodes,
-                data,
-                duration,
-                price,
-                orderTime: new Date()
-            }
-        })
-
-        return newOrder
+    return newOrder
 }

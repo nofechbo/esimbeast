@@ -1,16 +1,3 @@
-/*
-retrival from db of plans
-
-getallplans()
-
-every places calling fetchandparse (except script) should call getallplans instead
-
-check the format that returns (i.e data -> already converted)
-    -> using fup instead of data should not break curr code. use just to check that it works
-    -> switch to use data + remove conversion from order-and-rrdeem
-    -> check if we still need conversions from string before inserting to orders db.
-*/
-
 import { prisma } from "./prisma";
 
 export async function getAllPlans() {

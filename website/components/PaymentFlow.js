@@ -211,7 +211,7 @@ export default function PaymentFlow({ plan, qty, slug }) {
             setInfo('');
             setVerificationSuccess('✓ Email verified successfully! You can now complete your payment.');
             
-            await createPaymentIntent(email); // Update payment intent with verified email
+            await createPaymentIntent(email);
         } else {
             setError(`Unable to verify code: ${data.error || 'Invalid or expired verification code'}`);
             setVerificationSuccess('');
