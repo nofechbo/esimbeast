@@ -1,4 +1,4 @@
-import { fetchAndParseCSV } from "@/lib/plans/fetchAndParseCSV";
+import { getAllPlans, getPlanByuniqueName } from "@/lib/db/plans";
 import Stripe from "stripe";
 
 // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -12,15 +12,13 @@ export default async function handler(req, res) {
         return res.status(405).end('Method Not Allowed');
     }
 
-    const { productId, qty, email } = req.body;
-    if (!productId || !email || !qty) {
-        return res.status(400).json({ error: 'Missing productId, qty, or email' });
+    const { uniqueName, qty, email } = req.body;
+    if (!uniqueName || !email || !qty) {
+        return res.status(400).json({ error: 'Missing uniqueName, qty, or email' });
     }
 
     try {
-        const plans = await fetchAndParseCSV();
-
-        const purchasedPlan = plans.find(p => p.productId === productId);
+        const purchasedPlan = await getPlanByuniqueName(uniqueName);
         if (!purchasedPlan) {
             return res.status(400).json({ error: "Plan not found" });
         }
@@ -31,13 +29,8 @@ export default async function handler(req, res) {
             automatic_payment_methods: { enabled: true },
             receipt_email: email,
             metadata: {
-                productId, //purchasedPlan.productId
+                uniqueName,
                 qty,
-                planName: purchasedPlan.name,
-                countryCodes: purchasedPlan.countryCodes,
-                data: purchasedPlan.dataCap,
-                duration: purchasedPlan.validity,
-                price: purchasedPlan.price //do we need it? we have amount...
             },
         });
 

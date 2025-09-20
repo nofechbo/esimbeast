@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import slugify from '@/utils/slugify';
 import PaymentFlow from '@/components/PaymentFlow';
-import { fetchAndParseCSV } from '@/lib/plans/fetchAndParseCSV';
 import styled from '@emotion/styled';
+import { getAllPlans } from '@/lib/db/plans';
 
 const PlanPageWrapper = styled('div')({
   fontFamily: 'system-ui, sans-serif',
@@ -49,11 +49,11 @@ const QtySelect = styled('select')({
 
 
 export async function getStaticPaths () {
-  const plans = await fetchAndParseCSV();
+  const plans = await getAllPlans();
   const paths = [];
 
   for (const plan of plans) {
-    const slug = slugify(plan);
+    const slug = slugify(plan.uniqueName);
     paths.push( { params: { slug } });
   }
 
@@ -63,10 +63,10 @@ export async function getStaticPaths () {
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const plans = await fetchAndParseCSV();
+  const plans = await getAllPlans();
 
   const plan = plans.find(p => {
-    const slugified = slugify(p);
+    const slugified = slugify(p.uniqueName);
     return slugified === slug;
   });
 
@@ -102,7 +102,8 @@ export default function PlanPage({ plan, slug }) {
         <strong>Price:</strong> ${plan.price}
       </PlanDetails>
       <PlanDetails>
-        <strong>Coverage:</strong> {plan.countryCodes}
+        {/* // CHANGE TO ACTUAL COUNTRY NAMES */}
+        <strong>Coverage:</strong> {plan.countryCodes.join(", ")}
       </PlanDetails>
 
       <div style={{ marginTop: '1rem' }}>
@@ -111,7 +112,7 @@ export default function PlanPage({ plan, slug }) {
           value={qty} 
           onChange={e => setQty(Number(e.target.value))}
         >
-        {[...Array(10)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <option key={i+1} value={i+1}>
             {i+1}
           </option>

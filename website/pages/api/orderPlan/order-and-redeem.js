@@ -1,17 +1,9 @@
-/*************************************
- * 
- * 
- * NEED TO ADJUST FOR RECEIVING ORDER OF MULTIPLE DIFFERENT PLANS!!!
- * 
- * 
- *************************************/
-
+import { getPlanByuniqueName } from '@/lib/db/plans';
 import { prisma } from '@/lib/db/prisma';
 import { isValidMetadata } from '@/lib/VerifyMetadata';
 import { generateEncStr } from '@/utils/generateEncStr';
 import 'dotenv/config';
 import https from 'https';
-
 
 const url = process.env.TEST_ORDER_AND_REDEEM_URL
 const merchantId = process.env.TEST_MERCHANT_ID;
@@ -30,12 +22,22 @@ export default async function handler(req, res) {
 
     const { email,  metadata } = req.body;
     console.log('metadata: ', metadata);
-    if (!email || !isValidMetadata(metadata) || !metadata?.qty) {
+    if (!email || !isValidMetadata(metadata)) {
         return res.status(400).json({ error: 'Missing email or metadata' });
     }
 
+    const plan = await getPlanByuniqueName(metadata.uniqueName);
+    if (!plan) {
+        return res.status(400).json({ error: 'Invalid plan uniqueName in metadata' });
+    }
+
+    const qty = parseInt(metadata.qty, 10);
+        if (isNaN(qty) || qty <= 0) {
+        return res.status(400).json({ error: 'Invalid qty' });
+    }
+
     const prodList = [{
-        wmproductId: metadata.productId,
+        wmproductId: plan.productId,
         qty: metadata.qty
     }]
 
@@ -73,29 +75,25 @@ export default async function handler(req, res) {
         res.status(500).json({ error: 'Failed to order and redeem plan' });
     }
 
-    const qty = parseInt(metadata.qty, 10);
-        if (isNaN(qty) || qty <= 0) {
-        return res.status(400).json({ error: 'Invalid qty' });
-    }
     //create row in db qty times
    await Promise.all(
         Array.from({ length: qty }, () =>
-            createOrderInDB(json.orderId, email, metadata)
+            createOrderInDB(json.orderId, email, plan)
         )
     );
     
     return res.status(200).json({ ok: true, orderId: json.orderId });
 }
 
-async function createOrderInDB(orderId, email, orderMetadata) {
+async function createOrderInDB(orderId, email, plan) {
         let {
             productId,
-            planName,
+            name,
             countryCodes,
             data,
-            duration,
+            days,
             price,
-        } = orderMetadata;
+        } = plan;
 
         // normalize countryCodes to array
         if (!Array.isArray(countryCodes)) {
@@ -117,7 +115,7 @@ async function createOrderInDB(orderId, email, orderMetadata) {
         }
         
         // duration: ensure Int
-        duration = parseInt(duration, 10);
+        const duration = parseInt(days, 10);
 
         // price: ensure Decimal-friendly number
         price = parseFloat(price);
@@ -127,7 +125,7 @@ async function createOrderInDB(orderId, email, orderMetadata) {
                 orderId,
                 email,
                 productId,
-                productName: planName,
+                productName: name,
                 countryCodes,
                 data,
                 duration,

@@ -1,5 +1,3 @@
-// import { readFile } from "fs/promises";
-
 export async function fetchPlans() {
     try {
           const response = await fetch('/api/plans');
@@ -14,16 +12,18 @@ export async function fetchPlans() {
         console.error("error in fetch plans", err)
         return []
     }
+}
     
-
-
-    // try {
-    //     const filePath = "data/plans.json"
-    //     const content = await readFile(filePath, "utf-8");
-
-    //     return JSON.parse(content);
-    // } catch(err) {
-    //     console.warn("Failed to load cached plans: " + err.message);
-    //     return [];
-    // } 
-} 
+export async function fetchPlanByUniqueName(uniqueName) {
+    try {
+        const response = await fetch(`/api/plans/${uniqueName}`);
+        const plan = await response.json();
+        if (!response.ok) {
+            throw new Error(plan?.msg || plan?.error || `error ${response.status}`);
+        }
+        return plan;
+    } catch (err) {
+        console.error("error in fetchPlanByUniqueName", err);
+        return null;
+    }
+}

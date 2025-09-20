@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import NavBar from '@/components/NavBar.js';
 import Footer from '@/components/Footer.js';
 import PopularPlansCarousel from '@/components/homepage/PopularPlansCarousel';
 import SearchBox from '@/components/homepage/SearchBox';
 import styles from '@/styles/Home.module.css';
+import { fetchPlans } from '@/utils/fetchPlans';
 
 export default function Home() {
   const [planList, setPlanList] = useState([]);
@@ -14,9 +15,7 @@ export default function Home() {
   //load all plans
   useEffect(() => {
     async function loadPlans() {
-      const response = await fetch('/api/plans');
-      /** @type {any} */
-      const plans = await response.json();
+      const plans = await fetchPlans();
       setPlanList(plans);
     }
     

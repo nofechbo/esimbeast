@@ -1,10 +1,6 @@
 export const RequiredOrderMetadata = [
-  'productId',
-  'planName',
-  'countryCodes',
-  'data',
-  'duration',
-  'price',
+  'uniqueName',
+  'qty',
 ]
 
 export function isValidMetadata(metadata) {

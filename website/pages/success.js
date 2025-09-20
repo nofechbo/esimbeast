@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
+import { fetchPlanByUniqueName } from '@/utils/fetchPlans';
 
 const SuccessBox = styled('div')({
   maxWidth: 600,
@@ -26,8 +27,11 @@ const HomeButton = styled('button')({
 
 export default function SuccessPage() {
   const router = useRouter();
+  const [plan, setPlan] = useState(null);
   const [intent, setIntent] = useState(null);
+  const [metadata, setMetadata] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [planLoading, setPlanLoading] = useState(true);
   const [orderStatus, setOrderStatus] = useState(null); // 'pending' | 'ok' | 'error'
   const { payment_intent, session_id } = router.query;
   const intentId = payment_intent || session_id;
@@ -42,6 +46,7 @@ export default function SuccessPage() {
 
         if (res.ok && data) {
           setIntent(data);
+          setMetadata(data.metadata || null);
         } else console.error('API returned error:', data);
 
       } catch (err) {
@@ -54,9 +59,28 @@ export default function SuccessPage() {
     fetchIntent();
   }, [intentId]);
 
+    useEffect (() => {
+    if (!metadata?.uniqueName) return;
+
+    const fetchPlan = async () => {
+      setPlanLoading(true);
+      try {
+        const plan = await fetchPlanByUniqueName(intent.metadata.uniqueName);
+        setPlan(plan);
+      } catch (err) {
+        console.error('Failed to load plan data:', err);
+        setPlan(null)
+      } finally {
+        setPlanLoading(false);
+      }
+    }
+
+    fetchPlan();
+  }, [metadata?.uniqueName])
+
   useEffect(() => {
     if (!intent || intent.status !== 'succeeded') return;
-    if (!intent.metadata?.productId || !intent.metadata?.qty) return;
+    if (!intent.metadata?.uniqueName || !intent.metadata?.qty) return;
 
     const key = `ordered:${intent.id}`;
     if (sessionStorage.getItem(key)) return; // prevent duplicate redeems!
@@ -69,7 +93,7 @@ export default function SuccessPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: intent.receipt_email,
-            metadata: intent.metadata,
+            metadata,
           }),
         });
         
@@ -87,35 +111,24 @@ export default function SuccessPage() {
       }
     };
     orderPlan();
-  }, [intent]);
-
+  }, [intent, metadata]);
 
   if (loading) return <p>Loading...</p>;
   if (!intent) return <p>Could not load payment info.</p>;
-
-  // Extract data with proper fallbacks
-  const { 
-    id, 
-    amount, 
-    currency, 
-    receipt_email,
-    metadata,
-    status
-  } = intent;
-
-
+  if (planLoading) return <p>Loading plan details...</p>;
+  if (!plan) return <p>Could not load plan details.</p>;
 
   return (
     <SuccessBox>
       <h1 style={{ fontSize: '24px', marginBottom: '1rem', color: 'green' }}>
-        ✅ Payment {status === 'succeeded' ? 'Completed' : 'Received'}!
+        ✅ Payment {intent.status === 'succeeded' ? 'Completed' : 'Received'}!
       </h1>
-      <p>Confirmation #: <strong>{id}</strong></p>
-      <p>Plan: <strong>{metadata?.planName || 'Your Plan'}</strong></p>
-      <p>Amount Paid: <strong>${(amount / 100).toFixed(2)} {(currency || 'usd').toUpperCase()}</strong></p>
-      <p>Receipt sent to: <strong>{receipt_email || 'Not provided'}</strong></p>
+      <p>Confirmation #: <strong>{intent.id}</strong></p>
+      <p>Plan: <strong>{plan.name || 'Your Plan'}</strong></p>
+      <p>Amount Paid: <strong>${(intent.amount / 100).toFixed(2)} {(intent.currency || 'usd').toUpperCase()}</strong></p>
+      <p>Receipt sent to: <strong>{intent.receipt_email || 'Not provided'}</strong></p>
 
-       {status === 'succeeded' && (
+       {intent.status === 'succeeded' && (
         <>
           <br />
           {orderStatus === 'pending' && <p>Placing your eSIM order…</p>}

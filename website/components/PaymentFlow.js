@@ -227,7 +227,7 @@ export default function PaymentFlow({ plan, qty, slug }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-               productId: plan.productId,
+               uniqueName: plan.uniqueName,
                qty,
                email: emailToUse || email,
             }),
