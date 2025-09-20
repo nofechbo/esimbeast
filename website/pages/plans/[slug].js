@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import slugify from '@/utils/slugify';
 import PaymentFlow from '@/components/PaymentFlow';
 import { fetchAndParseCSV } from '@/lib/plans/fetchAndParseCSV';
@@ -38,6 +38,16 @@ const PaymentFormWrapper = styled('div')({
   marginTop: '2rem', width: '100%' 
 })
 
+const QtySelect = styled('select')({
+  maxHeight: 150,   // about 5–6 options tall
+  overflowY: 'auto',
+  fontSize: 16, 
+  padding: '5px 10px', 
+  borderRadius: 4,
+  border: '1px solid #ccc' 
+});
+
+
 export async function getStaticPaths () {
   const plans = await fetchAndParseCSV();
   const paths = [];
@@ -72,10 +82,18 @@ export async function getStaticProps({ params }) {
 
 export default function PlanPage({ plan, slug }) {
   const [showPayment, setShowPayment] = useState(false);
+  const [qty, setQty] = useState(1);
+  const [totalAmount, setTotalAmount] = useState(plan ? plan.price : 0);
 
   if (!plan) {
     return <PlanTitle>Plan not found.</PlanTitle>;
   }
+
+  useEffect(() => {
+    if (plan) {
+      setTotalAmount(plan.price * qty)
+    }
+  }, [qty, plan]);
 
   return (
     <PlanPageWrapper>
@@ -87,13 +105,31 @@ export default function PlanPage({ plan, slug }) {
         <strong>Coverage:</strong> {plan.countryCodes}
       </PlanDetails>
 
+      <div style={{ marginTop: '1rem' }}>
+        <label style={{ marginRight: '0.5rem' }}>Quantity: </label>
+        <QtySelect 
+          value={qty} 
+          onChange={e => setQty(Number(e.target.value))}
+        >
+        {[...Array(10)].map((_, i) => (
+          <option key={i+1} value={i+1}>
+            {i+1}
+          </option>
+        ))}
+        </QtySelect>
+      </div> 
+
+      <PlanDetails>
+        <strong>Total Amount:</strong> ${totalAmount.toFixed(2)}
+      </PlanDetails>
+
       {!showPayment ? (
-        <PurchaseButton onClick={() => setShowPayment(true)} >
-          Purchase Plan
-        </PurchaseButton>
+          <PurchaseButton onClick={() => setShowPayment(true)} >
+            Purchase Plan
+          </PurchaseButton>
       ) : (
         <PaymentFormWrapper>
-          <PaymentFlow plan={plan} slug={slug} />
+          <PaymentFlow plan={plan} qty={qty} slug={slug} />
         </PaymentFormWrapper>
       )}
     </PlanPageWrapper>

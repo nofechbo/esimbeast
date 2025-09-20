@@ -12,9 +12,9 @@ export default async function handler(req, res) {
         return res.status(405).end('Method Not Allowed');
     }
 
-    const { productId, email } = req.body;
-    if (!productId || !email) {
-        return res.status(400).json({ error: 'Missing productId or email' });
+    const { productId, qty, email } = req.body;
+    if (!productId || !email || !qty) {
+        return res.status(400).json({ error: 'Missing productId, qty, or email' });
     }
 
     try {
@@ -26,13 +26,13 @@ export default async function handler(req, res) {
         }
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: purchasedPlan.price * 100, // stripe expects price in cents
+            amount: purchasedPlan.price * 100 * qty, // stripe expects price in cents
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
             receipt_email: email,
             metadata: {
-                productId: productId, //purchasedPlan.productId
-                qty: 1, //current plug
+                productId, //purchasedPlan.productId
+                qty,
                 planName: purchasedPlan.name,
                 countryCodes: purchasedPlan.countryCodes,
                 data: purchasedPlan.dataCap,

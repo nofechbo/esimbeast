@@ -73,9 +73,13 @@ export default async function handler(req, res) {
         res.status(500).json({ error: 'Failed to order and redeem plan' });
     }
 
+    const qty = parseInt(metadata.qty, 10);
+        if (isNaN(qty) || qty <= 0) {
+        return res.status(400).json({ error: 'Invalid qty' });
+    }
     //create row in db qty times
    await Promise.all(
-        Array.from({ length: metadata.qty }, () =>
+        Array.from({ length: qty }, () =>
             createOrderInDB(json.orderId, email, metadata)
         )
     );
