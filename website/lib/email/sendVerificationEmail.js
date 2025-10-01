@@ -4,10 +4,14 @@ const APP_NAME = "Pingwe"
 const from = `${APP_NAME} <${process.env.GMAIL_ADDRESS}>`;
 
 export async function sendVerificationEmail(email) {
+console.log(`In sendVerificationEmail, received email: ${email}`);
+
     if (typeof email !== 'string') throw Error("Invalid or missing email");
+console.log(`passed first if checking typeof ${email}`);
 
     //generate a random 6-digit string
     const code = Math.floor(100000 + Math.random() * 900000).toString();
+console.log("before creating transporter", process.env.GMAIL_ADDRESS, process.env.GMAIL_APP_PASSWORD);
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -23,7 +27,8 @@ export async function sendVerificationEmail(email) {
                     <p> ${code} </p>
                     <p>Always here for you,</p>
                     <p>${APP_NAME}</p>`;
-    
+
+console.log("before sending mail", email, from, message)
     const info = await transporter.sendMail({
         from,
         to: email,
