@@ -4,9 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "migrate:deploy": "prisma migrate deploy",
-    "generate": "prisma generate",
-    "postinstall": "npm run generate && npm run migrate:deploy && node scripts/syncPlans.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
