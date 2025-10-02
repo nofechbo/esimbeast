@@ -138,7 +138,7 @@ function CheckoutForm({ isVerified }) {
   );
 }
 
-export default function PaymentFlow({ plan, qty, slug }) {
+export default function PaymentFlow({ plan, qty }) {
     const [info, setInfo] = useState('');
     const [ email, setEmail ] = useState('');
     const [ code, setCode ]  = useState('');
