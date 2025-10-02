@@ -10,7 +10,9 @@ export async function sendVerificationEmail(email) {
     const code = Math.floor(100000 + Math.random() * 900000).toString();
 
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: "smtp.gmail.com",
+        port: 465, // or 587 with secure: false
+        secure: true,
         auth: {
             user: process.env.GMAIL_ADDRESS,
             pass: process.env.GMAIL_APP_PASSWORD,
@@ -23,7 +25,7 @@ export async function sendVerificationEmail(email) {
                     <p> ${code} </p>
                     <p>Always here for you,</p>
                     <p>${APP_NAME}</p>`;
-    
+    console.log("connecting to gmail…")
     const info = await transporter.sendMail({
         from,
         to: email,
