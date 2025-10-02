@@ -8,6 +8,9 @@ import {
 } from "@stripe/react-stripe-js";
 import styled from "@emotion/styled";
 
+// 🔹 for render email block!!!
+const IS_RENDER = process.env.NEXT_PUBLIC_IS_RENDER === 'true';
+
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const PaymentWrapper = styled('div')({
@@ -142,8 +145,9 @@ export default function PaymentFlow({ plan, qty }) {
     const [info, setInfo] = useState('');
     const [ email, setEmail ] = useState('');
     const [ code, setCode ]  = useState('');
+    // const [ isVerified, setIsVerified ] = useState(false); //🔹 regular
+    const [ isVerified, setIsVerified ] = useState(IS_RENDER); // 🔹 for render email block!!!
     const [ clientSecret, setClientSecret ] = useState('');
-    const [ isVerified, setIsVerified ] = useState(false);
     const [ error, setError ] = useState('');
     const [ verificationSuccess, setVerificationSuccess ] = useState('');
     const codeInputRef = useRef(null);
@@ -151,6 +155,16 @@ export default function PaymentFlow({ plan, qty }) {
     if (!plan) {
         return <p>Plan not found.</p>;
     }
+
+    // 🔹 Auto-create PaymentIntent when skipping email (Render mode)
+    useEffect(() => {
+        if (IS_RENDER) {
+        (async () => {
+            await createPaymentIntent(email || "test@pingwe.com");
+        })();
+        }
+    }, []);
+    // 🔹 end of auto-create Render mode
 
     const onSendCode = async () => {
         setError('');
@@ -259,6 +273,8 @@ export default function PaymentFlow({ plan, qty }) {
         <PaymentWrapper>
             <h2 >Complete your purchase:</h2>
 
+            {/* 🔹 CHANGED: hide email verification UI if IS_RENDER */}
+      { !IS_RENDER && (
             <EmailVerification>
                 <VerificationInput>
                     <input
@@ -289,6 +305,7 @@ export default function PaymentFlow({ plan, qty }) {
                     </VerificationButton>
                 </VerificationInput>
             </EmailVerification>
+      )} {/* end of IS_RENDER check */} 
 
             {verificationSuccess && <Success>{verificationSuccess}</Success>}
             {error && <Error>{error}</Error>}
@@ -297,166 +314,10 @@ export default function PaymentFlow({ plan, qty }) {
                 // @ts-expect-error Stripe types are too strict here
             <Elements stripe={stripePromise} options={stripeOptions} key={clientSecret}>
                 <div style={{ marginTop: '2rem' }}>
-                <CheckoutForm isVerified={true} />
+                <CheckoutForm isVerified={isVerified} />
                 </div>
             </Elements>
             )}
         </PaymentWrapper>
     );
-
 }
-
-
-
-// //no email:
-// import { useState, useEffect } from "react";
-// import { loadStripe } from "@stripe/stripe-js";
-// import {
-//   Elements,
-//   PaymentElement,
-//   useStripe,
-//   useElements
-// } from "@stripe/react-stripe-js";
-// import styled from "@emotion/styled";
-
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
-// const PaymentWrapper = styled('div')({
-//   maxWidth: 600,
-//   margin: '0 auto',
-//   padding: '2rem 1rem',
-//   fontFamily: 'system-ui, sans-serif',
-//   textAlign: 'center',
-
-//   'h2': { fontSize: '22px', marginBottom: '1rem' }
-// });
-
-// function CheckoutForm() {
-//   const stripe = useStripe();
-//   const elements = useElements();
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-//   const [errorMessage, setErrorMessage] = useState('');
-
-//   useEffect(() => {
-//     if (errorMessage) {
-//       const timer = setTimeout(() => {
-//         setErrorMessage('');
-//       }, 3000);
-//       return () => clearTimeout(timer);
-//     }
-//   }, [errorMessage]);
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     if (!stripe || !elements) return;
-
-//     setIsSubmitting(true);
-//     const result = await stripe.confirmPayment({
-//       elements,
-//       confirmParams: {
-//         return_url: `${window.location.origin}/success?payment_intent={PAYMENT_INTENT_ID}`,
-//       },
-//     });
-
-//     if (result.error) {
-//       let message = result.error.message || "Payment failed.";
-//       setErrorMessage(message);
-//       setIsSubmitting(false);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} style={{ marginTop: '1rem' }}>
-//       <PaymentElement />
-//       <button 
-//         type="submit" 
-//         disabled={isSubmitting || !stripe}
-//         style={{ 
-//           marginTop: '1rem',
-//           padding: '10px 20px',
-//           fontSize: '16px',
-//           cursor: 'pointer',
-//           backgroundColor: '#8D2DF2',
-//           color: 'white',
-//           border: 'none',
-//           borderRadius: '5px'
-//         }}
-//       >
-//         {isSubmitting ? "Processing..." : "Pay"}
-//       </button>
-//       {errorMessage && <p style={{ color: 'red', marginTop: '0.5rem' }}>{errorMessage}</p>}
-//     </form>
-//   );
-// }
-
-// export default function PaymentFlow({ plan, qty }) {
-//   const [email, setEmail] = useState('');
-//   const [clientSecret, setClientSecret] = useState('');
-//   const [error, setError] = useState('');
-
-//   if (!plan) {
-//     return <p>Plan not found.</p>;
-//   }
-
-//   const createPaymentIntent = async (emailToUse) => {
-//     const response = await fetch('/api/payment/create-payment-intent', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         uniqueName: plan.uniqueName,
-//         qty,
-//         email: emailToUse || email,
-//       }),
-//     });
-//     const data = await response.json();
-//     if (response.ok) {
-//       setClientSecret(data.clientSecret);
-//     } else {
-//       setError(data.error || "Unable to create payment intent");
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (email) {
-//       createPaymentIntent(email);
-//     }
-//   }, [email, qty]);
-
-//   const stripeOptions = clientSecret ? { 
-//     clientSecret,
-//     appearance: { theme: 'stripe' },
-//     defaultValues: {
-//       billingDetails: { email }
-//     }
-//   } : null;
-
-//   return (
-//     <PaymentWrapper>
-//       <h2>Complete your purchase:</h2>
-
-//       <input
-//         type="email"
-//         placeholder="Your email"
-//         value={email}
-//         onChange={e => setEmail(e.target.value)}
-//         style={{
-//           padding: '12px',
-//           fontSize: '14px',
-//           border: '1px solid #ccc',
-//           borderRadius: '6px',
-//           marginBottom: '1rem',
-//           width: '100%'
-//         }}
-//       />
-
-//       {error && <p style={{ color: 'red' }}>{error}</p>}
-
-//       {clientSecret && (
-//           // @ts-expect-error Stripe types are too strict here
-//         <Elements stripe={stripePromise} options={stripeOptions} key={clientSecret}>
-//           <CheckoutForm />
-//         </Elements>
-//       )}
-//     </PaymentWrapper>
-//   );
-// }
