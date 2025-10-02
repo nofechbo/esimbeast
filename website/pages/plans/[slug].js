@@ -130,7 +130,7 @@ export default function PlanPage({ plan, slug }) {
           </PurchaseButton>
       ) : (
         <PaymentFormWrapper>
-          <PaymentFlow plan={plan} qty={qty} />
+          <PaymentFlow plan={plan} qty={qty} slug={slug} />
         </PaymentFormWrapper>
       )}
     </PlanPageWrapper>
