@@ -259,7 +259,7 @@ export default function PaymentFlow({ plan, qty, slug }) {
         <PaymentWrapper>
             <h2 >Complete your purchase:</h2>
 
-            <EmailVerification>
+            {/* <EmailVerification>
                 <VerificationInput>
                     <input
                         type="email"
@@ -291,13 +291,13 @@ export default function PaymentFlow({ plan, qty, slug }) {
             </EmailVerification>
 
             {verificationSuccess && <Success>{verificationSuccess}</Success>}
-            {error && <Error>{error}</Error>}
+            {error && <Error>{error}</Error>} */}
 
             {clientSecret && (
                 // @ts-expect-error Stripe types are too strict here
             <Elements stripe={stripePromise} options={stripeOptions} key={clientSecret}>
                 <div style={{ marginTop: '2rem' }}>
-                <CheckoutForm isVerified={isVerified} />
+                <CheckoutForm isVerified={true} />
                 </div>
             </Elements>
             )}
