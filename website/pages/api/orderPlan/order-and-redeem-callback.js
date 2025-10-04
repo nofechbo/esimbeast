@@ -8,6 +8,8 @@ export default async function handler(req, res) {
         return res.status(405).send("Method Not Allowed");
     }
 
+    console.log(req.body)
+
     if (!validateEncStr(req.body)) {
         console.error("Invalid encStr in callback data");
         return res.status(400).send("Invalid encStr");
@@ -42,9 +44,12 @@ export default async function handler(req, res) {
         })
     );
 
-    console.log(req.body)
     return res.status(200).send("1");
 }
+
+// add sending email to user with qr code and lpa
+//check - why I get "all is fine" in success if there was an error
+
 
 
 // api returns:

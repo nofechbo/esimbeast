@@ -96,13 +96,13 @@ export default function SuccessPage() {
             metadata,
           }),
         });
-        
-        if (res.ok) {
+        const data = await res.json();
+
+        if (res.ok && !data.error) {
           sessionStorage.setItem(key, '1');
           setOrderStatus('ok');
         } else {
-          const error = await res.text();
-          console.error(`order-and-redeem failed: code: ${res.status},\nerror: ${error}`);
+          console.error(`order-and-redeem failed: code: ${res.status},\nerror: ${data.error || data}`);
           setOrderStatus('error');
         }
       } catch (e) {
