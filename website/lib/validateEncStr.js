@@ -17,8 +17,8 @@ export function validateEncStr(callbackData) {
             item.iccid +
             item.productName +
             item.rcode +
-            item.qrcode +
-            item.qrcodeType
+            item.qrcodeType +
+            item.qrcode
     }
     rawString += token
 
