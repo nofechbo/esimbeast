@@ -1,4 +1,4 @@
-import { validateEncStr } from "@/lib/verifyEncstr";
+import { validateEncStr } from "@/lib/validateEncStr";
 import { prisma } from "@/lib/db/prisma";
 
 export default async function handler(req, res) {

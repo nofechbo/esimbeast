@@ -14,7 +14,7 @@ export function validateEncStr(callbackData) {
 
     for (const item of itemList) {
         rawString +=
-            item.ccid +
+            item.iccid +
             item.productName +
             item.rcode +
             item.qrcode +
