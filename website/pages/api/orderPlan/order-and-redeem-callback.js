@@ -34,7 +34,11 @@ export default async function handler(req, res) {
     if (orders.length !== itemList.length) { //if for some reason WM has more/less items than db per orderId
         console.error(`Item count mismatch for order ${orderId}: received ${itemList.length}, expected ${orders.length}`);
         return res.status(400).send("Item count mismatch");
-     }
+    }
+    if (orders.some(o => o.qrLink || o.lpa)) { //if for some reason WM has sent us the same orderId again
+        console.error(`Order ${orderId} has already been processed`);
+        return res.status(400).send("Order has already been processed");
+    }
     
     await Promise.all(
         itemList.map((item, i) =>
@@ -47,6 +51,9 @@ export default async function handler(req, res) {
             })
         )
     );
+    console.log(`updated DB for order ${orderId} successfully`);
+
+    //send email
 
     return res.status(200).send("1"); //WM will keep trying if receive anything but 1... do we only want to send them 1 on complete success? they'll re-send the same data anyway
 }
