@@ -3,16 +3,20 @@ import { prisma } from "@/lib/db/prisma";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
+        console.error("Invalid request method");
+        res.setHeader('Allow', 'POST');
         return res.status(405).send("Method Not Allowed");
     }
 
     if (!validateEncStr(req.body)) {
+        console.error("Invalid encStr in callback data");
         return res.status(400).send("Invalid encStr");
     }
 
     const { orderId, itemList } = req.body;
 
     if (!orderId || !Array.isArray(itemList) || itemList.length === 0) {
+        console.error("Missing orderId or itemList in callback data");
         return res.status(400).send("Missing orderId or itemList");
     }
 
@@ -39,7 +43,7 @@ export default async function handler(req, res) {
     );
 
     console.log(req.body)
-    res.status(200).send("1");
+    return res.status(200).send("1");
 }
 
 
