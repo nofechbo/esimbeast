@@ -4,6 +4,8 @@ import { sendEmail } from "@/lib/email/sendEmail";
 
 //handling - what if errors happen here? user will still see "check your email"
 
+const IS_RENDER = process.env.NEXT_PUBLIC_IS_RENDER === 'true';
+
 export default async function handler(req, res) {
     if (req.method !== "POST") {
         console.error("Invalid request method");
@@ -60,30 +62,35 @@ export default async function handler(req, res) {
     }
 
     //send email to user with qr code and lpa links for all items in the order
-    const planDetails = itemList.map((item, i) => `
-        <h3>Plan ${i + 1}:</h3>
-        <p><strong>Plan Name:</strong> ${orders[i].productName}</p>
-        <p>${orders[i].data}GB for ${orders[i].duration} days</p>
-        <p><strong>to activate your plan, follow the link below and scan the QR code:
-        <a href="${item.qrcode}" target="_blank" rel="noopener noreferrer">View QR Code</a></p>
+    if (!IS_RENDER) {
+        const planDetails = itemList.map((item, i) => `
+            <h3>Plan ${i + 1}:</h3>
+            <p><strong>Plan Name:</strong> ${orders[i].productName}</p>
+            <p>${orders[i].data}GB for ${orders[i].duration} days</p>
+            <p><strong>to activate your plan, follow the link below and scan the QR code:
+            <a href="${item.qrcode}" target="_blank" rel="noopener noreferrer">View QR Code</a></p>
 
-        <hr />
-    `).join('');
+            <hr />
+        `).join('');
 
-    const emailContent = `
-        <h2>Thank you for your purchase from Pingwe!</h2>
-        <p>Your order (ID: ${orderId}) has been successfully processed. Below are the details of your purchased eSIM plan(s):</p>
-        ${planDetails}
-        <p>If you have any questions or need further assistance, feel free to reply to this email.</p>
-        <p>Best regards,<br/>The Pingwe Team</p>
-    `;
+        const emailContent = `
+            <h2>Thank you for your purchase from Pingwe!</h2>
+            <p>Your order (ID: ${orderId}) has been successfully processed. Below are the details of your purchased eSIM plan(s):</p>
+            ${planDetails}
+            <p>If you have any questions or need further assistance, feel free to reply to this email.</p>
+            <p>Best regards,<br/>The Pingwe Team</p>
+        `;
 
-    const sent = await sendEmail(email, `Your Pingwe eSIM Order ${orderId} Details`, emailContent); 
-    if (!sent) {
-        console.error(`Failed to send order details email to ${email} for orderId ${orderId}`);
-        return res.status(500).send("Failed to send order details email");
+        const sent = await sendEmail(email, `Your Pingwe eSIM Order ${orderId} Details`, emailContent);
+        if (!sent) {
+            console.error(`Failed to send order details email to ${email} for orderId ${orderId}`);
+            return res.status(500).send("Failed to send order details email");
+        }
+
+        console.log(`Sent order details email to ${email} for orderId ${orderId}`);
+    } else {
+        console.log(`Skipping email send in Render environment for orderId ${orderId}`);
     }
-
-    console.log(`Sent order details email to ${email} for orderId ${orderId}`);
+    
     return res.status(200).send("1");
 }

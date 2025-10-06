@@ -123,7 +123,8 @@ export default function SuccessPage() {
       <h1 style={{ fontSize: '24px', marginBottom: '1rem', color: 'green' }}>
         ✅ Payment {intent.status === 'succeeded' ? 'Completed' : 'Received'}!
       </h1>
-      <p>Confirmation #: <strong>{intent.id}</strong></p>
+      {/* save confirmation # in db to send in email later? */}
+      <p>Confirmation #: <strong>{intent.id}</strong></p> 
       <p>Plan: <strong>{plan.name || 'Your Plan'}</strong></p>
       <p>Amount Paid: <strong>${(intent.amount / 100).toFixed(2)} {(intent.currency || 'usd').toUpperCase()}</strong></p>
       <p>Receipt sent to: <strong>{intent.receipt_email || 'Not provided'}</strong></p>
