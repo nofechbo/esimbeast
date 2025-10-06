@@ -21,6 +21,7 @@ model PlanOrder {
   duration     Int
   productId    String
   productName  String
+  rcode        String?
 
   @@index([orderId])
 }
