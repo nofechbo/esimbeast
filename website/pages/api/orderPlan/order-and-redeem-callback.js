@@ -36,7 +36,7 @@ export default async function handler(req, res) {
         console.error(`Item count mismatch for order ${orderId}: received ${itemList.length}, expected ${orders.length}`);
         return res.status(400).send("Item count mismatch");
     }
-    if (orders.some(o => o.qrLink || o.lpa)) { //if for some reason WM has sent us the same orderId again
+    if (orders.some(o => o.qrLink || o.lpa || o.rcode)) { // shouldn't it be & ? to only block if all 3 were fileed?
         console.error(`Order ${orderId} has already been processed`);
         return res.status(400).send("Order has already been processed");
     }
@@ -91,6 +91,6 @@ export default async function handler(req, res) {
     } else {
         console.log(`Skipping email send in Render environment for orderId ${orderId}`);
     }
-    
+
     return res.status(200).send("1");
 }

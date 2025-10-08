@@ -27,5 +27,3 @@ function normalizePlan(plan) {
     salePrice: plan.salePrice ? Number(plan.salePrice) : null,
   };
 }
-
-    
