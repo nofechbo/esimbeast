@@ -1,6 +1,7 @@
 import "@/styles/output.css";
 import Head from 'next/head';
 import { Kanit, Montserrat } from 'next/font/google';
+import { ToastContainer } from "react-toastify";
 
 const kanit = Kanit({
   subsets: ['latin'],
@@ -21,6 +22,8 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon_no_bg.png" />
       </Head>
       <Component {...pageProps} />
+
+       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

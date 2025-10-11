@@ -3,36 +3,35 @@ import { useRouter } from 'next/router';
 import NavBar from '@/components/NavBar.js';
 import Footer from '@/components/Footer.js';
 import PopularPlansCarousel from '@/components/homepage/PopularPlansCarousel';
-import SearchBox from '@/components/homepage/SearchBox';
 import styles from '@/styles/Home.module.css';
-import { fetchPlans } from '@/utils/fetchPlans';
+import { fetchPopularPlans, fetchSearchOptions } from '@/utils/homepage/api';
+import SearchBox from '@/components/homepage/SearchBox';
 
 export default function Home() {
-  const [planList, setPlanList] = useState([]);
   const [popularPlans, setPopularPlans] = useState([]);
+  const [searchOptions, setSearchOptions] = useState({ countries: [], dataSizes: [], durations: [] });
   const router = useRouter();
-
-  //load all plans
-  useEffect(() => {
-    async function loadPlans() {
-      const plans = await fetchPlans();
-      setPlanList(plans);
-    }
-    
-    loadPlans();
-  }, []);
 
   //set popular plans list
   useEffect(() => {
-    if (planList.length === 0) return;
-    const popular = planList.filter(p => p.isPopular === true);
-    setPopularPlans(popular);
-  }, [planList]);
-
+    const getPopularPlans = async () => {
+      const popular = await fetchPopularPlans();
+      setPopularPlans(popular);
+    }
+    getPopularPlans();
+  }, []);
 
   const handleNavigate = (path) => {
     router.push(path);
   };
+
+  useEffect(() => {
+    const getSearchOptions = async () => {
+      const options = await fetchSearchOptions();
+      setSearchOptions(options);
+    };
+    getSearchOptions();
+  }, []);
 
 
   return (
@@ -55,7 +54,7 @@ export default function Home() {
           </h1>
 
           <SearchBox 
-            planList={planList} 
+            searchOptions={searchOptions}
             onNavigate={handleNavigate} 
           />
 
