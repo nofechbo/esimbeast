@@ -23,7 +23,7 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <Component {...pageProps} />
 
-       <ToastContainer position="top-right" autoClose={3000} />
+       <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 }
