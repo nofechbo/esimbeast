@@ -1,3 +1,4 @@
+import slugify from "@/utils/slugify";
 import styled from "@emotion/styled";
 
 const PopularSection = styled('div')({
@@ -89,7 +90,7 @@ const PriceValue = styled('span')({
 
 const MAX_CARDS_ON_PAGE = 5
 
-export default function PopularPlansCarousel({ popularPlans, formatData, formatDuration }) {
+export default function PopularPlansCarousel({ popularPlans, formatData, formatDuration, onNavigate }) {
   if (popularPlans.length === 0) {
     return null;
   }
@@ -115,13 +116,19 @@ export default function PopularPlansCarousel({ popularPlans, formatData, formatD
   // Show only first 5 plans
   const displayPlans = popularPlans.slice(0, 5);
 
+  const handleClick = (plan) => () => {
+    const slug = slugify(plan.uniqueName)
+    const planUrl = `plans/${slug}`
+    onNavigate(planUrl)
+  }
+
   return (
     <PopularSection>
       <PopularTitle>Popular destinations</PopularTitle>
       
       <CardGrid>
         {displayPlans.map((p, index) => (
-          <PopularCard key={index}>
+          <PopularCard key={index} onClick={handleClick(p)}>
             <PlanName>{p.name}</PlanName>
             
             <DetailsContainer>

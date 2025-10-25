@@ -85,7 +85,7 @@ export default function SearchBox({ searchOptions, onNavigate, formatData, forma
             toast.error('Something went wrong. Please try again.');
             return;
         }
-
+ 
         onNavigate(data.planUrl);
     };
 

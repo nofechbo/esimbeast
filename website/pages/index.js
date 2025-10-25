@@ -71,6 +71,7 @@ export default function Home() {
               popularPlans={popularPlans}
               formatData={formatDataSize}
               formatDuration={formatDuration}
+              onNavigate={handleNavigate}
             />
           )}
 
