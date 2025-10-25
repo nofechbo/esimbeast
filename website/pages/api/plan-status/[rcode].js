@@ -1,8 +1,8 @@
 import { generateEncStr } from '@/utils/generateEncStr';
 
-const url = process.env.TEST_ORDER_AND_REDEEM_URL
-const merchantId = process.env.TEST_MERCHANT_ID;
-const token = process.env.TEST_TOKEN;
+const url = process.env.ORDER_AND_REDEEM_URL
+const merchantId = process.env.MERCHANT_ID;
+const token = process.env.TOKEN;
 
 export default async function handler(req, res) {
     if (req.method !== 'GET') {

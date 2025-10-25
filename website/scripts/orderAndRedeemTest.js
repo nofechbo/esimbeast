@@ -3,9 +3,9 @@ import https from 'https';
 import fetch from 'node-fetch';
 import { generateEncStr } from '../utils/generateEncStr.js';
 
-const merchantId = process.env.TEST_MERCHANT_ID;
-const deptId = process.env.TEST_DEPT_ID;
-const token = process.env.TEST_TOKEN;
+const merchantId = process.env.MERCHANT_ID;
+const deptId = process.env.DEPT_ID;
+const token = process.env.TOKEN;
 
 const wmproductId = 'WM_000003';
 const qty = 2;

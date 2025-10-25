@@ -5,10 +5,10 @@ import { generateEncStr } from '@/utils/generateEncStr';
 import 'dotenv/config';
 import https from 'https';
 
-const url = process.env.TEST_ORDER_AND_REDEEM_URL
-const merchantId = process.env.TEST_MERCHANT_ID;
-const deptId = process.env.TEST_DEPT_ID;
-const token = process.env.TEST_TOKEN;
+const url = process.env.ORDER_AND_REDEEM_URL
+const merchantId = process.env.MERCHANT_ID;
+const deptId = process.env.DEPT_ID;
+const token = process.env.TOKEN;
 const qrcodeType = 2; 
 
 // TLS-bypass agent (required for test environment only)
