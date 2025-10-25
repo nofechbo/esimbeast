@@ -2,25 +2,60 @@ import { getCountryCode } from "@/utils/homepage/codeToCountry";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { CustomDropdown } from "./CustomDropdown.js";
 
-const SearchOption = styled("select")({
-  margin: "0 8px",
-  padding: 8,
-  borderRadius: 4,
-  border: "1px solid #ccc",
-  fontSize: 16,
-  minWidth: 120,
+const SearchBar = styled('div')({
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: '44px',
+    border: '1px solid #E2DFE7',
+    background: '#FFF',
+    boxShadow: '2px 10px 38px 0 rgba(31, 1, 71, 0.10)',
+    width: '100%',
+    maxWidth: '800px',
+    height: '90px',
+    flexShrink: 0,
+    paddingRight: '90px',
+});
+
+const OptionWrapper = styled('div')({
+    display: 'flex',
+    alignItems: 'center',
+});
+
+const SearchOption = styled('select')({
+    paddingLeft: 30,
+    fill: '#FFF',
+    filter: 'drop-shadow(2px 6px 38px rgba(17, 43, 60, 0.12))',
+    width: '210px',
+    height: '90px',
+    flexShrink: 0,
+    color: '#3E484E',
+    fontFamily: 'Kanit',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    fontWeight: 600,
+    lineHeight: '16px',
+});
+
+const Divider = styled('div')({
+  width: '1px',
+  height: '46px',
+  backgroundColor: '#E2DFE7',
+  marginLeft: 25,
+  flexShrink: 0,
+  zIndex: 1,
+  pointerEvents: 'none',
 });
 
 const SearchButton = styled("button")({
-  margin: "0 8px",
-  padding: "8px 16px",
-  borderRadius: 4,
-  border: "none",
-  backgroundColor: "#0070f3",
-  color: "#fff",
-  fontSize: 16,
-  cursor: "pointer",
+    position: 'absolute',
+    right: '12px',
+    width: 66,
+    height: 66,
+    flexShrink: 0,
+    cursor: "pointer",
 });
 
 export default function SearchBox({ searchOptions, onNavigate }) {
@@ -54,42 +89,49 @@ export default function SearchBox({ searchOptions, onNavigate }) {
         onNavigate(data.planUrl);
     };
 
+    const formatDataSize = (d) => {
+        return d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
+    };
+
+    const formatDuration = (d) => {
+        return `${d} ${d === 1 ? "day" : "days"}`;
+    };
+
     return (
-        <div>
-            <SearchOption
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            >
-            <option value="">Select Country</option>
-            {searchOptions.countries.map((c) => (
-                <option key={c} value={c}>
-                {c}
-                </option>
-            ))}
-            </SearchOption>
-            <SearchOption
-            value={dataSize}
-            onChange={(e) => setDataSize(e.target.value)}
-            >
-            <option value="">Select Data Size</option>
-            {searchOptions.dataSizes.map((d) => (
-                <option key={d} value={d}>
-                {d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`}
-                </option>
-            ))}
-            </SearchOption>
-            <SearchOption
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-            >
-            <option value="">Select Duration</option>
-            {searchOptions.durations.map((d) => (
-                <option key={d} value={d}>
-                {d} {d === 1 ? "day" : "days"}
-                </option>
-            ))}
-            </SearchOption>
-            <SearchButton onClick={handleSearch}>Search</SearchButton>
-        </div>
+        <SearchBar>
+            <CustomDropdown
+                value={country}
+                onChange={setCountry}
+                options={searchOptions.countries}
+                title='Location'
+                placeholder="Select Country"
+            />
+            
+            <Divider />
+
+            <CustomDropdown
+                value={duration}
+                onChange={setDuration}
+                options={searchOptions.durations}
+                title='Duration'
+                placeholder="Select Duration"
+                formatOption={formatDuration}
+            />
+
+            <Divider />
+
+            <CustomDropdown
+                value={dataSize}
+                onChange={setDataSize}
+                options={searchOptions.dataSizes}
+                placeholder="Select Data Size"
+                title='Plan size'
+                formatOption={formatDataSize}
+            />
+
+            <SearchButton onClick={handleSearch}>
+                <img src="/icons/search.svg" alt="search" />
+            </SearchButton>
+        </SearchBar>
     );
 }
