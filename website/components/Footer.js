@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from '../styles/Footer.module.css'
 
 export default function Footer() {
@@ -23,21 +24,20 @@ export default function Footer() {
                 <div>
                   <h4 className={styles.sectionTitle}>ABOUT</h4>
                   <ul className={styles.sectionList}> 
-                    <li>About us</li>
-                    <li>What is eSim</li>
-                    <li>Supported devices</li>
-                    <li>Affiliate program</li>
-                    <li>Blog</li>
+                    <li><Link href="/info/about-us">About us</Link></li>
+                    <li><Link href="/info/what-is-esim">What is eSim</Link></li>
+                    <li><Link href="/info/supported-devices">Supported devices</Link></li>
+                    <li><Link href="/info/affiliate-program">Affiliate program</Link></li>
                   </ul>
                 </div>
 
                 <div>
                   <h4 className={styles.sectionTitle}>LEGAL</h4>
                   <ul className={styles.sectionList}> 
-                    <li>Terms & conditions</li>
-                    <li>Privacy policy</li>
-                    <li>Cookies policy</li>
-                    <li>Refunds policy</li>
+                    <li><Link href="/legal/terms-and-conditions">Terms & conditions</Link></li>
+                    <li><Link href="/legal/privacy-policy">Privacy policy</Link></li>
+                    <li><Link href="/legal/cookies-policy">Cookies policy</Link></li>
+                    <li><Link href="/legal/refunds-policy">Refunds policy</Link></li>
                   </ul>
                 </div>
             </div>
@@ -49,9 +49,9 @@ export default function Footer() {
         <div className={styles.bottomNote}>
           © 2024 Pingwe 
         <span style={{ marginLeft: '750px' }}>
-          <span className={styles.legalLink}>Terms</span>
+          <Link href="/legal/terms-and-conditions"><span className={styles.legalLink}>Terms</span></Link>
           <span>  | </span>
-          <span className={styles.legalLink}>Privacy</span>
+          <Link href="/legal/privacy-policy"><span className={styles.legalLink}>Privacy</span></Link>
         </span>
       </div>
     </footer>
