@@ -22,7 +22,7 @@ const SelectTitle = styled('div')({
     color: '#3E484E',
     marginBottom: '4px',
     fontFamily: 'Kanit',
-    fontWeight: 600,
+    fontWeight: 500,
 });
 
 // @ts-ignore

@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 
 const kanit = Kanit({
   subsets: ['latin'],
-  weight: ['400', '600', '800'], // only include what you use
+  weight: ['400', '500', '600', '800'], // only include what you use
   variable: '--font-kanit',       // optional: to use as CSS variable
 });
 const montserrat = Montserrat({

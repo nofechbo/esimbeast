@@ -33,18 +33,23 @@ export default function Home() {
     getSearchOptions();
   }, []);
 
+  const formatDataSize = (d) => {
+    return d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
+  };
 
+  const formatDuration = (d) => {
+    return `${d} ${d === 1 ? "day" : "days"}`;
+  };
+  
   return (
     <div className={`relative w-full ${styles.pageContainer}`}>
       <NavBar />     
       
       <div className={styles.heroWrapper}>
         <div className="absolute inset-0 z-0 flex items-center justify-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/hp_bg.svg"
             alt="Background illustration"
-            // className="min-w-full min-h-full object-cover pointer-events-none select-none"
           />
         </div>
 
@@ -55,12 +60,18 @@ export default function Home() {
 
           <SearchBox 
             searchOptions={searchOptions}
-            onNavigate={handleNavigate} 
+            onNavigate={handleNavigate}
+            formatData={formatDataSize}
+            formatDuration={formatDuration}
           />
 
           {/* popular plans */}
           {popularPlans.length > 0 && (
-            <PopularPlansCarousel popularPlans={popularPlans} />
+            <PopularPlansCarousel
+              popularPlans={popularPlans}
+              formatData={formatDataSize}
+              formatDuration={formatDuration}
+            />
           )}
 
         </div>

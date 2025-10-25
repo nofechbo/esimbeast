@@ -58,7 +58,7 @@ const SearchButton = styled("button")({
     cursor: "pointer",
 });
 
-export default function SearchBox({ searchOptions, onNavigate }) {
+export default function SearchBox({ searchOptions, onNavigate, formatData, formatDuration }) {
     const [country, setCountry] = useState("");
     const [dataSize, setDataSize] = useState("");
     const [duration, setDuration] = useState("");
@@ -89,14 +89,6 @@ export default function SearchBox({ searchOptions, onNavigate }) {
         onNavigate(data.planUrl);
     };
 
-    const formatDataSize = (d) => {
-        return d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
-    };
-
-    const formatDuration = (d) => {
-        return `${d} ${d === 1 ? "day" : "days"}`;
-    };
-
     return (
         <SearchBar>
             <CustomDropdown
@@ -106,7 +98,7 @@ export default function SearchBox({ searchOptions, onNavigate }) {
                 title='Location'
                 placeholder="Select Country"
             />
-            
+
             <Divider />
 
             <CustomDropdown
@@ -126,7 +118,7 @@ export default function SearchBox({ searchOptions, onNavigate }) {
                 options={searchOptions.dataSizes}
                 placeholder="Select Data Size"
                 title='Plan size'
-                formatOption={formatDataSize}
+                formatOption={formatData}
             />
 
             <SearchButton onClick={handleSearch}>
