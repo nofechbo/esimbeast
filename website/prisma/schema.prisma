@@ -34,9 +34,9 @@ model Plan {
   days         Int
   limited      Boolean
   fup          String
-  data         Decimal
+  data         Decimal //note - in new sheet -> all in gb. so mb is 0.5gb for example. but some places it says 3gb/day
   reducedSpeed Int
-  price        Decimal
+  price        Decimal //make sure it's 'Sell Price', and not 'cost'!
   reloadable   Boolean
   countryCodes String[]
   ipRoute      String?
@@ -45,6 +45,18 @@ model Plan {
   salePrice    Decimal?
   uniqueName   String   @unique
   isPopular    Boolean  @default(false)
+
+//from new sheet 
+//optional for now -> make NOT-OPTIONAL later!
+  SEOText       String?//"Your Plan Summary" in sheets
+  Activation    String?
+  Networks      String?
+  NetworkSpeed  String?
+  PlanType      String?
+  HotSpot       Boolean?
+  LocalNumber   Boolean?
+  Delivery      String?
+  eKYC          Boolean? //NOT CURRENTLY IN NEW SHEET!
 
   @@index([productId])
   @@index([countryCodes], type: Gin)

@@ -37,8 +37,7 @@ export default function Home() {
   const formatDuration = (d) => `${d} ${d === 1 ? "day" : "days"}`;
 
   return (
-    <div className={`relative w-full ${styles.pageContainer}`}>
-      <NavBar />      
+    <div className={`relative w-full ${styles.pageContainer}`}> 
       <div className={styles.heroWrapper}>
         <div className="absolute inset-0 z-0 flex items-center justify-center">
           <img
@@ -67,7 +66,6 @@ export default function Home() {
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

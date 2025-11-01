@@ -124,7 +124,6 @@ export default function ContentPage({ title, subtitle, children }) {
         {subtitle && <HeroSubtitle>{subtitle}</HeroSubtitle>}
       </Hero>
       <ContentSection>{children}</ContentSection>
-      <Footer />
     </PageContainer>
   );
 }

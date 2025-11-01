@@ -28,7 +28,7 @@ const Logo = styled("img")({
 const NavLink = styled(Link)({
   textDecoration: "none",
   color: "#112B3C",
-  fontFamily: "var(--font-kanit)",
+  fontFamily: "Kanit",
   fontSize: "12px",
   fontWeight: 500,
   lineHeight: "18px",
