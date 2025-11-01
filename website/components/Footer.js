@@ -47,7 +47,7 @@ export default function Footer() {
         <div className={styles.divider}></div>
 
         <div className={styles.bottomNote}>
-          © 2024 Pingwe 
+          © 2025 Pingwe 
         <span style={{ marginLeft: '750px' }}>
           <Link href="/legal/terms-and-conditions"><span className={styles.legalLink}>Terms</span></Link>
           <span>  | </span>

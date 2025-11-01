@@ -1,19 +1,18 @@
 import "@/styles/output.css";
-import Head from 'next/head';
-import { Kanit, Montserrat } from 'next/font/google';
+import Head from "next/head";
+import { Kanit, Montserrat } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
 const kanit = Kanit({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '800'], // only include what you use
-  variable: '--font-kanit',       // optional: to use as CSS variable
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "800"], // only include what you use
+  variable: "--font-kanit", // optional: to use as CSS variable
 });
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-montserrat',
-})
-
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-montserrat",
+});
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -23,7 +22,7 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <Component {...pageProps} />
 
-       <ToastContainer position="top-center" autoClose={3000} />
+      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
 }

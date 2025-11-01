@@ -33,38 +33,29 @@ export default function Home() {
     getSearchOptions();
   }, []);
 
-  const formatDataSize = (d) => {
-    return d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
-  };
+  const formatDataSize = (d) => d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
+  const formatDuration = (d) => `${d} ${d === 1 ? "day" : "days"}`;
 
-  const formatDuration = (d) => {
-    return `${d} ${d === 1 ? "day" : "days"}`;
-  };
-  
   return (
     <div className={`relative w-full ${styles.pageContainer}`}>
-      <NavBar />     
-      
+      <NavBar />      
       <div className={styles.heroWrapper}>
         <div className="absolute inset-0 z-0 flex items-center justify-center">
           <img
-            src="/hp_bg.svg"
+            src="/bg.png"
             alt="Background illustration"
           />
         </div>
-
           <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
             Best eSIM Match Based on<br />Your Travel Needs
           </h1>
-
           <SearchBox 
             searchOptions={searchOptions}
             onNavigate={handleNavigate}
             formatData={formatDataSize}
             formatDuration={formatDuration}
           />
-
           {/* popular plans */}
           {popularPlans.length > 0 && (
             <PopularPlansCarousel
@@ -74,10 +65,8 @@ export default function Home() {
               onNavigate={handleNavigate}
             />
           )}
-
         </div>
       </div>
-      
       <Footer />
     </div>
   );
