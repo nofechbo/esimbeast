@@ -1,3 +1,6 @@
-1. POST callback endpoint - logs and returns 1
-2. add to render - check with postman
-3. script: calls orderAndRedem with test info and our callback 
+plan page:
+1. fix gradiant titles
+2. fix "check compatibility + add img
+3. purchase should redirect. the payment flow should be opened in a new page
+
+4. searchbar at the top of plan page???????
