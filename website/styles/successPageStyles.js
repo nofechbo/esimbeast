@@ -47,7 +47,7 @@ export const SuccessTitle = styled('h1')({
 export const SuccessSubtitle = styled('p')({
   fontSize: '16px',
   color: '#6B7280',
-  marginBottom: '2.5rem',
+  marginBottom: '1.5rem',
   fontFamily: 'Montserrat',
   lineHeight: '1.6',
 });
@@ -94,8 +94,7 @@ export const DetailValue = styled('span')({
 export const StatusBadgeBase = styled('div')({
   display: 'inline-flex',
   alignItems: 'center',
-  gap: '0.5rem',
-  padding: '0.75rem 1.25rem',
+  padding: '0.75rem',
   borderRadius: '12px',
   fontSize: '14px',
   fontWeight: 600,
