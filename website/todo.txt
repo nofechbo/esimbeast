@@ -1,9 +1,4 @@
-plan page:
-1. fix gradiant titles
-2. fix "check compatibility" + add img
-3. purchase should redirect. the payment flow should be opened in a new page
 
-success page: design!!!!
+* success page: design!!!!
 
-***
-save data after purchase: credit card 4 digits 
+* save data after purchase: credit card 4 digits 

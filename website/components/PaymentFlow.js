@@ -257,22 +257,45 @@ export default function PaymentFlow({ plan, qty }) {
       {/* 🔹 CHANGED: hide email verification UI if IS_RENDER */}
       {!IS_RENDER && (
         <EmailVerification>
-          <VerificationInput>
-            <input
-              type="email"
-              placeholder="Your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && onSendCode()}
-            />
+    <div>
+      <label style={{ 
+        display: "block", 
+        marginBottom: "0.5rem", 
+        fontFamily: "Kanit", 
+        fontSize: "14px",
+        fontWeight: 600,
+        color: "#374151"
+      }}>
+        Email address
+      </label>
+      <VerificationInput>
+        <input
+          type="email"
+          placeholder="you@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && onSendCode()}
+        />
             <VerificationButton onClick={onSendCode}>
-              Send verification code
-            </VerificationButton>
-          </VerificationInput>
+          Send verification code
+        </VerificationButton>
+      </VerificationInput>
+    </div>
 
           {info && !isVerified && <Info>{info}</Info>}
 
-          <VerificationInput>
+          <div>
+      <label style={{ 
+        display: "block", 
+        marginBottom: "0.5rem", 
+        fontFamily: "Kanit", 
+        fontSize: "14px",
+        fontWeight: 600,
+        color: "#374151"
+      }}>
+        Verification code
+      </label>
+      <VerificationInput>
             <input
               ref={codeInputRef}
               type="text"
@@ -286,7 +309,8 @@ export default function PaymentFlow({ plan, qty }) {
             <VerificationButton onClick={onVerifyCode}>
               Verify email
             </VerificationButton>
-          </VerificationInput>
+            </VerificationInput>
+            </div>
         </EmailVerification>
       )}{" "}
       {/* end of IS_RENDER check */}

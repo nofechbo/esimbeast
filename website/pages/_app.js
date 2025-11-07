@@ -12,7 +12,7 @@ const kanit = Kanit({
 });
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "900"],
   variable: "--font-montserrat",
 });
 

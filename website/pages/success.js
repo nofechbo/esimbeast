@@ -1,29 +1,23 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import styled from '@emotion/styled';
-import { fetchPlanByUniqueName } from '@/utils/fetchPlans';
-
-const SuccessBox = styled('div')({
-  maxWidth: 600,
-  margin: '80px auto',
-  padding: '1rem',
-  fontFamily: 'system-ui, sans-serif',
-  textAlign: 'center',
-  border: '1px solid #eee',
-  borderRadius: 8,
-  boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
-})
-
-const HomeButton = styled('button')({
-  marginTop: '1rem',
-  padding: '10px 20px',
-  fontSize: 14,
-  backgroundColor: '#8D2DF2',
-  color: 'white',
-  border: 'none',
-  borderRadius: 6,
-  cursor: 'pointer'
-})
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { fetchPlanByUniqueName } from "@/utils/fetchPlans";
+import {
+  ButtonGroup,
+  DetailCard,
+  DetailLabel,
+  DetailRow,
+  DetailValue,
+  PrimaryButton,
+  SecondaryButton,
+  StatusBadgeError,
+  StatusBadgePending,
+  StatusBadgeSuccess,
+  SuccessBox,
+  SuccessContainer,
+  SuccessIcon,
+  SuccessSubtitle,
+  SuccessTitle,
+} from "@/styles/successPageStyles";
 
 export default function SuccessPage() {
   const router = useRouter();
@@ -38,19 +32,20 @@ export default function SuccessPage() {
 
   useEffect(() => {
     if (!intentId) return;
-    
+
     const fetchIntent = async () => {
       try {
-        const res = await fetch(`/api/payment/get-payment-intent?payment_intent=${intentId}`);
+        const res = await fetch(
+          `/api/payment/get-payment-intent?payment_intent=${intentId}`
+        );
         const data = await res.json();
 
         if (res.ok && data) {
           setIntent(data);
           setMetadata(data.metadata || null);
-        } else console.error('API returned error:', data);
-
+        } else console.error("API returned error:", data);
       } catch (err) {
-        console.error('Failed to load payment intent:', err);
+        console.error("Failed to load payment intent:", err);
       } finally {
         setLoading(false);
       }
@@ -59,7 +54,7 @@ export default function SuccessPage() {
     fetchIntent();
   }, [intentId]);
 
-    useEffect (() => {
+  useEffect(() => {
     if (!metadata?.uniqueName) return;
 
     const fetchPlan = async () => {
@@ -68,18 +63,18 @@ export default function SuccessPage() {
         const plan = await fetchPlanByUniqueName(intent.metadata.uniqueName);
         setPlan(plan);
       } catch (err) {
-        console.error('Failed to load plan data:', err);
-        setPlan(null)
+        console.error("Failed to load plan data:", err);
+        setPlan(null);
       } finally {
         setPlanLoading(false);
       }
-    }
+    };
 
     fetchPlan();
-  }, [metadata?.uniqueName])
+  }, [metadata?.uniqueName]);
 
   useEffect(() => {
-    if (!intent || intent.status !== 'succeeded') return;
+    if (!intent || intent.status !== "succeeded") return;
     if (!intent.metadata?.uniqueName || !intent.metadata?.qty) return;
 
     const key = `ordered:${intent.id}`;
@@ -87,10 +82,10 @@ export default function SuccessPage() {
 
     const orderPlan = async () => {
       try {
-        setOrderStatus('pending');
-        const res = await fetch('/api/orderPlan/order-and-redeem', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        setOrderStatus("pending");
+        const res = await fetch("/api/orderPlan/order-and-redeem", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: intent.receipt_email,
             metadata,
@@ -99,15 +94,19 @@ export default function SuccessPage() {
         const data = await res.json();
 
         if (res.ok && !data.error) {
-          sessionStorage.setItem(key, '1');
-          setOrderStatus('ok');
+          sessionStorage.setItem(key, "1");
+          setOrderStatus("ok");
         } else {
-          console.error(`order-and-redeem failed: code: ${res.status},\nerror: ${data.error || data}`);
-          setOrderStatus('error');
+          console.error(
+            `order-and-redeem failed: code: ${res.status},\nerror: ${
+              data.error || data
+            }`
+          );
+          setOrderStatus("error");
         }
       } catch (e) {
-        console.error('order-and-redeem error:', e);
-        setOrderStatus('error');
+        console.error("order-and-redeem error:", e);
+        setOrderStatus("error");
       }
     };
     orderPlan();
@@ -119,29 +118,110 @@ export default function SuccessPage() {
   if (!plan) return <p>Could not load plan details.</p>;
 
   return (
-    <SuccessBox>
-      <h1 style={{ fontSize: '24px', marginBottom: '1rem', color: 'green' }}>
-        ✅ Payment {intent.status === 'succeeded' ? 'Completed' : 'Received'}!
-      </h1>
-      {/* save confirmation # in db to send in email later? */}
-      <p>Confirmation #: <strong>{intent.id}</strong></p> 
-      <p>Plan: <strong>{plan.name || 'Your Plan'}</strong></p>
-      <p>Amount Paid: <strong>${(intent.amount / 100).toFixed(2)} {(intent.currency || 'usd').toUpperCase()}</strong></p>
-      <p>Receipt sent to: <strong>{intent.receipt_email || 'Not provided'}</strong></p>
+    <SuccessContainer>
+      <SuccessBox>
+        <SuccessIcon>✓</SuccessIcon>
 
-       {intent.status === 'succeeded' && (
-        <>
-          <br />
-          {orderStatus === 'pending' && <p>Placing your eSIM order…</p>}
-          {orderStatus === 'ok' && <p>🎉 eSIM order placed. Check your email soon.</p>}
-          {orderStatus === 'error' && <p>⚠️ We couldn’t place the eSIM order automatically. We’ll retry shortly.</p>}
-        </>
-      )}
+        <SuccessTitle>
+          Payment {intent.status === "succeeded" ? "Successful" : "Received"}!
+        </SuccessTitle>
 
-      <br />
-       <HomeButton onClick={() => router.push('/')}>
-        Back to Home
-      </HomeButton>
-    </SuccessBox>
+        <SuccessSubtitle>
+          {intent.status === "succeeded"
+            ? "Thank you for your purchase! Your eSIM order is being processed."
+            : "We've received your payment and will process your order shortly."}
+        </SuccessSubtitle>
+
+        {intent.status === "succeeded" && orderStatus && (
+          <>
+            {orderStatus === "pending" && (
+              <StatusBadgePending>
+                ⏳ Processing your eSIM order...
+              </StatusBadgePending>
+            )}
+            {orderStatus === "ok" && (
+              <StatusBadgeSuccess>
+                🎉 eSIM order placed successfully!
+              </StatusBadgeSuccess>
+            )}
+            {orderStatus === "error" && (
+              <StatusBadgeError>
+                ⚠️ Order pending - we'll process it shortly
+              </StatusBadgeError>
+            )}
+          </>
+        )}
+
+        <DetailCard>
+          <DetailRow>
+            <DetailLabel>Plan</DetailLabel>
+            <DetailValue>{plan.name || "Your Plan"}</DetailValue>
+          </DetailRow>
+          <DetailRow>
+            <DetailLabel>Amount Paid</DetailLabel>
+            <DetailValue>
+              ${(intent.amount / 100).toFixed(2)}{" "}
+              {(intent.currency || "usd").toUpperCase()}
+            </DetailValue>
+          </DetailRow>
+          <DetailRow>
+            <DetailLabel>Email</DetailLabel>
+            <DetailValue>{intent.receipt_email || "Not provided"}</DetailValue>
+          </DetailRow>
+          <DetailRow>
+          <DetailLabel>Order Confirmation</DetailLabel>
+            <DetailValue>{intent.id}</DetailValue>
+</DetailRow>
+          
+        </DetailCard>
+
+        {orderStatus === "ok" && (
+          <div
+            style={{
+              background: "#F0F9FF",
+              padding: "1.25rem",
+              borderRadius: "12px",
+              marginBottom: "1.5rem",
+              textAlign: "left",
+              border: "1px solid #BAE6FD",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "16px",
+                fontWeight: 600,
+                color: "#112B3C",
+                marginBottom: "0.5rem",
+                fontFamily: "Kanit",
+              }}
+            >
+              📧 What's Next?
+            </h3>
+            <p
+              style={{
+                fontSize: "14px",
+                color: "#6B7280",
+                margin: 0,
+                lineHeight: "1.6",
+                fontFamily: "Montserrat",
+              }}
+            >
+              Your eSIM QR code and installation instructions have been sent to
+              your email. Check your inbox (and spam folder) in the next few
+              minutes.
+            </p>
+          </div>
+        )}
+
+        <ButtonGroup>
+          <PrimaryButton onClick={() => router.push("/")}>
+            Browse More Plans
+          </PrimaryButton>
+          <SecondaryButton onClick={() => window.print()}>
+            Print Receipt
+          </SecondaryButton>
+        </ButtonGroup>
+      </SuccessBox>
+    </SuccessContainer>
   );
 }
