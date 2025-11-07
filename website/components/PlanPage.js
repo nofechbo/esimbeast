@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import PaymentFlow from "./PaymentFlow";
 import { getCountryName } from "@/utils/homepage/codeToCountry";
 import {
   AmountBox,
   CompatibilityLink,
+  CompatibilityTextWrapper,
+  CompatibilityUnderline,
+  CompatibilityWrapper,
   ContentWrapper,
   ContinueShoppingLink,
   DetailLabel,
@@ -13,11 +15,9 @@ import {
   MainPlanFeatures,
   PageTitle,
   PanelTitle,
-  PaymentFormWrapper,
   PlanDetails,
   PlanPageWrapper,
   Price,
-  PurchaseButton,
   QtyButton,
   QtyDisplay,
   SeoText,
@@ -29,11 +29,12 @@ import {
   TotalValue,
 } from "@/styles/planPageStyles";
 import { Divider } from "./ContentPage";
+import { useRouter } from "next/router";
 
 export default function PlanPage({ plan, slug }) {
-  const [showPayment, setShowPayment] = useState(false);
   const [qty, setQty] = useState(1);
   const [totalAmount, setTotalAmount] = useState(plan ? plan.price : 0);
+  const router = useRouter();
 
   if (!plan) {
     return <PageTitle>Plan not found.</PageTitle>;
@@ -57,6 +58,13 @@ export default function PlanPage({ plan, slug }) {
     }
   };
 
+  const handlePurchase = () => {
+    router.push({
+      pathname: "/payment/checkout",
+      query: { uniqueName: plan.uniqueName, qty },
+    });
+  };
+
   const planCoverage = plan.countryCodes.map((code) => getCountryName(code));
 
   return (
@@ -72,15 +80,26 @@ export default function PlanPage({ plan, slug }) {
           original SIM active. Have a stress-free journey with brand name.
         </SeoText>
         {/* check with client what this should link to */}
-        <CompatibilityLink href={"/info/supported-devices"}>
-          Check compatibility
-        </CompatibilityLink>
+        <CompatibilityWrapper>
+          <img
+            src="/icons/phone.svg"
+            alt="phone"
+            style={{ width: "9.862px", height: "16px", flexShrink: 0 }}
+          />
+          <CompatibilityTextWrapper>
+            <CompatibilityLink href={"/info/supported-devices"}>
+              Check compatibility
+            </CompatibilityLink>
+            <CompatibilityUnderline />
+          </CompatibilityTextWrapper>
+        </CompatibilityWrapper>
 
         <DetailsBox>
           <Price>${plan.price}</Price>
 
           <MainPlanFeatures>
-            {plan.name} • {plan.days} days • {plan.fup}
+            <span>{plan.name}</span> • <span>{plan.days} days</span> •{" "}
+            <span>{plan.fup}</span>
           </MainPlanFeatures>
 
           <PlanDetails>
@@ -106,7 +125,9 @@ export default function PlanPage({ plan, slug }) {
 
           <Divider />
 
-          <MainPlanFeatures>More details</MainPlanFeatures>
+          <MainPlanFeatures>
+            <span>More details</span>
+          </MainPlanFeatures>
 
           <PlanDetails>
             <Strong>Coverage:</Strong>
@@ -149,15 +170,9 @@ export default function PlanPage({ plan, slug }) {
           <TotalValue>${totalAmount.toFixed(2)}</TotalValue>
         </DetailRow>
 
-        {!showPayment ? (
-          <SummaryPurchaseButton onClick={() => setShowPayment(true)}>
-            Purchase
-          </SummaryPurchaseButton>
-        ) : (
-          <PaymentFormWrapper>
-            <PaymentFlow plan={plan} qty={qty} />
-          </PaymentFormWrapper>
-        )}
+        <SummaryPurchaseButton onClick={handlePurchase}>
+          Purchase
+        </SummaryPurchaseButton>
 
         <ContinueShoppingLink href="/">
           See different plans

@@ -3,18 +3,18 @@ import Link from "next/link";
 
 export const ContentWrapper = styled("div")({
   display: "flex",
-  gap: 60,
+  gap: 115,
   alignItems: "flex-start",
-  maxWidth: "1320px",  
-   margin: "0 auto",
-   padding: "40px 20px",
+  maxWidth: "1320px",
+  margin: "0 auto",
+  padding: "40px 8px",
 });
 
 export const PlanPageWrapper = styled("div")({
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "flex-start",
   paddingTop: 40,
   fontFamily: "Kanit",
   textAlign: "left",
@@ -42,6 +42,25 @@ export const SeoText = styled("p")({
   marginBottom: "10px",
 });
 
+export const CompatibilityWrapper = styled("div")({
+  display: "flex",
+  alignItems: "flex-start",
+  gap: "8px",
+  marginBottom: "30px",
+});
+
+export const CompatibilityTextWrapper = styled("div")({
+  display: "inline-block",
+});
+
+export const CompatibilityUnderline = styled("div")({
+  width: "170px",
+  height: "1px",
+  background: "#8D2DF2",
+  marginTop: "0.5px",
+  marginLeft: "-18px",
+});
+
 export const CompatibilityLink = styled(Link)({
   fontFamily: "Kanit",
   fontSize: "16px",
@@ -52,7 +71,6 @@ export const CompatibilityLink = styled(Link)({
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   display: "inline-block",
-  marginBottom: "30px",
   textDecoration: "none",
 });
 
@@ -84,11 +102,14 @@ export const MainPlanFeatures = styled("p")({
   fontWeight: 600,
   lineHeight: "36px",
   letterSpacing: "0.4px",
-  background: "linear-gradient(90deg, #8D2DF2 0%, #D946EF 40%, #FF82BA 100%)",
-  backgroundClip: "text",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
   marginBottom: "12px",
+  color: "#9B38EB",
+  "& > span": {
+    background: "linear-gradient(90deg, #8D2DF2 0%, #D946EF 40%, #FF82BA 100%)",
+    backgroundClip: "text",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
 });
 
 export const PlanDetails = styled("p")({
@@ -169,11 +190,6 @@ export const PurchaseButton = styled("button")({
   cursor: "pointer",
 });
 
-export const PaymentFormWrapper = styled("div")({
-  marginTop: "2rem",
-  width: "100%",
-});
-
 export const SummaryPanel = styled("div")({
   width: "458px",
   minHeight: "445px",
@@ -186,9 +202,9 @@ export const SummaryPanel = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: 40,
-  position: "sticky", 
-   top: 100,
-   alignSelf: "flex-start",
+  position: "sticky",
+  top: 100,
+  alignSelf: "flex-start",
 });
 
 export const PanelTitle = styled("h3")({
