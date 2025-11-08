@@ -123,7 +123,6 @@ export const CountryFlag = styled("img")({
   },
 });
 
-
 export const MainPlanFeatures = styled("p")({
   fontFamily: "Kanit",
   fontSize: "22px",

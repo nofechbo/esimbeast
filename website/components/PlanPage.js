@@ -36,6 +36,8 @@ import { Divider } from "./ContentPage";
 import { useRouter } from "next/router";
 import FlagIcons from "./common/FlagIcons";
 
+const MAX_FLAGS_DISPLAY = 12;
+
 export default function PlanPage({ plan, slug }) {
   const [qty, setQty] = useState(1);
   const [totalAmount, setTotalAmount] = useState(plan ? plan.price : 0);
@@ -108,7 +110,7 @@ export default function PlanPage({ plan, slug }) {
               <span>{plan.fup}</span>
             </MainPlanFeatures>
             <FlagIcons
-              countryCodes={plan.countryCodes}
+              countryCodes={plan.countryCodes.slice(0, MAX_FLAGS_DISPLAY)}
               Wrapper={FlagsContainer}
               Flag={CountryFlag}
             />
