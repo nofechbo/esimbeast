@@ -171,7 +171,7 @@ export function CustomDropdown({
       e.preventDefault();
       const option = filteredOptions[highlightedIndex];
       onChange(option);
-      setSearchQuery(option);
+      setSearchQuery(formatOption(option));
       setIsOpen(false);
       setHighlightedIndex(-1);
     } else if (e.key === "Escape") {
@@ -190,7 +190,7 @@ export function CustomDropdown({
             type="text"
             value={searchQuery}
             onChange={(e) => {
-              setSearchQuery(e.target.value);
+              setSearchQuery(String(e.target.value));
               if (!isOpen) setIsOpen(true);
             }}
             placeholder={placeholder}
@@ -213,7 +213,7 @@ export function CustomDropdown({
                 onClick={() => {
                   onChange(option);
                   setIsOpen(false);
-                  setSearchQuery(option);
+                  setSearchQuery(formatOption(option));
                   setHighlightedIndex(-1);
                 }}
                 style={{
