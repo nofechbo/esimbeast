@@ -1,4 +1,1 @@
-
-* success page: design!!!!
-
 * save data after purchase: credit card 4 digits 

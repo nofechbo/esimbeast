@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import NavBar from '@/components/NavBar.js';
-import Footer from '@/components/Footer.js';
 import PopularPlansCarousel from '@/components/homepage/PopularPlansCarousel';
 import styles from '@/styles/Home.module.css';
 import { fetchPopularPlans, fetchSearchOptions } from '@/utils/homepage/api';
