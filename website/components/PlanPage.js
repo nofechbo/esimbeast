@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { getCountryName } from "@/utils/homepage/codeToCountry";
 import {
@@ -8,14 +9,17 @@ import {
   CompatibilityWrapper,
   ContentWrapper,
   ContinueShoppingLink,
+  CountryFlag,
   DetailLabel,
   DetailRow,
   DetailsBox,
   DetailValue,
+  FlagsContainer,
   MainPlanFeatures,
   PageTitle,
   PanelTitle,
   PlanDetails,
+  PlanHeaderRow,
   PlanPageWrapper,
   Price,
   QtyButton,
@@ -30,6 +34,7 @@ import {
 } from "@/styles/planPageStyles";
 import { Divider } from "./ContentPage";
 import { useRouter } from "next/router";
+import FlagIcons from "./common/FlagIcons";
 
 export default function PlanPage({ plan, slug }) {
   const [qty, setQty] = useState(1);
@@ -97,10 +102,17 @@ export default function PlanPage({ plan, slug }) {
         <DetailsBox>
           <Price>${plan.price}</Price>
 
-          <MainPlanFeatures>
-            <span>{plan.name}</span> • <span>{plan.days} days</span> •{" "}
-            <span>{plan.fup}</span>
-          </MainPlanFeatures>
+          <PlanHeaderRow>
+            <MainPlanFeatures>
+              <span>{plan.name}</span> • <span>{plan.days} days</span> •{" "}
+              <span>{plan.fup}</span>
+            </MainPlanFeatures>
+            <FlagIcons
+              countryCodes={plan.countryCodes}
+              Wrapper={FlagsContainer}
+              Flag={CountryFlag}
+            />
+          </PlanHeaderRow>
 
           <PlanDetails>
             Service: <Strong>{plan.PlanType}PLACEHOLDER</Strong>, Speed:{" "}

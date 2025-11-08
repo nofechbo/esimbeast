@@ -96,6 +96,34 @@ export const Price = styled("p")({
   marginBottom: "8px",
 });
 
+export const PlanHeaderRow = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "100%",
+});
+
+export const FlagsContainer = styled("div")({
+  display: "flex",
+  justifyContent: "flex-end",
+  alignItems: "flex-end",
+  flexDirection: "row-reverse",
+  marginTop: "-12px",
+});
+
+export const CountryFlag = styled("img")({
+  width: 46,
+  height: 46,
+  borderRadius: "50%",
+  objectFit: "cover",
+  border: "2px solid #FFF",
+  marginRight: "-8px",
+  "&:first-of-type": {
+    marginLeft: 0,
+  },
+});
+
+
 export const MainPlanFeatures = styled("p")({
   fontFamily: "Kanit",
   fontSize: "22px",

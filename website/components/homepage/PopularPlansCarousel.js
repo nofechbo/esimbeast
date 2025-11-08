@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   CardGrid,
   DetailsContainer,
@@ -11,6 +12,7 @@ import {
   PriceValue,
 } from "@/styles/popularPlansStyles";
 import slugify from "@/utils/slugify";
+import FlagIcons from "../common/FlagIcons";
 
 const MAX_CARDS_ON_PAGE = 5;
 
@@ -59,17 +61,10 @@ export default function PopularPlansCarousel({
         {displayPlans.map((p, index) => (
           <PopularCard key={index} onClick={handleClick(p)}>
             <PlanName>{p.name}</PlanName>
-
-            <FlagWrapper
-              src={
-                p.countryCodes?.[0]
-                  ? `/flags/${p.countryCodes[0].toUpperCase()}.png`
-                  : "/icons/pin.svg"
-              }
-              onError={(e) => {
-                e.currentTarget.src = "/icons/pin.svg";
-              }}
-              alt={`${p.countryCodes?.[0] || "default"} flag`}
+            <FlagIcons
+              countryCodes={p.countryCodes?.slice(0, 1)}
+              Wrapper="div" // plain div, not styled — position comes from FlagWrapper itself
+              Flag={FlagWrapper}
             />
 
             <DetailsContainer>
