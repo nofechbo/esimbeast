@@ -73,7 +73,7 @@ const DropdownList = styled("div")({
   },
 });
 
-const DropdownItem = styled("div")({
+const DropdownItem = styled("div")(({ isHighlighted }) => ({
   padding: "12px 24px",
   cursor: "pointer",
   fontFamily: "Kanit",
@@ -82,11 +82,9 @@ const DropdownItem = styled("div")({
   color: "#3E484E",
   transition: "background-color 0.2s",
   letterSpacing: 0.5,
-
-  "&:hover": {
-    backgroundColor: "#F9FAFB",
-  },
-});
+  backgroundColor: isHighlighted ? "#F3E8FF" : "transparent",
+  "&:hover": { backgroundColor: "#F9FAFB" },
+}));
 
 const DropdownFlag = styled("img")({
   width: 24,
@@ -94,6 +92,20 @@ const DropdownFlag = styled("img")({
   borderRadius: "50%",
   objectFit: "cover",
   flexShrink: 0,
+});
+
+const EditableInput = styled("input")({
+  width: "100%",
+  background: "transparent",
+  border: "none",
+  outline: "none",
+  color: "#3E484E",
+  fontFamily: "Kanit",
+  fontSize: "18px",
+  fontWeight: 400,
+  "&::placeholder": {
+    color: "#A2A8AD",
+  },
 });
 
 export function CustomDropdown({
@@ -105,9 +117,10 @@ export function CustomDropdown({
   formatOption = (x) => x,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const dropdownRef = useRef(null);
-
-  const showFlag = title === "Location";
+  const itemRefs = useRef([]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -120,34 +133,96 @@ export function CustomDropdown({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const displayValue = value ? formatOption(value) : placeholder;
+  useEffect(() => {
+    if (highlightedIndex >= 0 && itemRefs.current[highlightedIndex] && isOpen) {
+      itemRefs.current[highlightedIndex].scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [highlightedIndex, isOpen]);
+
+  const isLocation = title === "Location";
+
+  const filteredOptions =
+    searchQuery.trim() === ""
+      ? options
+      : options.filter((opt) =>
+          String(opt).toLowerCase().startsWith(searchQuery.toLowerCase())
+        );
+
+  const displayValue =
+    isLocation && !value ? "" : value ? formatOption(value) : placeholder;
+
+  const handleKeyDown = (e) => {
+    if (!isOpen || filteredOptions.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev < filteredOptions.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev > 0 ? prev - 1 : filteredOptions.length - 1
+      );
+    } else if (e.key === "Enter" && highlightedIndex >= 0) {
+      e.preventDefault();
+      const option = filteredOptions[highlightedIndex];
+      onChange(option);
+      setSearchQuery(option);
+      setIsOpen(false);
+      setHighlightedIndex(-1);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      setIsOpen(false);
+      setHighlightedIndex(-1);
+    }
+  };
 
   return (
     <OptionWrapper ref={dropdownRef}>
-      <CustomSelect onClick={() => setIsOpen(!isOpen)}>
+      <CustomSelect onClick={() => setIsOpen((prev) => !prev)}>
         <div>
           <SelectTitle>{title}</SelectTitle>
-          <SelectValue hasValue={value !== ""}>{displayValue}</SelectValue>
+          <EditableInput
+            type="text"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              if (!isOpen) setIsOpen(true);
+            }}
+            placeholder={placeholder}
+            onKeyDown={handleKeyDown}
+            onFocus={() => setIsOpen(true)}
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
       </CustomSelect>
-      <DropdownMenu isOpen={isOpen}>
+      <DropdownMenu isOpen={isOpen && filteredOptions.length > 0}>
         <DropdownList>
-          {options.map((option) => {
+          {filteredOptions.map((option, index) => {
             const code = getCountryCode(option);
+            const isHighlighted = index === highlightedIndex;
             return (
               <DropdownItem
                 key={option}
+                ref={(el) => (itemRefs.current[index] = el)}
+                isHighlighted={isHighlighted}
                 onClick={() => {
                   onChange(option);
                   setIsOpen(false);
+                  setSearchQuery(option);
+                  setHighlightedIndex(-1);
                 }}
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: showFlag ? "10px" : "0",
+                  gap: isLocation ? "10px" : "0",
                 }}
               >
-                {showFlag && (
+                {isLocation && (
                   <FlagIcons
                     countryCodes={code ? [code] : []}
                     Flag={DropdownFlag}
