@@ -8,11 +8,13 @@ export function getCountryCode(countryName) {
 
 export function getCountryName(countryCode) {
   if (!countryCode) return null;
-  const country = lookup.byIso(countryCode); 
-  return country?.country || null;
+  try {
+    const country = lookup.byIso(countryCode);
+    return country?.country || null;
+  } catch (error) {
+    throw new Error(`Invalid country code "${countryCode}": ${error.message}`);
+  }
 }
-
- 
 
 // lookup.byIso("CN").country; // → "China"
 // lookup.byCountry("China").iso2; // → "CN"
