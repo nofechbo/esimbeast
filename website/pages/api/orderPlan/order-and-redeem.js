@@ -44,7 +44,7 @@ export default async function handler(req, res) {
         return res.status(405).end('Method Not Allowed');
     }
 
-    const { intentId } = req.body;
+    const { intentId, referralCode } = req.body;
     let intent;
 
     if (!intentId) {
@@ -104,6 +104,24 @@ export default async function handler(req, res) {
     /** @type {any} */
     let json;
 
+    //update referral info:
+    if (referralCode) {
+        const purchaseTime = new Date().toISOString();
+
+        console.log(
+            `@@@@[REFERRAL LOG]@@@@`,
+            {
+                referral: referralCode,
+                purchaseTime,
+                planName: plan.name,
+                planCountryCodes: plan.countryCodes,
+                planData: plan.data,
+                planPrice: plan.price,
+                currency: intent.currency,
+            }
+        );
+    }
+
     try {
         const encStr = generateEncStr({ merchantId, deptId, qrcodeType, prodList }, token);
 
@@ -140,6 +158,8 @@ export default async function handler(req, res) {
         where: { intentId },
         data: { orderId: json.orderId }
     });
+
+    // after testing - move update ref here!!!!!!!!
 
     
     return res.status(200).json({ intent });

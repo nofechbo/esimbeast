@@ -4,11 +4,16 @@ import PopularPlansCarousel from '@/components/homepage/PopularPlansCarousel';
 import styles from '@/styles/Home.module.css';
 import { fetchPopularPlans, fetchSearchOptions } from '@/utils/homepage/api';
 import SearchBox from '@/components/homepage/SearchBox';
+import { handleReferral } from '@/utils/referral';
 
 export default function Home() {
   const [popularPlans, setPopularPlans] = useState([]);
   const [searchOptions, setSearchOptions] = useState({ countries: [], dataSizes: [], durations: [] });
   const router = useRouter();
+
+  useEffect(() => {
+    handleReferral(router);
+  }, [router.isReady]);
 
   //set popular plans list
   useEffect(() => {

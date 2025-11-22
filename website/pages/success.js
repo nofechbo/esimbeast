@@ -16,8 +16,8 @@ import {
   SuccessContainer,
   SuccessIcon,
   SuccessSubtitle,
-  SuccessTitle,
 } from "@/styles/successPageStyles";
+import { clearReferralCookie, getCookie } from "@/utils/referral";
 
 export default function SuccessPage() {
   const router = useRouter();
@@ -27,6 +27,8 @@ export default function SuccessPage() {
 
   const { payment_intent, session_id } = router.query;
   const intentId = payment_intent || session_id;
+
+  const referralCode = getCookie("ref");
 
   useEffect(() => {
     if (!intentId) return;
@@ -43,6 +45,7 @@ export default function SuccessPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             intentId,
+            referralCode
           }),
         });
         const data = await res.json();
@@ -50,6 +53,7 @@ export default function SuccessPage() {
 
         if (res.ok && !data.error) {
           setOrderStatus("ok");
+          clearReferralCookie();
         } else {
           console.error(
             `order-and-redeem failed: code: ${res.status},\nerror: ${
@@ -87,10 +91,6 @@ export default function SuccessPage() {
     <SuccessContainer>
       <SuccessBox>
         <SuccessIcon>✓</SuccessIcon>
-
-        {/* <SuccessTitle>
-          Payment {intent.status === "succeeded" ? "Successful" : "Received"}!
-        </SuccessTitle> */}
 
         <SuccessSubtitle>
           Thank you for your purchase! Your eSIM order is being processed.

@@ -35,6 +35,7 @@ import {
 import { Divider } from "./ContentPage";
 import { useRouter } from "next/router";
 import FlagIcons from "./common/FlagIcons";
+import { handleReferral } from "@/utils/referral";
 
 const MAX_FLAGS_DISPLAY = 12;
 
@@ -42,16 +43,20 @@ export default function PlanPage({ plan, slug }) {
   const [qty, setQty] = useState(1);
   const [totalAmount, setTotalAmount] = useState(plan ? plan.price : 0);
   const router = useRouter();
-
-  if (!plan) {
-    return <PageTitle>Plan not found.</PageTitle>;
-  }
-
+  
+  useEffect(() => {
+    handleReferral(router);
+  }, [router.isReady]);
+  
   useEffect(() => {
     if (plan) {
       setTotalAmount(plan.price * qty);
     }
   }, [qty, plan]);
+  
+  if (!plan) {
+    return <PageTitle>Plan not found.</PageTitle>;
+  }
 
   const incrementQty = () => {
     if (qty < 30) {
