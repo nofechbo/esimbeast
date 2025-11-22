@@ -1,4 +1,4 @@
-import { getAllPlans, getPlanByuniqueName } from "@/lib/db/plans";
+import { getPlanByuniqueName } from "@/lib/db/plans";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         }
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: purchasedPlan.price * 100 * qty, // stripe expects price in cents
+            amount: Math.round(purchasedPlan.price * 100) * qty, // stripe expects price in cents
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
             receipt_email: email,

@@ -16,86 +16,44 @@ import {
   SuccessContainer,
   SuccessIcon,
   SuccessSubtitle,
-  SuccessTitle,
 } from "@/styles/successPageStyles";
+import { clearReferralCookie, getCookie } from "@/utils/referral";
 
 export default function SuccessPage() {
   const router = useRouter();
   const [plan, setPlan] = useState(null);
   const [intent, setIntent] = useState(null);
-  const [metadata, setMetadata] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [planLoading, setPlanLoading] = useState(true);
   const [orderStatus, setOrderStatus] = useState(null); // 'pending' | 'ok' | 'error'
+
   const { payment_intent, session_id } = router.query;
   const intentId = payment_intent || session_id;
+
+  const referralCode = getCookie("ref");
 
   useEffect(() => {
     if (!intentId) return;
 
-    const fetchIntent = async () => {
-      try {
-        const res = await fetch(
-          `/api/payment/get-payment-intent?payment_intent=${intentId}`
-        );
-        const data = await res.json();
-
-        if (res.ok && data) {
-          setIntent(data);
-          setMetadata(data.metadata || null);
-        } else console.error("API returned error:", data);
-      } catch (err) {
-        console.error("Failed to load payment intent:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchIntent();
-  }, [intentId]);
-
-  useEffect(() => {
-    if (!metadata?.uniqueName) return;
-
-    const fetchPlan = async () => {
-      setPlanLoading(true);
-      try {
-        const plan = await fetchPlanByUniqueName(intent.metadata.uniqueName);
-        setPlan(plan);
-      } catch (err) {
-        console.error("Failed to load plan data:", err);
-        setPlan(null);
-      } finally {
-        setPlanLoading(false);
-      }
-    };
-
-    fetchPlan();
-  }, [metadata?.uniqueName]);
-
-  useEffect(() => {
-    if (!intent || intent.status !== "succeeded") return;
-    if (!intent.metadata?.uniqueName || !intent.metadata?.qty) return;
-
-    const key = `ordered:${intent.id}`;
+    const key = `ordered:${intentId}`;
     if (sessionStorage.getItem(key)) return; // prevent duplicate redeems!
 
     const orderPlan = async () => {
       try {
+        sessionStorage.setItem(key, "1");
         setOrderStatus("pending");
         const res = await fetch("/api/orderPlan/order-and-redeem", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            email: intent.receipt_email,
-            metadata,
+            intentId,
+            referralCode
           }),
         });
         const data = await res.json();
+        setIntent(data.intent);
 
         if (res.ok && !data.error) {
-          sessionStorage.setItem(key, "1");
           setOrderStatus("ok");
+          clearReferralCookie();
         } else {
           console.error(
             `order-and-redeem failed: code: ${res.status},\nerror: ${
@@ -110,29 +68,35 @@ export default function SuccessPage() {
       }
     };
     orderPlan();
-  }, [intent, metadata]);
+  }, [intentId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!intent) return <p>Could not load payment info.</p>;
-  if (planLoading) return <p>Loading plan details...</p>;
-  if (!plan) return <p>Could not load plan details.</p>;
+  useEffect(() => {
+    if (!intent?.metadata?.uniqueName) return;
+
+    const fetchPlan = async () => {
+      try {
+        const plan = await fetchPlanByUniqueName(intent.metadata.uniqueName);
+        console.log('plan', plan)
+        setPlan(plan);
+      } catch (err) {
+        console.error("Failed to load plan data:", err);
+        setPlan(null);
+      }
+    };
+
+    fetchPlan();
+  }, [intent]);
 
   return (
     <SuccessContainer>
       <SuccessBox>
         <SuccessIcon>✓</SuccessIcon>
 
-        <SuccessTitle>
-          Payment {intent.status === "succeeded" ? "Successful" : "Received"}!
-        </SuccessTitle>
-
         <SuccessSubtitle>
-          {intent.status === "succeeded"
-            ? "Thank you for your purchase! Your eSIM order is being processed."
-            : "We've received your payment and will process your order shortly."}
+          Thank you for your purchase! Your eSIM order is being processed.
         </SuccessSubtitle>
 
-        {intent.status === "succeeded" && orderStatus && (
+        {orderStatus && (
           <>
             {orderStatus === "pending" && (
               <StatusBadgePending>
@@ -146,34 +110,36 @@ export default function SuccessPage() {
             )}
             {orderStatus === "error" && (
               <StatusBadgeError>
-                ⚠️ Order pending - we'll process it shortly
+                ⚠️ Error processing your order - please contact us
               </StatusBadgeError>
             )}
           </>
         )}
-
-        <DetailCard>
-          <DetailRow>
-            <DetailLabel>Plan</DetailLabel>
-            <DetailValue>{plan.name || "Your Plan"}</DetailValue>
-          </DetailRow>
-          <DetailRow>
-            <DetailLabel>Amount Paid</DetailLabel>
-            <DetailValue>
-              ${(intent.amount / 100).toFixed(2)}{" "}
-              {(intent.currency || "usd").toUpperCase()}
-            </DetailValue>
-          </DetailRow>
-          <DetailRow>
-            <DetailLabel>Email</DetailLabel>
-            <DetailValue>{intent.receipt_email || "Not provided"}</DetailValue>
-          </DetailRow>
-          <DetailRow>
-          <DetailLabel>Order Confirmation</DetailLabel>
-            <DetailValue>{intent.id}</DetailValue>
-</DetailRow>
-          
-        </DetailCard>
+        {intent && plan && (
+          <DetailCard>
+            <DetailRow>
+              <DetailLabel>Plan</DetailLabel>
+              <DetailValue>{plan?.name || "Your Plan"}</DetailValue>
+            </DetailRow>
+            <DetailRow>
+              <DetailLabel>Amount Paid</DetailLabel>
+              <DetailValue>
+                ${(intent.amount / 100).toFixed(2)}{" "}
+                {intent.currency.toUpperCase()}
+              </DetailValue>
+            </DetailRow>
+            <DetailRow>
+              <DetailLabel>Email</DetailLabel>
+              <DetailValue>
+                {intent.receipt_email || "Not provided"}
+              </DetailValue>
+            </DetailRow>
+            <DetailRow>
+              <DetailLabel>Order Confirmation</DetailLabel>
+              <DetailValue>{intent.id}</DetailValue>
+            </DetailRow>
+          </DetailCard>
+        )}
 
         {orderStatus === "ok" && (
           <div

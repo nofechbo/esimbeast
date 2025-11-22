@@ -10,7 +10,8 @@ datasource db {
 
 model PlanOrder {
   id           Int      @id @default(autoincrement())
-  orderId      String
+  intentId     String
+  orderId      String? //will be null until after successful payment
   email        String
   orderTime    DateTime
   qrLink       String?
@@ -23,6 +24,7 @@ model PlanOrder {
   productName  String
   rcode        String?
 
+  @@index([intentId])
   @@index([orderId])
 }
 
