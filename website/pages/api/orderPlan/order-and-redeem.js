@@ -1,5 +1,6 @@
 import { getPlanByuniqueName } from '@/lib/db/plans';
 import { prisma } from '@/lib/db/prisma';
+import { appendReferralRow } from '@/lib/googleSheets';
 import { isValidMetadata } from '@/lib/VerifyMetadata';
 import { generateEncStr } from '@/utils/generateEncStr';
 import 'dotenv/config';
@@ -106,20 +107,24 @@ export default async function handler(req, res) {
 
     //update referral info:
     if (referralCode) {
-        const purchaseTime = new Date().toISOString();
-
-        console.log(
-            `@@@@[REFERRAL LOG]@@@@`,
-            {
-                referral: referralCode,
-                purchaseTime,
-                planName: plan.name,
-                planCountryCodes: plan.countryCodes,
-                planData: plan.data,
-                planPrice: plan.price,
-                currency: intent.currency,
-            }
-        );
+        const referralData = {
+            referralCode,
+            timestamp: new Date().toISOString(),
+            planName: plan.name,
+            countryCodes: plan.countryCodes.join(", "),
+            data: plan.data,
+            price: plan.price,
+            currency: intent.currency,
+            email
+        }
+        
+        try {
+            await appendReferralRow(referralData);
+            
+            console.log("Referral row appended to Google Sheet", referralData);
+        } catch (err) {
+            console.error('Failed to append referral row to Google Sheets:', err, 'data:', referralData);
+        }
     }
 
     try {
