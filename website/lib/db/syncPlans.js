@@ -143,7 +143,7 @@ function transformCsvDataToPlan(planCsvData) {
       networks: parseStringList(planCsvData.networks),
       networkSpeed: planCsvData.networkSpeed || null,
       apn: planCsvData.apn || null,
-      hotspot: planCsvData.hotspot || null,
+      hotspot: Boolean(planCsvData.hotspot) || null,
       activation: planCsvData.activation || null,
       delivery: planCsvData.delivery || null,
       seoText: planCsvData.seoText || null,

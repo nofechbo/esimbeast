@@ -45,7 +45,7 @@ model Plan {
   networks     String[]
   networkSpeed String?
   apn          String?
-  hotspot      String?
+  hotspot      Boolean?
   activation   String?
   delivery     String?
   seoText      String? //"Your Plan Summary" in sheets

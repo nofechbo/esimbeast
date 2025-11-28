@@ -12,7 +12,7 @@ export const planValues = {
   price: "Sell Price",
   isReloadable: "Reloadable",
   reducedSpeed: "reduced speed",
-  hotspot: "Hostpot",
+  hotspot: "Hotspot",
   activation: "Activation",
   delivery: "Delivery",
   seoText: "Your Plan Summary",

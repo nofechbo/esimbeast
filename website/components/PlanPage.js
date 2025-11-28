@@ -43,17 +43,20 @@ export default function PlanPage({ plan, slug }) {
   const [qty, setQty] = useState(1);
   const [totalAmount, setTotalAmount] = useState(plan ? plan.price : 0);
   const router = useRouter();
-  
+
+  const { code, days, data } = router.query;
+  const country = code ? getCountryName(code) : null;
+
   useEffect(() => {
     handleReferral(router);
   }, [router.isReady]);
-  
+
   useEffect(() => {
     if (plan) {
       setTotalAmount(plan.price * qty);
     }
   }, [qty, plan]);
-  
+
   if (!plan) {
     return <PageTitle>Plan not found.</PageTitle>;
   }
@@ -78,6 +81,10 @@ export default function PlanPage({ plan, slug }) {
   };
 
   const planCoverage = plan.countryCodes.map((code) => getCountryName(code));
+  
+  const formatDataSize = (d) => d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
+  const displayDataNumber = data ? Number(data) : plan.data;
+  const displayDataText = formatDataSize(displayDataNumber);
 
   return (
     <ContentWrapper>
@@ -111,25 +118,28 @@ export default function PlanPage({ plan, slug }) {
 
           <PlanHeaderRow>
             <MainPlanFeatures>
-              <span>{plan.name}</span> • <span>{plan.days} days</span> •{" "}
-              <span>{plan.fup}</span>
+              <span>{country ?? plan.name}</span> •{" "}
+              <span>{days ?? plan.days} days</span> •{" "}
+              <span>{displayDataText}</span>
             </MainPlanFeatures>
             <FlagIcons
-              countryCodes={plan.countryCodes.slice(0, MAX_FLAGS_DISPLAY)}
+              countryCodes={
+                code ? [code] : plan.countryCodes.slice(0, MAX_FLAGS_DISPLAY)
+              }
               Wrapper={FlagsContainer}
               Flag={CountryFlag}
             />
           </PlanHeaderRow>
 
           <PlanDetails>
-            Service: <Strong>{plan.PlanType}PLACEHOLDER</Strong>, Speed:{" "}
-            <Strong>{plan.NetworkSpeed}PLACEHOLDER</Strong>, Network:{" "}
-            <Strong>{plan.Networks}PLACEHOLDER</Strong>, Hotspot:{" "}
-            <Strong>{plan.HotSpot ? "Yes" : "No"}</Strong>, Local number:{" "}
-            <Strong>{plan.LocalNumber ? "Yes" : "No"}</Strong>, Activation:{" "}
-            <Strong>{plan.Activation}PLACEHOLDER</Strong>, eKYC (ID
-            verification): <Strong>{plan.eKYC ? "" : "Not "}Required</Strong>,
-            Delivery: <Strong>{plan.Delivery}PLACEHOLDER; 24/7 support.</Strong>
+            Service: <Strong>{plan.planType}</Strong>, Speed:{" "}
+            <Strong>{plan.networkSpeed}</Strong>, Network:{" "}
+            <Strong>{plan.networks.join(", ")}</Strong>, Hotspot:{" "}
+            <Strong>{plan.hotSpot ? "Yes" : "No"}</Strong>, Local number:{" "}
+            <Strong>{plan.localNumber ? "Yes" : "No"}</Strong>, Activation:{" "}
+            <Strong>{plan.activation}</Strong>, eKYC (ID verification):{" "}
+            <Strong>{plan.eKYC ? "" : "Not "}Required</Strong>, Delivery:{" "}
+            <Strong>{plan.delivery}; 24/7 support.</Strong>
           </PlanDetails>
 
           <AmountBox>

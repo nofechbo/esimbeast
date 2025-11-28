@@ -148,7 +148,7 @@ export function CustomDropdown({
     searchQuery.trim() === ""
       ? options
       : options.filter((opt) =>
-          String(opt).toLowerCase().startsWith(searchQuery.toLowerCase())
+          formatOption(opt).toLowerCase().startsWith(searchQuery.toLowerCase())
         );
 
   const displayValue =
@@ -170,7 +170,7 @@ export function CustomDropdown({
     } else if (e.key === "Enter" && highlightedIndex >= 0) {
       e.preventDefault();
       const option = filteredOptions[highlightedIndex];
-      onChange(option);
+      onChange(String(option));
       setSearchQuery(formatOption(option));
       setIsOpen(false);
       setHighlightedIndex(-1);
@@ -190,7 +190,7 @@ export function CustomDropdown({
             type="text"
             value={searchQuery}
             onChange={(e) => {
-              setSearchQuery(String(e.target.value));
+              setSearchQuery(e.target.value);
               if (!isOpen) setIsOpen(true);
             }}
             placeholder={placeholder}
@@ -211,7 +211,7 @@ export function CustomDropdown({
                 ref={(el) => (itemRefs.current[index] = el)}
                 isHighlighted={isHighlighted}
                 onClick={() => {
-                  onChange(option);
+                  onChange(String(option));
                   setIsOpen(false);
                   setSearchQuery(formatOption(option));
                   setHighlightedIndex(-1);
