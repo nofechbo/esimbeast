@@ -1,5 +1,5 @@
 import slugify from "@/utils/formaters";
-import { getAllPlans } from "@/lib/db/plans";
+import { getAllPlans, getPlanByuniqueName } from "@/lib/db/plans";
 import PlanPage from "@/components/PlanPage";
 
 export async function getStaticPaths() {
@@ -17,12 +17,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
-  const plans = await getAllPlans();
-
-  const plan = plans.find((p) => {
-    const slugified = slugify(p.uniqueName);
-    return slugified === slug;
-  });
+  const plan = await getPlanByuniqueName(slug);
 
   return {
     props: {
