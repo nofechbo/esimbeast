@@ -3,7 +3,7 @@ import { getAllPlans, getPlanByuniqueName } from "@/lib/db/plans";
 import PlanPage from "@/components/PlanPage";
 
 export async function getStaticPaths() {
-  const plans = (await getAllPlans()).slice(0, 20);
+  const plans = (await getAllPlans()).slice(0, 200);
   const paths = [];
 
   for (const plan of plans) {
