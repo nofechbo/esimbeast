@@ -5,7 +5,6 @@ import PlanPage from "@/components/PlanPage";
 export async function getStaticPaths() {
   const allPlans = await getAllPlans();
   const plans = allPlans.slice(0, 100);
-  console.log("300 plan is:", allPlans[299].uniqueName);
   const paths = [];
 
   for (const plan of plans) {
@@ -13,7 +12,6 @@ export async function getStaticPaths() {
     paths.push({ params: { slug } });
   }
 
-  console.log("paths:", paths);
   return { paths, fallback: "blocking" };
 }
 

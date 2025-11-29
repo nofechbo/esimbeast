@@ -19,7 +19,7 @@ import { formatDataSize, formatDuration } from "@/utils/formaters";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { uniqueName, qty } = router.query;
+  const { uniqueName, qty, days, data } = router.query;
   const [plan, setPlan] = useState(null);
 
   useEffect(() => {
@@ -32,13 +32,17 @@ export default function CheckoutPage() {
   const quantity = Number(qty);
   const total = plan.price * quantity;
 
+  // Use query params if available, otherwise fall back to plan defaults
+  const displayDataNumber = data ? Number(data) : plan.data;
+  const displayDays = days ? Number(days) : plan.days;
+
   return (
     <ContentWrapper>
       <PlanPageWrapper>
         <PageTitle>Confirm and pay</PageTitle>
 
         {plan ? (
-          <PaymentFlow plan={plan} qty={quantity} />
+          <PaymentFlow plan={plan} qty={quantity} days={displayDays} data={displayDataNumber} />
         ) : (
           <p>Loading payment form…</p>
         )}
@@ -51,19 +55,19 @@ export default function CheckoutPage() {
           <>
             <DetailRow>
               <DetailLabel>Plan size</DetailLabel>
-              <DetailValue>{formatDataSize(plan.data)}</DetailValue>
+              <DetailValue>{formatDataSize(displayDataNumber)}</DetailValue>
             </DetailRow>
 
             <DetailRow>
               <DetailLabel>Period</DetailLabel>
-              <DetailValue>{formatDuration(plan.days)}</DetailValue>
+              <DetailValue>{formatDuration(displayDays)}</DetailValue>
             </DetailRow>
 
             <SummaryDivider />
 
             <DetailRow>
               <TotalLabel>Total price</TotalLabel>
-              <TotalValue>${total.toFixed(2)}</TotalValue>
+              <TotalValue>${(total / 100).toFixed(2)}</TotalValue>
             </DetailRow>
           </>
         ) : (

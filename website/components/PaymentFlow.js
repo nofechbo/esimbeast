@@ -115,7 +115,7 @@ function CheckoutForm({ isVerified }) {
   );
 }
 
-export default function PaymentFlow({ plan, qty }) {
+export default function PaymentFlow({ plan, qty, days, data }) {
   const [info, setInfo] = useState("");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -163,14 +163,14 @@ export default function PaymentFlow({ plan, qty }) {
       }),
     });
     /** @type {any} */
-    const data = await response.json();
+    const responseData = await response.json();
     if (response.ok) {
       setError("");
     } else {
       setError("Unable to send verification code");
       setVerificationSuccess("");
       setInfo("");
-      console.error(`error sending email: ${data.error}`);
+      console.error(`error sending email: ${responseData.error}`);
     }
   };
 
@@ -192,7 +192,7 @@ export default function PaymentFlow({ plan, qty }) {
       }),
     });
     /** @type {any} */
-    const data = await response.json();
+    const responseData = await response.json();
     if (response.ok) {
       setIsVerified(true);
       setError("");
@@ -205,35 +205,45 @@ export default function PaymentFlow({ plan, qty }) {
     } else {
       setError(
         `Unable to verify code: ${
-          data.error || "Invalid or expired verification code"
+          responseData.error || "Invalid or expired verification code"
         }`
       );
       setVerificationSuccess("");
       setInfo("");
-      console.error(data.error);
+      console.error(responseData.error);
     }
   };
 
   const createPaymentIntent = async (emailToUse) => {
+    const requestBody = {
+      uniqueName: plan.uniqueName,
+      qty,
+      email: emailToUse || email,
+    };
+
+    // Include custom days and data if provided
+    if (days !== undefined && days !== plan.days) {
+      requestBody.days = days;
+    }
+    if (data !== undefined && data !== plan.data) {
+      requestBody.data = data;
+    }
+
     const response = await fetch("/api/payment/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        uniqueName: plan.uniqueName,
-        qty,
-        email: emailToUse || email,
-      }),
+      body: JSON.stringify(requestBody),
     });
     /** @type {any} */
-    const data = await response.json();
+    const responseData = await response.json();
     if (response.ok) {
-      setClientSecret(data.clientSecret);
+      setClientSecret(responseData.clientSecret);
       setError("");
     } else {
       setError("unable to create payment intent");
-      console.error(data.error);
+      console.error(responseData.error);
     }
   };
 

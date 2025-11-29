@@ -85,7 +85,7 @@ export default function PopularPlansCarousel({
               <DetailsText> {formatData(p.data)} </DetailsText>
             </DetailsContainer>
 
-            <PriceValue>${p.price}</PriceValue>
+            <PriceValue>${(p.price / 100).toFixed(2)}</PriceValue>
           </PopularCard>
         ))}
       </CardGrid>

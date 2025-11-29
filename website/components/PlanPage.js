@@ -62,6 +62,10 @@ export default function PlanPage({ plan, slug }) {
     return <PageTitle>Plan not found.</PageTitle>;
   }
 
+  // Convert query params to numbers for consistency
+  const displayDays = days ? Number(days) : plan.days;
+  const displayDataNumber = data ? Number(data) : plan.data;
+
   const incrementQty = () => {
     if (qty < 30) {
       setQty(qty + 1);
@@ -75,15 +79,19 @@ export default function PlanPage({ plan, slug }) {
   };
 
   const handlePurchase = () => {
+    const queryParams = { uniqueName: plan.uniqueName, qty };
+
+    // Forward days and data query params if they differ from plan defaults
+    if (displayDays !== plan.days) queryParams.days = displayDays;
+    if (displayDataNumber !== plan.data) queryParams.data = displayDataNumber;
+
     router.push({
       pathname: "/payment/checkout",
-      query: { uniqueName: plan.uniqueName, qty },
+      query: queryParams,
     });
   };
 
   const planCoverage = plan.countryCodes.map((code) => getCountryName(code));
-  
-  const displayDataNumber = data ? Number(data) : plan.data;
   const displayDataText = formatDataSize(displayDataNumber);
 
   return (
@@ -114,12 +122,12 @@ export default function PlanPage({ plan, slug }) {
         </CompatibilityWrapper>
 
         <DetailsBox>
-          <Price>${plan.price}</Price>
+          <Price>${(plan.price / 100).toFixed(2)}</Price>
 
           <PlanHeaderRow>
             <MainPlanFeatures>
               <span>{country ?? plan.name}</span> •{" "}
-              <span>{formatDuration(days ?? plan.days)}</span> •{" "}
+              <span>{formatDuration(displayDays)}</span> •{" "}
               <span>{displayDataText}</span>
             </MainPlanFeatures>
             <FlagIcons
@@ -184,19 +192,19 @@ export default function PlanPage({ plan, slug }) {
 
         <DetailRow>
           <DetailLabel>Period</DetailLabel>
-          <DetailValue>{plan.days} days</DetailValue>
+          <DetailValue>{formatDuration(displayDays)}</DetailValue>
         </DetailRow>
 
         <DetailRow>
           <DetailLabel>Plan size</DetailLabel>
-          <DetailValue>{plan.fup}</DetailValue>
+          <DetailValue>{displayDataText}</DetailValue>
         </DetailRow>
 
         <SummaryDivider />
 
         <DetailRow>
           <TotalLabel>Total price</TotalLabel>
-          <TotalValue>${totalAmount.toFixed(2)}</TotalValue>
+          <TotalValue>${(totalAmount / 100).toFixed(2)}</TotalValue>
         </DetailRow>
 
         <SummaryPurchaseButton onClick={handlePurchase}>

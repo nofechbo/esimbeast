@@ -16,7 +16,7 @@ model PlanOrder {
   orderTime    DateTime
   qrLink       String?
   lpa          String?
-  price        Decimal
+  price        Int // stored in cents
   countryCodes String[]
   data         Decimal
   duration     Int
@@ -39,7 +39,7 @@ model Plan {
   data         Decimal // data in GB
   dailyDataCap String? // string as it can say "max"
   reducedSpeed Int
-  price        Decimal //make sure it's 'Sell Price', and not 'cost'!
+  price        Int // stored in cents (e.g., 2499 = $24.99)
   reloadable   Boolean
   countryCodes String[]
   networks     String[]

@@ -105,6 +105,20 @@ function parseReducedSpeed(speedString) {
   return Math.round(parsed.value);
 }
 
+function cleanPlanName(name) {
+  if (!name || typeof name !== "string") {
+    return name;
+  }
+
+  return name
+    .replace(/【[^】]*】/g, "") // Remove fullwidth corner brackets
+    .replace(/\[[^\]]*\]/g, "") // Remove square brackets
+    .replace(/\([^)]*\)/g, "") // Remove parentheses
+    .replace(/\{[^}]*\}/g, "") // Remove curly braces
+    .replace(/「[^」]*」/g, "") // Remove Japanese quotes
+    .trim();
+}
+
 function createSlug(text) {
   if (!text || typeof text !== "string") {
     return "";
@@ -130,14 +144,14 @@ function transformCsvDataToPlan(planCsvData) {
     const planData = {
       productId: planCsvData.productId,
       code: planCsvData.code,
-      name: planCsvData.name,
+      name: cleanPlanName(planCsvData.name),
       days: parseInt(planCsvData.validity),
       limited: dataValue.greaterThan(0),
       fup: planCsvData.dataCap,
       data: dataValue,
       dailyDataCap: planCsvData.dailyDataCap || null,
       reducedSpeed: parseReducedSpeed(planCsvData.reducedSpeed),
-      price: new Decimal(planCsvData.price).div(100), // convert cents to dollars
+      price: parseInt(planCsvData.price), // stored in cents
       reloadable: Boolean(planCsvData.isReloadable),
       countryCodes: parseCountryCodes(planCsvData.countryCodes),
       networks: parseStringList(planCsvData.networks),
@@ -188,9 +202,41 @@ export async function syncPlansFromCSV() {
     );
   }
 
-  // Mark first 5 CSV entries as popular (true), others as not popular (false)
-  validCsvData.forEach((row, i) => {
-    row.isPopular = i < 5;
+  // Mark as popular any plan that matches one of the target
+  // locations and has the specified data size and days.
+  // Targets: name in [Taiwan, Australia, USA], data = 10 (GB), days = 7
+  const targetLocations = new Set([
+    "Taiwan",
+    "Australia",
+    "UAE - United Arab Emirates",
+    "South Korea",
+  ]);
+  const targetDataGb = new Decimal(10);
+  const targetDays = 7;
+
+  // Reset all to not popular first
+  validCsvData.forEach((row) => {
+    row.isPopular = false;
+  });
+
+  // Mark matching rows as popular
+  validCsvData.forEach((row) => {
+    try {
+      const name = cleanPlanName(row.name);
+      const days = parseInt(row.validity, 10);
+      const dataVal = parseDataValue(row.dataCap);
+
+      if (
+        targetLocations.has(name) &&
+        (days === targetDays || days === 30) &&
+        dataVal.equals(targetDataGb)
+      ) {
+        row.isPopular = true;
+      }
+    } catch (e) {
+      // If parsing fails, leave as not popular and continue
+      console.warn(`Error evaluating popularity for row: ${e.message}`);
+    }
   });
 
   // Transform data
