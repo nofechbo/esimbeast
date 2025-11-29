@@ -1,4 +1,4 @@
-import slugify from "@/utils/slugify";
+import slugify from "@/utils/formaters";
 import { getAllPlans } from "@/lib/db/plans";
 import PlanPage from "@/components/PlanPage";
 

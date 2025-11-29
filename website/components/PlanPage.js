@@ -36,6 +36,7 @@ import { Divider } from "./ContentPage";
 import { useRouter } from "next/router";
 import FlagIcons from "./common/FlagIcons";
 import { handleReferral } from "@/utils/referral";
+import { formatDataSize, formatDuration } from "@/utils/formaters";
 
 const MAX_FLAGS_DISPLAY = 12;
 
@@ -82,7 +83,6 @@ export default function PlanPage({ plan, slug }) {
 
   const planCoverage = plan.countryCodes.map((code) => getCountryName(code));
   
-  const formatDataSize = (d) => d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
   const displayDataNumber = data ? Number(data) : plan.data;
   const displayDataText = formatDataSize(displayDataNumber);
 
@@ -119,7 +119,7 @@ export default function PlanPage({ plan, slug }) {
           <PlanHeaderRow>
             <MainPlanFeatures>
               <span>{country ?? plan.name}</span> •{" "}
-              <span>{days ?? plan.days} days</span> •{" "}
+              <span>{formatDuration(days ?? plan.days)}</span> •{" "}
               <span>{displayDataText}</span>
             </MainPlanFeatures>
             <FlagIcons
@@ -184,12 +184,12 @@ export default function PlanPage({ plan, slug }) {
 
         <DetailRow>
           <DetailLabel>Period</DetailLabel>
-          <DetailValue>{plan.fup}</DetailValue>
+          <DetailValue>{plan.days} days</DetailValue>
         </DetailRow>
 
         <DetailRow>
           <DetailLabel>Plan size</DetailLabel>
-          <DetailValue>{plan.days} days</DetailValue>
+          <DetailValue>{plan.fup}</DetailValue>
         </DetailRow>
 
         <SummaryDivider />

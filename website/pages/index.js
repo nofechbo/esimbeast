@@ -5,6 +5,7 @@ import styles from '@/styles/Home.module.css';
 import { fetchPopularPlans, fetchSearchOptions } from '@/utils/homepage/api';
 import SearchBox from '@/components/homepage/SearchBox';
 import { handleReferral } from '@/utils/referral';
+import { formatDataSize, formatDuration } from '@/utils/formaters';
 
 export default function Home() {
   const [popularPlans, setPopularPlans] = useState([]);
@@ -35,9 +36,6 @@ export default function Home() {
     };
     getSearchOptions();
   }, []);
-
-  const formatDataSize = (d) => d === 0 ? "Unlimited" : d < 1 ? `${d * 1000} MB` : `${d} GB`;
-  const formatDuration = (d) => `${d} ${d === 1 ? "day" : "days"}`;
 
   return (
     <div className={`relative w-full ${styles.pageContainer}`}> 

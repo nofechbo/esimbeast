@@ -2,6 +2,7 @@ import { getPlanByuniqueName } from '@/lib/db/plans';
 import { prisma } from '@/lib/db/prisma';
 import { appendReferralRow } from '@/lib/googleSheets';
 import { isValidMetadata } from '@/lib/VerifyMetadata';
+import { formatDataSize } from '@/utils/formaters';
 import { generateEncStr } from '@/utils/generateEncStr';
 import 'dotenv/config';
 import https from 'https';
@@ -109,10 +110,10 @@ export default async function handler(req, res) {
     if (referralCode) {
         const referralData = {
             referralCode,
-            timestamp: new Date().toISOString(),
+            timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
             planName: plan.name,
             countryCodes: plan.countryCodes.join(", "),
-            data: plan.data,
+            data: formatDataSize(plan.data),
             price: plan.price,
             currency: intent.currency,
             email

@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 export default function FlagIcons({
   countryCodes = [],
   Wrapper = "div",

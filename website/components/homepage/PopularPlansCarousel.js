@@ -11,7 +11,7 @@ import {
   PopularTitle,
   PriceValue,
 } from "@/styles/popularPlansStyles";
-import slugify from "@/utils/slugify";
+import slugify from "@/utils/formaters";
 import FlagIcons from "../common/FlagIcons";
 
 const MAX_CARDS_ON_PAGE = 5;
