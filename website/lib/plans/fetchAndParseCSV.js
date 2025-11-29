@@ -1,9 +1,10 @@
 import { parse } from "csv-parse/sync";
 import { planValues } from "../../utils/planHeaders.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-// const sheetId = "19FMgoB6l9znMsI4F5fzW7zR8vxfej_5YLM7YTx1r3nw";
-const sheetId = "1a3_j6lfSQflsEPqEI2_TlWqJN5la_Fy_4DRUlBOjxTk"; // real sheet
-// const sheetId = "1gYn3DuZLtY22EK2RN-iHaFOnxBU4lTQVh6Oe26O6jJg"; //test sheet
+const sheetId = process.env.DB_SHEET_ID;
+console.log("Using sheet ID:", sheetId);
 const SHEET_URL = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
 
 const parseCSV = (text) => {

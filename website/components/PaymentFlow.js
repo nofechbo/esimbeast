@@ -253,64 +253,67 @@ export default function PaymentFlow({ plan, qty }) {
 
   return (
     <PaymentWrapper>
-      <h2>Complete your purchase:</h2>
       {/* 🔹 CHANGED: hide email verification UI if IS_RENDER */}
       {!IS_RENDER && (
         <EmailVerification>
-    <div>
-      <label style={{ 
-        display: "block", 
-        marginBottom: "0.5rem", 
-        fontFamily: "Kanit", 
-        fontSize: "14px",
-        fontWeight: 600,
-        color: "#374151"
-      }}>
-        Email address
-      </label>
-      <VerificationInput>
-        <input
-          type="email"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && onSendCode()}
-        />
-            <VerificationButton onClick={onSendCode}>
-          Send verification code
-        </VerificationButton>
-      </VerificationInput>
-    </div>
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontFamily: "Kanit",
+                fontSize: "14px",
+                fontWeight: 600,
+                color: "#374151",
+              }}
+            >
+              Email address
+            </label>
+            <VerificationInput>
+              <input
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && onSendCode()}
+              />
+              <VerificationButton onClick={onSendCode}>
+                Send verification code
+              </VerificationButton>
+            </VerificationInput>
+          </div>
 
           {info && !isVerified && <Info>{info}</Info>}
 
           <div>
-      <label style={{ 
-        display: "block", 
-        marginBottom: "0.5rem", 
-        fontFamily: "Kanit", 
-        fontSize: "14px",
-        fontWeight: 600,
-        color: "#374151"
-      }}>
-        Verification code
-      </label>
-      <VerificationInput>
-            <input
-              ref={codeInputRef}
-              type="text"
-              placeholder="verification code"
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              onKeyDown={(e) =>
-                e.key === "Enter" && code.trim().length > 0 && onVerifyCode()
-              }
-            />
-            <VerificationButton onClick={onVerifyCode}>
-              Verify email
-            </VerificationButton>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontFamily: "Kanit",
+                fontSize: "14px",
+                fontWeight: 600,
+                color: "#374151",
+              }}
+            >
+              Verification code
+            </label>
+            <VerificationInput>
+              <input
+                ref={codeInputRef}
+                type="text"
+                placeholder="verification code"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && code.trim().length > 0 && onVerifyCode()
+                }
+              />
+              <VerificationButton onClick={onVerifyCode}>
+                Verify email
+              </VerificationButton>
             </VerificationInput>
-            </div>
+          </div>
         </EmailVerification>
       )}{" "}
       {/* end of IS_RENDER check */}

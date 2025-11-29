@@ -153,6 +153,7 @@ export default async function handler(req, res) {
             countryCodes: plan.countryCodes.join(", "),
             data: formatDataSize(plan.data),
             price: plan.price,
+            qty,
             currency: intent.currency,
             email
         }

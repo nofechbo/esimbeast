@@ -7,17 +7,17 @@ export const PaymentWrapper = styled("div")({
   fontFamily: "Kanit",
   textAlign: "left",
   color: "#112B3C",
-  
+
   h2: {
     textAlign: "center",
     fontSize: "32px",
     fontWeight: 700,
     marginBottom: "2rem",
-  }
+  },
 });
 
 export const EmailVerification = styled("div")({
-    width: '450px',
+  width: "450px",
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
@@ -36,7 +36,7 @@ export const VerificationInput = styled("div")({
 
   input: {
     width: "100%",
-    padding: "16px 20px",
+    padding: "12px 20px",
     fontSize: "16px",
     fontFamily: "Montserrat",
     border: "1px solid #D4D4D4",
@@ -51,7 +51,7 @@ export const VerificationInput = styled("div")({
     },
     "&::placeholder": {
       color: "#9CA3AF",
-    }
+    },
   },
 });
 
@@ -68,13 +68,13 @@ export const VerificationButton = styled("button")({
   borderRadius: "12px",
   cursor: "pointer",
   transition: "all 0.2s",
-  "&:hover": { 
+  "&:hover": {
     transform: "translateY(-1px)",
     boxShadow: "0 6px 20px rgba(141,45,242,0.3)",
   },
   "&:active": {
     transform: "translateY(0)",
-  }
+  },
 });
 export const Info = styled("p")({
   color: "#6B7280",
@@ -108,12 +108,12 @@ export const Error = styled("p")({
   border: "1px solid #FECACA",
 });
 
-export const PaymentTitle = styled('h3')({
-  color: '#112B3C',
-  fontFamily: 'Kanit',
-  fontSize: '22px',
+export const PaymentTitle = styled("h3")({
+  color: "#112B3C",
+  fontFamily: "Kanit",
+  fontSize: "22px",
   fontWeight: 600,
-  lineHeight: '30px',
-  marginTop: '2rem',
-  marginBottom: '1rem',
+  lineHeight: "30px",
+  marginTop: "2rem",
+  marginBottom: "1rem",
 });

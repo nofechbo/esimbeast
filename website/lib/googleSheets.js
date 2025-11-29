@@ -17,6 +17,7 @@ export const appendReferralRow = async ({
     countryCodes,
     data,
     price,
+    qty,
     currency,
     email
 }) => {
@@ -31,6 +32,7 @@ export const appendReferralRow = async ({
             countryCodes,
             data,
             price,
+            qty,
             currency,
             email
         ],
