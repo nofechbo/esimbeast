@@ -18,6 +18,8 @@ import {
   SuccessSubtitle,
 } from "@/styles/successPageStyles";
 import { clearReferralCookie, getCookie } from "@/utils/referral";
+import { formatDataSize, formatDuration } from "@/utils/formaters";
+import { getCountryName } from "@/utils/homepage/codeToCountry";
 
 export default function SuccessPage() {
   const router = useRouter();
@@ -119,7 +121,27 @@ export default function SuccessPage() {
           <DetailCard>
             <DetailRow>
               <DetailLabel>Plan</DetailLabel>
-              <DetailValue>{plan?.name || "Your Plan"}</DetailValue>
+              <DetailValue>
+                {intent.metadata?.code
+                  ? getCountryName(intent.metadata.code)
+                  : plan?.name || "Your Plan"}
+              </DetailValue>
+            </DetailRow>
+            <DetailRow>
+              <DetailLabel>Period</DetailLabel>
+              <DetailValue>
+                {intent.metadata?.days
+                  ? formatDuration(parseInt(intent.metadata.days, 10))
+                  : formatDuration(plan.days)}
+              </DetailValue>
+            </DetailRow>
+            <DetailRow>
+              <DetailLabel>Data</DetailLabel>
+              <DetailValue>
+                {intent.metadata?.data
+                  ? formatDataSize(parseInt(intent.metadata.data, 10))
+                  : formatDataSize(plan.data)}
+              </DetailValue>
             </DetailRow>
             <DetailRow>
               <DetailLabel>Amount Paid</DetailLabel>

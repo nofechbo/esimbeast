@@ -19,7 +19,7 @@ const agent = new https.Agent({ rejectUnauthorized: false });
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-async function createOrderInDB(intentId, email, plan, customDays, customData) {
+async function createOrderInDB(intentId, email, plan) {
     const { productId, name, countryCodes, data, days, price, } = plan;
 
     const newOrder = await prisma.planOrder.create({
@@ -29,8 +29,8 @@ async function createOrderInDB(intentId, email, plan, customDays, customData) {
             productId,
             productName: name,
             countryCodes,
-            data: customData !== undefined ? customData : data,
-            duration: customDays !== undefined ? customDays : days,
+            data,
+            duration: days,
             price,
             orderTime: new Date()
         }
@@ -91,14 +91,10 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Invalid qty', intent });
     }
 
-    // Extract custom days and data from metadata if present
-    const customDays = metadata.days ? parseInt(metadata.days, 10) : undefined;
-    const customData = metadata.data ? parseInt(metadata.data, 10) : undefined;
-
     //create row in db qty times
    await Promise.all(
         Array.from({ length: qty }, () =>
-            createOrderInDB(intentId, email, plan, customDays, customData)
+            createOrderInDB(intentId, email, plan)
         )
     );
     
@@ -155,7 +151,7 @@ export default async function handler(req, res) {
             timestamp: new Date().toISOString().slice(0, 19).replace("T", " "),
             planName: plan.name,
             countryCodes: plan.countryCodes.join(", "),
-            data: formatDataSize(customData !== undefined ? customData : plan.data),
+            data: formatDataSize(plan.data),
             price: (plan.price / 100).toFixed(2), // convert cents to dollars for spreadsheet
             qty,
             currency: intent.currency,

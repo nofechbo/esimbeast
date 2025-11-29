@@ -115,7 +115,7 @@ function CheckoutForm({ isVerified }) {
   );
 }
 
-export default function PaymentFlow({ plan, qty, days, data }) {
+export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
   const [info, setInfo] = useState("");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -227,6 +227,11 @@ export default function PaymentFlow({ plan, qty, days, data }) {
     }
     if (data !== undefined && data !== plan.data) {
       requestBody.data = data;
+    }
+
+    // Include country code if provided
+    if (countryCode) {
+      requestBody.code = countryCode;
     }
 
     const response = await fetch("/api/payment/create-payment-intent", {

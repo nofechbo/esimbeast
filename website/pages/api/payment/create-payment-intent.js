@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(405).end("Method Not Allowed");
   }
 
-  const { uniqueName, qty, email, days, data } = req.body;
+  const { uniqueName, qty, email, days, data, code } = req.body;
   if (!uniqueName || !email || !qty) {
     console.error(
       `Missing uniqueName, qty, or email, email: ${email}, uniqueName: ${uniqueName}, qty: ${qty}`
@@ -35,6 +35,11 @@ export default async function handler(req, res) {
     }
     if (data !== undefined) {
       metadata.data = String(data);
+    }
+
+    // Include country code in metadata if provided
+    if (code) {
+      metadata.code = code;
     }
 
     const paymentIntent = await stripe.paymentIntents.create({

@@ -19,7 +19,7 @@ import { formatDataSize, formatDuration } from "@/utils/formaters";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { uniqueName, qty, days, data } = router.query;
+  const { uniqueName, qty, days, data, code } = router.query;
   const [plan, setPlan] = useState(null);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function CheckoutPage() {
         <PageTitle>Confirm and pay</PageTitle>
 
         {plan ? (
-          <PaymentFlow plan={plan} qty={quantity} days={displayDays} data={displayDataNumber} />
+          <PaymentFlow plan={plan} qty={quantity} days={displayDays} data={displayDataNumber} countryCode={code} />
         ) : (
           <p>Loading payment form…</p>
         )}

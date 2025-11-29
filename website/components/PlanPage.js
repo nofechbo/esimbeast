@@ -85,13 +85,16 @@ export default function PlanPage({ plan, slug }) {
     if (displayDays !== plan.days) queryParams.days = displayDays;
     if (displayDataNumber !== plan.data) queryParams.data = displayDataNumber;
 
+    // Forward country code if present
+    if (code) queryParams.code = code;
+
     router.push({
       pathname: "/payment/checkout",
       query: queryParams,
     });
   };
 
-  const planCoverage = plan.countryCodes.map((code) => getCountryName(code));
+  const planCoverage = plan.countryCodes.map((countryCode) => getCountryName(countryCode));
   const displayDataText = formatDataSize(displayDataNumber);
 
   return (
