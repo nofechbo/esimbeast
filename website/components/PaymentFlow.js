@@ -134,7 +134,7 @@ export default function PaymentFlow({ plan, qty }) {
   useEffect(() => {
     if (IS_RENDER) {
       (async () => {
-        await createPaymentIntent(email || "test@pingwe.com");
+        await createPaymentIntent(email || "test@esim-store.com");
       })();
     }
   }, []);

@@ -1,17 +1,20 @@
 import ContentPage, { 
-  SectionTitle, 
   Paragraph 
 } from "@/components/ContentPage";
 
+const SITE_NAME = process.env.SITE_NAME || 'eSim Store';
+const SITE_EMAIL = process.env.SITE_EMAIL || '';
+
 export default function AffiliateProgramPage() {
+  const pageTitle = `${SITE_NAME} Affiliate Program`;
   return (
     <ContentPage 
-      title="Pingwe Affiliate Program"
-      subtitle="eSIM Affiliate Program"
+      title={pageTitle}
+      subtitle=""
     >
       <Paragraph>
         Are you a travel influencer, agency, OTA, or someone enthusiastic about simplifying 
-        global connectivity for your audience? Pingwe, a leader in eSIM data plans, invites 
+        global connectivity for your audience? {SITE_NAME}, a leader in eSIM data plans, invites 
         you to join its high commission affiliate program.
       </Paragraph>
 
@@ -26,7 +29,7 @@ export default function AffiliateProgramPage() {
       </Paragraph>
 
       <Paragraph style={{ marginTop: '40px', textAlign: 'center' }}>
-        Contact us at <a href="mailto:hello@pingwe.com" style={{ color: '#ec4899', textDecoration: 'none', fontWeight: 600 }}>hello@pingwe.com</a>
+        Contact us at <a href={`mailto:${SITE_EMAIL}`} style={{ color: '#ec4899', textDecoration: 'none', fontWeight: 600 }}>{SITE_EMAIL}</a>
       </Paragraph>
     </ContentPage>
   );

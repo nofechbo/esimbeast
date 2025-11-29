@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-const APP_NAME = "Pingwe"
+const APP_NAME = process.env.SITE_NAME || 'eSim Store';
 const from = `${APP_NAME} <${process.env.GMAIL_ADDRESS}>`;
 
 export async function sendEmail(to, subject, html) {

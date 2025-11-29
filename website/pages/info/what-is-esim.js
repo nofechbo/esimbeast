@@ -9,6 +9,8 @@ import ContentPage, {
   BenefitText 
 } from "@/components/ContentPage";
 
+const SITE_NAME = process.env.SITE_NAME || 'eSim Store';
+
 export default function WhatIsESIMPage() {
     return (
     // @ts-ignore
@@ -18,7 +20,7 @@ export default function WhatIsESIMPage() {
       <SectionTitle>What is an eSIM?</SectionTitle>
       <Paragraph>
         An eSIM (embedded SIM) is a digital SIM card built directly into your device, 
-        eliminating the need for a physical card. At Pingwe.com, our eSIMs are designed 
+        eliminating the need for a physical card. At {SITE_NAME}, our eSIMs are designed 
         to provide seamless global connectivity, allowing you to stay connected anywhere 
         in the world without the hassle of swapping SIM cards.
       </Paragraph>
@@ -30,8 +32,8 @@ export default function WhatIsESIMPage() {
           hardware, making it ready for remote activation.
         </ListItem>
         <ListItem>
-          <strong>Instant Activation:</strong> Activate your Pingwe eSIM by scanning a QR code. 
-          Within minutes, your device connects to Pingwe's local partner network.
+          <strong>Instant Activation:</strong> Activate your {SITE_NAME} eSIM by scanning a QR code. 
+          Within minutes, your device connects to {SITE_NAME}'s local partner network.
         </ListItem>
         <ListItem>
           <strong>Flexible Profiles:</strong> Store multiple eSIM profiles on your device, 
@@ -39,11 +41,11 @@ export default function WhatIsESIMPage() {
         </ListItem>
         <ListItem>
           <strong>Remote Updates:</strong> Manage your eSIM digitally, adding or modifying 
-          plans directly through Pingwe.com for ultimate convenience.
+          plans directly through {SITE_NAME} for ultimate convenience.
         </ListItem>
       </List>
 
-      <SectionTitle>Why Choose Pingwe eSIM?</SectionTitle>
+      <SectionTitle>Why Choose {SITE_NAME} eSIM?</SectionTitle>
       <BenefitsGrid>
         <BenefitCard>
           <BenefitTitle>Eco-Friendly</BenefitTitle>
@@ -60,7 +62,7 @@ export default function WhatIsESIMPage() {
         <BenefitCard>
           <BenefitTitle>Affordability</BenefitTitle>
           <BenefitText>
-            At Pingwe, we prioritize keeping you connected at budget-friendly prices.
+            At {SITE_NAME}, we prioritize keeping you connected at budget-friendly prices.
           </BenefitText>
         </BenefitCard>
         <BenefitCard>
@@ -72,7 +74,7 @@ export default function WhatIsESIMPage() {
       </BenefitsGrid>
 
       {/* MISSING SECTION 1 - Key Benefits */}
-      <SectionTitle>Key Benefits of Pingwe eSIM</SectionTitle>
+      <SectionTitle>Key Benefits of {SITE_NAME} eSIM</SectionTitle>
       <List>
         <ListItem>
           <strong>Stay Connected Anywhere:</strong> Our eSIM provides top-tier network 
@@ -84,12 +86,12 @@ export default function WhatIsESIMPage() {
         </ListItem>
         <ListItem>
           <strong>Instant Activation:</strong> Activate in minutes with a QR code or 
-          through Pingwe's app or website.
+          through {SITE_NAME}'s app or website.
         </ListItem>
       </List>
 
       {/* MISSING SECTION 2 - Who Can Benefit */}
-      <SectionTitle>Who Can Benefit from Pingwe eSIMs?</SectionTitle>
+      <SectionTitle>Who Can Benefit from {SITE_NAME} eSIMs?</SectionTitle>
       <BenefitsGrid>
         <BenefitCard>
           <BenefitTitle>Travelers</BenefitTitle>
@@ -112,7 +114,7 @@ export default function WhatIsESIMPage() {
       </BenefitsGrid>
 
       <Paragraph style={{ textAlign: "center", fontSize: "18px", fontWeight: 500, color: "#112B3C" }}>
-        For seamless global connectivity and an eco-friendly solution, explore Pingwe.com today. 
+        For seamless global connectivity and an eco-friendly solution, explore {SITE_NAME} today. 
         Start your journey with the future of mobile technology: eSIM!
             </Paragraph>
         </ContentPage>

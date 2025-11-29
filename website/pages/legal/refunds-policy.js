@@ -6,11 +6,15 @@ import ContentPage, {
   Divider,
 } from "@/components/ContentPage";
 
+const SITE_NAME = process.env.SITE_NAME || "eSim Store";
+const SITE_EMAIL = process.env.SITE_EMAIL || ""
+
 export default function RefundPolicyPage() {
+  const pageSubtitle = `${SITE_NAME} eSIM Refund Policy`;
   return (
-    <ContentPage title="Refunds Policy" subtitle="Pingwe eSIM Refund Policy">
+    <ContentPage title="Refunds Policy" subtitle={pageSubtitle}>
       <Paragraph>
-        At Pingwe, customer satisfaction is our priority. While our eSIMs are
+        At {SITE_NAME}, customer satisfaction is our priority. While our eSIMs are
         designed to work flawlessly, we understand that issues can arise. We
         offer full or partial refunds under specific conditions. Please review
         the details below to understand our refund terms.
@@ -52,14 +56,14 @@ export default function RefundPolicyPage() {
         <ListItem>
           Email us at{" "}
           <a
-            href="mailto:hello@pingwe.com"
+            href={`mailto:${SITE_EMAIL}`}
             style={{
               color: "#ec4899",
               textDecoration: "none",
               fontWeight: 600,
             }}
           >
-            hello@pingwe.com
+            {SITE_EMAIL}
           </a>{" "}
           with your order details.
         </ListItem>
@@ -85,17 +89,17 @@ export default function RefundPolicyPage() {
       <Paragraph>
         Contact our support team at{" "}
         <a
-          href="mailto:hello@pingwe.com"
+          href={`mailto:${SITE_EMAIL}`}
           style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
         >
-          hello@pingwe.com
+          {SITE_EMAIL}
         </a>
         .
       </Paragraph>
 
       <Paragraph>
         We strive to provide hassle-free connectivity and ensure your
-        satisfaction with Pingwe eSIM services!
+        satisfaction with {SITE_NAME} eSIM services!
       </Paragraph>
     </ContentPage>
   );

@@ -1,21 +1,23 @@
 import ContentPage, {
   SectionTitle,
   Paragraph,
-  List,
-  ListItem,
   Divider,
 } from "@/components/ContentPage";
 
+const SITE_NAME = process.env.SITE_NAME || "eSim Store";
+const SITE_EMAIL = process.env.SITE_EMAIL || ""
+
 export default function PrivacyPolicyPage() {
+  const pageSubtitle = `Terms and Conditions for ${SITE_NAME}`;
   return (
     <ContentPage
       title="Privacy Policy"
-      subtitle="Terms and Conditions for Pingwe.com"
+      subtitle={pageSubtitle}
     >
       <SectionTitle>Introduction</SectionTitle>
       <Paragraph>
         These terms and conditions (“Terms”), which may be updated periodically
-        by Pingwe.com (“Pingwe”), apply to Pingwe’s website and/or application
+        by {SITE_NAME}.com (“{SITE_NAME}”), apply to {SITE_NAME}’s website and/or application
         (collectively, the “Application”) and all services provided in
         connection with the sale and use of prepaid eSIMs (“eSIMs”).
       </Paragraph>
@@ -28,7 +30,7 @@ export default function PrivacyPolicyPage() {
       <Divider />
       <SectionTitle>Services</SectionTitle>
       <Paragraph>
-        <strong>Data Plans:</strong> Pingwe offers eSIM-based international
+        <strong>Data Plans:</strong> {SITE_NAME} offers eSIM-based international
         connectivity through prepaid plans as detailed in the Plan Description
         (“Plan” and “Services” respectively).
       </Paragraph>
@@ -43,7 +45,7 @@ export default function PrivacyPolicyPage() {
 
       <Paragraph>
         <strong>Suspension of Services:</strong> If you breach these Terms or
-        jeopardize the security of the Application or Services, Pingwe reserves
+        jeopardize the security of the Application or Services, {SITE_NAME} reserves
         the right to suspend your access to the Services, with all charges
         during suspension remaining your responsibility.
       </Paragraph>
@@ -80,7 +82,7 @@ export default function PrivacyPolicyPage() {
       <Paragraph>
         <strong>Payment Processing:</strong> Payments are processed securely
         through Stripe, with all financial details submitted directly to them.
-        Pingwe does not process or store payment data. For details, refer to
+        {SITE_NAME} does not process or store payment data. For details, refer to
         Stripe’s terms and privacy policy.
       </Paragraph>
       <Divider />
@@ -88,17 +90,17 @@ export default function PrivacyPolicyPage() {
       <Paragraph>
         Technical support is available via email at{" "}
         <a
-          href="mailto:hello@pingwe.com"
+          href={`mailto:SITE_EMAIL`}
           style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
         >
-          hello@pingwe.com
+          {SITE_EMAIL}
         </a>
         .
       </Paragraph>
       <Divider />
       <SectionTitle>Refunds</SectionTitle>
       <Paragraph>
-        Refunds are available only as outlined in Pingwe’s Refund Policy,
+        Refunds are available only as outlined in {SITE_NAME}’s Refund Policy,
         incorporated by reference into these Terms.
       </Paragraph>
       <Paragraph>
@@ -114,14 +116,14 @@ export default function PrivacyPolicyPage() {
       <Divider />
       <SectionTitle>Disclaimers and Limitations of Liability</SectionTitle>
       <Paragraph>
-        <strong>Disclaimer:</strong> Pingwe does not guarantee uninterrupted,
+        <strong>Disclaimer:</strong> {SITE_NAME} does not guarantee uninterrupted,
         timely, or error-free Services. The Application is provided “as is”
         without warranties, including implied warranties of merchantability or
         fitness for a particular purpose.
       </Paragraph>
 
       <Paragraph>
-        <strong>Limitation of Liability:</strong> Pingwe is not liable for
+        <strong>Limitation of Liability:</strong> {SITE_NAME} is not liable for
         special, incidental, or consequential damages related to the use or
         inability to use the Services or Application. Liability is limited to
         the amount paid for the specific Services in question.
@@ -137,7 +139,7 @@ export default function PrivacyPolicyPage() {
       <SectionTitle>Entire Agreement</SectionTitle>
       <Paragraph>
         These Terms and related policies constitute the entire agreement between
-        you and Pingwe, superseding prior agreements or understandings.
+        you and {SITE_NAME}, superseding prior agreements or understandings.
       </Paragraph>
       <Divider />
       <SectionTitle>Jurisdiction and Governing Law</SectionTitle>

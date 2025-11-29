@@ -5,6 +5,7 @@ import { sendEmail } from "@/lib/email/sendEmail";
 //handling - what if errors happen here? user will still see "check your email"
 
 const IS_RENDER = process.env.NEXT_PUBLIC_IS_RENDER === 'true';
+const SITE_NAME = process.env.SITE_NAME || 'eSim Store';
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
@@ -74,14 +75,14 @@ export default async function handler(req, res) {
         `).join('');
 
         const emailContent = `
-            <h2>Thank you for your purchase from Pingwe!</h2>
+            <h2>Thank you for your purchase from ${SITE_NAME}!</h2>
             <p>Your order (ID: ${orderId}) has been successfully processed. Below are the details of your purchased eSIM plan(s):</p>
             ${planDetails}
             <p>If you have any questions or need further assistance, feel free to reply to this email.</p>
-            <p>Best regards,<br/>The Pingwe Team</p>
+            <p>Best regards,<br/>The ${SITE_NAME} Team</p>
         `;
 
-        const sent = await sendEmail(email, `Your Pingwe eSIM Order ${orderId} Details`, emailContent);
+        const sent = await sendEmail(email, `Your ${SITE_NAME} eSIM Order ${orderId} Details`, emailContent);
         if (!sent) {
             console.error(`Failed to send order details email to ${email} for orderId ${orderId}`);
             return res.status(500).send("Failed to send order details email");

@@ -15,6 +15,7 @@ import {
   TotalLabel,
   TotalValue,
 } from "@/styles/planPageStyles";
+import { formatDataSize, formatDuration } from "@/utils/formaters";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -49,13 +50,13 @@ export default function CheckoutPage() {
         {plan ? (
           <>
             <DetailRow>
-              <DetailLabel>Plan</DetailLabel>
-              <DetailValue>{plan.name}</DetailValue>
+              <DetailLabel>Plan size</DetailLabel>
+              <DetailValue>{formatDataSize(plan.data)}</DetailValue>
             </DetailRow>
 
             <DetailRow>
               <DetailLabel>Period</DetailLabel>
-              <DetailValue>{plan.days} days</DetailValue>
+              <DetailValue>{formatDuration(plan.days)}</DetailValue>
             </DetailRow>
 
             <SummaryDivider />

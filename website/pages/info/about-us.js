@@ -1,6 +1,8 @@
 
 import ContentPage, { SectionTitle, Paragraph, List, ListItem } from "@/components/ContentPage";
 
+const SITE_NAME = process.env.SITE_NAME || 'eSim Store';
+
 export default function AboutUsPage() {
   return (
     <ContentPage 
@@ -8,10 +10,10 @@ export default function AboutUsPage() {
       subtitle="Your Trusted Partner for Sustainable and Affordable Travel Connectivity"
     >
       <Paragraph>
-        At Pingwe, we are passionate about keeping everyone connected affordably while making 
+        At {SITE_NAME}, we are passionate about keeping everyone connected affordably while making 
         a positive impact on the planet. Our services are designed to reduce plastic waste by 
         eliminating physical SIM cards and offering seamless global roaming. Tailored for 
-        travelers and adventurers, Pingwe provides intuitive, reliable connectivity that places 
+        travelers and adventurers, {SITE_NAME} provides intuitive, reliable connectivity that places 
         your needs first.
       </Paragraph>
 
@@ -25,7 +27,7 @@ export default function AboutUsPage() {
 
       <SectionTitle>Our Vision</SectionTitle>
       <Paragraph>
-        At Pingwe, we aim to make global connectivity:
+        At {SITE_NAME}, we aim to make global connectivity:
       </Paragraph>
       <List>
         <ListItem>
@@ -43,7 +45,7 @@ export default function AboutUsPage() {
       </List>
 
       <Paragraph>
-        With Pingwe, local has gone global—no fine print, no extra fees, just instant connectivity 
+        With {SITE_NAME}, local has gone global—no fine print, no extra fees, just instant connectivity 
         to make every journey unforgettable. Your next adventure starts with us!
       </Paragraph>
     </ContentPage>

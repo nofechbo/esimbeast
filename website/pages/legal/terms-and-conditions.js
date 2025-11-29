@@ -6,15 +6,20 @@ import ContentPage, {
   Divider,
 } from "@/components/ContentPage";
 
+const SITE_NAME = process.env.SITE_NAME || "eSim Store";
+const SITE_EMAIL = process.env.SITE_EMAIL || ""
+
 export default function TermsAndConditionsPage() {
+  const pageSubtitle = `Terms of Use for ${SITE_NAME}`;
+
   return (
     <ContentPage
       title="Terms and Conditions"
-      subtitle="Terms of Use for Pingwe.com"
+      subtitle={pageSubtitle}
     >
       <SectionTitle>Application of Terms of Use</SectionTitle>
       <Paragraph>
-        These Terms govern the use of services provided by Pingwe.com (“Pingwe”)
+        These Terms govern the use of services provided by {SITE_NAME}.com (“{SITE_NAME}”)
         to users through its website and/or app (collectively, the “Platform”).
         By accessing or using the Platform, you agree to be bound by these
         Terms. If you do not accept these Terms, you may not use our services.
@@ -22,7 +27,7 @@ export default function TermsAndConditionsPage() {
       <Divider />
       <SectionTitle>Changes to Terms and Conditions</SectionTitle>
       <Paragraph>
-        Pingwe reserves the right to amend these Terms. Users will be notified
+        {SITE_NAME} reserves the right to amend these Terms. Users will be notified
         of changes through the Platform or other communication methods.
         Continued use after notification constitutes acceptance of the updated
         Terms.
@@ -32,10 +37,10 @@ export default function TermsAndConditionsPage() {
       <List>
         <ListItem>
           <strong>“Services”:</strong> Includes mobile internet and related eSIM
-          services provided by Pingwe.
+          services provided by {SITE_NAME}.
         </ListItem>
         <ListItem>
-          <strong>“User”:</strong> Any individual with an account using Pingwe’s
+          <strong>“User”:</strong> Any individual with an account using {SITE_NAME}’s
           services.
         </ListItem>
         <ListItem>
@@ -48,7 +53,7 @@ export default function TermsAndConditionsPage() {
         </ListItem>
         <ListItem>
           <strong>“Network Operator”:</strong> Telecommunications providers
-          supporting Pingwe’s eSIM services.
+          supporting {SITE_NAME}’s eSIM services.
         </ListItem>
         <ListItem>
           <strong>“Top-Up”:</strong> Additional data purchased to extend the
@@ -58,30 +63,30 @@ export default function TermsAndConditionsPage() {
       <Divider />
       <SectionTitle>Services</SectionTitle>
       <Paragraph>
-        <strong>Service Description:</strong> Pingwe’s eSIM provides data-only
+        <strong>Service Description:</strong> {SITE_NAME}’s eSIM provides data-only
         services, compliant with GSMA standards. Voice calls and SMS are not
         supported.
       </Paragraph>
 
       <Paragraph>
-        <strong>No Warranty:</strong> Pingwe offers its services on an “as-is”
+        <strong>No Warranty:</strong> {SITE_NAME} offers its services on an “as-is”
         basis without guarantees of uninterrupted or error-free service. Network
-        quality depends on local operators, and Pingwe cannot be held liable for
+        quality depends on local operators, and {SITE_NAME} cannot be held liable for
         issues beyond its control, including signal interference, network
         coverage limitations, or unforeseen outages.
       </Paragraph>
 
       <Paragraph>
-        <strong>User Restrictions:</strong> Pingwe may limit transmission rates
+        <strong>User Restrictions:</strong> {SITE_NAME} may limit transmission rates
         or suspend services during emergencies or for public safety purposes.
-        Additionally, Pingwe may suspend or terminate services if users violate
+        Additionally, {SITE_NAME} may suspend or terminate services if users violate
         these Terms or engage in prohibited activities.
       </Paragraph>
       <Divider />
       <SectionTitle>Payment and Refund Policy</SectionTitle>
       <Paragraph>
         <strong>Payment:</strong> All services are prepaid and non-refundable,
-        except as specified in Pingwe’s Refund Policy. Payments are securely
+        except as specified in {SITE_NAME}’s Refund Policy. Payments are securely
         processed via Stripe.
       </Paragraph>
 
@@ -113,7 +118,7 @@ export default function TermsAndConditionsPage() {
         </ListItem>
         <ListItem>
           Users may request account deletion by contacting{" "}
-          <a href="mailto:hello@pingwe.com">hello@pingwe.com</a>.
+          <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
         </ListItem>
       </List>
       <Divider />
@@ -130,7 +135,7 @@ export default function TermsAndConditionsPage() {
       </List>
       <Divider />
       <SectionTitle>Limitations of Liability</SectionTitle>
-      <Paragraph>Pingwe is not liable for:</Paragraph>
+      <Paragraph>{SITE_NAME} is not liable for:</Paragraph>
       <List>
         <ListItem>
           Losses arising from third-party network or cloud service providers.
@@ -151,23 +156,23 @@ export default function TermsAndConditionsPage() {
           Amsterdam courts.
         </ListItem>
         <ListItem>
-          <strong>Privacy Policy:</strong> Pingwe collects and processes user
+          <strong>Privacy Policy:</strong> {SITE_NAME}  collects and processes user
           data per its Privacy Policy, available on the Platform.
         </ListItem>
         <ListItem>
-          <strong>Marketing:</strong> Pingwe may send product updates and
+          <strong>Marketing:</strong> {SITE_NAME}  may send product updates and
           promotional communications. Users can opt out by contacting{" "}
-          <a href="mailto:hello@pingwe.com">hello@pingwe.com</a>.
+          <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL} </a>.
         </ListItem>
       </List>
 
       <Paragraph>
         For further assistance, Contact us at{" "}
         <a
-          href="mailto:hello@pingwe.com"
+          href={`mailto:${SITE_EMAIL}`}
           style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
         >
-          hello@pingwe.com
+          {SITE_EMAIL}
         </a>
       </Paragraph>
     </ContentPage>
