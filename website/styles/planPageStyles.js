@@ -112,14 +112,14 @@ export const FlagsContainer = styled("div")({
 });
 
 export const CountryFlag = styled("img")({
-  width: 46,
+  width: 42,
   height: 42,
   flexShrink: 0,
   borderRadius: "50%",
   objectFit: "cover",
   border: "2px solid #FFF",
   boxSizing: "border-box",
-  marginRight: "-8px",
+  marginLeft: "-8px",
   "&:first-of-type": {
     marginLeft: 0,
   },

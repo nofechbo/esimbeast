@@ -13,8 +13,7 @@ import {
 } from "@/styles/popularPlansStyles";
 import slugify from "@/utils/formaters";
 import FlagIcons from "../common/FlagIcons";
-
-const MAX_CARDS_ON_PAGE = 5;
+import { useEffect, useState } from "react";
 
 export default function PopularPlansCarousel({
   popularPlans,
@@ -44,8 +43,21 @@ export default function PopularPlansCarousel({
   //   }
   // };
 
-  // Show only first 5 plans
-  const displayPlans = popularPlans.slice(0, 5);
+  // check if mobile. show 4 plans for mobile, 5 for site
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+  
+  const MAX_CARDS_ON_PAGE = isMobile ? 4 : 5;
+  const displayPlans = popularPlans.slice(0, MAX_CARDS_ON_PAGE);
 
   const handleClick = (plan) => () => {
     const slug = slugify(plan.uniqueName);

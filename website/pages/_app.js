@@ -20,6 +20,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <div className={`${kanit.variable} ${montserrat.variable}`}>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon_no_bg.png" />
       </Head>
       <NavBar />

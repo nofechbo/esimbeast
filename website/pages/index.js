@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import PopularPlansCarousel from '@/components/homepage/PopularPlansCarousel';
-import styles from '@/styles/Home.module.css';
-import { fetchPopularPlans, fetchSearchOptions } from '@/utils/homepage/api';
-import SearchBox from '@/components/homepage/SearchBox';
-import { handleReferral } from '@/utils/referral';
-import { formatDataSize, formatDuration } from '@/utils/formaters';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import PopularPlansCarousel from "@/components/homepage/PopularPlansCarousel";
+import styles from "@/styles/Home.module.css";
+import { fetchPopularPlans, fetchSearchOptions } from "@/utils/homepage/api";
+import SearchBox from "@/components/homepage/SearchBox";
+import { handleReferral } from "@/utils/referral";
+import { formatDataSize, formatDuration } from "@/utils/formaters";
 
 export default function Home() {
   const [popularPlans, setPopularPlans] = useState([]);
-  const [searchOptions, setSearchOptions] = useState({ countries: [], dataSizes: [], durations: [] });
+  const [searchOptions, setSearchOptions] = useState({
+    countries: [],
+    dataSizes: [],
+    durations: [],
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +25,7 @@ export default function Home() {
     const getPopularPlans = async () => {
       const popular = await fetchPopularPlans();
       setPopularPlans(popular);
-    }
+    };
     getPopularPlans();
   }, []);
 
@@ -38,19 +42,25 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={`relative w-full ${styles.pageContainer}`}> 
+    <div className={`relative w-full ${styles.pageContainer}`}>
       <div className={styles.heroWrapper}>
-        <div className="absolute inset-0 z-0 flex items-center justify-center">
+        <div className={`absolute inset-0 z-0 flex items-center justify-center ${styles.bgImageWrapper}`}>
           <img
             src="/bg.png"
             alt="Background illustration"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
           />
         </div>
-          <div className={styles.heroContent}>
+        <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
-            Best eSIM Match Based on<br />Your Travel Needs
+            Best eSIM Match Based on
+            Your Travel Needs
           </h1>
-          <SearchBox 
+          <SearchBox
             searchOptions={searchOptions}
             onNavigate={handleNavigate}
             formatData={formatDataSize}

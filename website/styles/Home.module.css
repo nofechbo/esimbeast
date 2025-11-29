@@ -32,6 +32,7 @@
   background: linear-gradient(90deg, #8D2DF2 0%, #FF82BA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  width: 700px;
 }
 
 .searchForm {
@@ -246,3 +247,66 @@
   transition: transform 0.3s ease;
 }
 
+
+.bgImageWrapper {
+  align-items: flex-end !important;
+  justify-content: center !important;
+  top: auto !important;
+  bottom: 0px !important;
+}
+
+.bgImageWrapper img {
+  width: 120%;
+  height: auto;
+  min-height: 40vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .heroContent {
+    top: 100px;
+    padding: 0 1rem;
+  }
+
+  .heroTitle {
+    font-size: 30px;
+    line-height: 35px;
+    width: 250px;
+  }
+
+  .searchWrapper {
+    width: 100%;
+  }
+
+  .searchInput {
+    font-size: 14px;
+    padding: 12px 50px 12px 40px;
+  }
+
+  .popularSection {
+    padding: 0 1rem;
+  }
+
+  .cardGrid {
+    gap: 0.75rem;
+  }
+
+  .popularCard {
+    width: 140px;
+    padding: 1rem;
+  }
+
+  .popularPlanName {
+    font-size: 0.95rem;
+  }
+
+  .popularDetailsText {
+    font-size: 0.8rem;
+  }
+
+  .popularPriceValue {
+    font-size: 1.1rem;
+  }
+}

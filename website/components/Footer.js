@@ -7,7 +7,7 @@ export default function Footer() {
         <div className={styles.footerTop}>
             <div className={styles.logoContainer}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/pingwe_logo_white_bg.svg" alt="Pingwe Logo" style={{ height: '30px' }} />
+              <img src="/footer_logo.svg" alt="Pingwe Logo" style={{ height: '30px' }} />
             </div>
 
             <div className={styles.linkSections}>
@@ -47,8 +47,8 @@ export default function Footer() {
         <div className={styles.divider}></div>
 
         <div className={styles.bottomNote}>
-          © 2025 Pingwe 
-        <span style={{ marginLeft: '750px' }}>
+          © 2025 Name 
+        <span className={styles.legalLinks}>
           <Link href="/legal/terms-and-conditions"><span className={styles.legalLink}>Terms</span></Link>
           <span>  | </span>
           <Link href="/legal/privacy-policy"><span className={styles.legalLink}>Privacy</span></Link>

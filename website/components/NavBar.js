@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styled from "@emotion/styled";
-import { useState } from "react";
 
 const Nav = styled("nav")({
   position: "absolute",
@@ -13,16 +12,29 @@ const Nav = styled("nav")({
   padding: "16px 24px",
   backgroundColor: "white",
   zIndex: 50,
+
+  "@media (max-width: 768px)": {
+    padding: "12px 16px",
+  },
 });
 
 const LeftSection = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: "32px",
+
+  "@media (max-width: 768px)": {
+    gap: "16px",
+  },
 });
 
 const Logo = styled("img")({
   cursor: "pointer",
+
+  "@media (max-width: 768px)": {
+    width: "50px",
+    height: "auto",
+  },
 });
 
 const NavLink = styled(Link)({
@@ -32,23 +44,21 @@ const NavLink = styled(Link)({
   fontSize: "12px",
   fontWeight: 500,
   lineHeight: "18px",
+
+  "@media (max-width: 768px)": {
+    fontSize: "10px",
+    lineHeight: "14px",
+  },
 });
 
 export default function NavBar() {
-  const [showTooltip, setShowTooltip] = useState(false);
-
   return (
     <Nav>
       <LeftSection>
         <Link href="/">
-          <Logo
-            src="/pingwe-logo.svg"
-            alt="Pingwe Logo"
-            width={70}
-            height={23}
-          />
+          <Logo src="/base_logo.svg" alt="Pingwe Logo" width={70} height={23} />
         </Link>
-        <NavLink href="/info/destinations">Destinations</NavLink>
+        {/* <NavLink href="/info/destinations">Destinations</NavLink> */}
         <NavLink href="/info/what-is-esim">What is an eSIM</NavLink>
       </LeftSection>
     </Nav>

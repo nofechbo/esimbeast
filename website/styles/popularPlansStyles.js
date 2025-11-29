@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 
 export const PopularSection = styled("div")({
   padding: "40px 0",
+
+  "@media (max-width: 768px)": {
+    padding: "30px 0",
+  },
 });
 
 export const PopularTitle = styled("h2")({
@@ -12,6 +16,10 @@ export const PopularTitle = styled("h2")({
   lineHeight: "normal",
   color: "#0A1A24",
   marginBottom: "10px",
+
+  "@media (max-width: 768px)": {
+    fontSize: "14px",
+  },
 });
 
 export const CardGrid = styled("div")({
@@ -19,6 +27,11 @@ export const CardGrid = styled("div")({
   gridTemplateColumns: "repeat(5, 212px)",
   gap: "16px",
   marginBottom: "24px",
+
+  "@media (max-width: 768px)": {
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: "12px",
+  },
 });
 
 export const PopularCard = styled("div")({
@@ -40,6 +53,13 @@ export const PopularCard = styled("div")({
     transform: "translateY(-2px)",
     boxShadow: "0 4px 16px rgba(0, 0, 0, 0.15)",
   },
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+    height: "110px",
+    borderRadius: "18px",
+    padding: "12px",
+  },
 });
 
 export const PlanName = styled("h3")({
@@ -55,6 +75,11 @@ export const PlanName = styled("h3")({
   margin: 0,
   maxWidth: "calc(100% - 50px)",
   whiteSpace: "normal",
+
+  "@media (max-width: 768px)": {
+    fontSize: "16px",
+    lineHeight: "18px",
+  },
 });
 
 export const DetailsContainer = styled("div")({
@@ -71,6 +96,11 @@ export const DetailsText = styled("span")({
   fontWeight: 400,
   lineHeight: "16px",
   margin: 0,
+
+  "@media (max-width: 768px)": {
+    fontSize: "13px",
+    lineHeight: "14px",
+  },
 });
 
 export const Divider = styled("span")({
@@ -80,6 +110,10 @@ export const Divider = styled("span")({
   fontStyle: "normal",
   fontWeight: 400,
   lineheight: 16,
+
+  "@media (max-width: 768px)": {
+    fontSize: 13,
+  },
 });
 
 export const PriceValue = styled("span")({
@@ -89,6 +123,11 @@ export const PriceValue = styled("span")({
   fontStyle: "normal",
   fontWeight: 600,
   lineHeight: "14px",
+
+  "@media (max-width: 768px)": {
+    fontSize: "12px",
+    lineHeight: "12px",
+  },
 });
 
 export const FlagWrapper = styled("img")({
@@ -99,4 +138,11 @@ export const FlagWrapper = styled("img")({
   height: 32,
   flexShrink: 0,
   aspectRatio: "1/1",
+
+  "@media (max-width: 768px)": {
+    width: 28,
+    height: 28,
+    top: 10,
+    right: 10,
+  },
 });

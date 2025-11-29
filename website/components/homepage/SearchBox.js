@@ -8,6 +8,7 @@ const SearchBar = styled("div")({
   position: "relative",
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   borderRadius: "44px",
   border: "1px solid #E2DFE7",
   background: "#FFF",
@@ -16,37 +17,29 @@ const SearchBar = styled("div")({
   maxWidth: "800px",
   height: "90px",
   flexShrink: 0,
-  paddingRight: "90px",
-});
 
-const OptionWrapper = styled("div")({
-  display: "flex",
-  alignItems: "center",
-});
-
-const SearchOption = styled("select")({
-  paddingLeft: 30,
-  fill: "#FFF",
-  filter: "drop-shadow(2px 6px 38px rgba(17, 43, 60, 0.12))",
-  width: "210px",
-  height: "90px",
-  flexShrink: 0,
-  color: "#3E484E",
-  fontFamily: "Kanit",
-  fontSize: "14px",
-  fontStyle: "normal",
-  fontWeight: 600,
-  lineHeight: "16px",
+  "@media (max-width: 768px)": {
+    maxWidth: "100%",
+    height: "65px",
+    borderRadius: "35px",
+  },
 });
 
 const Divider = styled("div")({
   width: "1px",
   height: "46px",
   backgroundColor: "#E2DFE7",
-  marginLeft: 25,
+  marginLeft: -15,
+  marginRight: 30,
   flexShrink: 0,
   zIndex: 1,
   pointerEvents: "none",
+
+  "@media (max-width: 768px)": {
+    height: "36px",
+    marginLeft: -5,
+    marginRight: 20,
+  },
 });
 
 const SearchButton = styled("button")({
@@ -56,6 +49,12 @@ const SearchButton = styled("button")({
   height: 66,
   flexShrink: 0,
   cursor: "pointer",
+
+  "@media (max-width: 768px)": {
+    width: 30,
+    height: 30,
+    right: "10px",
+  },
 });
 
 export default function SearchBox({
@@ -112,7 +111,7 @@ export default function SearchBox({
         onChange={setCountry}
         options={searchOptions.countries}
         title="Location"
-        placeholder="Select Country"
+        placeholder="Select Location"
       />
 
       <Divider />
@@ -122,7 +121,7 @@ export default function SearchBox({
         onChange={setDuration}
         options={searchOptions.durations}
         title="Duration"
-        placeholder="Select Duration"
+        placeholder="Set Duration"
         formatOption={formatDuration}
       />
 
@@ -132,13 +131,17 @@ export default function SearchBox({
         value={dataSize}
         onChange={setDataSize}
         options={searchOptions.dataSizes}
-        placeholder="Select Data Size"
+        placeholder="Choose Plan Size"
         title="Plan size"
         formatOption={formatData}
       />
 
       <SearchButton onClick={handleSearch}>
-        <img src="/icons/search.svg" alt="search" />
+        <img
+          src="/icons/search.svg"
+          alt="search"
+          style={{ width: "100%", height: "100%" }}
+        />
       </SearchButton>
     </SearchBar>
   );

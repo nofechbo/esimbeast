@@ -11,13 +11,17 @@ const OptionWrapper = styled("div")({
 });
 
 const CustomSelect = styled("div")({
-  paddingLeft: 30,
   width: "210px",
   height: "90px",
   display: "flex",
   alignItems: "center",
   cursor: "pointer",
   userSelect: "none",
+
+  "@media (max-width: 768px)": {
+    width: "85px",
+    height: "70px",
+  },
 });
 
 const SelectTitle = styled("div")({
@@ -26,6 +30,11 @@ const SelectTitle = styled("div")({
   marginBottom: "4px",
   fontFamily: "Kanit",
   fontWeight: 500,
+
+  "@media (max-width: 768px)": {
+    fontSize: "12px",
+    marginBottom: "2px",
+  },
 });
 
 const SelectValue = styled("div")(({ hasValue }) => ({
@@ -33,6 +42,10 @@ const SelectValue = styled("div")(({ hasValue }) => ({
   fontFamily: "Kanit",
   fontSize: "18px",
   fontWeight: 400,
+
+  "@media (max-width: 768px)": {
+    fontSize: "10px",
+  },
 }));
 
 const DropdownMenu = styled("div")(({ isOpen }) => ({
@@ -48,6 +61,12 @@ const DropdownMenu = styled("div")(({ isOpen }) => ({
   display: isOpen ? "block" : "none",
   zIndex: 1000,
   overflow: "hidden",
+
+  "@media (max-width: 768px)": {
+    width: "150px",
+    maxHeight: "300px",
+    borderRadius: "20px",
+  },
 }));
 
 const DropdownList = styled("div")({
@@ -71,6 +90,11 @@ const DropdownList = styled("div")({
   "&::-webkit-scrollbar-thumb:hover": {
     background: "#9CA3AF",
   },
+
+  "@media (max-width: 768px)": {
+    maxHeight: "300px",
+    padding: "12px 0",
+  },
 });
 
 const DropdownItem = styled("div")(({ isHighlighted }) => ({
@@ -84,6 +108,11 @@ const DropdownItem = styled("div")(({ isHighlighted }) => ({
   letterSpacing: 0.5,
   backgroundColor: isHighlighted ? "#F3E8FF" : "transparent",
   "&:hover": { backgroundColor: "#F9FAFB" },
+
+  "@media (max-width: 768px)": {
+    padding: "10px 16px",
+    fontSize: "12px",
+  },
 }));
 
 const DropdownFlag = styled("img")({
@@ -92,6 +121,11 @@ const DropdownFlag = styled("img")({
   borderRadius: "50%",
   objectFit: "cover",
   flexShrink: 0,
+
+  "@media (max-width: 768px)": {
+    width: 20,
+    height: 20,
+  },
 });
 
 const EditableInput = styled("input")({
@@ -105,6 +139,13 @@ const EditableInput = styled("input")({
   fontWeight: 400,
   "&::placeholder": {
     color: "#A2A8AD",
+  },
+
+  "@media (max-width: 768px)": {
+    fontSize: "11px",
+    "&::placeholder": {
+      fontSize: "9px",
+    }
   },
 });
 
