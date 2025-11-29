@@ -106,6 +106,44 @@ export default async function handler(req, res) {
     /** @type {any} */
     let json;
 
+    
+    try {
+        const encStr = generateEncStr({ merchantId, deptId, qrcodeType, prodList }, token);
+        
+        const requestBody = {
+            merchantId,
+            deptId,
+            qrcodeType,
+            prodList,
+            encStr
+        };
+        
+        const wmRes = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody),
+            // @ts-ignore
+            agent // required to bypass TLS rejection in Worldmove test env
+        });
+        
+        json = await wmRes.json();
+        if (json.code !== 0) {
+            console.error('Worldmove rejected order-and-redeem request:', json);
+            return res.status(502).json({ error: 'Worldmove rejected request', details: json, intent });
+        }
+        
+        console.log('WM should hit callback endpoint shortly.');
+        
+    } catch (err) {
+        console.error('error in order-and-redeem api', err)
+        res.status(500).json({ error: 'Failed to order and redeem plan', intent });
+    }
+    
+    await prisma.planOrder.updateMany({
+        where: { intentId },
+        data: { orderId: json.orderId }
+    });
+    
     //update referral info:
     if (referralCode) {
         const referralData = {
@@ -127,46 +165,6 @@ export default async function handler(req, res) {
             console.error('Failed to append referral row to Google Sheets:', err, 'data:', referralData);
         }
     }
-
-    try {
-        const encStr = generateEncStr({ merchantId, deptId, qrcodeType, prodList }, token);
-
-        const requestBody = {
-            merchantId,
-            deptId,
-            qrcodeType,
-            prodList,
-            encStr
-        };
-
-        const wmRes = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody),
-            // @ts-ignore
-            agent // required to bypass TLS rejection in Worldmove test env
-        });
-
-        json = await wmRes.json();
-        if (json.code !== 0) {
-            console.error('Worldmove rejected order-and-redeem request:', json);
-            return res.status(502).json({ error: 'Worldmove rejected request', details: json, intent });
-        }
-
-        console.log('WM should hit callback endpoint shortly.');
-
-    } catch (err) {
-        console.error('error in order-and-redeem api', err)
-        res.status(500).json({ error: 'Failed to order and redeem plan', intent });
-    }
-
-    await prisma.planOrder.updateMany({
-        where: { intentId },
-        data: { orderId: json.orderId }
-    });
-
-    // after testing - move update ref here!!!!!!!!
-
     
     return res.status(200).json({ intent });
 }
