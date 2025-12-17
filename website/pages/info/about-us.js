@@ -1,7 +1,6 @@
 
 import ContentPage, { SectionTitle, Paragraph, List, ListItem } from "@/components/ContentPage";
-
-const SITE_NAME = process.env.SITE_NAME || '(Site Name)';
+import { SITE_NAME } from "@/config";
 
 export default function AboutUsPage() {
   return (

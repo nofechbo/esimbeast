@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from "../styles/Footer.module.css";
-
-const SITE_NAME = process.env.SITE_NAME || "(Site Name)";
+import { SITE_NAME } from "@/config";
 
 export default function Footer() {
   return (

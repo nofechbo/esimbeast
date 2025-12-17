@@ -3,9 +3,7 @@ import ContentPage, {
   Paragraph,
   Divider,
 } from "@/components/ContentPage";
-
-const SITE_NAME = process.env.SITE_NAME || "(Site Name)";
-const SITE_EMAIL = process.env.SITE_EMAIL || "(Site Email)";
+import { SITE_EMAIL, SITE_NAME } from "@/config";
 
 export default function PrivacyPolicyPage() {
   const pageSubtitle = `Terms and Conditions for ${SITE_NAME}`;

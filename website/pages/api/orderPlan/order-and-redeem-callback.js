@@ -1,11 +1,9 @@
 import { validateEncStr } from "@/lib/validateEncStr";
 import { prisma } from "@/lib/db/prisma";
 import { sendEmail } from "@/lib/email/sendEmail";
+import { IS_RENDER, SITE_NAME } from "@/config";
 
 //handling - what if errors happen here? user will still see "check your email"
-
-const IS_RENDER = process.env.NEXT_PUBLIC_IS_RENDER === 'true';
-const SITE_NAME = process.env.SITE_NAME || '(Site Name)';
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {

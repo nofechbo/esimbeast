@@ -5,9 +5,7 @@ import ContentPage, {
   ListItem,
   Divider,
 } from "@/components/ContentPage";
-
-const SITE_NAME = process.env.SITE_NAME || "(Site Name)";
-const SITE_EMAIL = process.env.SITE_EMAIL || "(Site Email)";
+import { SITE_EMAIL, SITE_NAME } from "@/config";
 
 export default function TermsAndConditionsPage() {
   const pageSubtitle = `Terms of Use for ${SITE_NAME}`;
