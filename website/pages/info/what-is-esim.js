@@ -9,7 +9,7 @@ import ContentPage, {
   BenefitText 
 } from "@/components/ContentPage";
 
-const SITE_NAME = process.env.SITE_NAME || 'eSim Store';
+const SITE_NAME = process.env.SITE_NAME || '(Site Name)';
 
 export default function WhatIsESIMPage() {
     return (

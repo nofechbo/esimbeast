@@ -6,8 +6,8 @@ import ContentPage, {
   Divider,
 } from "@/components/ContentPage";
 
-const SITE_NAME = process.env.SITE_NAME || "eSim Store";
-const SITE_EMAIL = process.env.SITE_EMAIL || ""
+const SITE_NAME = process.env.SITE_NAME || "(Site Name)";
+const SITE_EMAIL = process.env.SITE_EMAIL || "(Site Email)";
 
 export default function TermsAndConditionsPage() {
   const pageSubtitle = `Terms of Use for ${SITE_NAME}`;

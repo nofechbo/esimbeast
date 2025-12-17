@@ -5,7 +5,7 @@ import { sendEmail } from "@/lib/email/sendEmail";
 //handling - what if errors happen here? user will still see "check your email"
 
 const IS_RENDER = process.env.NEXT_PUBLIC_IS_RENDER === 'true';
-const SITE_NAME = process.env.SITE_NAME || 'eSim Store';
+const SITE_NAME = process.env.SITE_NAME || '(Site Name)';
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {

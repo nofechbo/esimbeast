@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/Footer.module.css";
 
-const SITE_NAME = process.env.SITE_NAME || "eSim Store";
+const SITE_NAME = process.env.SITE_NAME || "(Site Name)";
 
 export default function Footer() {
   return (

@@ -1,7 +1,7 @@
 
 import ContentPage, { SectionTitle, Paragraph, List, ListItem } from "@/components/ContentPage";
 
-const SITE_NAME = process.env.SITE_NAME || 'eSim Store';
+const SITE_NAME = process.env.SITE_NAME || '(Site Name)';
 
 export default function AboutUsPage() {
   return (
