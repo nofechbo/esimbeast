@@ -4,13 +4,14 @@ import { appendReferralRow } from "@/lib/googleSheets";
 import { isValidMetadata } from "@/lib/VerifyMetadata";
 import { formatDataSize } from "@/utils/formaters";
 import { generateEncStr } from "@/utils/generateEncStr";
+import { WM_ORDER_AND_REDEEM_URL, WM_MERCHANT_ID, WM_TOKEN, WM_DEPT_ID } from "@/config";
 import "dotenv/config";
 import Stripe from "stripe";
 
-const url = process.env.ORDER_AND_REDEEM_URL;
-const merchantId = process.env.MERCHANT_ID;
-const deptId = process.env.DEPT_ID;
-const token = process.env.TOKEN;
+const url = WM_ORDER_AND_REDEEM_URL;
+const merchantId = WM_MERCHANT_ID;
+const deptId = WM_DEPT_ID;
+const token = WM_TOKEN;
 const qrcodeType = 2;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);

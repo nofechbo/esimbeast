@@ -1,8 +1,9 @@
 import { generateEncStr } from '@/utils/generateEncStr';
+import { WM_ORDER_AND_REDEEM_URL, WM_MERCHANT_ID, WM_TOKEN } from "@/config";
 
-const url = process.env.ORDER_AND_REDEEM_URL
-const merchantId = process.env.MERCHANT_ID;
-const token = process.env.TOKEN;
+const url = WM_ORDER_AND_REDEEM_URL;
+const merchantId = WM_MERCHANT_ID;
+const token = WM_TOKEN;
 
 export default async function handler(req, res) {
     if (req.method !== 'GET') {

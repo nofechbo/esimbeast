@@ -1,9 +1,10 @@
 import crypto from 'crypto';
+import { WM_MERCHANT_ID, WM_TOKEN } from "@/config";
 
 export function validateEncStr(callbackData) {
     const { orderId, itemList, encStr } = callbackData
-    const merchantId = process.env.MERCHANT_ID
-    const token = process.env.TOKEN
+    const merchantId = WM_MERCHANT_ID
+    const token = WM_TOKEN
 
     if (!orderId || !itemList || !encStr) {
         console.error("Missing required fields in callback data")
