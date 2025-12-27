@@ -121,24 +121,63 @@ export default async function handler(req, res) {
       encStr,
     };
 
+    console.log("Worldmove order-and-redeem request", {
+      intentId,
+      email,
+      planName: plan.name,
+      productId: plan.productId,
+      qty,
+    });
+
     const wmRes = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
 
+    if (!wmRes.ok) {
+      console.error("Worldmove HTTP error", {
+        intentId,
+        email,
+        httpStatus: wmRes.status,
+        productId: plan.productId,
+        qty,
+      });
+      return res.status(502).json({ error: "Worldmove service error", intent });
+    }
+
     json = await wmRes.json();
     if (json.code !== 0) {
-      console.error("Worldmove rejected order-and-redeem request:", json);
+      console.error("Worldmove rejected order-and-redeem", {
+        intentId,
+        email,
+        productId: plan.productId,
+        qty,
+        wmCode: json.code,
+        wmMessage: json.msg,
+      });
       return res
         .status(502)
         .json({ error: "Worldmove rejected request", details: json, intent });
     }
 
-    console.log("WM should hit callback endpoint shortly.");
+    console.log("Worldmove order-and-redeem succeeded", {
+      intentId,
+      email,
+      wmOrderId: json.orderId,
+      productId: plan.productId,
+      qty,
+    });
   } catch (err) {
-    console.error("error in order-and-redeem api", err);
-    res.status(500).json({ error: "Failed to order and redeem plan", intent });
+    console.error("Worldmove order-and-redeem failed", {
+      intentId,
+      email,
+      productId: plan.productId,
+      qty,
+      errorName: err.name,
+      errorMessage: err.message,
+    });
+    return res.status(500).json({ error: "Failed to order and redeem plan", intent });
   }
 
   await prisma.planOrder.updateMany({
