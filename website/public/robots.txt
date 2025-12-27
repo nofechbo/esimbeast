@@ -1,0 +1,14 @@
+# robots.txt for eSIM Beast
+
+User-agent: *
+Allow: /
+
+# Disallow non-public pages
+Disallow: /payment
+Disallow: /success
+Disallow: /test-plans
+Disallow: /plan-status
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://esimbeast.com/api/sitemap.xml
