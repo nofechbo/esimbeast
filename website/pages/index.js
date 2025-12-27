@@ -51,16 +51,19 @@ export default function Home() {
       />
       <div className={styles.heroWrapper}>
         <div className={`absolute inset-0 z-0 flex items-center justify-center ${styles.bgImageWrapper}`}>
-          <img
-            src="/bg.png"
-            alt="Background illustration"
-            fetchPriority="high"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          />
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/bg-mobile.webp" type="image/webp" />
+            <img
+              src="/bg.png"
+              alt="Background illustration"
+              fetchPriority="high"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </picture>
         </div>
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
