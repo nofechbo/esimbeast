@@ -13,8 +13,10 @@ import { SITE_NAME } from "@/config";
 export default function WhatIsESIMPage() {
     return (
     // @ts-ignore
-    <ContentPage 
+    <ContentPage
       title="What is an eSIM, and How Does it Work?"
+      description="Learn what an eSIM is and how it works. Discover the benefits of embedded SIM technology for travel: instant activation, multiple profiles, and eco-friendly connectivity."
+      path="/info/what-is-esim"
     >
       <SectionTitle>What is an eSIM?</SectionTitle>
       <Paragraph>

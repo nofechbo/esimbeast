@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "@emotion/styled";
+import { HEADER_LOGO } from "@/config";
 
 const Nav = styled("nav")({
   position: "absolute",
@@ -56,7 +57,7 @@ export default function NavBar() {
     <Nav>
       <LeftSection>
         <Link href="/">
-          <Logo src="/base_logo.svg" alt="esim Logo" width={70} height={23} />
+          <Logo src={HEADER_LOGO} alt="eSIM Logo" width={70} height={23} />
         </Link>
         {/* <NavLink href="/info/destinations">Destinations</NavLink> */}
         <NavLink href="/info/what-is-esim">What is an eSIM</NavLink>

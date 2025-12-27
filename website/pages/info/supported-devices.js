@@ -8,7 +8,11 @@ import ContentPage, {
 export default function SupportedDevicesPage() {
   return (
     // @ts-ignore
-    <ContentPage title="Supported Devices">
+    <ContentPage
+      title="Supported Devices"
+      description="Check if your device supports eSIM. Full compatibility list for iPhone, Samsung, Google Pixel, Huawei, Motorola, iPads, and laptops."
+      path="/info/supported-devices"
+    >
       <SectionTitle>Apple</SectionTitle>
       <List>
         <ListItem>iPhone XR</ListItem>

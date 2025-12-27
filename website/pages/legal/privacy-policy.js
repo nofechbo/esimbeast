@@ -11,6 +11,8 @@ export default function PrivacyPolicyPage() {
     <ContentPage
       title="Privacy Policy"
       subtitle={pageSubtitle}
+      description="Learn how we collect, use, and protect your personal data. Our privacy policy covers data handling, payment security, and your rights."
+      path="/legal/privacy-policy"
     >
       <SectionTitle>Introduction</SectionTitle>
       <Paragraph>

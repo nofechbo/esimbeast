@@ -1,7 +1,6 @@
 import { getAllPlans } from "@/lib/db/plans";
 import slugify from "@/utils/formaters";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://esimbeast.com";
+import { SITE_URL } from "@/config";
 
 function generateSiteMap(plans) {
   const today = new Date().toISOString().split("T")[0];

@@ -5,6 +5,8 @@ export default function CookiesPolicyPage() {
     <ContentPage
       title="Cookies Policy"
       subtitle="Last updated on May 25, 2025 – Applies to EEA and Swiss residents"
+      description="Understand how we use cookies on our website. Learn about functional, analytics, and marketing cookies, and how to manage your preferences."
+      path="/legal/cookies-policy"
     >
       <SectionTitle>1. Introduction</SectionTitle>
       <Paragraph>

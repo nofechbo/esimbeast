@@ -6,9 +6,11 @@ import { SITE_EMAIL, SITE_NAME } from "@/config";
 export default function AffiliateProgramPage() {
   const pageTitle = `${SITE_NAME} Affiliate Program`;
   return (
-    <ContentPage 
+    <ContentPage
       title={pageTitle}
       subtitle=""
+      description="Join our eSIM affiliate program and earn high commissions. Perfect for travel influencers, agencies, and OTAs promoting global connectivity solutions."
+      path="/info/affiliate-program"
     >
       <Paragraph>
         Are you a travel influencer, agency, OTA, or someone enthusiastic about simplifying 

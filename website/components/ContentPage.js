@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import Footer from "./Footer";
-import NavBar from "./NavBar";
+import SEO from "./SEO";
 
 export const PageContainer = styled("div")({
   paddingTop: "80px",
@@ -115,10 +114,10 @@ export const Divider = styled("hr")({
 });
 
 
-export default function ContentPage({ title, subtitle, children }) {
+export default function ContentPage({ title, subtitle, description, path, children }) {
   return (
     <PageContainer>
-      <NavBar />
+      <SEO title={title} description={description} path={path} />
       <Hero>
         <HeroTitle>{title}</HeroTitle>
         {subtitle && <HeroSubtitle>{subtitle}</HeroSubtitle>}

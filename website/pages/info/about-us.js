@@ -4,9 +4,11 @@ import { SITE_NAME } from "@/config";
 
 export default function AboutUsPage() {
   return (
-    <ContentPage 
-      title="About us"
+    <ContentPage
+      title="About Us"
       subtitle="Your Trusted Partner for Sustainable and Affordable Travel Connectivity"
+      description="Learn about our mission to provide affordable, eco-friendly eSIM connectivity for travelers worldwide. Seamless global roaming without plastic SIM cards."
+      path="/info/about-us"
     >
       <Paragraph>
         At {SITE_NAME}, we are passionate about keeping everyone connected affordably while making 

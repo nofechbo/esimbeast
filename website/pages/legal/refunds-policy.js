@@ -10,7 +10,12 @@ import { SITE_EMAIL, SITE_NAME } from "@/config";
 export default function RefundPolicyPage() {
   const pageSubtitle = `${SITE_NAME} eSIM Refund Policy`;
   return (
-    <ContentPage title="Refunds Policy" subtitle={pageSubtitle}>
+    <ContentPage
+      title="Refunds Policy"
+      subtitle={pageSubtitle}
+      description="View our eSIM refund policy. Learn about refund eligibility for trip cancellations, how to request a refund, and processing times."
+      path="/legal/refunds-policy"
+    >
       <Paragraph>
         At {SITE_NAME}, customer satisfaction is our priority. While our eSIMs are
         designed to work flawlessly, we understand that issues can arise. We

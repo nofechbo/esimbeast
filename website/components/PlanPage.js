@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useEffect, useState } from "react";
 import { getCountryName } from "@/utils/homepage/codeToCountry";
+import SEO from "./SEO";
 import {
   AmountBox,
   CompatibilityLink,
@@ -97,8 +98,16 @@ export default function PlanPage({ plan, slug }) {
   const planCoverage = plan.countryCodes.map((countryCode) => getCountryName(countryCode));
   const displayDataText = formatDataSize(displayDataNumber);
 
+  const seoTitle = `${country ?? plan.name} eSIM - ${displayDataText} for ${formatDuration(displayDays)}`;
+  const seoDescription = `Get ${displayDataText} eSIM data plan for ${country ?? plan.name}. ${formatDuration(displayDays)} validity, ${plan.networkSpeed} speeds, instant activation. Only $${(plan.price / 100).toFixed(2)}.`;
+
   return (
     <ContentWrapper>
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        path={`/plans/${slug}`}
+      />
       <PlanPageWrapper>
         <PageTitle>Your plan summary</PageTitle>
         <SeoText>

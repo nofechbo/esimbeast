@@ -6,6 +6,7 @@ import { fetchPopularPlans, fetchSearchOptions } from "@/utils/homepage/api";
 import SearchBox from "@/components/homepage/SearchBox";
 import { handleReferral } from "@/utils/referral";
 import { formatDataSize, formatDuration } from "@/utils/formaters";
+import SEO from "@/components/SEO";
 
 export default function Home() {
   const [popularPlans, setPopularPlans] = useState([]);
@@ -43,6 +44,11 @@ export default function Home() {
 
   return (
     <div className={`relative w-full ${styles.pageContainer}`}>
+      <SEO
+        title="Best eSIM Plans for International Travel"
+        description="Find the perfect eSIM data plan for your trip. Compare prices across 190+ countries, instant activation, no roaming fees. Stay connected anywhere in the world."
+        path="/"
+      />
       <div className={styles.heroWrapper}>
         <div className={`absolute inset-0 z-0 flex items-center justify-center ${styles.bgImageWrapper}`}>
           <img

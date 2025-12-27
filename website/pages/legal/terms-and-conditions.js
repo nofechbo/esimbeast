@@ -14,6 +14,8 @@ export default function TermsAndConditionsPage() {
     <ContentPage
       title="Terms and Conditions"
       subtitle={pageSubtitle}
+      description="Read our terms and conditions for using eSIM services. Understand service terms, payment policies, user obligations, and limitations of liability."
+      path="/legal/terms-and-conditions"
     >
       <SectionTitle>Application of Terms of Use</SectionTitle>
       <Paragraph>

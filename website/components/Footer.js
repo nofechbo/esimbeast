@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "../styles/Footer.module.css";
-import { SITE_NAME } from "@/config";
+import { SITE_NAME, FOOTER_LOGO } from "@/config";
 
 export default function Footer() {
   return (
@@ -9,8 +9,8 @@ export default function Footer() {
         <div className={styles.logoContainer}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/footer_logo.svg"
-            alt="esim Logo"
+            src={FOOTER_LOGO}
+            alt="eSIM Logo"
             style={{ height: "30px" }}
           />
         </div>
