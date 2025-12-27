@@ -1,7 +1,7 @@
+import { SITE_NAME } from '@/config';
 import nodemailer from 'nodemailer';
 
-const APP_NAME = process.env.SITE_NAME || 'eSim Store';
-const from = `${APP_NAME} <${process.env.GMAIL_ADDRESS}>`;
+const from = `${SITE_NAME} <${process.env.GMAIL_ADDRESS}>`;
 
 export async function sendEmail(to, subject, html) {
     if (typeof to !== 'string' || typeof subject !== 'string' || typeof html !== 'string') {
