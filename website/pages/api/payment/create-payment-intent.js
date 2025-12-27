@@ -42,6 +42,11 @@ export default async function handler(req, res) {
       metadata.code = code;
     }
 
+    console.log(
+      `Creating payment intent for plan: ${uniqueName}, qty: ${qty}, email: ${email}, price per unit: ${
+        purchasedPlan.price
+      }, total amount: ${purchasedPlan.price * qty}`
+    );
     const paymentIntent = await stripe.paymentIntents.create({
       amount: purchasedPlan.price * qty, // price already in cents
       currency: "usd",
