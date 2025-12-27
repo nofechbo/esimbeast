@@ -30,6 +30,7 @@ function CheckoutForm({ isVerified }) {
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isPaymentReady, setIsPaymentReady] = useState(false);
 
   //make error dissapear after 3 seconds --> change to toast
   useEffect(() => {
@@ -81,8 +82,8 @@ function CheckoutForm({ isVerified }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
-      <PaymentElement />
-      <button
+      <PaymentElement onReady={() => setIsPaymentReady(true)} />
+      {isPaymentReady && <button
         type="submit"
         disabled={isSubmitting || !stripe}
         style={{
@@ -107,7 +108,7 @@ function CheckoutForm({ isVerified }) {
         }
       >
         {isSubmitting ? "Processing..." : "Pay"}
-      </button>
+      </button>}
       {errorMessage && (
         <p style={{ color: "red", marginTop: "0.5rem" }}>{errorMessage}</p>
       )}
