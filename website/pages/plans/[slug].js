@@ -1,10 +1,11 @@
 import slugify from "@/utils/formaters";
 import { getAllPlans, getPlanByuniqueName } from "@/lib/db/plans";
 import PlanPage from "@/components/PlanPage";
+import { MAX_STATIC_PATHS } from "@/config";
 
 export async function getStaticPaths() {
   const allPlans = await getAllPlans();
-  const plans = allPlans.slice(0, 100);
+  const plans = allPlans.slice(0, MAX_STATIC_PATHS);
   const paths = [];
 
   for (const plan of plans) {
