@@ -53,6 +53,7 @@ export default function Home() {
         <div className={`absolute inset-0 z-0 flex items-center justify-center ${styles.bgImageWrapper}`}>
           <picture>
             <source media="(max-width: 768px)" srcSet="/bg-mobile.webp" type="image/webp" />
+            <source srcSet="/bg.webp" type="image/webp" />
             <img
               src="/bg.png"
               alt="Background illustration"
