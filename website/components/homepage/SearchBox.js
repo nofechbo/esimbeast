@@ -42,20 +42,22 @@ const Divider = styled("div")({
   },
 });
 
-const SearchButton = styled("button")({
+const SearchButton = styled("button")(({ disabled }) => ({
   position: "absolute",
   right: "12px",
   width: 66,
   height: 66,
   flexShrink: 0,
-  cursor: "pointer",
+  cursor: disabled ? "not-allowed" : "pointer",
+  opacity: disabled ? 0.7 : 1,
+  transition: "opacity 0.2s ease",
 
   "@media (max-width: 768px)": {
     width: 30,
     height: 30,
     right: "10px",
   },
-});
+}));
 
 export default function SearchBox({
   searchOptions,
@@ -66,8 +68,11 @@ export default function SearchBox({
   const [country, setCountry] = useState("");
   const [dataSize, setDataSize] = useState("");
   const [duration, setDuration] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleSearch = async () => {
+    if (isSearching) return;
+
     console.log(country, dataSize, duration);
     if (country === "" || dataSize === "" || duration === "") {
       toast.info("Please fill in all search fields");
@@ -77,31 +82,41 @@ export default function SearchBox({
     const countryCode = getCountryCode(country);
     if (!countryCode) return;
 
-    const res = await fetch("api/search/results", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ countryCode, dataSize, duration }),
-    });
+    setIsSearching(true);
 
-    const data = await res.json();
-    if (res.status === 404) {
-      toast.info("No matching plan found");
-      return;
-    }
+    try {
+      const res = await fetch("api/search/results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ countryCode, dataSize, duration }),
+      });
 
-    if (!res.ok || !data.planUrl) {
-      console.error("Search request failed:", { status: res.status, data });
+      const data = await res.json();
+      if (res.status === 404) {
+        toast.info("No matching plan found");
+        setIsSearching(false);
+        return;
+      }
+
+      if (!res.ok || !data.planUrl) {
+        console.error("Search request failed:", { status: res.status, data });
+        toast.error("Something went wrong. Please try again.");
+        setIsSearching(false);
+        return;
+      }
+
+      const params = new URLSearchParams({
+        code: countryCode,
+        days: duration,
+        data: dataSize,
+      });
+
+      onNavigate(`${data.planUrl}?${params.toString()}`);
+    } catch (err) {
+      console.error("Search request failed:", err);
       toast.error("Something went wrong. Please try again.");
-      return;
+      setIsSearching(false);
     }
-
-    const params = new URLSearchParams({
-      code: countryCode,
-      days: duration,
-      data: dataSize,
-    });
-
-    onNavigate(`${data.planUrl}?${params.toString()}`);
   };
 
   return (
@@ -136,7 +151,7 @@ export default function SearchBox({
         formatOption={formatData}
       />
 
-      <SearchButton onClick={handleSearch}>
+      <SearchButton onClick={handleSearch} disabled={isSearching}>
         <img
           src="/icons/search.svg"
           alt="search"
