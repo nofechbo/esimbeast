@@ -3,6 +3,7 @@ export default function FlagIcons({
   countryCodes = [],
   Wrapper = "div",
   Flag = "img",
+  loading,
   ...wrapperProps
 }) {
   const codes = countryCodes.length ? countryCodes : [null];
@@ -15,6 +16,7 @@ export default function FlagIcons({
         <Flag
           key={i}
           src={getFlagSrc(code)}
+          loading={loading}
           onError={(e) => {
             e.currentTarget.src = "/icons/pin.svg";
           }}

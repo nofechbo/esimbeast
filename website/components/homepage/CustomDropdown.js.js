@@ -267,6 +267,7 @@ export function CustomDropdown({
                   <FlagIcons
                     countryCodes={code ? [code] : []}
                     Flag={DropdownFlag}
+                    loading="lazy"
                   />
                 )}
                 {formatOption(option)}

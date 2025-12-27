@@ -54,6 +54,7 @@ export default function Home() {
           <img
             src="/bg.png"
             alt="Background illustration"
+            fetchPriority="high"
             style={{
               width: "100%",
               height: "100%",
