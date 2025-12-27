@@ -1,7 +1,7 @@
 import { validateEncStr } from "@/lib/validateEncStr";
 import { prisma } from "@/lib/db/prisma";
 import { sendEmail } from "@/lib/email/sendEmail";
-import { IS_RENDER, SITE_NAME } from "@/config";
+import { SKIP_EMAIL_SENDING, SITE_NAME } from "@/config";
 
 //handling - what if errors happen here? user will still see "check your email"
 
@@ -61,7 +61,7 @@ export default async function handler(req, res) {
     }
 
     //send email to user with qr code and lpa links for all items in the order
-    if (!IS_RENDER) {
+    if (!SKIP_EMAIL_SENDING) {
         const planDetails = itemList.map((item, i) => `
             <h3>Plan ${i + 1}:</h3>
             <p><strong>Plan Name:</strong> ${orders[i].productName}</p>
@@ -88,7 +88,7 @@ export default async function handler(req, res) {
 
         console.log(`Sent order details email to ${email} for orderId ${orderId}`);
     } else {
-        console.log(`Skipping email send in Render environment for orderId ${orderId}`);
+        console.log(`Skipping email send for orderId ${orderId}`);
     }
 
     return res.status(200).send("1");

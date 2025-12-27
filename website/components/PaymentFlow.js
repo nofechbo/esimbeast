@@ -18,8 +18,8 @@ import {
   PaymentTitle,
 } from "@/styles/paymentFlowStyles";
 
-// 🔹 for render email block!!!
-const IS_RENDER = process.env.NEXT_PUBLIC_IS_RENDER === "true";
+// 🔹 skip email verification when true
+const SKIP_EMAIL_SENDING = process.env.NEXT_PUBLIC_SKIP_EMAIL_SENDING === "true";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -120,7 +120,7 @@ export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   // const [ isVerified, setIsVerified ] = useState(false); //🔹 regular
-  const [isVerified, setIsVerified] = useState(IS_RENDER); // 🔹 for render email block!!!
+  const [isVerified, setIsVerified] = useState(SKIP_EMAIL_SENDING); // 🔹 skip email verification
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState("");
   const [verificationSuccess, setVerificationSuccess] = useState("");
@@ -130,15 +130,15 @@ export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
     return <p>Plan not found.</p>;
   }
 
-  // 🔹 Auto-create PaymentIntent when skipping email (Render mode)
+  // 🔹 Auto-create PaymentIntent when skipping email verification
   useEffect(() => {
-    if (IS_RENDER) {
+    if (SKIP_EMAIL_SENDING) {
       (async () => {
         await createPaymentIntent(email || "test@esim-store.com");
       })();
     }
   }, []);
-  // 🔹 end of auto-create Render mode
+  // 🔹 end of auto-create when skipping email
 
   const onSendCode = async () => {
     setError("");
@@ -268,8 +268,8 @@ export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
 
   return (
     <PaymentWrapper>
-      {/* 🔹 CHANGED: hide email verification UI if IS_RENDER */}
-      {!IS_RENDER && (
+      {/* 🔹 hide email verification UI if SKIP_EMAIL_SENDING */}
+      {!SKIP_EMAIL_SENDING && (
         <EmailVerification>
           <div>
             <label
@@ -331,7 +331,7 @@ export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
           </div>
         </EmailVerification>
       )}{" "}
-      {/* end of IS_RENDER check */}
+      {/* end of SKIP_EMAIL_SENDING check */}
       {verificationSuccess && <Success>{verificationSuccess}</Success>}
       {error && <Error>{error}</Error>}
       {clientSecret && (
