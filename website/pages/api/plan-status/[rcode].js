@@ -1,7 +1,7 @@
 import { generateEncStr } from '@/utils/generateEncStr';
-import { WM_ORDER_AND_REDEEM_URL, WM_MERCHANT_ID, WM_TOKEN } from "@/config";
+import { WM_USAGE_QUERY_URL, WM_MERCHANT_ID, WM_TOKEN } from "@/config";
 
-const url = WM_ORDER_AND_REDEEM_URL;
+const url = WM_USAGE_QUERY_URL;
 const merchantId = WM_MERCHANT_ID;
 const token = WM_TOKEN;
 
@@ -32,7 +32,8 @@ export default async function handler(req, res) {
         });
         const data = await wmRes.json();
         if (data.code !== 0) {
-            return res.status(400).json({ error: data.msg || 'Failed to fetch plan status from Worldmove' });
+            console.error(`Worldmove API error for rcode ${rcode}: ${data.msg}`);
+            return res.status(400).json({ error: 'Invalid or expired redemption code. Please check and try again.' });
         }
         
         // send response
