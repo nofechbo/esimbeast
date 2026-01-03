@@ -1,7 +1,7 @@
 import { validateEncStr } from "@/lib/validateEncStr";
 import { prisma } from "@/lib/db/prisma";
 import { sendEmail } from "@/lib/email/sendEmail";
-import { SKIP_EMAIL_SENDING, SITE_NAME } from "@/config";
+import { SKIP_EMAIL_SENDING, SITE_NAME, SITE_URL } from "@/config";
 
 //handling - what if errors happen here? user will still see "check your email"
 
@@ -68,6 +68,8 @@ export default async function handler(req, res) {
             <p>${orders[i].data}GB for ${orders[i].duration} days</p>
             <p>To activate your plan, follow the link below and scan the QR code:
             <a href="${item.qrcode}" target="_blank" rel="noopener noreferrer">View QR Code</a></p>
+            <p>Check your data usage anytime:
+            <a href="${SITE_URL}/plan-status/${item.rcode}" target="_blank" rel="noopener noreferrer">View Plan Status</a></p>
 
             <hr />
         `).join('');
