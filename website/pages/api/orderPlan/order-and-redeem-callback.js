@@ -62,17 +62,20 @@ export default async function handler(req, res) {
 
     //send email to user with qr code and lpa links for all items in the order
     if (!SKIP_EMAIL_SENDING) {
-        const planDetails = itemList.map((item, i) => `
-            <h3>Plan ${i + 1}:</h3>
+        const planDetails = itemList.map((item, i) => {
+            const dataDisplay = orders[i].data > 0 ? `${orders[i].data}GB` : 'Unlimited data';
+            const planHeader = itemList.length > 1 ? `<h3>Plan ${i + 1}:</h3>` : '';
+            return `
+            ${planHeader}
             <p><strong>Plan Name:</strong> ${orders[i].productName}</p>
-            <p>${orders[i].data}GB for ${orders[i].duration} days</p>
+            <p>${dataDisplay} for ${orders[i].duration} days</p>
             <p>To activate your plan, follow the link below and scan the QR code:
             <a href="${item.qrcode}" target="_blank" rel="noopener noreferrer">View QR Code</a></p>
             <p>Check your data usage anytime:
-            <a href="${SITE_URL}/plan-status/${item.rcode}" target="_blank" rel="noopener noreferrer">View Plan Status</a></p>
+            <a href="${SITE_URL}/plan-status?rcode=${item.rcode}" target="_blank" rel="noopener noreferrer">View Plan Status</a></p>
 
             <hr />
-        `).join('');
+        `}).join('');
 
         const emailContent = `
             <h2>Thank you for your purchase from ${SITE_NAME}!</h2>
