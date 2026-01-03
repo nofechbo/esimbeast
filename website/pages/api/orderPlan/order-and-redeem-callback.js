@@ -7,16 +7,16 @@ import { SKIP_EMAIL_SENDING, SITE_NAME } from "@/config";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
-        console.error("Invalid request method");
+        console.error("Invalid request method:", req.method);
         res.setHeader('Allow', 'POST');
         return res.status(405).send("Method Not Allowed");
     }
 
     const data = req.body
-    console.log(data)
+    console.log("Received Worldmove callback", { orderId: data.orderId, itemCount: data.itemList?.length })
 
     if (!validateEncStr(data)) {
-        console.error("Invalid encStr in callback data");
+        console.error("Invalid encStr in callback", { orderId: data.orderId });
         return res.status(400).send("Invalid encStr");
     }
 
@@ -66,7 +66,7 @@ export default async function handler(req, res) {
             <h3>Plan ${i + 1}:</h3>
             <p><strong>Plan Name:</strong> ${orders[i].productName}</p>
             <p>${orders[i].data}GB for ${orders[i].duration} days</p>
-            <p><strong>to activate your plan, follow the link below and scan the QR code:
+            <p>To activate your plan, follow the link below and scan the QR code:
             <a href="${item.qrcode}" target="_blank" rel="noopener noreferrer">View QR Code</a></p>
 
             <hr />
@@ -91,5 +91,6 @@ export default async function handler(req, res) {
         console.log(`Skipping email send for orderId ${orderId}`);
     }
 
+    console.log("Callback processed successfully", { orderId, itemCount: itemList.length });
     return res.status(200).send("1");
 }

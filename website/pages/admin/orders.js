@@ -92,6 +92,7 @@ export default function AdminOrders() {
                 <tr style={{ backgroundColor: "#f5f5f5" }}>
                   <th style={thStyle}>ID</th>
                   <th style={thStyle}>Order ID</th>
+                  <th style={thStyle}>Rcode</th>
                   <th style={thStyle}>Intent ID</th>
                   <th style={thStyle}>Order Time</th>
                   <th style={thStyle}>Email</th>
@@ -108,6 +109,7 @@ export default function AdminOrders() {
                   <tr key={order.id} style={{ borderBottom: "1px solid #eee" }}>
                     <td style={tdStyle}>{order.id}</td>
                     <td style={tdStyle}>{order.orderId || "-"}</td>
+                    <td style={tdStyle}>{order.rcode || "-"}</td>
                     <td style={tdStyle}>{order.intentId}</td>
                     <td style={tdStyle}>{formatDate(order.orderTime)}</td>
                     <td style={tdStyle}>{order.email}</td>
