@@ -1,16 +1,11 @@
 .footer {
-  position: relative;
-  bottom: 0;
   width: 100%;
   color: #f3f4f6;
   padding: 32px 32px 15px;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   margin: 0 auto;
   background-color: #0A1A24;
-  z-index: 10;
-  pointer-events: auto;
 }
 
 .footerTop {
@@ -123,8 +118,6 @@
 /* mobile */
 @media (max-width: 768px) {
   .footer {
-    height: auto;
-    min-height: auto;
     padding: 24px 16px;
   }
   
@@ -186,7 +179,4 @@
     margin-left: 0 !important;
   }
 
-  .footerClosed {
-    transform: translateY(100%);
-  }
 }
