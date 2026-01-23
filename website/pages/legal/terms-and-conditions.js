@@ -1,179 +1,135 @@
 import ContentPage, {
   SectionTitle,
   Paragraph,
-  List,
-  ListItem,
   Divider,
 } from "@/components/ContentPage";
-import { SITE_EMAIL, SITE_NAME } from "@/config";
+import { SITE_EMAIL, SITE_NAME, SITE_URL } from "@/config";
 
 export default function TermsAndConditionsPage() {
-  const pageSubtitle = `Terms of Use for ${SITE_NAME}`;
+  const pageSubtitle = `Terms of Service for ${SITE_NAME}`;
 
   return (
     <ContentPage
-      title="Terms and Conditions"
+      title="Terms of Service"
       subtitle={pageSubtitle}
-      description="Read our terms and conditions for using eSIM services. Understand service terms, payment policies, user obligations, and limitations of liability."
+      description="Read our terms of service for using eSIM services. Understand service terms, payment policies, user obligations, and limitations of liability."
       path="/legal/terms-and-conditions"
     >
-      <SectionTitle>Application of Terms of Use</SectionTitle>
+      <SectionTitle>1) Introduction</SectionTitle>
       <Paragraph>
-        These Terms govern the use of services provided by {SITE_NAME}.com (“{SITE_NAME}”)
-        to users through its website and/or app (collectively, the “Platform”).
-        By accessing or using the Platform, you agree to be bound by these
-        Terms. If you do not accept these Terms, you may not use our services.
+        Welcome to {SITE_URL.replace('https://', '')} (the "Website"), operated by:
       </Paragraph>
-      <Divider />
-      <SectionTitle>Changes to Terms and Conditions</SectionTitle>
       <Paragraph>
-        {SITE_NAME} reserves the right to amend these Terms. Users will be notified
-        of changes through the Platform or other communication methods.
-        Continued use after notification constitutes acceptance of the updated
-        Terms.
-      </Paragraph>
-      <Divider />
-      <SectionTitle>Definitions</SectionTitle>
-      <List>
-        <ListItem>
-          <strong>“Services”:</strong> Includes mobile internet and related eSIM
-          services provided by {SITE_NAME}.
-        </ListItem>
-        <ListItem>
-          <strong>“User”:</strong> Any individual with an account using {SITE_NAME}’s
-          services.
-        </ListItem>
-        <ListItem>
-          <strong>“eSIM”:</strong> A digital SIM profile compliant with GSMA
-          standards.
-        </ListItem>
-        <ListItem>
-          <strong>“QR Code”:</strong> A unique code required to download and
-          activate an eSIM profile.
-        </ListItem>
-        <ListItem>
-          <strong>“Network Operator”:</strong> Telecommunications providers
-          supporting {SITE_NAME}’s eSIM services.
-        </ListItem>
-        <ListItem>
-          <strong>“Top-Up”:</strong> Additional data purchased to extend the
-          usage of a plan.
-        </ListItem>
-      </List>
-      <Divider />
-      <SectionTitle>Services</SectionTitle>
-      <Paragraph>
-        <strong>Service Description:</strong> {SITE_NAME}’s eSIM provides data-only
-        services, compliant with GSMA standards. Voice calls and SMS are not
-        supported.
-      </Paragraph>
-
-      <Paragraph>
-        <strong>No Warranty:</strong> {SITE_NAME} offers its services on an “as-is”
-        basis without guarantees of uninterrupted or error-free service. Network
-        quality depends on local operators, and {SITE_NAME} cannot be held liable for
-        issues beyond its control, including signal interference, network
-        coverage limitations, or unforeseen outages.
-      </Paragraph>
-
-      <Paragraph>
-        <strong>User Restrictions:</strong> {SITE_NAME} may limit transmission rates
-        or suspend services during emergencies or for public safety purposes.
-        Additionally, {SITE_NAME} may suspend or terminate services if users violate
-        these Terms or engage in prohibited activities.
-      </Paragraph>
-      <Divider />
-      <SectionTitle>Payment and Refund Policy</SectionTitle>
-      <Paragraph>
-        <strong>Payment:</strong> All services are prepaid and non-refundable,
-        except as specified in {SITE_NAME}’s Refund Policy. Payments are securely
-        processed via Stripe.
-      </Paragraph>
-
-      <Paragraph>
-        <strong>Refunds:</strong> Please read our Refund Policy.
-      </Paragraph>
-      <Divider />
-      <SectionTitle>User Obligations</SectionTitle>
-      <List>
-        <ListItem>
-          Users are responsible for ensuring their device compatibility and
-          maintaining network-unlocked status.
-        </ListItem>
-        <ListItem>
-          Users must use services lawfully and bear responsibility for their
-          device setup, configuration, and usage.
-        </ListItem>
-        <ListItem>
-          Users must comply with applicable regulations in the region where
-          services are used.
-        </ListItem>
-      </List>
-      <Divider />
-      <SectionTitle>Account and Confidentiality</SectionTitle>
-      <List>
-        <ListItem>
-          Users must create a verified account and are responsible for
-          safeguarding their login credentials.
-        </ListItem>
-        <ListItem>
-          Users may request account deletion by contacting{" "}
-          <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>.
-        </ListItem>
-      </List>
-      <Divider />
-      <SectionTitle>QR Code and eSIM Profile</SectionTitle>
-      <List>
-        <ListItem>
-          QR codes are for one-time use only and valid for 180 days from
-          issuance.
-        </ListItem>
-        <ListItem>
-          eSIM profiles are non-transferable and valid for up to 180 days,
-          depending on the plan.
-        </ListItem>
-      </List>
-      <Divider />
-      <SectionTitle>Limitations of Liability</SectionTitle>
-      <Paragraph>{SITE_NAME} is not liable for:</Paragraph>
-      <List>
-        <ListItem>
-          Losses arising from third-party network or cloud service providers.
-        </ListItem>
-        <ListItem>
-          Inaccuracies in data usage reporting caused by network operators.
-        </ListItem>
-        <ListItem>
-          Incidents related to unauthorized device usage or misconfiguration.
-        </ListItem>
-      </List>
-      <Divider />
-      <SectionTitle>Miscellaneous</SectionTitle>
-      <List>
-        <ListItem>
-          <strong>Jurisdiction:</strong> These Terms are governed by the laws of
-          the Netherlands, and disputes will be resolved exclusively in
-          Amsterdam courts.
-        </ListItem>
-        <ListItem>
-          <strong>Privacy Policy:</strong> {SITE_NAME}  collects and processes user
-          data per its Privacy Policy, available on the Platform.
-        </ListItem>
-        <ListItem>
-          <strong>Marketing:</strong> {SITE_NAME}  may send product updates and
-          promotional communications. Users can opt out by contacting{" "}
-          <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL} </a>.
-        </ListItem>
-      </List>
-
-      <Paragraph>
-        For further assistance, Contact us at{" "}
+        <strong>KHITAR LIMITED</strong>
+        <br />
+        Address: 33 Wyndham Street, 22F, Hong Kong Island, Hong Kong
+        <br />
+        Email:{" "}
         <a
           href={`mailto:${SITE_EMAIL}`}
           style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
         >
           {SITE_EMAIL}
         </a>
+      </Paragraph>
+      <Paragraph>
+        By accessing or using our Website and services, you agree to these
+        Terms. If you do not agree, please do not use the Website.
+      </Paragraph>
+      <Divider />
+      <SectionTitle>2) Using the Website</SectionTitle>
+      <ul style={{ marginLeft: "1.5rem", marginBottom: "1rem", lineHeight: "1.8" }}>
+        <li>You may use the Website only for lawful purposes.</li>
+        <li>
+          You must not misuse the Website, attempt unauthorized access, or
+          interfere with its performance or security.
+        </li>
+      </ul>
+      <Divider />
+      <SectionTitle>3) Products and Services</SectionTitle>
+      <ul style={{ marginLeft: "1.5rem", marginBottom: "1rem", lineHeight: "1.8" }}>
+        <li>
+          We provide travel eSIM plans and related digital services. Product
+          details, pricing, and coverage are shown on the relevant pages at the
+          time of purchase.
+        </li>
+        <li>
+          We may update, change, or discontinue products or services at any
+          time.
+        </li>
+      </ul>
+      <Divider />
+      <SectionTitle>4) Accounts (if available)</SectionTitle>
+      <ul style={{ marginLeft: "1.5rem", marginBottom: "1rem", lineHeight: "1.8" }}>
+        <li>
+          Some features may require an account. You are responsible for keeping
+          your login details confidential and for all activity under your
+          account.
+        </li>
+        <li>You must provide accurate and up-to-date information.</li>
+      </ul>
+      <Divider />
+      <SectionTitle>5) Payments</SectionTitle>
+      <ul style={{ marginLeft: "1.5rem", marginBottom: "1rem", lineHeight: "1.8" }}>
+        <li>
+          Prices are shown on the Website and may be displayed in different
+          currencies.
+        </li>
+        <li>
+          By placing an order, you confirm you are authorized to use the payment
+          method and you authorize us to charge the total amount.
+        </li>
+      </ul>
+      <Divider />
+      <SectionTitle>6) Cancellations and Refunds</SectionTitle>
+      <ul style={{ marginLeft: "1.5rem", marginBottom: "1rem", lineHeight: "1.8" }}>
+        <li>
+          Orders can typically be cancelled before activation/installation,
+          depending on the product.
+        </li>
+        <li>Refund requests must be submitted via our support channels.</li>
+        <li>
+          Refund outcomes depend on the circumstances and our Refund Policy
+          published on the Website.
+        </li>
+      </ul>
+      <Divider />
+      <SectionTitle>7) Limitation of Liability</SectionTitle>
+      <ul style={{ marginLeft: "1.5rem", marginBottom: "1rem", lineHeight: "1.8" }}>
+        <li>
+          We are not liable for indirect or consequential losses arising from
+          your use of the Website or services.
+        </li>
+        <li>
+          Our total liability for any claim related to a purchase will not
+          exceed the amount you paid for that specific service.
+        </li>
+      </ul>
+      <Divider />
+      <SectionTitle>8) Intellectual Property</SectionTitle>
+      <ul style={{ marginLeft: "1.5rem", marginBottom: "1rem", lineHeight: "1.8" }}>
+        <li>
+          All content on {SITE_URL.replace('https://', '')} (text, branding, graphics,
+          logos, images, and software) is owned by KHITAR LIMITED or its
+          licensors and is protected by applicable laws.
+        </li>
+        <li>
+          You may not copy, reproduce, or exploit our content without written
+          permission.
+        </li>
+      </ul>
+      <Divider />
+      <SectionTitle>9) Changes to These Terms</SectionTitle>
+      <Paragraph>
+        We may update these Terms at any time. Updates take effect once posted
+        on the Website. You should review them periodically.
+      </Paragraph>
+      <Divider />
+      <SectionTitle>10) Governing Law</SectionTitle>
+      <Paragraph>
+        These Terms are governed by the laws applicable to Hong Kong, and
+        disputes will be handled by the competent courts in Hong Kong, unless
+        mandatory consumer laws in your country provide otherwise.
       </Paragraph>
     </ContentPage>
   );

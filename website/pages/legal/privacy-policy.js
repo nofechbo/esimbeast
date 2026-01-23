@@ -1,152 +1,244 @@
 import ContentPage, {
   SectionTitle,
   Paragraph,
+  List,
+  ListItem,
   Divider,
 } from "@/components/ContentPage";
-import { SITE_EMAIL, SITE_NAME } from "@/config";
+import { SITE_EMAIL, SITE_NAME, SITE_URL } from "@/config";
 
 export default function PrivacyPolicyPage() {
-  const pageSubtitle = `Terms and Conditions for ${SITE_NAME}`;
+  const pageSubtitle = `Privacy Policy for ${SITE_NAME}`;
   return (
     <ContentPage
       title="Privacy Policy"
       subtitle={pageSubtitle}
-      description="Learn how we collect, use, and protect your personal data. Our privacy policy covers data handling, payment security, and your rights."
+      description="Learn how we collect, use, and protect your personal data. Our privacy policy covers data handling, your rights, and cookie usage."
       path="/legal/privacy-policy"
     >
-      <SectionTitle>Introduction</SectionTitle>
       <Paragraph>
-        These terms and conditions (“Terms”), which may be updated periodically
-        by {SITE_NAME}.com (“{SITE_NAME}”), apply to {SITE_NAME}’s website and/or application
-        (collectively, the “Application”) and all services provided in
-        connection with the sale and use of prepaid eSIMs (“eSIMs”).
+        This Privacy Policy explains how personal data is collected and
+        processed when you use {SITE_URL.replace('https://', '')} (the "Website").
       </Paragraph>
-      <Paragraph>
-        By accessing, browsing, or using the Application and/or making a
-        purchase, you confirm that you have read, understood, and agreed to
-        these Terms and our privacy statement. Additionally, you confirm you
-        possess the legal capacity to enter into this agreement.
-      </Paragraph>
+
       <Divider />
-      <SectionTitle>Services</SectionTitle>
+      <SectionTitle>1) Who is responsible for your data?</SectionTitle>
       <Paragraph>
-        <strong>Data Plans:</strong> {SITE_NAME} offers eSIM-based international
-        connectivity through prepaid plans as detailed in the Plan Description
-        (“Plan” and “Services” respectively).
+        <strong>Controller:</strong> KHITAR LIMITED
       </Paragraph>
-
       <Paragraph>
-        <strong>Duration of Services:</strong> Services start upon the
-        successful activation of the eSIM on your device and end when your Plan
-        terminates, expires, or you delete the eSIM. If your data allowance is
-        exhausted, you may purchase a top-up for an additional fee as described
-        in the Plan.
+        <strong>Address:</strong> 33 Wyndham Street, 22F, Hong Kong Island, Hong
+        Kong
       </Paragraph>
-
       <Paragraph>
-        <strong>Suspension of Services:</strong> If you breach these Terms or
-        jeopardize the security of the Application or Services, {SITE_NAME} reserves
-        the right to suspend your access to the Services, with all charges
-        during suspension remaining your responsibility.
-      </Paragraph>
-
-      <SectionTitle>User Obligations</SectionTitle>
-      <Paragraph>
-        Users must refrain from engaging in illegal, fraudulent, or abusive
-        activities when using the Application or Services.
-      </Paragraph>
-      <Divider />
-      <SectionTitle>Registration</SectionTitle>
-      <Paragraph>
-        <strong>Registration Requirements:</strong> To use Services, you must
-        register on the Application, accept these Terms, and pay for your
-        selected Plan.
-      </Paragraph>
-
-      <Paragraph>
-        <strong>Device Compatibility:</strong> Ensure your device supports eSIM
-        and is network-unlocked before purchase. By confirming compatibility
-        during checkout, you agree that no refunds will be issued if your device
-        or destination is unsupported. Compatibility lists are available at
-        checkout but are not exhaustive.
-      </Paragraph>
-      <Divider />
-      <SectionTitle>Fees and Payments</SectionTitle>
-      <Paragraph>
-        <strong>Fees:</strong> All Services are prepaid, and charges include VAT
-        unless otherwise stated. Payments are nonrefundable except as detailed
-        in our Refund Policy. You cannot offset payments unless amounts are
-        undisputed or confirmed by a final court ruling.
-      </Paragraph>
-
-      <Paragraph>
-        <strong>Payment Processing:</strong> Payments are processed securely
-        through Stripe, with all financial details submitted directly to them.
-        {SITE_NAME} does not process or store payment data. For details, refer to
-        Stripe’s terms and privacy policy.
-      </Paragraph>
-      <Divider />
-      <SectionTitle>Support</SectionTitle>
-      <Paragraph>
-        Technical support is available via email at{" "}
+        <strong>Contact email:</strong>{" "}
         <a
-          href={`mailto:SITE_EMAIL`}
+          href={`mailto:${SITE_EMAIL}`}
+          style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
+        >
+          {SITE_EMAIL}
+        </a>
+      </Paragraph>
+
+      <Divider />
+      <SectionTitle>2) What data we collect</SectionTitle>
+      <Paragraph>
+        Depending on how you use the Website, we may collect:
+      </Paragraph>
+      <List>
+        <ListItem>
+          Identification and contact details (e.g., name, email, phone, billing
+          address)
+        </ListItem>
+        <ListItem>Order and transaction details</ListItem>
+        <ListItem>
+          Technical and usage data (e.g., device info, IP address, browser,
+          pages visited)
+        </ListItem>
+        <ListItem>
+          Support requests and communications (including via automated tools if
+          used)
+        </ListItem>
+      </List>
+
+      <Divider />
+      <SectionTitle>3) Why we process your data (purposes)</SectionTitle>
+      <Paragraph>We process your data to:</Paragraph>
+      <List>
+        <ListItem>
+          Deliver your eSIM order and provide customer support
+        </ListItem>
+        <ListItem>
+          Manage purchases, payments, and order-related communications
+        </ListItem>
+        <ListItem>Respond to your questions or requests</ListItem>
+        <ListItem>
+          Improve website performance, user experience, and security
+        </ListItem>
+        <ListItem>
+          Send marketing communications (only where allowed and/or with consent)
+        </ListItem>
+        <ListItem>
+          Provide features such as account access or service tools (if
+          available)
+        </ListItem>
+      </List>
+
+      <Divider />
+      <SectionTitle>4) Legal basis for processing</SectionTitle>
+      <Paragraph>
+        We rely on one or more of the following legal bases:
+      </Paragraph>
+      <List>
+        <ListItem>
+          Contract necessity (to complete your purchase and deliver the service)
+        </ListItem>
+        <ListItem>Consent (e.g., marketing, certain cookies)</ListItem>
+        <ListItem>
+          Legitimate interests (e.g., fraud prevention, website security,
+          improving services)
+        </ListItem>
+        <ListItem>
+          Legal obligations (e.g., accounting and compliance requirements)
+        </ListItem>
+      </List>
+
+      <Divider />
+      <SectionTitle>5) Who we share data with</SectionTitle>
+      <Paragraph>
+        We do not sell your personal data. We may share data only when necessary
+        with:
+      </Paragraph>
+      <List>
+        <ListItem>Payment providers and checkout services</ListItem>
+        <ListItem>Technology and hosting providers</ListItem>
+        <ListItem>Analytics and advertising providers</ListItem>
+        <ListItem>Customer support tools</ListItem>
+        <ListItem>Authorities or regulators if legally required</ListItem>
+      </List>
+      <Paragraph>
+        All service providers are required to protect your data and use it only
+        for the services they provide to us.
+      </Paragraph>
+
+      <Divider />
+      <SectionTitle>6) International data transfers</SectionTitle>
+      <Paragraph>
+        Because we operate globally, your data may be processed in countries
+        outside your country of residence. Where required, we use appropriate
+        safeguards for international transfers.
+      </Paragraph>
+
+      <Divider />
+      <SectionTitle>7) Data retention</SectionTitle>
+      <Paragraph>
+        We keep your data only as long as needed for the purposes above:
+      </Paragraph>
+      <List>
+        <ListItem>
+          Customers / orders: typically kept for the period required by
+          applicable accounting and legal obligations (often at least 5 years)
+        </ListItem>
+        <ListItem>
+          Non-customers: kept only as long as needed to respond to requests or
+          provide services
+        </ListItem>
+      </List>
+
+      <Divider />
+      <SectionTitle>8) Your rights</SectionTitle>
+      <Paragraph>
+        Depending on your location and applicable law, you may have the right
+        to:
+      </Paragraph>
+      <List>
+        <ListItem>Access your data</ListItem>
+        <ListItem>Correct inaccurate data</ListItem>
+        <ListItem>Request deletion</ListItem>
+        <ListItem>Restrict or object to processing</ListItem>
+        <ListItem>Request data portability</ListItem>
+        <ListItem>
+          Withdraw consent (where processing is based on consent)
+        </ListItem>
+      </List>
+      <Paragraph>
+        To exercise any rights, contact us at{" "}
+        <a
+          href={`mailto:${SITE_EMAIL}`}
           style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
         >
           {SITE_EMAIL}
         </a>
         .
       </Paragraph>
+
       <Divider />
-      <SectionTitle>Refunds</SectionTitle>
+      <SectionTitle>9) Minors</SectionTitle>
       <Paragraph>
-        Refunds are available only as outlined in {SITE_NAME}’s Refund Policy,
-        incorporated by reference into these Terms.
+        Our services are not intended for children under the age where parental
+        consent is required under applicable law. If we learn we have collected
+        data from a minor without valid consent, we will delete it.
       </Paragraph>
-      <Paragraph>
-        You can find more information on our{" "}
-        <a
-          href="/legal/refunds-policy"
-          style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
-        >
-          refund policy page
-        </a>
-        .
-      </Paragraph>
+
       <Divider />
-      <SectionTitle>Disclaimers and Limitations of Liability</SectionTitle>
+      <SectionTitle>10) Security</SectionTitle>
       <Paragraph>
-        <strong>Disclaimer:</strong> {SITE_NAME} does not guarantee uninterrupted,
-        timely, or error-free Services. The Application is provided “as is”
-        without warranties, including implied warranties of merchantability or
-        fitness for a particular purpose.
+        We apply reasonable technical and organizational measures to protect
+        personal data against unauthorized access, loss, misuse, or alteration.
+      </Paragraph>
+
+      <Divider />
+      <SectionTitle>11) Changes to this policy</SectionTitle>
+      <Paragraph>
+        We may update this Privacy Policy from time to time. The latest version
+        will always be available on {SITE_URL.replace('https://', '')}.
+      </Paragraph>
+
+      <Divider />
+      <SectionTitle>Cookie Policy</SectionTitle>
+      <Paragraph>
+        We use cookies and similar technologies to make the Website work
+        properly and improve performance.
       </Paragraph>
 
       <Paragraph>
-        <strong>Limitation of Liability:</strong> {SITE_NAME} is not liable for
-        special, incidental, or consequential damages related to the use or
-        inability to use the Services or Application. Liability is limited to
-        the amount paid for the specific Services in question.
+        <strong>Types of cookies we may use</strong>
       </Paragraph>
-      <Divider />
-      <SectionTitle>Modifications</SectionTitle>
+      <List>
+        <ListItem>
+          Strictly necessary cookies: required for core site functions
+        </ListItem>
+        <ListItem>
+          Preference cookies: remember choices like language and settings
+        </ListItem>
+        <ListItem>
+          Analytics cookies: help us understand site traffic and improve
+          performance
+        </ListItem>
+        <ListItem>
+          Advertising cookies: help measure and personalize ads
+        </ListItem>
+      </List>
+
       <Paragraph>
-        Plans are provided as-is, and no modifications or customizations will be
-        made post-purchase. Operators and service areas may change during the
-        Plan duration.
+        <strong>Managing cookies</strong>
       </Paragraph>
-      <Divider />
-      <SectionTitle>Entire Agreement</SectionTitle>
+      <Paragraph>You can control cookies through:</Paragraph>
+      <List>
+        <ListItem>Your browser settings (block or delete cookies)</ListItem>
+        <ListItem>Our cookie banner/preferences tool (where available)</ListItem>
+      </List>
+
       <Paragraph>
-        These Terms and related policies constitute the entire agreement between
-        you and {SITE_NAME}, superseding prior agreements or understandings.
+        <strong>Third-party services (including Google)</strong>
       </Paragraph>
-      <Divider />
-      <SectionTitle>Jurisdiction and Governing Law</SectionTitle>
       <Paragraph>
-        These Terms are governed by the laws of the Netherlands, excluding
-        conflicts of law principles. All claims arising from these Terms will be
-        brought exclusively in courts located in Amsterdam.
+        We may use third-party analytics and advertising services (including
+        Google). These partners may collect data through cookies or similar
+        technologies (e.g., IP address, device identifiers, browsing activity)
+        to provide analytics, measurement, ad delivery, and fraud prevention.
+        You can manage Google's partner-site data use via Google's official
+        information pages.
       </Paragraph>
     </ContentPage>
   );

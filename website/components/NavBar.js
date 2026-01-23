@@ -57,9 +57,8 @@ export default function NavBar() {
     <Nav>
       <LeftSection>
         <Link href="/">
-          <Logo src={HEADER_LOGO} alt="eSIM Logo" width={70} height={23} />
+          <Logo src={HEADER_LOGO} alt="eSIM Logo" width={120} height={30} />
         </Link>
-        {/* <NavLink href="/info/destinations">Destinations</NavLink> */}
         <NavLink href="/info/what-is-esim">What is an eSIM</NavLink>
       </LeftSection>
     </Nav>

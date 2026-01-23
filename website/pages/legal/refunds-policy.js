@@ -5,104 +5,86 @@ import ContentPage, {
   ListItem,
   Divider,
 } from "@/components/ContentPage";
-import { SITE_EMAIL, SITE_NAME } from "@/config";
+import { SITE_EMAIL, SITE_NAME, SITE_URL } from "@/config";
 
 export default function RefundPolicyPage() {
   const pageSubtitle = `${SITE_NAME} eSIM Refund Policy`;
   return (
     <ContentPage
-      title="Refunds Policy"
+      title="Refund Policy"
       subtitle={pageSubtitle}
-      description="View our eSIM refund policy. Learn about refund eligibility for trip cancellations, how to request a refund, and processing times."
+      description="View our eSIM refund policy. Learn about refund eligibility, how to request a refund, and when you qualify for a full or partial refund."
       path="/legal/refunds-policy"
     >
       <Paragraph>
-        At {SITE_NAME}, customer satisfaction is our priority. While our eSIMs are
-        designed to work flawlessly, we understand that issues can arise. We
-        offer full or partial refunds under specific conditions. Please review
-        the details below to understand our refund terms.
+        At {SITE_NAME}, if you couldn't use your eSIM for any reason, we'll do
+        our best to make it right, including a full or partial refund, depending
+        on the case.
       </Paragraph>
       <Divider />
-      <SectionTitle>Refund Eligibility</SectionTitle>
-      <Paragraph>
-        <strong>Trip Cancellations</strong>
-      </Paragraph>
-      <Paragraph>
-        Refunds are available if you no longer require the eSIM, provided:
-      </Paragraph>
-      <List>
-        <ListItem>The eSIM hasn’t been activated.</ListItem>
-        <ListItem>The purchase was made within the last 90 days.</ListItem>
-      </List>
-      <Paragraph>
-        For activated eSIMs, refunds will be evaluated on a case-by-case basis.
-      </Paragraph>
+      <SectionTitle>When You're Eligible</SectionTitle>
 
       <Paragraph>
-        <strong>Non-Refundable Situations</strong>
-      </Paragraph>
-      <Paragraph>
-        Refunds will not be provided in the following cases:
+        <strong>1) You changed your plans (unused eSIM)</strong>
       </Paragraph>
       <List>
-        <ListItem>QR code already scanned or activated.</ListItem>
-        <ListItem>Data package validity expired.</ListItem>
-        <ListItem>
-          Issues arising from misuse, fraud, or breach of terms.
-        </ListItem>
-        <ListItem>Unauthorized purchases pending investigation.</ListItem>
+        <ListItem>Full refund if the eSIM was bought on {SITE_URL.replace('https://', '')}</ListItem>
+        <ListItem>The eSIM is not activated / not installed / not used</ListItem>
+        <ListItem>Request is made within 180 days of purchase</ListItem>
       </List>
+
+      <Paragraph>
+        <strong>2) Device not compatible or carrier-locked</strong>
+      </Paragraph>
+      <Paragraph>Full refund if:</Paragraph>
+      <List>
+        <ListItem>The eSIM was not installed (QR not scanned)</ListItem>
+        <ListItem>No data was used</ListItem>
+        <ListItem>Request is within 180 days</ListItem>
+        <ListItem>
+          You provide proof (e.g., screenshots showing incompatibility/lock)
+        </ListItem>
+      </List>
+
+      <Paragraph>
+        <strong>3) eSIM connection not working</strong>
+      </Paragraph>
+      <List>
+        <ListItem>
+          If the eSIM doesn't work due to an issue on our side or the
+          destination network, we may offer a full or partial refund.
+        </ListItem>
+        <ListItem>
+          Please contact us during your trip / as soon as the issue happens so
+          we can troubleshoot first.
+        </ListItem>
+      </List>
+
       <Divider />
       <SectionTitle>How to Request a Refund</SectionTitle>
-      <Paragraph>To initiate a refund:</Paragraph>
-      <List>
-        <ListItem>
-          Email us at{" "}
-          <a
-            href={`mailto:${SITE_EMAIL}`}
-            style={{
-              color: "#ec4899",
-              textDecoration: "none",
-              fontWeight: 600,
-            }}
-          >
-            {SITE_EMAIL}
-          </a>{" "}
-          with your order details.
-        </ListItem>
-        <ListItem>
-          Our team will verify your request and ensure proper eSIM
-          configuration. If unresolved, the refund process will begin.
-        </ListItem>
-      </List>
-      <Divider />
-      <SectionTitle>Refund Process</SectionTitle>
-      <List>
-        <ListItem>
-          Refunds will be issued to the original payment method or as store
-          credit for future purchases.
-        </ListItem>
-        <ListItem>
-          Processing times vary from 1 to 7 business days, depending on your
-          bank and local holidays.
-        </ListItem>
-      </List>
-      <Divider />
-      <SectionTitle>For Assistance</SectionTitle>
       <Paragraph>
-        Contact our support team at{" "}
+        Email us at{" "}
         <a
           href={`mailto:${SITE_EMAIL}`}
-          style={{ color: "#ec4899", textDecoration: "none", fontWeight: 600 }}
+          style={{
+            color: "#ec4899",
+            textDecoration: "none",
+            fontWeight: 600,
+          }}
         >
           {SITE_EMAIL}
-        </a>
-        .
+        </a>{" "}
+        with:
       </Paragraph>
+      <List>
+        <ListItem>Order number</ListItem>
+        <ListItem>Short explanation of the issue</ListItem>
+        <ListItem>Screenshots (if relevant)</ListItem>
+      </List>
 
       <Paragraph>
-        We strive to provide hassle-free connectivity and ensure your
-        satisfaction with {SITE_NAME} eSIM services!
+        We handle requests as fast as possible and aim for a fair outcome every
+        time.
       </Paragraph>
     </ContentPage>
   );

@@ -61,6 +61,9 @@ export default function Footer() {
               <li>
                 <Link href="/legal/refunds-policy">Refunds policy</Link>
               </li>
+              <li>
+                <Link href="/legal/fair-usage-policy">Fair usage policy</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -70,7 +73,7 @@ export default function Footer() {
       <div className={styles.divider}></div>
 
       <div className={styles.bottomNote}>
-        © 2025 {SITE_NAME}
+        © {new Date().getFullYear()} {SITE_NAME}
         <span className={styles.legalLinks}>
           <Link href="/legal/terms-and-conditions">
             <span className={styles.legalLink}>Terms</span>
