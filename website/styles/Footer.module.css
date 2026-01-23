@@ -2,12 +2,10 @@
   position: relative;
   bottom: 0;
   width: 100%;
-  min-height: 350px;
   color: #f3f4f6;
   padding: 32px 32px 15px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex-wrap: wrap;
   margin: 0 auto;
   background-color: #0A1A24;
@@ -23,7 +21,7 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 .logoContainer {
@@ -31,6 +29,35 @@
   font-size: 24px;
   margin-bottom: 24px;
   margin-right: 64px;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.addressBlock {
+  margin-top: 24px;
+}
+
+.addressTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #fff;
+  font-family: var(--font-kanit);
+  font-size: 16px;
+  line-height: 18px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.companyAddress {
+  font-family: var(--font-kanit);
+  font-size: 15px;
+  font-weight: 400;
+  color: #74828b;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .linkSections {
@@ -82,7 +109,7 @@
   font-weight: 600;
   line-height: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 15px auto 0;
 }
 
 .legalLink {
@@ -111,6 +138,23 @@
   .logoContainer {
     margin-right: 0;
     margin-bottom: 16px;
+  }
+
+  .rightSection {
+    width: 100%;
+  }
+
+  .addressBlock {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  .addressTitle {
+    font-size: 14px;
+  }
+
+  .companyAddress {
+    font-size: 13px;
   }
 
   .linkSections {
