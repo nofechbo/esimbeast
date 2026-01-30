@@ -20,10 +20,9 @@ export default function Footer() {
             <div>
               <h4 className={styles.sectionTitle}>ESIM</h4>
               <ul className={styles.sectionList}>
-                <li>Popular</li>
-                <li>Countries</li>
-                <li>Regions</li>
-                <li>FAQ</li>
+                <li>
+                  <Link href="/info/what-is-esim">FAQ</Link>
+                </li>
               </ul>
             </div>
 
@@ -70,8 +69,10 @@ export default function Footer() {
           </div>
 
           <div className={styles.addressBlock}>
-            <h4 className={styles.addressTitle}>Address</h4>
-            <p className={styles.companyAddress}>KHITAR LIMITED, 33 Wyndham Street, 22F, Hong Kong Island, Hong Kong</p>
+            <h4 className={styles.addressTitle}>Contact</h4>
+            <p className={styles.companyAddress}>
+              <a href="mailto:esimsupport@esimbeast.com">esimsupport@esimbeast.com</a>
+            </p>
           </div>
         </div>
       </div>
