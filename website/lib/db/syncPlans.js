@@ -3,6 +3,8 @@ import { prisma } from "./prisma.js";
 import { Decimal } from "decimal.js";
 import lookup from "country-code-lookup";
 
+const MIN_PLANS_THRESHOLD = 20;
+
 function extractNumberAndUnit(fieldName, str) {
   if (!str || typeof str !== "string") {
     throw new Error(`${fieldName} must be a non-empty string`);
@@ -199,6 +201,12 @@ export async function syncPlansFromCSV() {
       `Filtered out ${
         allCsvData.length - validCsvData.length
       } empty/invalid rows`
+    );
+  }
+
+  if (validCsvData.length < MIN_PLANS_THRESHOLD) {
+    throw new Error(
+      `Aborting sync: CSV contains only ${validCsvData.length} valid plans, minimum threshold is ${MIN_PLANS_THRESHOLD}`
     );
   }
 
