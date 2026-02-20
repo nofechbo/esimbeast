@@ -71,7 +71,7 @@ export default function Footer() {
           <div className={styles.addressBlock}>
             <h4 className={styles.addressTitle}>Contact</h4>
             <p className={styles.companyAddress}>
-              <a href="mailto:esimsupport@esimbeast.com">esimsupport@esimbeast.com</a>
+              KHITAR LIMITED | <a href="mailto:esimsupport@esimbeast.com">esimsupport@esimbeast.com</a>
             </p>
           </div>
         </div>
