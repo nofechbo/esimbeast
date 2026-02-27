@@ -54,6 +54,7 @@ model Plan {
   eKYC         Boolean? //NOT CURRENTLY IN NEW SHEET!
   uniqueName   String   @unique
   isPopular    Boolean  @default(false)
+  supplier     String
 
   @@index([productId])
   @@index([countryCodes], type: Gin)

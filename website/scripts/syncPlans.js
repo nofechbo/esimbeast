@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { syncPlansFromCSV, getPlanStats } from '../lib/db/syncPlans.js';
+import { syncWMPlans, getPlanStats } from '../lib/db/syncPlans.js';
 import { prisma } from '../lib/db/prisma.js';
 
 async function main() {
@@ -14,7 +14,7 @@ async function main() {
     console.log(`   Countries: ${beforeStats.uniqueCountries}\n`);
     
     // Sync plans
-    const result = await syncPlansFromCSV();
+    const result = await syncWMPlans();
     
     // Show updated stats
     console.log('\nUpdated database stats:');

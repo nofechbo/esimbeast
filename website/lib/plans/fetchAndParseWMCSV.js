@@ -4,8 +4,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const sheetId = process.env.DB_SHEET_ID;
-console.log("Using sheet ID:", sheetId);
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
+const sheetTab = process.env.DB_SHEET_WM_TAB;
+
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetTab}`;
 
 const parseCSV = (text) => {
   return parse(text, {
@@ -47,7 +48,7 @@ function normalizeHeaders(rows, mapCamelToCsv) {
   });
 }
 
-export async function fetchAndParseCSV() {
+export async function fetchAndParseWMCSV() {
   let records;
   let response;
 
@@ -58,7 +59,7 @@ export async function fetchAndParseCSV() {
   }
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch sheet: ${response.status} ${response.statusText}`
+      `Failed to fetch sheet: ${response.status} ${response.statusText}`,
     );
   }
 

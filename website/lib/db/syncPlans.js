@@ -1,4 +1,4 @@
-import { fetchAndParseCSV } from "../plans/fetchAndParseCSV.js";
+import { fetchAndParseWMCSV } from "../plans/fetchAndParseWMCSV.js";
 import { prisma } from "./prisma.js";
 import { Decimal } from "decimal.js";
 import lookup from "country-code-lookup";
@@ -139,7 +139,7 @@ function generateUniqueName(planData) {
   return createSlug(combined);
 }
 
-function transformCsvDataToPlan(planCsvData) {
+function transformCsvDataToPlan(planCsvData, supplier) {
   try {
     const dataValue = parseDataValue(planCsvData.dataCap);
 
@@ -166,6 +166,7 @@ function transformCsvDataToPlan(planCsvData) {
       planType: planCsvData.planType || null,
       localNumber: planCsvData.localNumber || null,
       isPopular: Boolean(planCsvData.isPopular),
+      supplier,
     };
 
     planData.uniqueName = generateUniqueName(planData);
@@ -180,10 +181,10 @@ function transformCsvDataToPlan(planCsvData) {
   }
 }
 
-export async function syncPlansFromCSV() {
+export async function syncWMPlans() {
   // Fetch CSV data
   console.log("Fetching CSV data...");
-  const allCsvData = await fetchAndParseCSV();
+  const allCsvData = await fetchAndParseWMCSV();
   console.log(`Found ${allCsvData.length} plans in CSV`);
 
   // Filter out empty rows (rows where essential fields are empty)
@@ -248,7 +249,9 @@ export async function syncPlansFromCSV() {
   });
 
   // Transform data
-  const transformedPlans = validCsvData.map(transformCsvDataToPlan);
+  const transformedPlans = validCsvData.map((row) =>
+    transformCsvDataToPlan(row, "WM"),
+  );
   const csvUniqueNames = new Set(transformedPlans.map((p) => p.uniqueName));
 
   // Get existing uniqueNames from database
