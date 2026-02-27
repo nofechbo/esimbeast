@@ -19,3 +19,26 @@ export const planValues = {
   planType: "Plan Type",
   localNumber: "Local Number",
 };
+
+// We want to do this instead of the current code:
+// ===
+// const fields = {
+//   "code": {
+//     "parser": parseCode,
+//     "dbField": "code",
+//   },
+//     "data": {
+//     "parser": parseData,
+//     "dbField": "data",
+//   },   "isReloadable": {
+//     "parser": parseBoolean,
+//     "dbField": "isReloadable",
+//   }
+// }
+
+// for { row in csv } {
+//   for(head in headers) {
+//     x = fields[head]
+//     plan[x.dbField] = x.parser(row[head])
+//   }
+// }

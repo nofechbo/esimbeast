@@ -1,4 +1,5 @@
 import { fetchAndParseWMCSV } from "../plans/fetchAndParseWMCSV.js";
+import { fetchAndParseEsimAccessCSV } from "../plans/fetchAndParseEsimAccessCSV.js";
 import { prisma } from "./prisma.js";
 import { Decimal } from "decimal.js";
 import lookup from "country-code-lookup";
@@ -47,6 +48,7 @@ function parseDataValue(dataString) {
 }
 
 function parseCountryCodes(countryCodesString) {
+  console.log("countryCodesString:", countryCodesString);
   if (!countryCodesString || typeof countryCodesString !== "string") {
     throw new Error("countryCodes must be a non-empty string");
   }
@@ -84,6 +86,7 @@ function parseStringList(s) {
 }
 
 function parseReducedSpeed(speedString) {
+  if (!speedString) return 0;
   const parsed = extractNumberAndUnit("Reduced speed", speedString);
 
   if (!parsed) {
@@ -181,85 +184,13 @@ function transformCsvDataToPlan(planCsvData, supplier) {
   }
 }
 
-export async function syncWMPlans() {
-  // Fetch CSV data
-  console.log("Fetching CSV data...");
-  const allCsvData = await fetchAndParseWMCSV();
-  console.log(`Found ${allCsvData.length} plans in CSV`);
-
-  // Filter out empty rows (rows where essential fields are empty)
-  const validCsvData = allCsvData.filter((row) => {
-    return (
-      row.productId &&
-      row.productId.trim() !== "" &&
-      row.dataCap &&
-      row.dataCap.trim() !== ""
-    );
-  });
-
-  if (validCsvData.length < allCsvData.length) {
-    console.log(
-      `Filtered out ${
-        allCsvData.length - validCsvData.length
-      } empty/invalid rows`
-    );
-  }
-
-  if (validCsvData.length < MIN_PLANS_THRESHOLD) {
-    throw new Error(
-      `Aborting sync: CSV contains only ${validCsvData.length} valid plans, minimum threshold is ${MIN_PLANS_THRESHOLD}`
-    );
-  }
-
-  // Mark as popular any plan that matches one of the target
-  // locations and has the specified data size and days.
-  // Targets: name in [Taiwan, Australia, USA], data = 10 (GB), days = 7
-  const targetLocations = new Set([
-    "Taiwan",
-    "Australia",
-    "UAE - United Arab Emirates",
-    "South Korea",
-  ]);
-  const targetDataGb = new Decimal(10);
-  const targetDays = 7;
-
-  // Reset all to not popular first
-  validCsvData.forEach((row) => {
-    row.isPopular = false;
-  });
-
-  // Mark matching rows as popular
-  validCsvData.forEach((row) => {
-    try {
-      const name = cleanPlanName(row.name);
-      const days = parseInt(row.validity, 10);
-      const dataVal = parseDataValue(row.dataCap);
-
-      if (
-        targetLocations.has(name) &&
-        (days === targetDays || days === 30) &&
-        dataVal.equals(targetDataGb)
-      ) {
-        row.isPopular = true;
-      }
-    } catch (e) {
-      // If parsing fails, leave as not popular and continue
-      console.warn(`Error evaluating popularity for row: ${e.message}`);
-    }
-  });
-
-  // Transform data
-  const transformedPlans = validCsvData.map((row) =>
-    transformCsvDataToPlan(row, "WM"),
-  );
+async function upsertAndDelete(supplier, transformedPlans, totalFromCsv) {
   const csvUniqueNames = new Set(transformedPlans.map((p) => p.uniqueName));
 
-  // Get existing uniqueNames from database
-  const existingPlans = await prisma.plan.findMany({});
+  const existingPlans = await prisma.plan.findMany({ where: { supplier } });
   const existingUniqueNames = new Set(existingPlans.map((p) => p.uniqueName));
 
-  // Upsert plans (create + update)
-  console.log("Upserting plans...");
+  console.log(`Upserting ${supplier} plans...`);
   let upserted = 0;
 
   for (const planData of transformedPlans) {
@@ -270,7 +201,6 @@ export async function syncWMPlans() {
         create: planData,
       });
       upserted++;
-
       if (upserted % 10 === 0) {
         console.log(`Upserted ${upserted}/${transformedPlans.length} plans`);
       }
@@ -279,43 +209,99 @@ export async function syncWMPlans() {
         `❌ Error upserting plan ${planData.uniqueName}:`,
         error.message
       );
-      // Continue with next plan
     }
   }
-  console.log(`Upserted ${upserted} plans total`);
+  console.log(`Upserted ${upserted} ${supplier} plans total`);
 
-  // Delete plans not in CSV anymore
   const plansToDelete = [...existingUniqueNames].filter(
     (name) => !csvUniqueNames.has(name)
   );
   let deleted = 0;
 
   if (plansToDelete.length > 0) {
-    console.log(`Deleting ${plansToDelete.length} removed plans...`);
+    console.log(`Deleting ${plansToDelete.length} removed ${supplier} plans...`);
     try {
       const deleteResult = await prisma.plan.deleteMany({
-        where: {
-          uniqueName: { in: plansToDelete },
-        },
+        where: { supplier, uniqueName: { in: plansToDelete } },
       });
       deleted = deleteResult.count;
       console.log(`Deleted ${deleted} plans`);
     } catch (error) {
-      console.error(`❌ Error deleting plans:`, error.message);
+      console.error(`❌ Error deleting ${supplier} plans:`, error.message);
     }
   }
 
-  console.log(
-    `Plan sync completed! Upserted: ${upserted}, Deleted: ${deleted}`
+  console.log(`${supplier} sync completed! Upserted: ${upserted}, Deleted: ${deleted}`);
+  return { success: true, totalFromCsv, upserted, deleted };
+}
+
+export async function syncWMPlans() {
+  console.log("Fetching WM CSV data...");
+  const allCsvData = await fetchAndParseWMCSV();
+  console.log(`Found ${allCsvData.length} plans in CSV`);
+
+  const validCsvData = allCsvData.filter(
+    (row) => row.productId?.trim() && row.dataCap?.trim()
   );
 
-  // Return summary
-  return {
-    success: true,
-    totalFromCsv: allCsvData.length,
-    upserted,
-    deleted,
-  };
+  if (validCsvData.length < allCsvData.length) {
+    console.log(
+      `Filtered out ${allCsvData.length - validCsvData.length} empty/invalid rows`
+    );
+  }
+  if (validCsvData.length < MIN_PLANS_THRESHOLD) {
+    throw new Error(
+      `Aborting sync: CSV contains only ${validCsvData.length} valid plans, minimum threshold is ${MIN_PLANS_THRESHOLD}`
+    );
+  }
+
+  const targetLocations = new Set([
+    "Taiwan",
+    "Australia",
+    "UAE - United Arab Emirates",
+    "South Korea",
+  ]);
+  const targetDataGb = new Decimal(10);
+  const targetDays = 7;
+
+  validCsvData.forEach((row) => { row.isPopular = false; });
+  validCsvData.forEach((row) => {
+    try {
+      const name = cleanPlanName(row.name);
+      const days = parseInt(row.validity, 10);
+      const dataVal = parseDataValue(row.dataCap);
+      if (
+        targetLocations.has(name) &&
+        (days === targetDays || days === 30) &&
+        dataVal.equals(targetDataGb)
+      ) {
+        row.isPopular = true;
+      }
+    } catch (e) {
+      console.warn(`Error evaluating popularity for row: ${e.message}`);
+    }
+  });
+
+  const transformedPlans = validCsvData.map((row) =>
+    transformCsvDataToPlan(row, "WM")
+  );
+  return upsertAndDelete("WM", transformedPlans, allCsvData.length);
+}
+
+export async function syncEsimAccessPlans() {
+  console.log("Fetching EA CSV data...");
+  const allCsvData = await fetchAndParseEsimAccessCSV();
+  console.log(`Found ${allCsvData.length} EA plans with Price set in sheet`);
+
+  if (allCsvData.length === 0) {
+    console.log("No EA plans ready for sync (Price column empty). Skipping.");
+    return { success: true, totalFromCsv: 0, upserted: 0, deleted: 0 };
+  }
+
+  const transformedPlans = allCsvData.map((row) =>
+    transformCsvDataToPlan(row, "EA")
+  );
+  return upsertAndDelete("EA", transformedPlans, allCsvData.length);
 }
 
 export async function getPlanStats() {

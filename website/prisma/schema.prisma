@@ -59,4 +59,5 @@ model Plan {
   @@index([productId])
   @@index([countryCodes], type: Gin)
   @@index([uniqueName])
+  @@index([supplier])
 }
