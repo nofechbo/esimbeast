@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const KEY_FIELD = "packageCode"; // field used as unique key for matching rows
-const CUSTOM_PRICE_HEADER = "Price"; // manually-maintained price column
+const CUSTOM_PRICE_HEADER = "Price in cents"; // manually-maintained price column
 
 const ALPHABET_SIZE = 26;
 const CHAR_CODE_A = "A".charCodeAt(0);
