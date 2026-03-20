@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import SEO from "@/components/SEO";
 import {
   DetailCard,
   DetailLabel,
@@ -80,6 +81,7 @@ export default function PlanStatus() {
 
   return (
     <SuccessContainer>
+      <SEO title="eSIM Plan Status" path="/plan-status" noindex />
       <SuccessBox>
         <h1 style={{
           fontSize: "24px",

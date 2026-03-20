@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PaymentFlow from "@/components/PaymentFlow";
 import { fetchPlanByUniqueName } from "@/utils/fetchPlans";
+import SEO from "@/components/SEO";
 import {
   ContentWrapper,
   DetailLabel,
@@ -38,6 +39,7 @@ export default function CheckoutPage() {
 
   return (
     <ContentWrapper>
+      <SEO title="Checkout" path="/payment/checkout" noindex />
       <PlanPageWrapper>
         <PageTitle>Confirm and pay</PageTitle>
 
