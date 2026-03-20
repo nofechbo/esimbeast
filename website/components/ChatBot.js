@@ -246,7 +246,7 @@ const MessageBubble = styled("div")(({ $isUser }) => ({
   maxWidth: "80%",
   padding: "10px 14px",
   borderRadius: $isUser ? "14px 14px 4px 14px" : "14px 14px 14px 4px",
-  background: $isUser ? "#112B3C" : "#fff",
+  background: $isUser ? "#ec4899" : "#fff",
   color: $isUser ? "#fff" : "#1a1a1a",
   alignSelf: $isUser ? "flex-end" : "flex-start",
   fontSize: "14px",
