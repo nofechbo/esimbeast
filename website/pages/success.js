@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { fetchPlanByUniqueName } from "@/utils/fetchPlans";
+import SEO from "@/components/SEO";
 import {
   ButtonGroup,
   DetailCard,
@@ -91,6 +92,7 @@ export default function SuccessPage() {
 
   return (
     <SuccessContainer>
+      <SEO title="Order Confirmation" path="/success" noindex />
       <SuccessBox>
         <SuccessIcon>✓</SuccessIcon>
 

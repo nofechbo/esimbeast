@@ -4,6 +4,7 @@ import { Kanit, Montserrat } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import ChatLauncher from "@/components/ChatLauncher";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function MyApp({ Component, pageProps }) {
       <NavBar />
       <Component {...pageProps} />
       <Footer />
+      {process.env.NEXT_PUBLIC_ENABLE_CHAT === "true" && <ChatLauncher />}
       <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
