@@ -2,6 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/chatPrompt";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const USER_MESSAGE_MAX_CHARS = 500;
+const TOTAL_INPUT_MAX_CHARS = 30000;
 
 // In-process rate limit (resets on deploy/restart, not shared across instances)
 const RATE_LIMIT = 10;
@@ -71,14 +73,26 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Conversation is too long. Please start a new chat." });
   }
 
-  // Validate every message: role must be user/assistant, content must be a string under 500 chars
   for (const m of messages) {
     if (m.role !== "user" && m.role !== "assistant") {
       return res.status(400).json({ error: "Invalid message role." });
     }
-    if (typeof m.content !== "string" || m.content.length > 500) {
-      return res.status(400).json({ error: "Message is too long. Please keep it under 500 characters." });
+    if (typeof m.content !== "string") {
+      return res.status(400).json({ error: "Invalid message content." });
     }
+  }
+
+  const currentMessage = messages[messages.length - 1];
+  if (currentMessage.role !== "user") {
+    return res.status(400).json({ error: "Last message must be from the user." });
+  }
+  if (currentMessage.content.length > USER_MESSAGE_MAX_CHARS) {
+    return res.status(400).json({ error: `Message is too long. Please keep it under ${USER_MESSAGE_MAX_CHARS} characters.` });
+  }
+
+  const totalChars = messages.reduce((sum, m) => sum + m.content.length, 0);
+  if (totalChars > TOTAL_INPUT_MAX_CHARS) {
+    return res.status(400).json({ error: "Conversation is too large. Please start a new chat." });
   }
 
   try {
