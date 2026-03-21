@@ -1,7 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/chatPrompt";
 
-
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // In-process rate limit (resets on deploy/restart, not shared across instances)
@@ -39,10 +38,11 @@ export default async function handler(req, res) {
   }
 
   // Weak filter: rejects requests without a matching Origin/Referer (spoofable outside browsers)
-  const origin = req.headers["origin"] || req.headers["referer"] || "";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-  if (siteUrl) {
+  if (process.env.NODE_ENV !== "development" && siteUrl) {
     try {
+      const originRaw = req.headers["origin"] || req.headers["referer"] || "";
+      const origin = Array.isArray(originRaw) ? originRaw[0] : originRaw;
       const allowed = new URL(siteUrl).origin;
       const actual = new URL(origin).origin;
       if (actual !== allowed) {
