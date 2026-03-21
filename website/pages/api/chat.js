@@ -1,9 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/chatPrompt";
 
+
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-// Rate limiting: max 10 messages per minute per IP
+// In-process rate limit (resets on deploy/restart, not shared across instances)
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60 * 1000;
 const ipRequests = new Map();
@@ -37,7 +38,25 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket?.remoteAddress || "unknown";
+  // Weak filter: rejects requests without a matching Origin/Referer (spoofable outside browsers)
+  const origin = req.headers["origin"] || req.headers["referer"] || "";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+  if (siteUrl) {
+    try {
+      const allowed = new URL(siteUrl).origin;
+      const actual = new URL(origin).origin;
+      if (actual !== allowed) {
+        return res.status(403).json({ error: "Forbidden" });
+      }
+    } catch {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+  }
+
+  // Best-effort IP: assumes Render appends the real client IP as the last XFF entry
+  const xffRaw = req.headers["x-forwarded-for"];
+  const xff = Array.isArray(xffRaw) ? xffRaw.join(",") : xffRaw;
+  const ip = xff?.split(",").pop().trim() || req.socket?.remoteAddress || "unknown";
   if (isRateLimited(ip)) {
     return res.status(429).json({ error: "You're sending messages too quickly. Please wait a moment." });
   }
@@ -52,9 +71,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Conversation is too long. Please start a new chat." });
   }
 
-  const lastMessage = messages[messages.length - 1];
-  if (lastMessage?.content && lastMessage.content.length > 500) {
-    return res.status(400).json({ error: "Message is too long. Please keep it under 500 characters." });
+  // Validate every message: role must be user/assistant, content must be a string under 500 chars
+  for (const m of messages) {
+    if (m.role !== "user" && m.role !== "assistant") {
+      return res.status(400).json({ error: "Invalid message role." });
+    }
+    if (typeof m.content !== "string" || m.content.length > 500) {
+      return res.status(400).json({ error: "Message is too long. Please keep it under 500 characters." });
+    }
   }
 
   try {
