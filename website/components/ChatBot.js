@@ -9,10 +9,19 @@ const INITIAL_MESSAGE = {
 };
 
 export default function ChatBot({ defaultOpen = false }) {
+  function createConversationId() {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID();
+    }
+
+    return `chat-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  }
+
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [conversationId, setConversationId] = useState(() => createConversationId());
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -43,7 +52,11 @@ export default function ChatBot({ defaultOpen = false }) {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({
+          messages: apiMessages,
+          conversationId,
+          pagePath: window.location.pathname,
+        }),
       });
 
       const data = await res.json();
@@ -68,6 +81,7 @@ export default function ChatBot({ defaultOpen = false }) {
   const resetChat = () => {
     setMessages([INITIAL_MESSAGE]);
     setInput("");
+    setConversationId(createConversationId());
   };
 
   const handleKeyDown = (e) => {

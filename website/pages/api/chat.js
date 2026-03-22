@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { appendChatLogRow } from "@/lib/googleSheets";
 import { SYSTEM_PROMPT } from "@/lib/chatPrompt";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -63,7 +64,7 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: "You're sending messages too quickly. Please wait a moment." });
   }
 
-  const { messages } = req.body;
+  const { messages, conversationId, pagePath } = req.body;
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: "Messages are required" });
@@ -96,6 +97,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    const startedAt = Date.now();
     const response = await client.messages.create({
       model: process.env.CHAT_MODEL || "claude-haiku-4-5-20251001",
       max_tokens: 512,
@@ -110,6 +112,17 @@ export default async function handler(req, res) {
       .filter((block) => block.type === "text")
       .map((block) => block.text)
       .join("\n\n") || "Sorry, I could not generate a response.";
+
+    void appendChatLogRow({
+        timestamp: new Date(startedAt).toISOString(),
+        conversationId: typeof conversationId === "string" && conversationId.trim() ? conversationId.trim() : "unknown",
+        pagePath: typeof pagePath === "string" && pagePath.trim() ? pagePath.trim() : "/",
+        userMessage: currentMessage.content,
+        assistantReply: text,
+      }).catch((sheetError) => {
+        console.error("Failed to append chat log row to Google Sheets:", sheetError);
+      });
+
     return res.status(200).json({ reply: text });
   } catch (error) {
     console.error("Chat API error:", error);
