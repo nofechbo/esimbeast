@@ -1,4 +1,3 @@
-import { unique } from "next/dist/build/utils";
 import {
   bytesToDataString,
   cleanPlanName,
@@ -30,7 +29,7 @@ export const supplierToDBFuncMap = {
     dailyDataCap: (row) => row["GB per day"] ?? null,
     reducedSpeed: (row) => parseReducedSpeed(row["reduced speed"]),
     price: (row) => parseRequiredInt(row["Sell Price"]), // stored in cents
-    reloadable: (row) => parseBoolean(row["Reloadable"]),
+    reloadable: (row) => parseBoolean(row["Reloadable"]) ?? false,
     countryCodes: (row) => parseCountryCodes(row["Country code"]),
     networks: (row) => parseStringList(row["Networks"]),
     networkSpeed: (row) => row["Network Speed"] ?? null,
@@ -53,9 +52,9 @@ export const supplierToDBFuncMap = {
     name: (row) => cleanPlanName(row.name),
     days: (row) => parseRequiredInt(row.duration),
     limited: (row) =>
-      parseDataValue(bytesToDataString(row.volume)).greaterThan(0),
+      parseDataValue("volume", bytesToDataString(row.volume)).greaterThan(0),
     fup: (row) => bytesToDataString(row.volume),
-    data: (row) => parseDataValue(bytesToDataString(row.volume)),
+    data: (row) => parseDataValue("volume", bytesToDataString(row.volume)),
     dailyDataCap: () => null,
     reducedSpeed: (row) => parseReducedSpeed(row.fupPolicy),
     price: (row) => parseRequiredInt(row["Price in cents"]), // stored in cents

@@ -75,7 +75,6 @@ export function parseDataValue(fieldName, dataString) {
 }
 
 export function parseCountryCodes(countryCodesString) {
-  console.log("countryCodesString:", countryCodesString);
   if (!countryCodesString || typeof countryCodesString !== "string") {
     throw new Error("countryCodes must be a non-empty string");
   }
@@ -117,8 +116,10 @@ export function cleanPlanName(planName) {
     .trim();
 }
 
-export function parseStringList(s) {
-  const string = requireString(s);
+export function parseStringList(string) {
+  if (!string || typeof string !== "string") {
+    return [];
+  }
 
   return string
     .split(",")
@@ -128,9 +129,10 @@ export function parseStringList(s) {
 
 export function parseReducedSpeed(speedString) {
   if (!speedString) return 0;
-  const parsed = extractNumberAndUnit("Reduced speed", speedString);
-
-  if (!parsed) {
+  let parsed;
+  try {
+    parsed = extractNumberAndUnit("Reduced speed", speedString);
+  } catch (err) {
     return 0;
   }
 
@@ -153,7 +155,7 @@ export function parseReducedSpeed(speedString) {
 
 /***** WM ONLY PARSERS ****/
 export function parseBoolean(fieldValue) {
-  if (typeof fieldValue !== "string") return null;
+  if (typeof fieldValue !== "string" || fieldValue.trim() === "") return null;
   const val = fieldValue.toLowerCase().trim();
   if (val === "yes" || val === "true") return true;
   if (val === "no" || val === "false") return false;
@@ -184,6 +186,7 @@ export function WMIsPopular(row) {
     return false;
   } catch (e) {
     console.warn(`Error evaluating popularity for row: ${e.message}`);
+    return false;
   }
 }
 
@@ -193,19 +196,17 @@ export function generateWMUniqueName(row) {
   const days = requireString(row["Days"]);
   const fup = requireString(row["GB"]);
 
-  const combined = `${productId}-${name}-${days}-${fup}`;
+  const combined = `WM-${productId}-${name}-${days}-${fup}`;
   return createSlug(combined);
 }
 
 /***** EA ONLY PARSERS ****/
-// API price is value * 10,000 (10000 = $1.00)
-export function formatEAPrice(apiPrice) {
-  return (apiPrice / 100).toFixed(2);
-}
+export function bytesToDataString(bytesString) {
+  if (!bytesString) return "";
 
-export function bytesToDataString(bytes) {
-  if (!bytes) return "";
+  const bytes = parseInt(bytesString, 10);
   if (bytes === 0) return "Unlimited";
+
   const kb = bytes / 1024;
   if (kb < 1000) {
     return `${parseFloat(kb.toFixed(4))} KB`;
@@ -219,7 +220,7 @@ export function bytesToDataString(bytes) {
 }
 
 export function isEAPlanReloadable(supportTopUpType) {
-  return supportTopUpType && supportTopUpType === 2;
+  return parseInt(supportTopUpType, 10) === 2;
 }
 
 export function EAIspopular() {
@@ -271,6 +272,6 @@ export function generateEAUniqueName(row) {
   const days = requireString(row.duration);
   const fup = bytesToDataString(row.volume);
 
-  const combined = `${productId}-${name}-${days}-${fup}`;
+  const combined = `EA-${productId}-${name}-${days}-${fup}`;
   return createSlug(combined);
 }
