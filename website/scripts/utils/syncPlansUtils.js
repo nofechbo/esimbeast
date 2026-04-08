@@ -9,12 +9,12 @@ export const suppliers = {
   wm: {
     name: "WM",
     sheetId: process.env.DB_SHEET_ID,
-    sheetTab: process.env.DB_SHEET_WM_TAB,
+    sheetTabGid: process.env.DB_SHEET_WM_TAB_GID,
   },
   EA: {
     name: "EA",
     sheetId: process.env.DB_SHEET_ID,
-    sheetTab: process.env.DB_SHEET_EA_TAB,
+    sheetTabGid: process.env.DB_SHEET_EA_TAB_GID,
   },
 };
 

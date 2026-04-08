@@ -2,27 +2,31 @@ import { parse } from "csv-parse/sync";
 import dotenv from "dotenv";
 dotenv.config();
 
-export async function fetchGoogleSheet(sheetId, sheetTab) {
-  console.log(`Fetching sheet data for tab "${sheetTab}"...`);
-  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetTab}`;
+export async function fetchGoogleSheet(sheetId, sheetTabGid) {
+  if (!sheetTabGid) {
+    throw new Error("sheetTabGid is required");
+  }
+
+  console.log(`Fetching sheet data for tab gid "${sheetTabGid}"...`);
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${sheetTabGid}`;
 
   let response;
   try {
     response = await fetch(url);
   } catch (err) {
     throw new Error(
-      `Fatal error fetching ${sheetTab} tab from sheet: ${err.message}`,
+      `Fatal error fetching tab gid ${sheetTabGid} from sheet: ${err.message}`,
     );
   }
   console.log(
-    `Received response for tab "${sheetTab}": ${response.status} ${response.statusText}`,
+    `Received response for tab gid "${sheetTabGid}": ${response.status} ${response.statusText}`,
   );
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch ${sheetTab} tab from sheet: ${response.status} ${response.statusText}`,
+      `Failed to fetch tab gid ${sheetTabGid} from sheet: ${response.status} ${response.statusText}`,
     );
   }
-  console.log(`Successfully fetched data for tab "${sheetTab}".`);
+  console.log(`Successfully fetched data for tab gid "${sheetTabGid}".`);
   return await response.text();
 }
 

@@ -1,53 +1,53 @@
-#!/usr/bin/env node
-
 import { google } from "googleapis";
 import { fetchEsimAccessPackages } from "../lib/plans/fetchEsimAccessPackages.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-const KEY_COL = "B"; // B - used as the unique key for matching rows
-const KEY_COL_INDEX = KEY_COL.charCodeAt(0) - "A".charCodeAt(0);
-const LAST_COL = "I";
-const LAST_COL_INDEX = LAST_COL.charCodeAt(0) - "A".charCodeAt(0);
+const KEY_FIELD = "packageCode"; // field used as unique key for matching rows
+const CUSTOM_PRICE_HEADER = "Price in cents"; // manually-maintained price column
 
-// API price is value * 10,000 (10000 = $1.00)
-function formatEAPrice(apiPrice) {
-  return (apiPrice / 100).toFixed(2);
+const ALPHABET_SIZE = 26;
+const CHAR_CODE_A = "A".charCodeAt(0);
+
+// Converts 0-based column index to sheet letter (0 → "A", 26 → "AA", etc.)
+function colIndexToLetter(index) {
+  let letter = "";
+  let n = index + 1;
+  while (n > 0) {
+    const rem = (n - 1) % ALPHABET_SIZE;
+    letter = String.fromCharCode(CHAR_CODE_A + rem) + letter;
+    n = Math.floor((n - 1) / ALPHABET_SIZE);
+  }
+  return letter;
 }
 
-function bytesToDataString(bytes) {
-  if (!bytes) return "";
-  if (bytes === 0) return "Unlimited";
-  const kb = bytes / 1024;
-  if (kb < 1000) {
-    return `${parseFloat(kb.toFixed(4))} KB`;
+function flattenFieldValue(field, val) {
+  if (field === "locationNetworkList") {
+    return val
+      .flatMap((loc) => loc.operatorList ?? [])
+      .map((op) => `${op.operatorName} ${op.networkType}`)
+      .join(", ");
   }
-  const mb = kb / 1024;
-  if (mb < 1000) {
-    return `${parseFloat(mb.toFixed(4))} MB`;
-  }
-  const gb = mb / 1024;
-  return `${parseFloat(gb.toFixed(4))} GB`;
+  if (Array.isArray(val)) return val.join(",");
+  return val ?? "";
 }
-///// WE WANT TO JUST WRITE ALL FIELDS RETURNED BY API AS IS.
-function packageToRow(pkg) {
-  return [
-    pkg.packageCode, // A: productId
-    pkg.slug, // B: Code (key)
-    pkg.name, // C: plan name
-    pkg.duration, // D: Days
-    bytesToDataString(pkg.volume), // E: GB
-    pkg.resolvedCountryCodes.join(","), // F: Country code
-    pkg.network || "", // G: Networks
-    pkg.supportTopUpType > 0 ? "yes" : "no", // H: Reloadable
-    formatEAPrice(pkg.price), // I: EA Price
-  ];
+
+function packageToRow(activeFields, pkg, customPrice = "") {
+  const values = activeFields.map((field) => flattenFieldValue(field, pkg[field]));
+  return [...values, customPrice];
 }
 
 async function writeEsimAccessToSheet() {
   console.log("Fetching eSIM Access packages...");
   const packages = await fetchEsimAccessPackages();
   console.log(`Fetched ${packages.length} packages from API`);
+
+  if (packages.length === 0) {
+    console.log("No packages returned, nothing to do.");
+    return;
+  }
+
+  const apiFields = Object.keys(packages[0]);
 
   const auth = new google.auth.GoogleAuth({
     credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON),
@@ -56,7 +56,7 @@ async function writeEsimAccessToSheet() {
   const sheets = google.sheets({ version: "v4", auth });
 
   const spreadsheetId = process.env.DB_SHEET_ID;
-  const tab = process.env.DB_SHEET_EA_TAB;
+  const tab = process.env.DB_SHEET_EA_TAB_NAME;
 
   // 1. Read existing sheet data
   const existingResponse = await sheets.spreadsheets.values.get({
@@ -65,46 +65,76 @@ async function writeEsimAccessToSheet() {
   });
   const existingRows = existingResponse.data.values || [];
 
-  // 2. Build slug → array index map (index 0 = header row, data starts at 1)
-  const slugToArrayIndex = new Map();
-  for (let i = 1; i < existingRows.length; i++) {
-    const slug = existingRows[i][KEY_COL_INDEX];
-    if (slug) slugToArrayIndex.set(slug, i);
+  // 2. Derive active fields from sheet headers if they exist, otherwise from API.
+  // Strip CUSTOM_PRICE_HEADER since it's our column, not an API field.
+  // Sheet headers are the source of truth after first run — new API fields are ignored.
+  const activeFields =
+    existingRows.length > 0
+      ? existingRows[0].filter((h) => h !== CUSTOM_PRICE_HEADER)
+      : apiFields;
+
+  const newApiFields = apiFields.filter((f) => !activeFields.includes(f));
+  if (newApiFields.length > 0) {
+    console.log(
+      `Ignoring new API fields not in sheet: ${newApiFields.join(", ")}`,
+    );
   }
 
-  // 3. Split into updates (existing rows) and inserts (new rows)
-  const apiSlugs = new Set(packages.map((p) => p.slug));
+  const headers = [...activeFields, CUSTOM_PRICE_HEADER];
+  const keyColIndex = activeFields.indexOf(KEY_FIELD);
+  if (keyColIndex === -1) {
+    throw new Error(`Key field "${KEY_FIELD}" not found in sheet headers`);
+  }
+  const sheetPriceColIndex = headers.length - 1;
+  const lastColLetter = colIndexToLetter(headers.length - 1);
+
+  
+  // 3. Build key → array index map (index 0 = header row, data starts at 1)
+  const keyToArrayIndex = new Map();
+  for (let i = 1; i < existingRows.length; i++) {
+    const key = existingRows[i][keyColIndex];
+    if (key) keyToArrayIndex.set(key, i);
+  }
+
+  // 4. Split packages into updates and inserts
+  const apiKeys = new Set(packages.map((p) => p[KEY_FIELD]));
   const updateData = [];
   const newRows = [];
-  let updatedCount = 0;
 
   for (const pkg of packages) {
-    const row = packageToRow(pkg);
-    const arrayIndex = slugToArrayIndex.get(pkg.slug);
+    const key = pkg[KEY_FIELD];
+    const arrayIndex = keyToArrayIndex.get(key);
+    const customPrice =
+      arrayIndex !== undefined
+        ? (existingRows[arrayIndex][sheetPriceColIndex] ?? "")
+        : "";
+    const row = packageToRow(activeFields, pkg, customPrice);
 
     if (arrayIndex !== undefined) {
       const sheetRow = arrayIndex + 1; // 0-based array → 1-based sheet row
-      // Update all columns except Price
       updateData.push({
-        range: `${tab}!A${sheetRow}:${LAST_COL}${sheetRow}`,
-        values: [row.slice(0, LAST_COL_INDEX + 1)],
+        range: `${tab}!A${sheetRow}:${lastColLetter}${sheetRow}`,
+        values: [row],
       });
-      updatedCount++;
     } else {
       newRows.push(row);
     }
   }
 
-  // 4. Batch update existing rows
+  // 5. Batch update existing rows
   if (updateData.length > 0) {
     await sheets.spreadsheets.values.batchUpdate({
       spreadsheetId,
       requestBody: { valueInputOption: "USER_ENTERED", data: updateData },
     });
-    console.log(`Updated ${updatedCount} existing rows`);
+    console.log(`Updated ${updateData.length} existing rows`);
   }
 
-  // 5. Append new rows
+  // 6. Append new rows
+  // First run: prepend headers so they're written in the same call as the data
+  if (existingRows.length === 0) {
+    newRows.unshift(headers);
+  }
   if (newRows.length > 0) {
     await sheets.spreadsheets.values.append({
       spreadsheetId,
@@ -115,10 +145,10 @@ async function writeEsimAccessToSheet() {
     console.log(`Appended ${newRows.length} new rows`);
   }
 
-  // 6. Delete rows for packages no longer in API
+  // 7. Delete rows for packages no longer in API
   const rowsToDelete = [];
-  for (const [slug, arrayIndex] of slugToArrayIndex.entries()) {
-    if (!apiSlugs.has(slug)) rowsToDelete.push(arrayIndex);
+  for (const [key, arrayIndex] of keyToArrayIndex.entries()) {
+    if (!apiKeys.has(key)) rowsToDelete.push(arrayIndex);
   }
 
   if (rowsToDelete.length > 0) {
