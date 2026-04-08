@@ -2,19 +2,12 @@ import { Decimal } from "decimal.js";
 import lookup from "country-code-lookup";
 
 /***** HELPERS *****/
-function extractNumberAndUnit(fieldName, str) {
-  if (!str || typeof str !== "string") {
-    throw new Error(`${fieldName} must be a non-empty string`);
-  }
-
-  const normalized = str.toLowerCase().trim();
-  if (normalized === "unlimited") {
-    return { value: 0, unit: null };
-  }
-
-  const match = normalized.match(/(\d+(?:\.\d+)?)\s*([a-zA-Z]+)?/i);
+function extractNumberAndUnit(fieldName, normalizedStr) {
+  const match = normalizedStr.match(/(\d+(?:\.\d+)?)\s*([a-zA-Z]+)?/i);
   if (!match) {
-    throw new Error(`${fieldName} is not a valid number/unit string: "${str}"`);
+    throw new Error(
+      `${fieldName} is not a valid number/unit string: "${normalizedStr}"`,
+    );
   }
 
   return {
@@ -37,33 +30,44 @@ function createSlug(text) {
 }
 
 /***** SHARED PARSERS ****/
-export function requireString(value) {
+export function requireString(value, fieldName) {
   if (!value || typeof value !== "string" || value.trim() === "") {
-    throw new Error(`missing required string field`);
+    throw new Error(`missing required string field: ${fieldName}`);
   }
   return value.trim();
 }
 
-export function parseRequiredInt(value) {
+export function parseRequiredInt(value, fieldName) {
   if (typeof value === "number" && Number.isInteger(value)) return value;
 
-  const s = requireString(value);
+  const s = requireString(value, fieldName);
   const n = Number(s);
   if (!Number.isInteger(n)) {
-    throw new Error(`must be an integer: "${value}"`);
+    throw new Error(
+      `the value in field ${fieldName} must be an integer: "${value}"`,
+    );
   }
   return n;
 }
 
 export function parseDataValue(fieldName, dataString) {
-  const parsed = extractNumberAndUnit(fieldName, dataString);
+  if (!dataString || typeof dataString !== "string") {
+    throw new Error(`${fieldName} must be a non-empty string`);
+  }
+
+  const normalized = dataString.toLowerCase().trim();
+  if (normalized === "unlimited") {
+    return Decimal(0);
+  }
+
+  const parsed = extractNumberAndUnit(fieldName, normalized);
 
   if (!parsed.unit) {
     // no unit, assuming GB
     return new Decimal(parsed.value);
   }
   if (parsed.unit !== "gb" && parsed.unit !== "mb") {
-    throw new Error(`Unknown data unit: ${parsed.unit}`);
+    throw new Error(`Unknown data unit in ${fieldName}: ${parsed.unit}`);
   }
 
   // Convert to GB
@@ -74,7 +78,7 @@ export function parseDataValue(fieldName, dataString) {
   return new Decimal(parsed.value);
 }
 
-export function parseCountryCodes(countryCodesString) {
+export function parseCountryCodes(countryCodesString, supplierName, productId) {
   if (!countryCodesString || typeof countryCodesString !== "string") {
     throw new Error("countryCodes must be a non-empty string");
   }
@@ -92,7 +96,7 @@ export function parseCountryCodes(countryCodesString) {
       validCodes.push(code);
     } catch (error) {
       console.warn(
-        `Skipping invalid country code "${code}". String: ${countryCodesString}`,
+        `[${supplierName}] Removing invalid country code "${code}" from row (productId: ${productId ?? ""}). String: ${countryCodesString}`,
       );
     }
   }
@@ -104,8 +108,8 @@ export function parseCountryCodes(countryCodesString) {
   return validCodes;
 }
 
-export function cleanPlanName(planName) {
-  const name = requireString(planName);
+export function cleanPlanName(planName, fieldName) {
+  const name = requireString(planName, fieldName);
 
   return name
     .replace(/【[^】]*】/g, "") // Remove fullwidth corner brackets
@@ -127,22 +131,25 @@ export function parseStringList(string) {
     .filter((i) => i.length > 0);
 }
 
-export function parseReducedSpeed(speedString) {
-  if (!speedString) return 0;
-  let parsed;
-  try {
-    parsed = extractNumberAndUnit("Reduced speed", speedString);
-  } catch (err) {
-    return 0;
-  }
+export function parseReducedSpeed(speedString, fieldName) {
+  if (
+    speedString === null ||
+    speedString === undefined ||
+    typeof speedString !== "string"
+  )
+    throw new Error(`${fieldName} must be a non-empty string`);
 
+  const normalized = speedString.toLowerCase().trim();
+  if (normalized === "" || normalized === "unlimited") return null;
+
+  const parsed = extractNumberAndUnit(fieldName, normalized);
   if (!parsed.unit) {
     throw new Error(
-      `Speed unit missing in reduced speed string: ${speedString}`,
+      `Speed unit missing in ${fieldName} string: ${speedString}`,
     );
   }
   if (parsed.unit !== "mbps" && parsed.unit !== "kbps") {
-    throw new Error(`Unknown data unit: ${parsed.unit}`);
+    throw new Error(`Unknown data unit in ${fieldName}: ${parsed.unit}`);
   }
 
   // Convert to kbps
@@ -173,7 +180,7 @@ export function WMIsPopular(row) {
   const targetDays = 7;
 
   try {
-    const name = cleanPlanName(row["plan name"]);
+    const name = cleanPlanName(row["plan name"], "plan name");
     const days = parseInt(row["Days"], 10);
     const dataVal = parseDataValue("GB", row["GB"]);
     if (
@@ -191,10 +198,10 @@ export function WMIsPopular(row) {
 }
 
 export function generateWMUniqueName(row) {
-  const productId = requireString(row["wmproductId"]);
-  const name = cleanPlanName(row["plan name"]);
-  const days = requireString(row["Days"]);
-  const fup = requireString(row["GB"]);
+  const productId = requireString(row["wmproductId"], "wmproductId");
+  const name = cleanPlanName(row["plan name"], "plan name");
+  const days = requireString(row["Days"], "Days");
+  const fup = requireString(row["GB"], "GB");
 
   const combined = `WM-${productId}-${name}-${days}-${fup}`;
   return createSlug(combined);
@@ -267,9 +274,9 @@ export function parseEAPlanType(dataType, smsStatus) {
 }
 
 export function generateEAUniqueName(row) {
-  const productId = requireString(row.packageCode);
-  const name = cleanPlanName(row.name);
-  const days = requireString(row.duration);
+  const productId = requireString(row.packageCode, "packageCode");
+  const name = cleanPlanName(row.name, "name");
+  const days = requireString(row.duration, "duration");
   const fup = bytesToDataString(row.volume);
 
   const combined = `EA-${productId}-${name}-${days}-${fup}`;

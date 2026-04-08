@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/db/prisma";
-import { supplierToDBFuncMap } from "./mapping";
+import { prisma } from "../../lib/db/prisma.js";
+import { supplierToDBFuncMap } from "./mapping.js";
 import dotenv from "dotenv";
 dotenv.config();
 

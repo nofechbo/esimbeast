@@ -1,12 +1,12 @@
-import { prisma } from "@/lib/db/prisma";
-import { fetchGoogleSheet, parseCsv } from "./utils/sheets";
+import { prisma } from "../lib/db/prisma.js";
+import { fetchGoogleSheet, parseCsv } from "./utils/sheets.js";
 import {
   getPlanStats,
   MIN_PLANS_THRESHOLD,
   suppliers,
   transformCsvDataToPlan,
   upsertAndDelete,
-} from "./utils/syncPlansUtils";
+} from "./utils/syncPlansUtils.js";
 
 async function main() {
   console.log("Starting plan synchronization...\n");

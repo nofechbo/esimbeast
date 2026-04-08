@@ -35,10 +35,10 @@ model Plan {
   name         String
   days         Int
   limited      Boolean
-  fup          String  // this is the string representation of the data, e.g., "5 GB"
+  fup          String // this is the string representation of the data, e.g., "5 GB"
   data         Decimal // data in GB
   dailyDataCap String? // string as it can say "max"
-  reducedSpeed Int
+  reducedSpeed Int?
   price        Int // stored in cents (e.g., 2499 = $24.99)
   reloadable   Boolean
   countryCodes String[]

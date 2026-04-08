@@ -184,19 +184,14 @@ export default function PlanPage({ plan, slug }) {
             {planCoverage.join(", ")}
           </PlanDetails>
 
-          {/* check -> is this really a conditional render? */}
-          {plan.reducedSpeed && (
             <PlanDetails>
               {/* check with client what the real title should be */}
               <Strong>Text place:</Strong>
               <br />
               Speed reduction: if necessary, some carriers may reserve the right
-              to apply a Fair Usage Policy. Hotspot: enjoy {
-                plan.reducedSpeed
-              }{" "}
-              per day to share with others.
+              to apply a Fair Usage Policy. <br/> Hotspot: enjoy {
+                plan.reducedSpeed } kbps per day to share with others.
             </PlanDetails>
-          )}
         </DetailsBox>
       </PlanPageWrapper>
       <SummaryPanel>

@@ -15,22 +15,23 @@ import {
   WMIsPopular,
   generateWMUniqueName,
   generateEAUniqueName,
-} from "./parsers";
+} from "./parsers.js";
 
 export const supplierToDBFuncMap = {
   WM: {
-    productId: (row) => requireString(row["wmproductId"]),
-    code: (row) => requireString(row["Code"]),
-    name: (row) => cleanPlanName(row["plan name"]),
-    days: (row) => parseRequiredInt(row["Days"]),
+    productId: (row) => requireString(row["wmproductId"], "wmproductId"),
+    code: (row) => requireString(row["Code"], "Code"),
+    name: (row) => cleanPlanName(row["plan name"], "plan name"),
+    days: (row) => parseRequiredInt(row["Days"], "Days"),
     limited: (row) => parseDataValue("GB", row["GB"]).greaterThan(0),
-    fup: (row) => requireString(row["GB"]),
+    fup: (row) => requireString(row["GB"], "GB"),
     data: (row) => parseDataValue("GB", row["GB"]),
     dailyDataCap: (row) => row["GB per day"] ?? null,
-    reducedSpeed: (row) => parseReducedSpeed(row["reduced speed"]),
-    price: (row) => parseRequiredInt(row["Sell Price"]), // stored in cents
+    reducedSpeed: (row) => parseReducedSpeed(row["reduced speed"], "reduced speed"),
+    price: (row) => parseRequiredInt(row["Sell Price"], "Sell Price"), // stored in cents
     reloadable: (row) => parseBoolean(row["Reloadable"]) ?? false,
-    countryCodes: (row) => parseCountryCodes(row["Country code"]),
+    countryCodes: (row) =>
+      parseCountryCodes(row["Country code"], "WM", row["wmproductId"]),
     networks: (row) => parseStringList(row["Networks"]),
     networkSpeed: (row) => row["Network Speed"] ?? null,
     apn: (row) => row["APN"] ?? null,
@@ -47,19 +48,20 @@ export const supplierToDBFuncMap = {
   },
 
   EA: {
-    productId: (row) => requireString(row.packageCode),
-    code: (row) => requireString(row.slug),
-    name: (row) => cleanPlanName(row.name),
-    days: (row) => parseRequiredInt(row.duration),
+    productId: (row) => requireString(row.packageCode, "packageCode"),
+    code: (row) => requireString(row.slug, "slug"),
+    name: (row) => cleanPlanName(row.name, "name"),
+    days: (row) => parseRequiredInt(row.duration, "duration"),
     limited: (row) =>
       parseDataValue("volume", bytesToDataString(row.volume)).greaterThan(0),
     fup: (row) => bytesToDataString(row.volume),
     data: (row) => parseDataValue("volume", bytesToDataString(row.volume)),
     dailyDataCap: () => null,
-    reducedSpeed: (row) => parseReducedSpeed(row.fupPolicy),
-    price: (row) => parseRequiredInt(row["Price in cents"]), // stored in cents
+    reducedSpeed: (row) => parseReducedSpeed(row.fupPolicy, "fupPolicy"),
+    price: (row) => parseRequiredInt(row["Price in cents"], "Price in cents"), // stored in cents
     reloadable: (row) => isEAPlanReloadable(row.supportTopUpType),
-    countryCodes: (row) => parseCountryCodes(row.resolvedCountryCodes),
+    countryCodes: (row) =>
+      parseCountryCodes(row.resolvedCountryCodes, "EA", row.packageCode),
     networks: (row) => parseStringList(row.locationNetworkList),
     networkSpeed: (row) => row.speed ?? null,
     apn: () => null,
