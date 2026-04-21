@@ -29,6 +29,7 @@ export const supplierToDBFuncMap = {
     dailyDataCap: (row) => row["GB per day"]?.trim() || null,
     reducedSpeed: (row) => parseReducedSpeed(row["reduced speed"], "reduced speed"),
     price: (row) => parseRequiredInt(row["Sell Price"], "Sell Price"), // stored in cents
+    supplierPrice: () => null,
     reloadable: (row) => parseBoolean(row["Reloadable"]) ?? false,
     countryCodes: (row) =>
       parseCountryCodes(row["Country code"], "WM", row["wmproductId"]),
@@ -59,6 +60,7 @@ export const supplierToDBFuncMap = {
     dailyDataCap: () => null,
     reducedSpeed: (row) => parseReducedSpeed(row.fupPolicy, "fupPolicy"),
     price: (row) => parseRequiredInt(row["Price in cents"], "Price in cents"), // stored in cents
+    supplierPrice: (row) => parseRequiredInt(row.price, "supplier price"),
     reloadable: (row) => isEAPlanReloadable(row.supportTopUpType),
     countryCodes: (row) =>
       parseCountryCodes(row.resolvedCountryCodes, "EA", row.packageCode),

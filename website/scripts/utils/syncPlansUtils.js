@@ -36,6 +36,7 @@ export function transformCsvDataToPlan(csvRow, supplierName) {
       dailyDataCap: funcs.dailyDataCap(csvRow),
       reducedSpeed: funcs.reducedSpeed(csvRow),
       price: funcs.price(csvRow),
+      supplierPrice: funcs.supplierPrice(csvRow),
       reloadable: funcs.reloadable(csvRow),
       countryCodes: funcs.countryCodes(csvRow),
       networks: funcs.networks(csvRow),
