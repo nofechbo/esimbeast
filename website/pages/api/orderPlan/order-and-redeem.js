@@ -17,7 +17,7 @@ const qrcodeType = 2;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 async function createOrderInDB(intentId, email, plan) {
-  const { productId, name, countryCodes, data, days, price } = plan;
+  const { productId, name, countryCodes, data, days, price, supplier } = plan;
 
   const newOrder = await prisma.planOrder.create({
     data: {
@@ -30,6 +30,7 @@ async function createOrderInDB(intentId, email, plan) {
       duration: days,
       price,
       orderTime: new Date(),
+      supplier
     },
   });
 

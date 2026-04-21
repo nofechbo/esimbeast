@@ -22,6 +22,7 @@ model PlanOrder {
   duration          Int
   productId         String
   productName       String
+  supplier          String
   supplierOrderData Json? // WM: {rcode}. EA: {transactionId, esimTranNo}}
 
   @@index([intentId])
