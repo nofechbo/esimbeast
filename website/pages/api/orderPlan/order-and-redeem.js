@@ -3,16 +3,13 @@ import { prisma } from "@/lib/db/prisma";
 import { appendReferralRow } from "@/lib/googleSheets";
 import { isValidMetadata } from "@/lib/VerifyMetadata";
 import { formatDataSize } from "@/utils/formaters";
-import { generateEncStr } from "@/utils/generateEncStr";
-import { WM_ORDER_AND_REDEEM_URL, WM_MERCHANT_ID, WM_TOKEN, WM_DEPT_ID } from "@/config";
 import "dotenv/config";
 import Stripe from "stripe";
-
-const url = WM_ORDER_AND_REDEEM_URL;
-const merchantId = WM_MERCHANT_ID;
-const deptId = WM_DEPT_ID;
-const token = WM_TOKEN;
-const qrcodeType = 2;
+import {
+  supplierToOrderFunction,
+  WorldmoveApiError,
+  WorldmoveRejectionError,
+} from "./orderUtils";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -30,7 +27,7 @@ async function createOrderInDB(intentId, email, plan) {
       duration: days,
       price,
       orderTime: new Date(),
-      supplier
+      supplier,
     },
   });
 
@@ -95,82 +92,35 @@ export default async function handler(req, res) {
 
   //create row in db qty times
   await Promise.all(
-    Array.from({ length: qty }, () => createOrderInDB(intentId, email, plan))
+    Array.from({ length: qty }, () => createOrderInDB(intentId, email, plan)),
   );
 
-  const prodList = [
-    {
-      wmproductId: plan.productId,
-      qty: metadata.qty,
-    },
-  ];
+  const supplier = plan.supplier;
+  if (!supplier) {
+    console.error("No supplier specified for plan:", plan);
+    return res.status(500).json({ error: "Plan configuration error", intent });
+  }
+  if (!supplierToOrderFunction[supplier]) {
+    console.error("No order function for supplier:", supplier);
+    return res.status(500).json({ error: "Unsupported supplier", intent });
+  }
 
-  /** @type {any} */
-  let json;
-
+  let orderId;
   try {
-    const encStr = generateEncStr(
-      { merchantId, deptId, qrcodeType, prodList },
-      token
+    orderId = await supplierToOrderFunction[supplier](
+      intentId,
+      email,
+      plan,
+      qty,
     );
-
-    const requestBody = {
-      merchantId,
-      deptId,
-      qrcodeType,
-      prodList,
-      encStr,
-    };
-
-    console.log("Worldmove order-and-redeem request", {
-      intentId,
-      email,
-      planName: plan.name,
-      productId: plan.productId,
-      qty,
-    });
-
-    const wmRes = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    });
-
-    if (!wmRes.ok) {
-      console.error("Worldmove HTTP error", {
-        intentId,
-        email,
-        httpStatus: wmRes.status,
-        productId: plan.productId,
-        qty,
-      });
-      return res.status(502).json({ error: "Worldmove service error", intent });
-    }
-
-    json = await wmRes.json();
-    if (json.code !== 0) {
-      console.error("Worldmove rejected order-and-redeem", {
-        intentId,
-        email,
-        productId: plan.productId,
-        qty,
-        wmCode: json.code,
-        wmMessage: json.msg,
-      });
-      return res
-        .status(502)
-        .json({ error: "Worldmove rejected request", details: json, intent });
-    }
-
-    console.log("Worldmove order-and-redeem succeeded", {
-      intentId,
-      email,
-      wmOrderId: json.orderId,
-      productId: plan.productId,
-      qty,
-    });
   } catch (err) {
-    console.error("Worldmove order-and-redeem failed", {
+    if (
+      err instanceof WorldmoveApiError ||
+      err instanceof WorldmoveRejectionError
+    ) {
+      return res.status(502).json({ error: err.body, intent });
+    }
+    console.error(`${supplier} order-and-redeem failed`, {
       intentId,
       email,
       productId: plan.productId,
@@ -178,13 +128,26 @@ export default async function handler(req, res) {
       errorName: err.name,
       errorMessage: err.message,
     });
-    return res.status(500).json({ error: "Failed to order and redeem plan", intent });
+    return res
+      .status(500)
+      .json({ error: "Failed to order and redeem plan", intent });
   }
 
-  await prisma.planOrder.updateMany({
-    where: { intentId },
-    data: { orderId: json.orderId },
-  });
+  try {
+    await prisma.planOrder.updateMany({
+      where: { intentId },
+      data: { orderId: orderId },
+    });
+  } catch (err) {
+    console.error("Failed to update orderId in DB", {
+      intentId,
+      orderId,
+      error: err,
+    });
+    res
+      .status(500)
+      .json({ error: "Failed to update order in database", intent });
+  }
 
   //update referral info:
   if (referralCode) {
@@ -209,7 +172,7 @@ export default async function handler(req, res) {
         "Failed to append referral row to Google Sheets:",
         err,
         "data:",
-        referralData
+        referralData,
       );
     }
   }
