@@ -22,3 +22,21 @@ export class WorldmoveRejectionError extends Error {
     this.body = body;
   }
 }
+
+export class EsimAccessApiError extends Error {
+  constructor(status, body) {
+    super(`Esim Access API error: ${status}`);
+    this.name = "EsimAccessApiError";
+    this.status = status;
+    this.body = body;
+  }
+}
+
+export class EsimAccessRejectionError extends Error {
+  constructor(code, body) {
+    super(`Esim Access API error: ${code}`);
+    this.name = "EsimAccessRejectionError";
+    this.code = code;
+    this.body = body;
+  }
+}

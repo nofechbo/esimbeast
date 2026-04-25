@@ -12,3 +12,6 @@ export const WM_USAGE_QUERY_URL = process.env.WM_USAGE_QUERY_URL;
 export const WM_MERCHANT_ID = process.env.WM_MERCHANT_ID;
 export const WM_TOKEN = process.env.WM_TOKEN;
 export const WM_DEPT_ID = process.env.WM_DEPT_ID;
+
+// EsimAccess API
+export const ESIMACCESS_ACCESS_CODE = process.env.ESIMACCESS_ACCESS_CODE;
