@@ -2,100 +2,83 @@ import { validateEncStr } from "@/lib/validateEncStr";
 import { prisma } from "@/lib/db/prisma";
 import { sendEmail } from "@/lib/email/sendEmail";
 import { SKIP_EMAIL_SENDING, SITE_NAME, SITE_URL } from "@/config";
+import { updatePlanOrder } from "@/lib/db/orders";
+import { sendOrderInfo } from "@/lib/email/sendOrderInfo";
 
 //handling - what if errors happen here? user will still see "check your email"
 
 export default async function handler(req, res) {
-    if (req.method !== "POST") {
-        console.error("Invalid request method:", req.method);
-        res.setHeader('Allow', 'POST');
-        return res.status(405).send("Method Not Allowed");
-    }
+  if (req.method !== "POST") {
+    console.error("Invalid request method:", req.method);
+    res.setHeader("Allow", "POST");
+    return res.status(405).send("Method Not Allowed");
+  }
 
-    const data = req.body
-    console.log("Received Worldmove callback", data)
+  const data = req.body;
+  console.log("Received Worldmove callback", data);
 
-    if (!validateEncStr(data)) {
-        console.error("Invalid encStr in callback", { orderId: data.orderId });
-        return res.status(400).send("Invalid encStr");
-    }
+  if (!validateEncStr(data)) {
+    console.error("Invalid encStr in WM callback", { orderId: data.orderId });
+    return res.status(400).send("Invalid encStr");
+  }
 
-    const { orderId, itemList } = data;
-    if (!orderId || !Array.isArray(itemList) || itemList.length === 0) {
-        console.error("Missing orderId or itemList in callback data");
-        return res.status(400).send("Missing orderId or itemList");
-    }
+  const { orderId, itemList } = data;
+  if (!orderId || !Array.isArray(itemList) || itemList.length === 0) {
+    console.error("Missing orderId or itemList in WM callback data");
+    return res.status(400).send("Missing orderId or itemList");
+  }
 
-    const orders = await prisma.planOrder.findMany({ where: { orderId } });
-    if (orders.length === 0) {
-        console.error(`No orders found for orderId: ${orderId}`);
-        return res.status(404).send("No orders found for this orderId");
-    }
-    if (orders.length !== itemList.length) { //if for some reason WM has more/less items than db per orderId
-        console.error(`Item count mismatch for order ${orderId}: received ${itemList.length}, expected ${orders.length}`);
-        return res.status(400).send("Item count mismatch");
-    }
-    if (orders.some(o => o.qrLink || o.lpa || o.supplierOrderData?.rcode)) { // shouldn't it be & ? to only block if all 3 were fileed?
-        console.error(`Order ${orderId} has already been processed`);
-        return res.status(400).send("Order has already been processed");
-    }
-    
-    await Promise.all(
-        itemList.map((item, i) =>
-            prisma.planOrder.update({
-                where: { id: orders[i].id },
-                data: {
-                    qrLink: item.qrcode,
-                    lpa: item.qrcodeContent,
-                    supplierOrderData: { rcode: item.rcode },
-                },
-            })
-        )
+  console.log(`Finding orders in DB for WM orderId ${orderId}...`);
+  const orders = await prisma.planOrder.findMany({
+    where: { supplier: "WM", orderId },
+  });
+  if (orders.length === 0) {
+    console.error(`No WM orders found for orderId: ${orderId}`);
+    return res.status(404).send("No orders found for this orderId");
+  }
+  if (orders.length !== itemList.length) {
+    //if for some reason WM has more/less items than db per orderId
+    console.error(
+      `Item count mismatch for WM order ${orderId}: received ${itemList.length}, expected ${orders.length}`,
     );
-    console.log(`updated DB for order ${orderId} successfully`);
+    return res.status(400).send("Item count mismatch");
+  }
+  if (orders.some((o) => o.qrLink || o.lpa || o.supplierOrderData?.rcode)) {
+    // shouldn't it be & ? to only block if all 3 were fileed?
+    console.error(`WM order ${orderId} has already been processed`);
+    return res.status(400).send("Order has already been processed");
+  }
 
-    const email = orders[0].email; //all orders in the same orderId have the same email
-    if (typeof email !== 'string' || !email) {
-        console.error(`Invalid email for orderId ${orderId}`);
-        return res.status(500).send("Invalid email associated with this order");
-    }
+  console.log(
+    `found ${orders.length} orders, updating DB for WM order ${orderId}...`,
+  );
+  const items = itemList.map((item) => ({
+    qrLink: item.qrcode,
+    lpa: item.qrcodeContent,
+    supplierOrderData: { rcode: item.rcode },
+  }));
 
-    //send email tsnks for all items in the order
-    if (!SKIP_EMAIL_SENDING) {
-        const planDetails = itemList.map((item, i) => {
-            const dataDisplay = orders[i].data > 0 ? `${orders[i].data}GB` : 'Unlimited data';
-            const planHeader = itemList.length > 1 ? `<h3>Plan ${i + 1}:</h3>` : '';
-            return `
-            ${planHeader}
-            <p><strong>Plan Name:</strong> ${orders[i].productName}</p>
-            <p>${dataDisplay} for ${orders[i].duration} days</p>
-            <p>To activate your plan, follow the link below and scan the QR code:
-            <a href="${item.qrcode}" target="_blank" rel="noopener noreferrer">View QR Code</a></p>
-            <p>Check your data usage anytime:
-            <a href="${SITE_URL}/plan-status?rcode=${item.rcode}" target="_blank" rel="noopener noreferrer">View Plan Status</a></p>
+  try {
+    await updatePlanOrder("WM", items, orderId, orders);
+  } catch (error) {
+    console.error(`Failed to update DB for WM order ${orderId}:`, error);
+    return res.status(500).send("Failed to update order data");
+  }
 
-            <hr />
-        `}).join('');
+  console.log(`Sending email for WM order ${orderId}`);
+  try {
+    await sendOrderInfo("WM", orders, orderId, items);
+  } catch (error) {
+    console.error(
+      `Failed to send order info email for WM order ${orderId}:`,
+      error,
+    );
+    res.status(500).send("Failed to send order info email");
+  }
 
-        const emailContent = `
-            <h2>Thank you for your purchase from ${SITE_NAME}!</h2>
-            <p>Your order (ID: ${orderId}) has been successfully processed. Below are the details of your purchased eSIM plan(s):</p>
-            ${planDetails}
-            <p>If you have any questions or need further assistance, feel free to reply to this email.</p>
-            <p>Best regards,<br/>The ${SITE_NAME} Team</p>
-        `;
-
-        const sent = await sendEmail(email, `Your ${SITE_NAME} eSIM Order ${orderId} Details`, emailContent);
-        if (!sent) {
-            console.error(`Failed to send order details email to ${email} for orderId ${orderId}`);
-            return res.status(500).send("Failed to send order details email");
-        }
-
-        console.log(`Sent order details email to ${email} for orderId ${orderId}`);
-    } else {
-        console.log(`Skipping email send for orderId ${orderId}`);
-    }
-
-    console.log("Callback processed successfully", { orderId, itemCount: itemList.length });
-    return res.status(200).send("1");
+  console.log("WM callback processed successfully", {
+    orderId,
+    itemCount: itemList.length,
+  });
+  return res.status(200).send("1");
 }

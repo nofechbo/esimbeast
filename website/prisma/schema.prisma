@@ -27,6 +27,7 @@ model PlanOrder {
 
   @@index([intentId])
   @@index([orderId])
+  @@index([supplier])
 }
 
 model Plan {
