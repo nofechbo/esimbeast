@@ -1,5 +1,5 @@
 import { ESIMACCESS_ACCESS_CODE } from "@/config";
-import { updatePlanOrder } from "@/lib/db/orders";
+import { updateSuccessfulPlanOrder } from "@/lib/db/orders";
 import { prisma } from "@/lib/db/prisma";
 import { sendOrderInfo } from "@/lib/email/sendOrderInfo";
 
@@ -10,26 +10,41 @@ import { sendOrderInfo } from "@/lib/email/sendOrderInfo";
  * and if ready — updates the DB and sends the customer a confirmation email.
  **/
 
-const ORDER_WINDOW = 1000 * 60 * 5; // 5 minutes
+const ORDER_WINDOW = 1000 * 60 * 30; // 30 minutes
 const ESIMACCESS_API_URL = "https://api.esimaccess.com/api/v1/open/esim/query";
 const EA_STILL_ALLOCATING_ERROR_CODE = "200010";
 
 async function main() {
   console.log("Starting to poll pending EA orders...\n");
+
+  // step 1: find all pending EA orders that were placed more than ORDER_WINDOW ago, and mark them as timed_out
+  const timedOutOrders = await prisma.planOrder.updateMany({
+    where: {
+      supplier: "EA",
+      status: "pending",
+      orderTime: { lt: new Date(Date.now() - ORDER_WINDOW) },
+    },
+    data: {
+      status: "timed_out",
+    },
+  });
+  console.log(`Found and logged ${timedOutOrders.count} timed-out EA orders.`);
+
+  // step 2: find all pending EA orders that were placed within the ORDER_WINDOW
   let pendingOrders;
   try {
     pendingOrders = await prisma.planOrder.findMany({
       where: {
         supplier: "EA",
-        qrLink: null,
-        orderTime: { gte: new Date(Date.now() - ORDER_WINDOW) },
+        status: "pending",
       },
-    }); //how to flag orders older then 5 minutes? do we want to?
+    });
     console.log(`Found ${pendingOrders.length} pending EA orders.`);
   } catch (error) {
     console.error("Error occurred while polling pending EA orders:", error);
   }
 
+  // step 3: for each pending order, query EA's /esim/query endpoint
   const batchOrdersById = new Map();
   for (const order of pendingOrders) {
     if (!batchOrdersById.has(order.orderId)) {
@@ -69,7 +84,6 @@ async function main() {
           `Order ${orderNo} query failed, flagging for manual review.`,
           data,
         );
-        // TODO: flag for manual review??
         continue;
       }
 
@@ -93,6 +107,7 @@ async function main() {
       continue;
     }
 
+    // step 4: update the DB for orders in this batch with the data received from EA
     const mappedItems = esimList.map((esimData) => ({
       qrLink: esimData.qrCodeUrl,
       lpa: esimData.ac,
@@ -100,7 +115,7 @@ async function main() {
     }));
 
     try {
-      await updatePlanOrder("EA", mappedItems, orderNo, orders);
+      await updateSuccessfulPlanOrder("EA", mappedItems, orderNo, orders);
       console.log(`Order ${orderNo} updated successfully.`);
     } catch (error) {
       console.error(
@@ -109,6 +124,7 @@ async function main() {
       );
     }
 
+    // step 5: send confirmation email to customer
     try {
       await sendOrderInfo("EA", orders, orderNo, mappedItems);
     } catch (error) {

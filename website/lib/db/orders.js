@@ -1,6 +1,11 @@
 import { prisma } from "./prisma";
 
-export async function updatePlanOrder(supplier, items, orderId, orders) {
+export async function updateSuccessfulPlanOrder(
+  supplier,
+  items,
+  orderId,
+  orders,
+) {
   await Promise.all(
     items.map((item, i) =>
       prisma.planOrder.update({
@@ -9,6 +14,7 @@ export async function updatePlanOrder(supplier, items, orderId, orders) {
           qrLink: item.qrLink,
           lpa: item.lpa,
           supplierOrderData: item.supplierOrderData,
+          status: "fulfilled",
         },
       }),
     ),

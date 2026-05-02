@@ -1,8 +1,6 @@
 import { validateEncStr } from "@/lib/validateEncStr";
 import { prisma } from "@/lib/db/prisma";
-import { sendEmail } from "@/lib/email/sendEmail";
-import { SKIP_EMAIL_SENDING, SITE_NAME, SITE_URL } from "@/config";
-import { updatePlanOrder } from "@/lib/db/orders";
+import { updateSuccessfulPlanOrder } from "@/lib/db/orders";
 import { sendOrderInfo } from "@/lib/email/sendOrderInfo";
 
 //handling - what if errors happen here? user will still see "check your email"
@@ -30,11 +28,11 @@ export default async function handler(req, res) {
 
   console.log(`Finding orders in DB for WM orderId ${orderId}...`);
   const orders = await prisma.planOrder.findMany({
-    where: { supplier: "WM", orderId },
+    where: { supplier: "WM", orderId, status: "pending" },
   });
   if (orders.length === 0) {
-    console.error(`No WM orders found for orderId: ${orderId}`);
-    return res.status(404).send("No orders found for this orderId");
+    console.error(`No pending WM orders found for orderId: ${orderId}`);
+    return res.status(404).send("No pending orders found for this orderId");
   }
   if (orders.length !== itemList.length) {
     //if for some reason WM has more/less items than db per orderId
@@ -42,11 +40,6 @@ export default async function handler(req, res) {
       `Item count mismatch for WM order ${orderId}: received ${itemList.length}, expected ${orders.length}`,
     );
     return res.status(400).send("Item count mismatch");
-  }
-  if (orders.some((o) => o.qrLink || o.lpa || o.supplierOrderData?.rcode)) {
-    // shouldn't it be & ? to only block if all 3 were fileed?
-    console.error(`WM order ${orderId} has already been processed`);
-    return res.status(400).send("Order has already been processed");
   }
 
   console.log(
@@ -59,7 +52,7 @@ export default async function handler(req, res) {
   }));
 
   try {
-    await updatePlanOrder("WM", items, orderId, orders);
+    await updateSuccessfulPlanOrder("WM", items, orderId, orders);
   } catch (error) {
     console.error(`Failed to update DB for WM order ${orderId}:`, error);
     return res.status(500).send("Failed to update order data");

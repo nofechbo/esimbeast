@@ -14,6 +14,7 @@ model PlanOrder {
   orderId           String? //in EA it's called "orderNo". in WM: "orderId". will be null until after a successful payment
   email             String
   orderTime         DateTime
+  status            String   @default("pending") //"pending", "fulfilled", "timed_out"
   qrLink            String?
   lpa               String?
   price             Int // stored in cents
@@ -27,37 +28,37 @@ model PlanOrder {
 
   @@index([intentId])
   @@index([orderId])
-  @@index([supplier])
+  @@index([supplier, status])
 }
 
 model Plan {
-  id           Int      @id @default(autoincrement())
-  productId    String
-  code         String
-  name         String
-  days         Int
-  limited      Boolean
-  fup          String // this is the string representation of the data, e.g., "5 GB"
-  data         Decimal // data in GB
-  dailyDataCap String? // string as it can say "max"
-  reducedSpeed Int?
-  price        Int // stored in cents (e.g., 2499 = $24.99)
+  id            Int      @id @default(autoincrement())
+  productId     String
+  code          String
+  name          String
+  days          Int
+  limited       Boolean
+  fup           String // this is the string representation of the data, e.g., "5 GB"
+  data          Decimal // data in GB
+  dailyDataCap  String? // string as it can say "max"
+  reducedSpeed  Int?
+  price         Int // stored in cents (e.g., 2499 = $24.99)
   supplierPrice Int?
-  reloadable   Boolean
-  countryCodes String[]
-  networks     String[]
-  networkSpeed String?
-  apn          String?
-  hotspot      Boolean?
-  activation   String?
-  delivery     String?
-  seoText      String? //"Your Plan Summary" in sheets
-  planType     String?
-  localNumber  String?
-  eKYC         Boolean? //NOT CURRENTLY IN NEW SHEET!
-  uniqueName   String   @unique
-  isPopular    Boolean  @default(false)
-  supplier     String
+  reloadable    Boolean
+  countryCodes  String[]
+  networks      String[]
+  networkSpeed  String?
+  apn           String?
+  hotspot       Boolean?
+  activation    String?
+  delivery      String?
+  seoText       String? //"Your Plan Summary" in sheets
+  planType      String?
+  localNumber   String?
+  eKYC          Boolean? //NOT CURRENTLY IN NEW SHEET!
+  uniqueName    String   @unique
+  isPopular     Boolean  @default(false)
+  supplier      String
 
   @@index([productId])
   @@index([countryCodes], type: Gin)
