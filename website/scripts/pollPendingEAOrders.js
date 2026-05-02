@@ -1,12 +1,12 @@
-import { ESIMACCESS_ACCESS_CODE } from "@/config";
-import { updateSuccessfulPlanOrder } from "@/lib/db/orders";
-import { prisma } from "@/lib/db/prisma";
-import { sendOrderInfo } from "@/lib/email/sendOrderInfo";
+import { ESIMACCESS_ACCESS_CODE } from "../config.js";
+import { updateSuccessfulPlanOrder } from "../lib/db/orders.js";
+import { prisma } from "../lib/db/prisma.js";
+import { sendOrderInfo } from "../lib/email/sendOrderInfo.js";
 
 /**
  * Cronjob: pollPendingEAOrders
- * Runs every 10 seconds. Finds all EA orders placed in the last 5 minutes
- * that are still pending (no qrLink), queries EA's /esim/query endpoint for each,
+ * Runs every 10 seconds. Marks EA orders older than 30 minutes as timed_out,
+ * then queries EA's /esim/query endpoint for remaining pending orders,
  * and if ready — updates the DB and sends the customer a confirmation email.
  **/
 
@@ -15,7 +15,7 @@ const ESIMACCESS_API_URL = "https://api.esimaccess.com/api/v1/open/esim/query";
 const EA_STILL_ALLOCATING_ERROR_CODE = "200010";
 
 async function main() {
-  console.log("Starting to poll pending EA orders...\n");
+    console.log("Starting to poll pending EA orders...\n");
 
   // step 1: find all pending EA orders that were placed more than ORDER_WINDOW ago, and mark them as timed_out
   const timedOutOrders = await prisma.planOrder.updateMany({
@@ -42,6 +42,11 @@ async function main() {
     console.log(`Found ${pendingOrders.length} pending EA orders.`);
   } catch (error) {
     console.error("Error occurred while polling pending EA orders:", error);
+  }
+
+  if (pendingOrders.length === 0) {
+    console.log("No pending EA orders found. Exiting.");
+    return;
   }
 
   // step 3: for each pending order, query EA's /esim/query endpoint
@@ -136,3 +141,5 @@ async function main() {
     }
   }
 }
+
+main();

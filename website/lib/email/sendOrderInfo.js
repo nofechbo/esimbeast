@@ -1,5 +1,5 @@
-import { SITE_NAME, SITE_URL, SKIP_EMAIL_SENDING } from "@/config";
-import { sendEmail } from "./sendEmail";
+import { SITE_NAME, SITE_URL, SKIP_EMAIL_SENDING } from "../../config.js";
+import { sendEmail } from "./sendEmail.js";
 
 export const sendOrderInfo = async (
   supplierName,
