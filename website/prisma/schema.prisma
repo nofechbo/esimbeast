@@ -9,53 +9,59 @@ datasource db {
 }
 
 model PlanOrder {
-  id           Int      @id @default(autoincrement())
-  intentId     String
-  orderId      String? //will be null until after successful payment
-  email        String
-  orderTime    DateTime
-  qrLink       String?
-  lpa          String?
-  price        Int // stored in cents
-  countryCodes String[]
-  data         Decimal
-  duration     Int
-  productId    String
-  productName  String
-  rcode        String?
+  id                Int      @id @default(autoincrement())
+  intentId          String
+  orderId           String? //in EA it's called "orderNo". in WM: "orderId". will be null until after a successful payment
+  email             String
+  orderTime         DateTime
+  status            String   @default("pending") //"pending", "fulfilled", "timed_out"
+  qrLink            String?
+  lpa               String?
+  price             Int // stored in cents
+  countryCodes      String[]
+  data              Decimal
+  duration          Int
+  productId         String
+  productName       String
+  supplier          String
+  supplierOrderData Json? // WM: {rcode}. EA: {esimTranNo}}
 
   @@index([intentId])
   @@index([orderId])
+  @@index([supplier, status])
 }
 
 model Plan {
-  id           Int      @id @default(autoincrement())
-  productId    String
-  code         String
-  name         String
-  days         Int
-  limited      Boolean
-  fup          String  // this is the string representation of the data, e.g., "5 GB"
-  data         Decimal // data in GB
-  dailyDataCap String? // string as it can say "max"
-  reducedSpeed Int
-  price        Int // stored in cents (e.g., 2499 = $24.99)
-  reloadable   Boolean
-  countryCodes String[]
-  networks     String[]
-  networkSpeed String?
-  apn          String?
-  hotspot      Boolean?
-  activation   String?
-  delivery     String?
-  seoText      String? //"Your Plan Summary" in sheets
-  planType     String?
-  localNumber  String?
-  eKYC         Boolean? //NOT CURRENTLY IN NEW SHEET!
-  uniqueName   String   @unique
-  isPopular    Boolean  @default(false)
+  id            Int      @id @default(autoincrement())
+  productId     String
+  code          String
+  name          String
+  days          Int
+  limited       Boolean
+  fup           String // this is the string representation of the data, e.g., "5 GB"
+  data          Decimal // data in GB
+  dailyDataCap  String? // string as it can say "max"
+  reducedSpeed  Int?
+  price         Int // stored in cents (e.g., 2499 = $24.99)
+  supplierPrice Int?
+  reloadable    Boolean
+  countryCodes  String[]
+  networks      String[]
+  networkSpeed  String?
+  apn           String?
+  hotspot       Boolean?
+  activation    String?
+  delivery      String?
+  seoText       String? //"Your Plan Summary" in sheets
+  planType      String?
+  localNumber   String?
+  eKYC          Boolean? //NOT CURRENTLY IN NEW SHEET!
+  uniqueName    String   @unique
+  isPopular     Boolean  @default(false)
+  supplier      String
 
   @@index([productId])
   @@index([countryCodes], type: Gin)
   @@index([uniqueName])
+  @@index([supplier])
 }
