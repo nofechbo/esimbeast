@@ -1,5 +1,5 @@
-import { ORDER_STATUS } from "@/lib/db/types.js";
-import { ESIMACCESS_API_BASE } from "@/lib/esimaccess.js";
+import { ORDER_STATUS } from "../lib/db/types.js";
+import { ESIMACCESS_API_BASE } from "../lib/esimaccess.js";
 import { ESIMACCESS_ACCESS_CODE } from "../config.js";
 import { updateSuccessfulPlanOrder } from "../lib/db/orders.js";
 import { prisma } from "../lib/db/prisma.js";
