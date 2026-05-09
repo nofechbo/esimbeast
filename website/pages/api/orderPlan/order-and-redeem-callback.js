@@ -60,7 +60,7 @@ export default async function handler(req, res) {
         return res.status(500).send("Invalid email associated with this order");
     }
 
-    //send email tsnks for all items in the order
+    //send email to user for all items in the order
     if (!SKIP_EMAIL_SENDING) {
         const planDetails = itemList.map((item, i) => {
             const dataDisplay = orders[i].data > 0 ? `${orders[i].data}GB` : 'Unlimited data';
