@@ -104,10 +104,7 @@ export default async function handler(req, res) {
 
       if (!data.success) {
         console.error(`EA API error for code ${code}:`, data);
-        return res.status(400).json({
-          error:
-            "Invalid or expired redemption code. Please check and try again.",
-        });
+        throw new Error("Failed to fetch plan status from EA");
       }
 
       const usage = data.obj?.esimUsageList?.[0];
