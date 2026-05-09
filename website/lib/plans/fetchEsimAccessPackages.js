@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const BASE_URL = process.env.ESIMACCESS_BASE_URL;
+const BASE_URL = "https://api.esimaccess.com/api/v1/open";
 
 async function postApi(path, body = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {
