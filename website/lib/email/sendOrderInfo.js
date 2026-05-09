@@ -10,7 +10,7 @@ export const sendOrderInfo = async (supplierName, orders, orderId, items) => {
     throw new Error("Invalid email associated with this order");
   }
 
-  //send email tsnks for all items in the order
+  //send email to user for all items in the order
   if (!SKIP_EMAIL_SENDING) {
     const planDetails = items
       .map((item, i) => {

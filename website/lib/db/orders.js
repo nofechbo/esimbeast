@@ -1,4 +1,5 @@
 import { prisma } from "./prisma.js";
+import { ORDER_STATUS } from "./types.js";
 
 export async function updateSuccessfulPlanOrder(
   supplier,
@@ -14,7 +15,7 @@ export async function updateSuccessfulPlanOrder(
           qrLink: item.qrLink,
           lpa: item.lpa,
           supplierOrderData: item.supplierOrderData,
-          status: "fulfilled",
+          status: ORDER_STATUS.FULFILLED,
         },
       }),
     ),
