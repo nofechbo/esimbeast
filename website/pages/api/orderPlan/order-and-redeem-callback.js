@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     const data = req.body
-    console.log("Received Worldmove callback", { orderId: data.orderId, itemCount: data.itemList?.length })
+    console.log("Received Worldmove callback", data)
 
     if (!validateEncStr(data)) {
         console.error("Invalid encStr in callback", { orderId: data.orderId });
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
         console.error(`Item count mismatch for order ${orderId}: received ${itemList.length}, expected ${orders.length}`);
         return res.status(400).send("Item count mismatch");
     }
-    if (orders.some(o => o.qrLink || o.lpa || o.rcode)) { // shouldn't it be & ? to only block if all 3 were fileed?
+    if (orders.some(o => o.qrLink || o.lpa || o.supplierOrderData?.rcode)) { // shouldn't it be & ? to only block if all 3 were fileed?
         console.error(`Order ${orderId} has already been processed`);
         return res.status(400).send("Order has already been processed");
     }
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
                 data: {
                     qrLink: item.qrcode,
                     lpa: item.qrcodeContent,
-                    rcode: item.rcode,
+                    supplierOrderData: { rcode: item.rcode },
                 },
             })
         )
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
         return res.status(500).send("Invalid email associated with this order");
     }
 
-    //send email to user with qr code and lpa links for all items in the order
+    //send email to user for all items in the order
     if (!SKIP_EMAIL_SENDING) {
         const planDetails = itemList.map((item, i) => {
             const dataDisplay = orders[i].data > 0 ? `${orders[i].data}GB` : 'Unlimited data';
