@@ -1,4 +1,4 @@
-import { SITE_NAME } from '@/config';
+import { SITE_NAME } from '../../config.js';
 import nodemailer from 'nodemailer';
 
 const from = `${SITE_NAME} <${process.env.GMAIL_ADDRESS}>`;

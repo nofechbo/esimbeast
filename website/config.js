@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || '(Site Name)';
 export const SITE_EMAIL = process.env.NEXT_PUBLIC_SITE_EMAIL || '(Site Email)';
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://esimbeast.com';

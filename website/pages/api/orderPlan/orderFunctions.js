@@ -5,6 +5,7 @@ import {
   WM_TOKEN,
   ESIMACCESS_ACCESS_CODE,
 } from "@/config";
+import { ESIMACCESS_API_BASE } from "@/lib/esimaccess";
 import { generateEncStr } from "@/utils/generateEncStr";
 import {
   EsimAccessApiError,
@@ -95,7 +96,7 @@ export const orderWMPlan = async (intentId, email, plan, qty) => {
 };
 
 export const orderEAPlan = async (intentId, email, plan, qty) => {
-  const url = "https://api.esimaccess.com/api/v1/open/esim/order";
+  const url = `${ESIMACCESS_API_BASE}/order`;
   const packageCode = plan.code;
   const price = plan.supplierPrice;
   const transactionId = intentId; // EA requires that we supply a unique transaction ID
