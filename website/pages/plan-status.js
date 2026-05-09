@@ -14,19 +14,6 @@ import {
   PrimaryButton,
 } from "@/styles/successPageStyles";
 
-const esimStatusLabels = {
-  0: "Unknown",
-  1: "Active",
-  2: "Invalid",
-};
-
-const simStatusLabels = {
-  0: "Inactive",
-  1: "Active",
-  5: "Voided",
-  6: "Expired",
-};
-
 function formatBytes(bytes) {
   const num = parseInt(bytes, 10);
   if (num === 0) return "0 B";
@@ -47,19 +34,21 @@ function formatDate(timestampMs) {
 
 export default function PlanStatus() {
   const router = useRouter();
-  const { rcode } = router.query;
+  const { supplier, code } = router.query;
 
   const [status, setStatus] = useState("idle"); // idle | loading | ok | error
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!rcode) return;
+    if (!code) return;
 
     const fetchStatus = async () => {
       setStatus("loading");
       try {
-        const res = await fetch(`/api/plan-status/${rcode}`);
+        const res = await fetch(
+          `/api/plan-status/?supplier=${supplier}&code=${code}`,
+        );
         const json = await res.json();
 
         if (!res.ok) {
@@ -77,23 +66,25 @@ export default function PlanStatus() {
     };
 
     fetchStatus();
-  }, [rcode]);
+  }, [code]);
 
   return (
     <SuccessContainer>
-      <SEO title="eSIM Plan Status" path="/plan-status" noindex />
+      <SEO title="eSIM Plan Status" path="/plan-status" image={null} noindex />
       <SuccessBox>
-        <h1 style={{
-          fontSize: "24px",
-          fontWeight: 700,
-          color: "#112B3C",
-          marginBottom: "0.5rem",
-          fontFamily: "Kanit"
-        }}>
+        <h1
+          style={{
+            fontSize: "24px",
+            fontWeight: 700,
+            color: "#112B3C",
+            marginBottom: "0.5rem",
+            fontFamily: "Kanit",
+          }}
+        >
           eSIM Plan Status
         </h1>
 
-        {!rcode && status === "idle" && (
+        {!code && status === "idle" && (
           <SuccessSubtitle>
             No redemption code provided. Please check your URL.
           </SuccessSubtitle>
@@ -114,54 +105,66 @@ export default function PlanStatus() {
 
         {status === "ok" && data && (
           <>
-            <StatusBadgeSuccess>
-              {simStatusLabels[data.simStatus] || "Unknown"} - {esimStatusLabels[data.esimStatus] || "Unknown"}
-            </StatusBadgeSuccess>
+            {data.status && (
+              <StatusBadgeSuccess>{data.status}</StatusBadgeSuccess>
+            )}
 
             <DetailCard>
               <DetailRow>
-                <DetailLabel>eSIM ID</DetailLabel>
-                <DetailValue>{data.cid}</DetailValue>
+                <DetailLabel>Data Used</DetailLabel>
+                <DetailValue>{formatBytes(data.dataUsed)}</DetailValue>
               </DetailRow>
-              <DetailRow>
-                <DetailLabel>Valid From</DetailLabel>
-                <DetailValue>{formatDate(data.useSDate)}</DetailValue>
-              </DetailRow>
-              <DetailRow>
-                <DetailLabel>Valid Until</DetailLabel>
-                <DetailValue>{formatDate(data.useEDate)}</DetailValue>
-              </DetailRow>
-              <DetailRow>
-                <DetailLabel>Total Usage</DetailLabel>
-                <DetailValue>{formatBytes(data.totalUsage)}</DetailValue>
-              </DetailRow>
-              <DetailRow>
-                <DetailLabel>eSIM Status</DetailLabel>
-                <DetailValue>{esimStatusLabels[data.esimStatus] || "Unknown"}</DetailValue>
-              </DetailRow>
-              <DetailRow>
-                <DetailLabel>SIM Status</DetailLabel>
-                <DetailValue>{simStatusLabels[data.simStatus] || "Unknown"}</DetailValue>
-              </DetailRow>
+              {data.totalData && (
+                <DetailRow>
+                  <DetailLabel>Total Data</DetailLabel>
+                  <DetailValue>{formatBytes(data.totalData)}</DetailValue>
+                </DetailRow>
+              )}
+              {data.validFrom && (
+                <DetailRow>
+                  <DetailLabel>Valid From</DetailLabel>
+                  <DetailValue>{formatDate(data.validFrom)}</DetailValue>
+                </DetailRow>
+              )}
+              {data.validUntil && (
+                <DetailRow>
+                  <DetailLabel>Valid Until</DetailLabel>
+                  <DetailValue>{formatDate(data.validUntil)}</DetailValue>
+                </DetailRow>
+              )}
+              {data.lastUpdated && (
+                <DetailRow>
+                  <DetailLabel>Last Updated</DetailLabel>
+                  <DetailValue>
+                    {new Date(data.lastUpdated).toLocaleString()}
+                  </DetailValue>
+                </DetailRow>
+              )}
             </DetailCard>
 
-            {data.itemList && data.itemList.length > 0 && (
+            {data.dailyUsage && data.dailyUsage.length > 0 && (
               <>
-                <h2 style={{
-                  fontSize: "18px",
-                  fontWeight: 600,
-                  color: "#112B3C",
-                  marginBottom: "1rem",
-                  textAlign: "left",
-                  fontFamily: "Kanit"
-                }}>
+                <h2
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 600,
+                    color: "#112B3C",
+                    marginBottom: "1rem",
+                    textAlign: "left",
+                    fontFamily: "Kanit",
+                  }}
+                >
                   Daily Usage
                 </h2>
                 <DetailCard>
-                  {data.itemList.map((item, index) => (
+                  {data.dailyUsage.map((item, index) => (
                     <DetailRow key={index}>
                       <DetailLabel>
-                        {item.usageDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")} ({item.enus})
+                        {item.usageDate.replace(
+                          /(\d{4})(\d{2})(\d{2})/,
+                          "$1-$2-$3",
+                        )}{" "}
+                        ({item.enus})
                       </DetailLabel>
                       <DetailValue>{formatBytes(item.usage)}</DetailValue>
                     </DetailRow>
@@ -170,15 +173,19 @@ export default function PlanStatus() {
               </>
             )}
 
-            {(!data.itemList || data.itemList.length === 0) && (
+            {(!data.dailyUsage || data.dailyUsage.length === 0) && (
               <SuccessSubtitle style={{ marginTop: "1rem" }}>
-                No usage recorded yet.
+                No usage data available yet. If you've recently activated your
+                eSIM, please check back in a few hours.
               </SuccessSubtitle>
             )}
           </>
         )}
 
-        <PrimaryButton onClick={() => router.push("/")} style={{ marginTop: "1.5rem" }}>
+        <PrimaryButton
+          onClick={() => router.push("/")}
+          style={{ marginTop: "1.5rem" }}
+        >
           Back to Home
         </PrimaryButton>
       </SuccessBox>

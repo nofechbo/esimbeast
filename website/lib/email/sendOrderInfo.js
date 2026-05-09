@@ -1,12 +1,7 @@
 import { SITE_NAME, SITE_URL, SKIP_EMAIL_SENDING } from "../../config.js";
 import { sendEmail } from "./sendEmail.js";
 
-export const sendOrderInfo = async (
-  supplierName,
-  orders,
-  orderId,
-  items,
-) => {
+export const sendOrderInfo = async (supplierName, orders, orderId, items) => {
   const email = orders[0].email; //all orders in the same orderId have the same email
   if (typeof email !== "string" || !email) {
     console.error(
@@ -19,6 +14,23 @@ export const sendOrderInfo = async (
   if (!SKIP_EMAIL_SENDING) {
     const planDetails = items
       .map((item, i) => {
+        const statusCode =
+          supplierName === "WM"
+            ? item.supplierOrderData.rcode
+            : supplierName === "EA"
+              ? item.supplierOrderData.esimTranNo
+              : null;
+
+        if (!statusCode) {
+          console.error(
+            `Unknown supplier ${supplierName}, cannot generate status link`,
+          );
+        }
+
+        const statusLink = statusCode
+          ? `${SITE_URL}/plan-status?supplier=${supplierName}&code=${statusCode}`
+          : null;
+
         const dataDisplay =
           orders[i].data > 0 ? `${orders[i].data}GB` : "Unlimited data";
         const planHeader = items.length > 1 ? `<h3>Plan ${i + 1}:</h3>` : "";
@@ -28,8 +40,12 @@ export const sendOrderInfo = async (
             <p>${dataDisplay} for ${orders[i].duration} days</p>
             <p>To activate your plan, follow the link below and scan the QR code:
             <a href="${item.qrLink}" target="_blank" rel="noopener noreferrer">View QR Code</a></p>
-            ${supplierName === "WM" ? `<p>Check your data usage anytime:
-            <a href="${SITE_URL}/plan-status?rcode=${item.supplierOrderData.rcode}" target="_blank" rel="noopener noreferrer">View Plan Status</a></p>` : ""}
+            ${
+              statusLink
+                ? `<p>Check your data usage anytime:
+            <a href="${statusLink}" target="_blank" rel="noopener noreferrer">View Plan Status</a></p>`
+                : ""
+            }
             <hr />
         `;
       })

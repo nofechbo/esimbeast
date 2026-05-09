@@ -92,7 +92,7 @@ export default function SuccessPage() {
 
   return (
     <SuccessContainer>
-      <SEO title="Order Confirmation" path="/success" noindex />
+      <SEO title="Order Confirmation" path="/success" image={null} noindex />
       <SuccessBox>
         <SuccessIcon>✓</SuccessIcon>
 
