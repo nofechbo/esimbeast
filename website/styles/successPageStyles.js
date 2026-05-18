@@ -1,97 +1,173 @@
 import styled from "@emotion/styled";
 
 export const SuccessContainer = styled("div")({
+  position: "relative",
   minHeight: "100vh",
-  background: "linear-gradient(135deg, #FAEEFA 0%, #FFF5F7 50%, #F0F9FF 100%)",
-  padding: "2rem 1rem",
+  background: "#FFFFFF",
   fontFamily: "Kanit",
+  paddingTop: "110px",
+  paddingBottom: "80px",
+  overflow: "hidden",
+  "@media (max-width: 768px)": {
+    paddingTop: "90px",
+    paddingBottom: "48px",
+  },
+});
+
+export const GradientBanner = styled("div")({
+  position: "absolute",
+  top: "104px",
+  left: 0,
+  right: 0,
+  height: "150px",
+  background: "linear-gradient(90deg, #8D2DF2 0%, #A64DF0 42%, #E58FC2 100%)",
+  zIndex: 0,
+  "@media (max-width: 768px)": {
+    top: "84px",
+    height: "120px",
+  },
 });
 
 export const SuccessBox = styled("div")({
-  maxWidth: "650px",
-  margin: "60px auto",
-  padding: "2rem 2rem",
+  position: "relative",
+  zIndex: 1,
+  width: "650px",
+  maxWidth: "calc(100% - 32px)",
+  margin: "40px auto 0",
+  padding: "28px",
   background: "#FFFFFF",
-  borderRadius: "24px",
-  boxShadow: "0 20px 60px rgba(141, 45, 242, 0.15)",
+  borderRadius: "28px",
+  border: "1px solid #E8EFF4",
+  boxShadow: "2px 6px 38px 0 rgba(19, 7, 55, 0.12)",
   textAlign: "center",
-  border: "1px solid rgba(141, 45, 242, 0.1)",
+  "@media (max-width: 768px)": {
+    margin: "30px 16px 0",
+    padding: "24px",
+  },
 });
 
-export const SuccessIcon = styled("div")({
-  width: "70px",
-  height: "70px",
-  margin: "0 auto 1rem",
-  background: "linear-gradient(135deg, #8D2DF2 0%, #C77DFF 100%)",
-  borderRadius: "50%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontSize: "42px",
-  animation: "scaleIn 0.5s ease-out",
-  "@keyframes scaleIn": {
-    "0%": { transform: "scale(0)", opacity: 0 },
-    "50%": { transform: "scale(1.1)" },
-    "100%": { transform: "scale(1)", opacity: 1 },
+export const SuccessIllustration = styled("img")({
+  display: "block",
+  width: "118px",
+  height: "auto",
+  margin: "0 auto 18px",
+});
+
+export const SuccessTitle = styled("h1")({
+  fontFamily: "Kanit",
+  fontWeight: 800,
+  fontSize: "30px",
+  lineHeight: 1.18,
+  color: "#112B3C",
+  margin: 0,
+  "@media (max-width: 768px)": {
+    fontSize: "24px",
   },
 });
 
 export const SuccessSubtitle = styled("p")({
-  fontSize: "16px",
+  fontSize: "13px",
   color: "#6B7280",
-  marginBottom: "1.5rem",
+  margin: "10px 0 30px",
   fontFamily: "Montserrat",
-  lineHeight: "1.6",
+  lineHeight: 1.6,
 });
 
-export const DetailCard = styled("div")({
-  background: "linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%)",
-  borderRadius: "16px",
-  padding: "2rem",
-  marginBottom: "1.5rem",
+export const InfoRow = styled("div")({
+  display: "flex",
+  alignItems: "stretch",
   textAlign: "left",
-  border: "2px solid #E8E8E8",
-  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+  marginBottom: "8px",
+  "@media (max-width: 560px)": {
+    flexDirection: "column",
+    gap: "16px",
+  },
 });
 
-export const DetailRow = styled("div")({
+export const InfoCol = styled("div")({
+  flex: 1,
+  padding: "0 20px",
+  "&:first-of-type": { paddingLeft: 0 },
+  "&:last-of-type": { paddingRight: 0 },
+  "& + &": {
+    borderLeft: "1px solid #ECECEC",
+  },
+  "@media (max-width: 560px)": {
+    padding: 0,
+    "& + &": { borderLeft: "none" },
+  },
+});
+
+export const InfoLabel = styled("div")({
+  fontFamily: "Montserrat",
+  fontWeight: 700,
+  fontSize: "13px",
+  color: "#112B3C",
+  marginBottom: "5px",
+});
+
+export const InfoValue = styled("div")({
+  fontFamily: "Montserrat",
+  fontWeight: 400,
+  fontSize: "13px",
+  color: "#6B7280",
+  wordBreak: "break-word",
+});
+
+export const Divider = styled("hr")({
+  border: "none",
+  borderTop: "1px solid #ECECEC",
+  margin: "26px 0",
+});
+
+export const SectionTitle = styled("div")({
+  fontFamily: "Montserrat",
+  fontWeight: 700,
+  fontSize: "14px",
+  color: "#112B3C",
+  textAlign: "left",
+  marginBottom: "14px",
+});
+
+export const LineItem = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: "1.2rem 0",
-  borderBottom: "1px solid #E8E8E8",
-  "&:last-child": {
-    borderBottom: "none",
-    paddingBottom: 0,
-  },
-  "&:first-of-type": {
-    paddingTop: 0,
-  },
-});
-
-export const DetailLabel = styled("span")({
-  fontSize: "15px",
-  color: "#374151",
   fontFamily: "Montserrat",
-  fontWeight: 600,
+  fontSize: "13px",
+  color: "#6B7280",
+  padding: "7px 0",
 });
 
-export const DetailValue = styled("span")({
-  fontSize: "16px",
+export const LineItemPrice = styled("span")({
+  fontFamily: "Montserrat",
+  fontSize: "13px",
   color: "#112B3C",
+  fontWeight: 500,
+  whiteSpace: "nowrap",
+  marginLeft: "16px",
+});
+
+export const TotalRow = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
   fontFamily: "Montserrat",
   fontWeight: 700,
+  fontSize: "14px",
+  color: "#112B3C",
+  padding: "10px 0 0",
 });
 
 export const StatusBadgeBase = styled("div")({
   display: "inline-flex",
   alignItems: "center",
-  padding: "0.75rem",
+  padding: "0.7rem 1rem",
   borderRadius: "12px",
-  fontSize: "14px",
+  fontSize: "13px",
   fontWeight: 600,
   fontFamily: "Montserrat",
-  marginBottom: "2rem",
+  marginBottom: "8px",
 });
 
 export const StatusBadgeSuccess = styled(StatusBadgeBase)({
@@ -114,8 +190,8 @@ export const StatusBadgeError = styled(StatusBadgeBase)({
 
 export const ButtonGroup = styled("div")({
   display: "flex",
-  gap: "1rem",
-  marginTop: "2rem",
+  gap: "12px",
+  marginTop: "30px",
   "@media (max-width: 480px)": {
     flexDirection: "column",
   },
@@ -123,8 +199,8 @@ export const ButtonGroup = styled("div")({
 
 export const PrimaryButton = styled("button")({
   flex: 1,
-  padding: "14px 28px",
-  fontSize: "16px",
+  padding: "13px 28px",
+  fontSize: "15px",
   fontWeight: 600,
   fontFamily: "Kanit",
   background: "linear-gradient(90deg, #8D2DF2 0%, #C77DFF 100%)",
@@ -144,8 +220,8 @@ export const PrimaryButton = styled("button")({
 
 export const SecondaryButton = styled("button")({
   flex: 1,
-  padding: "14px 28px",
-  fontSize: "16px",
+  padding: "13px 28px",
+  fontSize: "15px",
   fontWeight: 600,
   fontFamily: "Kanit",
   background: "#FFFFFF",
