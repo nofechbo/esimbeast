@@ -48,6 +48,7 @@ export function transformCsvDataToPlan(csvRow, supplierName) {
       seoText: funcs.seoText(csvRow),
       planType: funcs.planType(csvRow),
       localNumber: funcs.localNumber(csvRow),
+      notification: funcs.notification(csvRow),
       eKYC: funcs.eKYC(csvRow),
       uniqueName: funcs.uniqueName(csvRow),
       isPopular: funcs.isPopular(csvRow),
