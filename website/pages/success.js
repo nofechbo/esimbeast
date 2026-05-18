@@ -4,22 +4,29 @@ import { fetchPlanByUniqueName } from "@/utils/fetchPlans";
 import SEO from "@/components/SEO";
 import {
   ButtonGroup,
-  DetailCard,
-  DetailLabel,
-  DetailRow,
-  DetailValue,
+  Divider,
+  GradientBanner,
+  InfoCol,
+  InfoLabel,
+  InfoRow,
+  InfoValue,
+  LineItem,
+  LineItemPrice,
   PrimaryButton,
   SecondaryButton,
+  SectionTitle,
   StatusBadgeError,
   StatusBadgePending,
   StatusBadgeSuccess,
   SuccessBox,
   SuccessContainer,
-  SuccessIcon,
+  SuccessIllustration,
   SuccessSubtitle,
+  SuccessTitle,
+  TotalRow,
 } from "@/styles/successPageStyles";
 import { clearReferralCookie, getCookie } from "@/utils/referral";
-import { formatDataSize, formatDuration } from "@/utils/formaters";
+import { formatDataSize } from "@/utils/formaters";
 import { getCountryName } from "@/utils/homepage/codeToCountry";
 
 export default function SuccessPage() {
@@ -90,117 +97,115 @@ export default function SuccessPage() {
     fetchPlan();
   }, [intent]);
 
+  const currency = intent?.currency ? intent.currency.toUpperCase() : "USD";
+
+  const formatPrice = (amount) => `$${amount.toFixed(2)}`;
+
+  const orderDate = intent?.created
+    ? new Date(intent.created * 1000)
+    : new Date();
+  const formattedDate = orderDate.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  // Built as a list so multi-order purchases render every item; today a
+  // single payment intent yields one line.
+  const lineItems =
+    intent && plan
+      ? [
+          {
+            label: `${
+              intent.metadata?.code
+                ? getCountryName(intent.metadata.code)
+                : plan?.name || "Your Plan"
+            }, ${
+              intent.metadata?.data
+                ? formatDataSize(parseInt(intent.metadata.data, 10))
+                : formatDataSize(plan.data)
+            } x 1`,
+            amount: intent.amount / 100,
+          },
+        ]
+      : [];
+
+  const total = lineItems.reduce((sum, item) => sum + item.amount, 0);
+
+  const isError = orderStatus === "error";
+  const isPending = orderStatus === "pending";
+
+  const title = isError
+    ? "Something went wrong"
+    : isPending
+    ? "Processing your order…"
+    : "Thank you!\nYour order is confirmed!";
+
+  const subtitle = isError
+    ? "We couldn't complete your order. Please contact us and we'll sort it out."
+    : isPending
+    ? "Hang tight while we finalize your eSIM order."
+    : "Check your inbox for details about your eSIM.";
+
   return (
     <SuccessContainer>
       <SEO title="Order Confirmation" path="/success" image={null} noindex />
+      <GradientBanner />
       <SuccessBox>
-        <SuccessIcon>✓</SuccessIcon>
+        <SuccessIllustration
+          src="/success_page_img.svg"
+          alt="Order confirmed"
+        />
 
-        <SuccessSubtitle>
-          Thank you for your purchase! Your eSIM order is being processed.
-        </SuccessSubtitle>
+        <SuccessTitle style={{ whiteSpace: "pre-line" }}>{title}</SuccessTitle>
 
-        {orderStatus && (
+        <SuccessSubtitle>{subtitle}</SuccessSubtitle>
+
+        {isPending && (
+          <StatusBadgePending>⏳ Processing your eSIM order…</StatusBadgePending>
+        )}
+        {isError && (
+          <StatusBadgeError>
+            ⚠️ Error processing your order — please contact us
+          </StatusBadgeError>
+        )}
+
+        {intent && plan && !isError && (
           <>
-            {orderStatus === "pending" && (
-              <StatusBadgePending>
-                ⏳ Processing your eSIM order...
-              </StatusBadgePending>
-            )}
-            {orderStatus === "ok" && (
-              <StatusBadgeSuccess>
-                🎉 eSIM order placed successfully!
-              </StatusBadgeSuccess>
-            )}
-            {orderStatus === "error" && (
-              <StatusBadgeError>
-                ⚠️ Error processing your order - please contact us
-              </StatusBadgeError>
-            )}
-          </>
-        )}
-        {intent && plan && (
-          <DetailCard>
-            <DetailRow>
-              <DetailLabel>Plan</DetailLabel>
-              <DetailValue>
-                {intent.metadata?.code
-                  ? getCountryName(intent.metadata.code)
-                  : plan?.name || "Your Plan"}
-              </DetailValue>
-            </DetailRow>
-            <DetailRow>
-              <DetailLabel>Period</DetailLabel>
-              <DetailValue>
-                {intent.metadata?.days
-                  ? formatDuration(parseInt(intent.metadata.days, 10))
-                  : formatDuration(plan.days)}
-              </DetailValue>
-            </DetailRow>
-            <DetailRow>
-              <DetailLabel>Data</DetailLabel>
-              <DetailValue>
-                {intent.metadata?.data
-                  ? formatDataSize(parseInt(intent.metadata.data, 10))
-                  : formatDataSize(plan.data)}
-              </DetailValue>
-            </DetailRow>
-            <DetailRow>
-              <DetailLabel>Amount Paid</DetailLabel>
-              <DetailValue>
-                ${(intent.amount / 100).toFixed(2)}{" "}
-                {intent.currency.toUpperCase()}
-              </DetailValue>
-            </DetailRow>
-            <DetailRow>
-              <DetailLabel>Email</DetailLabel>
-              <DetailValue>
-                {intent.receipt_email || "Not provided"}
-              </DetailValue>
-            </DetailRow>
-            <DetailRow>
-              <DetailLabel>Order Confirmation</DetailLabel>
-              <DetailValue>{intent.id}</DetailValue>
-            </DetailRow>
-          </DetailCard>
-        )}
+            <InfoRow>
+              <InfoCol>
+                <InfoLabel>Order number</InfoLabel>
+                <InfoValue>#{intent.id}</InfoValue>
+              </InfoCol>
+              <InfoCol>
+                <InfoLabel>Date</InfoLabel>
+                <InfoValue>{formattedDate}</InfoValue>
+              </InfoCol>
+              <InfoCol>
+                <InfoLabel>Email</InfoLabel>
+                <InfoValue>{intent.receipt_email || "Not provided"}</InfoValue>
+              </InfoCol>
+            </InfoRow>
 
-        {orderStatus === "ok" && (
-          <div
-            style={{
-              background: "#F0F9FF",
-              padding: "1.25rem",
-              borderRadius: "12px",
-              marginBottom: "1.5rem",
-              textAlign: "left",
-              border: "1px solid #BAE6FD",
-            }}
-          >
-            <h3
-              style={{
-                fontSize: "16px",
-                fontWeight: 600,
-                color: "#112B3C",
-                marginBottom: "0.5rem",
-                fontFamily: "Kanit",
-              }}
-            >
-              📧 What's Next?
-            </h3>
-            <p
-              style={{
-                fontSize: "14px",
-                color: "#6B7280",
-                margin: 0,
-                lineHeight: "1.6",
-                fontFamily: "Montserrat",
-              }}
-            >
-              Your eSIM QR code and installation instructions have been sent to
-              your email. Check your inbox (and spam folder) in the next few
-              minutes.
-            </p>
-          </div>
+            <Divider />
+
+            <SectionTitle>Order details</SectionTitle>
+            {lineItems.map((item, i) => (
+              <LineItem key={i}>
+                <span>{item.label}</span>
+                <LineItemPrice>{formatPrice(item.amount)}</LineItemPrice>
+              </LineItem>
+            ))}
+            <TotalRow>
+              <span>Total</span>
+              <span>
+                {formatPrice(total)} {currency}
+              </span>
+            </TotalRow>
+
+            <Divider />
+          </>
         )}
 
         <ButtonGroup>
