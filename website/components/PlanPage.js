@@ -186,11 +186,11 @@ export default function PlanPage({ plan, slug }) {
 
             <PlanDetails>
               {/* check with client what the real title should be */}
-              <Strong>Text place:</Strong>
+              <Strong>Important Info:</Strong>
               <br />
               Speed reduction: if necessary, some carriers may reserve the right
-              to apply a Fair Usage Policy. <br/> Hotspot: enjoy {
-                plan.reducedSpeed } kbps per day to share with others.
+              to apply a Fair Usage Policy. <br/> {
+                plan.notification  ?? "" }
             </PlanDetails>
         </DetailsBox>
       </PlanPageWrapper>

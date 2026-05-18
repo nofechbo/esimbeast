@@ -55,6 +55,7 @@ model Plan {
   seoText       String? //"Your Plan Summary" in sheets
   planType      String?
   localNumber   String?
+  notification  String?
   eKYC          Boolean? //NOT CURRENTLY IN NEW SHEET!
   uniqueName    String   @unique
   isPopular     Boolean  @default(false)
