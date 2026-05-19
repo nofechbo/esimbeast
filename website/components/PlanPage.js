@@ -17,6 +17,7 @@ import {
   DetailValue,
   FlagsContainer,
   MainPlanFeatures,
+  MobileSummaryPanel,
   PageTitle,
   PanelTitle,
   PlanDetails,
@@ -101,6 +102,42 @@ export default function PlanPage({ plan, slug }) {
   const seoTitle = `${country ?? plan.name} eSIM - ${displayDataText} for ${formatDuration(displayDays)}`;
   const seoDescription = `Get ${displayDataText} eSIM data plan for ${country ?? plan.name}. ${formatDuration(displayDays)} validity, ${plan.networkSpeed} speeds, instant activation. Only $${(plan.price / 100).toFixed(2)}.`;
 
+  const summaryContent = (
+    <>
+      <PanelTitle>Plan details</PanelTitle>
+
+      <DetailRow>
+        <DetailLabel>Period</DetailLabel>
+        <DetailValue>{formatDuration(displayDays)}</DetailValue>
+      </DetailRow>
+
+      <DetailRow>
+        <DetailLabel>Plan size</DetailLabel>
+        <DetailValue>{displayDataText}</DetailValue>
+      </DetailRow>
+
+      <DetailRow>
+        <DetailLabel>Quantity</DetailLabel>
+        <DetailValue>{qty}</DetailValue>
+      </DetailRow>
+
+      <SummaryDivider />
+
+      <DetailRow>
+        <TotalLabel>Total price</TotalLabel>
+        <TotalValue>${(totalAmount / 100).toFixed(2)}</TotalValue>
+      </DetailRow>
+
+      <SummaryPurchaseButton onClick={handlePurchase}>
+        Purchase
+      </SummaryPurchaseButton>
+
+      <ContinueShoppingLink href="/">
+        See different plans
+      </ContinueShoppingLink>
+    </>
+  );
+
   return (
     <ContentWrapper>
       <SEO
@@ -132,6 +169,8 @@ export default function PlanPage({ plan, slug }) {
             <CompatibilityUnderline />
           </CompatibilityTextWrapper>
         </CompatibilityWrapper>
+
+        <MobileSummaryPanel>{summaryContent}</MobileSummaryPanel>
 
         <DetailsBox>
           <Price>${(plan.price / 100).toFixed(2)}</Price>
@@ -194,34 +233,7 @@ export default function PlanPage({ plan, slug }) {
             </PlanDetails>
         </DetailsBox>
       </PlanPageWrapper>
-      <SummaryPanel>
-        <PanelTitle>Plan details</PanelTitle>
-
-        <DetailRow>
-          <DetailLabel>Period</DetailLabel>
-          <DetailValue>{formatDuration(displayDays)}</DetailValue>
-        </DetailRow>
-
-        <DetailRow>
-          <DetailLabel>Plan size</DetailLabel>
-          <DetailValue>{displayDataText}</DetailValue>
-        </DetailRow>
-
-        <SummaryDivider />
-
-        <DetailRow>
-          <TotalLabel>Total price</TotalLabel>
-          <TotalValue>${(totalAmount / 100).toFixed(2)}</TotalValue>
-        </DetailRow>
-
-        <SummaryPurchaseButton onClick={handlePurchase}>
-          Purchase
-        </SummaryPurchaseButton>
-
-        <ContinueShoppingLink href="/">
-          See different plans
-        </ContinueShoppingLink>
-      </SummaryPanel>
+      <SummaryPanel>{summaryContent}</SummaryPanel>
     </ContentWrapper>
   );
 }

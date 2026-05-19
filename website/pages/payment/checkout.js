@@ -8,6 +8,7 @@ import {
   DetailLabel,
   DetailRow,
   DetailValue,
+  MobileSummaryPanel,
   PageTitle,
   PanelTitle,
   PlanPageWrapper,
@@ -37,45 +38,51 @@ export default function CheckoutPage() {
   const displayDataNumber = data ? Number(data) : plan.data;
   const displayDays = days ? Number(days) : plan.days;
 
+  const summaryContent = (
+    <>
+      <PanelTitle>Plan details</PanelTitle>
+
+      <DetailRow>
+        <DetailLabel>Plan size</DetailLabel>
+        <DetailValue>{formatDataSize(displayDataNumber)}</DetailValue>
+      </DetailRow>
+
+      <DetailRow>
+        <DetailLabel>Period</DetailLabel>
+        <DetailValue>{formatDuration(displayDays)}</DetailValue>
+      </DetailRow>
+
+      <DetailRow>
+        <DetailLabel>Quantity</DetailLabel>
+        <DetailValue>{quantity}</DetailValue>
+      </DetailRow>
+
+      <SummaryDivider />
+
+      <DetailRow>
+        <TotalLabel>Total price</TotalLabel>
+        <TotalValue>${(total / 100).toFixed(2)}</TotalValue>
+      </DetailRow>
+    </>
+  );
+
   return (
     <ContentWrapper>
       <SEO title="Checkout" path="/payment/checkout" noindex />
       <PlanPageWrapper>
         <PageTitle>Confirm and pay</PageTitle>
 
-        {plan ? (
-          <PaymentFlow plan={plan} qty={quantity} days={displayDays} data={displayDataNumber} countryCode={code} />
-        ) : (
-          <p>Loading payment form…</p>
-        )}
+        <PaymentFlow
+          plan={plan}
+          qty={quantity}
+          days={displayDays}
+          data={displayDataNumber}
+          countryCode={code}
+          summary={<MobileSummaryPanel>{summaryContent}</MobileSummaryPanel>}
+        />
       </PlanPageWrapper>
 
-      <SummaryPanel>
-        <PanelTitle>Plan details</PanelTitle>
-
-        {plan ? (
-          <>
-            <DetailRow>
-              <DetailLabel>Plan size</DetailLabel>
-              <DetailValue>{formatDataSize(displayDataNumber)}</DetailValue>
-            </DetailRow>
-
-            <DetailRow>
-              <DetailLabel>Period</DetailLabel>
-              <DetailValue>{formatDuration(displayDays)}</DetailValue>
-            </DetailRow>
-
-            <SummaryDivider />
-
-            <DetailRow>
-              <TotalLabel>Total price</TotalLabel>
-              <TotalValue>${(total / 100).toFixed(2)}</TotalValue>
-            </DetailRow>
-          </>
-        ) : (
-          <p>Loading summary…</p>
-        )}
-      </SummaryPanel>
+      <SummaryPanel>{summaryContent}</SummaryPanel>
     </ContentWrapper>
   );
 }

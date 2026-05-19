@@ -8,6 +8,13 @@ export const ContentWrapper = styled("div")({
   maxWidth: "1320px",
   margin: "0 auto",
   padding: "40px 8px",
+
+  "@media (max-width: 768px)": {
+    flexDirection: "column",
+    gap: 32,
+    alignItems: "stretch",
+    padding: "24px 16px",
+  },
 });
 
 export const PlanPageWrapper = styled("div")({
@@ -20,6 +27,12 @@ export const PlanPageWrapper = styled("div")({
   textAlign: "left",
   width: 800,
   flex: "0 0 auto",
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+    minHeight: "auto",
+    paddingTop: 20,
+  },
 });
 
 export const PageTitle = styled("h2")({
@@ -30,6 +43,12 @@ export const PageTitle = styled("h2")({
   lineHeight: "52px",
   letterSpacing: "0.4px",
   marginBottom: "20px",
+
+  "@media (max-width: 768px)": {
+    fontSize: "30px",
+    lineHeight: "36px",
+    marginBottom: "16px",
+  },
 });
 
 export const SeoText = styled("p")({
@@ -40,6 +59,12 @@ export const SeoText = styled("p")({
   lineHeight: "26px",
   width: "744px",
   marginBottom: "10px",
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+    fontSize: "15px",
+    lineHeight: "24px",
+  },
 });
 
 export const CompatibilityWrapper = styled("div")({
@@ -84,6 +109,13 @@ export const DetailsBox = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+    minHeight: "auto",
+    padding: "20px",
+    borderRadius: "18px",
+  },
 });
 
 export const Price = styled("p")({
@@ -94,6 +126,11 @@ export const Price = styled("p")({
   lineHeight: "36px",
   letterSpacing: "0.4px",
   marginBottom: "8px",
+
+  "@media (max-width: 768px)": {
+    fontSize: "24px",
+    lineHeight: "30px",
+  },
 });
 
 export const PlanHeaderRow = styled("div")({
@@ -101,6 +138,11 @@ export const PlanHeaderRow = styled("div")({
   alignItems: "center",
   justifyContent: "space-between",
   width: "100%",
+
+  "@media (max-width: 768px)": {
+    flexWrap: "wrap",
+    gap: "8px",
+  },
 });
 
 export const FlagsContainer = styled("div")({
@@ -139,6 +181,11 @@ export const MainPlanFeatures = styled("p")({
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
+
+  "@media (max-width: 768px)": {
+    fontSize: "18px",
+    lineHeight: "28px",
+  },
 });
 
 export const PlanDetails = styled("p")({
@@ -159,6 +206,10 @@ export const Divider = styled("div")({
   height: "1px",
   background: "#E2DFE7",
   margin: "24px 0",
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+  },
 });
 
 export const AmountBox = styled("div")({
@@ -234,6 +285,30 @@ export const SummaryPanel = styled("div")({
   position: "sticky",
   top: 100,
   alignSelf: "flex-start",
+
+  "@media (max-width: 768px)": {
+    display: "none",
+  },
+});
+
+// Mobile-only twin of SummaryPanel, rendered inline between the compatibility
+// link and the details box. Hidden on desktop (the sticky SummaryPanel is used
+// there instead).
+export const MobileSummaryPanel = styled("div")({
+  display: "none",
+
+  "@media (max-width: 768px)": {
+    display: "flex",
+    flexDirection: "column",
+    gap: 24,
+    width: "100%",
+    borderRadius: "24px",
+    border: "1px solid #E8EFF4",
+    background: "#FFF",
+    boxShadow: "2px 6px 38px 0 rgba(17, 43, 60, 0.12)",
+    padding: "24px 20px",
+    marginBottom: "30px",
+  },
 });
 
 export const PanelTitle = styled("h3")({
@@ -275,6 +350,10 @@ export const SummaryDivider = styled("div")({
   flexShrink: 0,
   background: "#E2DFE7",
   margin: "4px 0",
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+  },
 });
 
 export const TotalLabel = styled("span")({
@@ -316,6 +395,11 @@ export const SummaryPurchaseButton = styled("button")({
   lineHeight: "16px",
   "&:hover": {
     opacity: 0.9,
+  },
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+    padding: "12px 24px",
   },
 });
 

@@ -14,9 +14,40 @@ export const PaymentWrapper = styled("div")({
     fontWeight: 700,
     marginBottom: "2rem",
   },
+
+  // The flex-start parent column otherwise shrink-wraps this to its content,
+  // so the box width jumps as messages appear. Pin it to full width on mobile.
+  "@media (max-width: 768px)": {
+    width: "100%",
+  },
 });
 
-export const EmailVerification = styled("div")({
+export const PaymentLoading = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "12px",
+  padding: "2.5rem 1rem",
+  fontFamily: "Kanit",
+  fontSize: "15px",
+  fontWeight: 500,
+  color: "#6B7280",
+
+  "& .pf-spinner": {
+    width: "22px",
+    height: "22px",
+    border: "3px solid #E8E8E8",
+    borderTopColor: "#8D2DF2",
+    borderRadius: "50%",
+    animation: "pf-spin 0.8s linear infinite",
+  },
+
+  "@keyframes pf-spin": {
+    to: { transform: "rotate(360deg)" },
+  },
+});
+
+export const EmailVerification = styled("div")(({ verified }) => ({
   width: "450px",
   display: "flex",
   flexDirection: "column",
@@ -27,7 +58,16 @@ export const EmailVerification = styled("div")({
   borderRadius: "16px",
   padding: "2rem",
   boxShadow: "0px 4px 12px rgba(17, 43, 60, 0.06)",
-});
+
+  "@media (max-width: 768px)": {
+    width: "100%",
+    maxWidth: "100%",
+    padding: "1.5rem",
+    // Once the email is verified, drop the verification box on mobile so the
+    // payment step reads like its own screen. Desktop keeps it visible.
+    display: verified ? "none" : "flex",
+  },
+}));
 
 export const VerificationInput = styled("div")({
   display: "flex",
@@ -84,7 +124,7 @@ export const Info = styled("p")({
   lineHeight: "1.5",
 });
 
-export const Success = styled("p")({
+export const Success = styled("p")(({ verified }) => ({
   color: "#059669",
   fontFamily: "Montserrat",
   fontSize: "14px",
@@ -94,7 +134,11 @@ export const Success = styled("p")({
   backgroundColor: "#ECFDF5",
   borderRadius: "8px",
   border: "1px solid #A7F3D0",
-});
+
+  "@media (max-width: 768px)": {
+    display: verified ? "none" : "block",
+  },
+}));
 
 export const Error = styled("p")({
   color: "#DC2626",

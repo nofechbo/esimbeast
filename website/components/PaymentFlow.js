@@ -10,6 +10,7 @@ import {
 import {
   EmailVerification,
   Info,
+  PaymentLoading,
   PaymentWrapper,
   Success,
   Error,
@@ -116,7 +117,14 @@ function CheckoutForm({ isVerified }) {
   );
 }
 
-export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
+export default function PaymentFlow({
+  plan,
+  qty,
+  days,
+  data,
+  countryCode,
+  summary,
+}) {
   const [info, setInfo] = useState("");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -271,7 +279,7 @@ export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
     <PaymentWrapper>
       {/* 🔹 hide email verification UI if SKIP_EMAIL_SENDING */}
       {!SKIP_EMAIL_SENDING && (
-        <EmailVerification>
+        <EmailVerification verified={isVerified}>
           <div>
             <label
               style={{
@@ -333,8 +341,17 @@ export default function PaymentFlow({ plan, qty, days, data, countryCode }) {
         </EmailVerification>
       )}{" "}
       {/* end of SKIP_EMAIL_SENDING check */}
-      {verificationSuccess && <Success>{verificationSuccess}</Success>}
+      {verificationSuccess && (
+        <Success verified={isVerified}>{verificationSuccess}</Success>
+      )}
       {error && <Error>{error}</Error>}
+      {isVerified && summary}
+      {isVerified && !clientSecret && !error && (
+        <PaymentLoading>
+          <span className="pf-spinner" />
+          Loading payment…
+        </PaymentLoading>
+      )}
       {clientSecret && (
         <Elements
           stripe={stripePromise}
