@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import SEO from "@/components/SEO";
 import {
-  DetailCard,
-  DetailLabel,
-  DetailRow,
-  DetailValue,
   StatusBadgeError,
   StatusBadgeSuccess,
   SuccessBox,
@@ -13,6 +9,12 @@ import {
   SuccessSubtitle,
   PrimaryButton,
 } from "@/styles/successPageStyles";
+import {
+  DetailCard,
+  DetailLabel,
+  DetailRow,
+  DetailValue,
+} from "@/styles/planStatusStyles";
 
 function formatBytes(bytes) {
   const num = parseInt(bytes, 10);
