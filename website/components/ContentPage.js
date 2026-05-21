@@ -5,12 +5,20 @@ export const PageContainer = styled("div")({
   paddingTop: "80px",
   minHeight: "100vh",
   backgroundColor: "white",
+
+  "@media (max-width: 768px)": {
+    paddingTop: "64px",
+  },
 });
 
 export const Hero = styled("section")({
   backgroundColor: "#F8F9FA",
   padding: "60px 24px",
   textAlign: "center",
+
+  "@media (max-width: 768px)": {
+    padding: "40px 16px",
+  },
 });
 
 export const HeroTitle = styled("h1")({
@@ -20,6 +28,10 @@ export const HeroTitle = styled("h1")({
   color: "#112B3C",
   margin: "0 0 16px 0",
   lineHeight: "1.2",
+
+  "@media (max-width: 768px)": {
+    fontSize: "30px",
+  },
 });
 
 export const HeroSubtitle = styled("p")({
@@ -29,12 +41,20 @@ export const HeroSubtitle = styled("p")({
   maxWidth: "800px",
   margin: "0 auto",
   lineHeight: "1.6",
+
+  "@media (max-width: 768px)": {
+    fontSize: "15px",
+  },
 });
 
 export const ContentSection = styled("section")({
   maxWidth: "1000px",
   margin: "0 auto",
   padding: "60px 24px",
+
+  "@media (max-width: 768px)": {
+    padding: "32px 16px",
+  },
 });
 
 export const SectionTitle = styled("h2")({
@@ -43,6 +63,11 @@ export const SectionTitle = styled("h2")({
   fontWeight: 600,
   color: "#112B3C",
   marginBottom: "24px",
+
+  "@media (max-width: 768px)": {
+    fontSize: "22px",
+    marginBottom: "16px",
+  },
 });
 
 export const Paragraph = styled("p")({
@@ -51,6 +76,11 @@ export const Paragraph = styled("p")({
   color: "#444",
   lineHeight: "1.8",
   marginBottom: "24px",
+
+  "@media (max-width: 768px)": {
+    fontSize: "15px",
+    lineHeight: "1.7",
+  },
 });
 
 export const List = styled("ul")({

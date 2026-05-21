@@ -9,8 +9,8 @@ export const SuccessContainer = styled("div")({
   paddingBottom: "80px",
   overflow: "hidden",
   "@media (max-width: 768px)": {
-    paddingTop: "90px",
-    paddingBottom: "48px",
+    paddingTop: "64px",
+    paddingBottom: "40px",
   },
 });
 
@@ -23,8 +23,8 @@ export const GradientBanner = styled("div")({
   background: "linear-gradient(90deg, #8D2DF2 0%, #A64DF0 42%, #E58FC2 100%)",
   zIndex: 0,
   "@media (max-width: 768px)": {
-    top: "84px",
-    height: "120px",
+    top: "52px",
+    height: "104px",
   },
 });
 
@@ -41,8 +41,9 @@ export const SuccessBox = styled("div")({
   boxShadow: "2px 6px 38px 0 rgba(19, 7, 55, 0.12)",
   textAlign: "center",
   "@media (max-width: 768px)": {
-    margin: "30px 16px 0",
-    padding: "24px",
+    margin: "16px 16px 0",
+    padding: "20px",
+    borderRadius: "20px",
   },
 });
 
@@ -133,6 +134,7 @@ export const LineItem = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  gap: "1rem",
   fontFamily: "Montserrat",
   fontSize: "13px",
   color: "#6B7280",
@@ -157,6 +159,14 @@ export const TotalRow = styled("div")({
   fontSize: "14px",
   color: "#112B3C",
   padding: "10px 0 0",
+  textAlign: "right",
+  wordBreak: "break-word",
+  minWidth: 0,
+
+  "@media (max-width: 768px)": {
+    textAlign: "left",
+    fontSize: "15px",
+  },
 });
 
 export const StatusBadgeBase = styled("div")({
