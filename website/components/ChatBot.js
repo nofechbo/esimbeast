@@ -22,16 +22,68 @@ export default function ChatBot({ defaultOpen = false }) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState(() => createConversationId());
-  const messagesEndRef = useRef(null);
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [viewport, setViewport] = useState(null);
+  const messagesContainerRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Scroll only the messages list to the bottom — never the page behind it.
+  // (scrollIntoView would scroll every ancestor, including the document.)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    const c = messagesContainerRef.current;
+    if (c) c.scrollTop = c.scrollHeight;
+  }, [messages, viewport]);
 
   useEffect(() => {
     if (isOpen && !isLoading) inputRef.current?.focus();
   }, [isOpen, isLoading]);
+
+  // Lock the background page from scrolling while the chat is open.
+  useEffect(() => {
+    if (!isOpen || typeof document === "undefined") return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [isOpen]);
+
+  // Track whether we're on a mobile-sized screen
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 480px)");
+    const update = () => setIsMobileView(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Track the visual viewport so the chat window resizes when the
+  // on-screen keyboard opens (the layout viewport / 100vh does not).
+  useEffect(() => {
+    if (!isOpen || typeof window === "undefined") return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const update = () => setViewport({ height: vv.height, offsetTop: vv.offsetTop });
+    update();
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+    };
+  }, [isOpen]);
+
+  // On mobile, anchor the window to the visible viewport so its top is
+  // never clipped and it stays above the keyboard when one is open.
+  const mobileWindowStyle =
+    isMobileView && viewport
+      ? {
+          top: `${viewport.offsetTop + 16}px`,
+          height: `${viewport.height - 32}px`,
+          bottom: "auto",
+        }
+      : undefined;
 
   const sendMessage = async () => {
     const text = input.trim();
@@ -95,7 +147,7 @@ export default function ChatBot({ defaultOpen = false }) {
     <>
       {/* Chat Window */}
       {isOpen && (
-        <ChatWindow>
+        <ChatWindow style={mobileWindowStyle}>
           <ChatHeader>
             <HeaderTitle>{SITE_NAME} Support</HeaderTitle>
             <CloseButton onClick={() => setIsOpen(false)} aria-label="Close chat">
@@ -103,7 +155,7 @@ export default function ChatBot({ defaultOpen = false }) {
             </CloseButton>
           </ChatHeader>
 
-          <MessagesContainer>
+          <MessagesContainer ref={messagesContainerRef}>
             {messages.map((msg, i) => (
               <MessageBubble key={i} $isUser={msg.role === "user"}>
                 {msg.role === "assistant" ? (
@@ -124,7 +176,6 @@ export default function ChatBot({ defaultOpen = false }) {
                 </TypingDots>
               </MessageBubble>
             )}
-            <div ref={messagesEndRef} />
           </MessagesContainer>
 
           <InputContainer>
@@ -153,8 +204,9 @@ export default function ChatBot({ defaultOpen = false }) {
         </ChatWindow>
       )}
 
-      {/* Floating Button */}
-      <FloatingButton onClick={() => setIsOpen(!isOpen)} aria-label="Open chat">
+      {/* Floating Button — hidden on mobile while the chat is open (header has its own close) */}
+      {!(isOpen && isMobileView) && (
+        <FloatingButton onClick={() => setIsOpen(!isOpen)} aria-label="Open chat">
         {isOpen ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
             <path d="M18 6L6 18" />
@@ -165,7 +217,8 @@ export default function ChatBot({ defaultOpen = false }) {
             <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
           </svg>
         )}
-      </FloatingButton>
+        </FloatingButton>
+      )}
     </>
   );
 }
@@ -210,10 +263,11 @@ const ChatWindow = styled("div")({
   fontFamily: "var(--font-kanit), Kanit, sans-serif",
 
   "@media (max-width: 480px)": {
-    width: "calc(100vw - 16px)",
-    height: "calc(100vh - 120px)",
-    right: "8px",
-    bottom: "88px",
+    width: "calc(100vw - 48px)",
+    height: "calc(100dvh - 32px)",
+    right: "24px",
+    top: "16px",
+    bottom: "auto",
     borderRadius: "12px",
   },
 });
@@ -304,6 +358,10 @@ const ChatInput = styled("input")({
   fontFamily: "inherit",
   "&:focus": { borderColor: "#112B3C" },
   "&:disabled": { opacity: 0.6 },
+  // iOS Safari zooms in on focus when the font-size is < 16px; 16px prevents it.
+  "@media (max-width: 480px)": {
+    fontSize: "16px",
+  },
 });
 
 const NewChatButton = styled("button")({

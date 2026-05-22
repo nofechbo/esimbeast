@@ -15,7 +15,7 @@ const Nav = styled("nav")({
   zIndex: 50,
 
   "@media (max-width: 768px)": {
-    padding: "12px 16px",
+    padding: "20px 16px",
   },
 });
 
@@ -33,7 +33,7 @@ const Logo = styled("img")({
   cursor: "pointer",
 
   "@media (max-width: 768px)": {
-    width: "50px",
+    width: "80px",
     height: "auto",
   },
 });
@@ -47,8 +47,8 @@ const NavLink = styled(Link)({
   lineHeight: "18px",
 
   "@media (max-width: 768px)": {
-    fontSize: "10px",
-    lineHeight: "14px",
+    fontSize: "12px",
+    lineHeight: "16px",
   },
 });
 
