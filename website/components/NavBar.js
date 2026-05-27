@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { HEADER_LOGO } from "@/config";
 
@@ -53,8 +54,34 @@ const NavLink = styled(Link)({
 });
 
 export default function NavBar() {
+  const navRef = useRef(null);
+
+  // Publish the nav's measured height as a CSS variable so page wrappers can
+  // anchor their top padding to the actual header size, regardless of how the
+  // header is styled in the future.
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const update = () => {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${nav.offsetHeight}px`
+      );
+    };
+
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(nav);
+    window.addEventListener("resize", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   return (
-    <Nav>
+    <Nav ref={navRef}>
       <LeftSection>
         <Link href="/">
           <Logo src={HEADER_LOGO} alt="eSIM Logo" width={120} height={30} />

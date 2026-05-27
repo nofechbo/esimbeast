@@ -26,12 +26,17 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 
-function CheckoutForm({ isVerified }) {
+function CheckoutForm({ isVerified, onReady }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isPaymentReady, setIsPaymentReady] = useState(false);
+
+  const handlePaymentReady = () => {
+    setIsPaymentReady(true);
+    onReady?.();
+  };
 
   //make error dissapear after 3 seconds --> change to toast
   useEffect(() => {
@@ -83,7 +88,7 @@ function CheckoutForm({ isVerified }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
-      <PaymentElement onReady={() => setIsPaymentReady(true)} />
+      <PaymentElement onReady={handlePaymentReady} />
       {isPaymentReady && <button
         type="submit"
         disabled={isSubmitting || !stripe}
@@ -133,6 +138,7 @@ export default function PaymentFlow({
   const [clientSecret, setClientSecret] = useState("");
   const [error, setError] = useState("");
   const [verificationSuccess, setVerificationSuccess] = useState("");
+  const [isPaymentReady, setIsPaymentReady] = useState(false);
   const codeInputRef = useRef(null);
 
   if (!plan) {
@@ -346,10 +352,13 @@ export default function PaymentFlow({
       )}
       {error && <Error>{error}</Error>}
       {isVerified && summary}
-      {isVerified && !clientSecret && !error && (
+      {isVerified && (
+        <PaymentTitle>Select your payment method</PaymentTitle>
+      )}
+      {isVerified && !isPaymentReady && !error && (
         <PaymentLoading>
           <span className="pf-spinner" />
-          Loading payment…
+          Loading…
         </PaymentLoading>
       )}
       {clientSecret && (
@@ -358,11 +367,18 @@ export default function PaymentFlow({
           options={stripeOptions}
           key={clientSecret}
         >
-          {isVerified && (
-            <PaymentTitle>Select your payment method</PaymentTitle>
-          )}
-          <div style={{ marginTop: "1rem" }}>
-            <CheckoutForm isVerified={isVerified} />
+          {/* Keep the form mounted while loading so PaymentElement can fire
+              onReady, but hide it visually until Stripe is fully ready. */}
+          <div
+            style={{
+              marginTop: "1rem",
+              display: isPaymentReady ? "block" : "none",
+            }}
+          >
+            <CheckoutForm
+              isVerified={isVerified}
+              onReady={() => setIsPaymentReady(true)}
+            />
           </div>
         </Elements>
       )}

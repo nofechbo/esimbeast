@@ -5,6 +5,7 @@ export const PopularSection = styled("div")({
 
   "@media (max-width: 768px)": {
     padding: "30px 0",
+    width: "100%",
   },
 });
 
@@ -30,7 +31,8 @@ export const CardGrid = styled("div")({
 
   "@media (max-width: 768px)": {
     gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "12px",
+    gap: "8px",
+    width: "100%",
   },
 });
 
@@ -56,9 +58,13 @@ export const PopularCard = styled("div")({
 
   "@media (max-width: 768px)": {
     width: "100%",
-    height: "110px",
+    minWidth: 0,
+    height: "90px",
     borderRadius: "18px",
-    padding: "12px",
+    padding: "10px 12px",
+    overflow: "hidden",
+    justifyContent: "flex-start",
+    gap: "4px",
   },
 });
 
@@ -77,8 +83,12 @@ export const PlanName = styled("h3")({
   whiteSpace: "normal",
 
   "@media (max-width: 768px)": {
-    fontSize: "16px",
-    lineHeight: "18px",
+    fontSize: "14px",
+    lineHeight: "16px",
+    maxWidth: "calc(100% - 36px)",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
 });
 
@@ -86,6 +96,11 @@ export const DetailsContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: 8,
+  flexWrap: "nowrap",
+
+  "@media (max-width: 768px)": {
+    gap: 6,
+  },
 });
 
 export const DetailsText = styled("span")({
@@ -100,6 +115,7 @@ export const DetailsText = styled("span")({
   "@media (max-width: 768px)": {
     fontSize: "13px",
     lineHeight: "14px",
+    whiteSpace: "nowrap",
   },
 });
 
@@ -127,6 +143,7 @@ export const PriceValue = styled("span")({
   "@media (max-width: 768px)": {
     fontSize: "12px",
     lineHeight: "12px",
+    marginTop: "auto",
   },
 });
 
@@ -140,8 +157,8 @@ export const FlagWrapper = styled("img")({
   aspectRatio: "1/1",
 
   "@media (max-width: 768px)": {
-    width: 28,
-    height: 28,
+    width: 22,
+    height: 22,
     top: 10,
     right: 10,
   },

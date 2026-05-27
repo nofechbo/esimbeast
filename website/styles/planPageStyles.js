@@ -7,13 +7,18 @@ export const ContentWrapper = styled("div")({
   alignItems: "flex-start",
   maxWidth: "1320px",
   margin: "0 auto",
-  padding: "40px 8px",
+  // Top padding is anchored to the live --header-height (set by NavBar) so the
+  // title always sits a fixed gap below the header, no matter how the header
+  // grows or shrinks. Fallback covers the brief moment before the JS runs.
+  padding: "0 8px",
+  paddingTop: "calc(var(--header-height, 64px) + 20px)",
 
   "@media (max-width: 768px)": {
     flexDirection: "column",
     gap: 32,
     alignItems: "stretch",
-    padding: "24px 16px",
+    padding: "0 16px",
+    paddingTop: "calc(var(--header-height, 80px) + 16px)",
   },
 });
 
@@ -22,7 +27,6 @@ export const PlanPageWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  paddingTop: 40,
   fontFamily: "Kanit",
   textAlign: "left",
   width: 800,
@@ -31,7 +35,6 @@ export const PlanPageWrapper = styled("div")({
   "@media (max-width: 768px)": {
     width: "100%",
     minHeight: "auto",
-    paddingTop: 20,
   },
 });
 
