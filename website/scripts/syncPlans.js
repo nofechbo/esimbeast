@@ -3,6 +3,7 @@ import { fetchGoogleSheet, parseCsv } from "./utils/sheets.js";
 import {
   getPlanStats,
   MIN_PLANS_THRESHOLD,
+  reconcileSlugsAndPrimaries,
   suppliers,
   transformCsvDataToPlan,
   upsertAndDelete,
@@ -76,6 +77,10 @@ async function main() {
         );
       }
     }
+
+    // Assign canonical pages (isPrimary + clean slug) and refresh redirects.
+    console.log("\nReconciling canonical slugs + redirects...");
+    await reconcileSlugsAndPrimaries();
 
     // Show updated stats
     console.log("\nUpdated database stats:");

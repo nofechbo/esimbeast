@@ -42,7 +42,7 @@ import { formatDataSize, formatDuration } from "@/utils/formaters";
 
 const MAX_FLAGS_DISPLAY = 12;
 
-export default function PlanPage({ plan, slug }) {
+export default function PlanPage({ plan, slug, canonicalPath }) {
   const [qty, setQty] = useState(1);
   const [totalAmount, setTotalAmount] = useState(plan ? plan.price : 0);
   const router = useRouter();
@@ -143,7 +143,7 @@ export default function PlanPage({ plan, slug }) {
       <SEO
         title={seoTitle}
         description={seoDescription}
-        path={`/plans/${slug}`}
+        path={canonicalPath || `/plans/${slug}`}
       />
       <PlanPageWrapper>
         <PageTitle>Your plan summary</PageTitle>

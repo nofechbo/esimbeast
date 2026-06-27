@@ -1,9 +1,11 @@
-import { getAllPlans } from "@/lib/db/plans";
-import slugify from "@/utils/formaters";
+import { getPrimaryPlans } from "@/lib/db/plans";
 import { SITE_URL } from "@/config";
 
 function generateSiteMap(plans) {
   const today = new Date().toISOString().split("T")[0];
+  const countryHubs = [...new Set(
+    plans.filter((p) => p.slug?.startsWith("esim/")).map((p) => p.slug.split("/")[1]),
+  )];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -62,14 +64,26 @@ function generateSiteMap(plans) {
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  <!-- Dynamic Plan Pages -->
-${plans
+  <!-- Country hubs -->
+${countryHubs
   .map(
-    (plan) => `  <url>
-    <loc>${SITE_URL}/plans/${slugify(plan.uniqueName)}</loc>
+    (country) => `  <url>
+    <loc>${SITE_URL}/esim/${country}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>`
+  )
+  .join("\n")}
+  <!-- Canonical plan pages (primaries only) -->
+${plans
+  .filter((plan) => plan.slug)
+  .map(
+    (plan) => `  <url>
+    <loc>${SITE_URL}/${plan.slug}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>`
   )
   .join("\n")}
@@ -77,7 +91,7 @@ ${plans
 }
 
 export default async function handler(req, res) {
-  const plans = await getAllPlans();
+  const plans = await getPrimaryPlans();
   const sitemap = generateSiteMap(plans);
 
   res.setHeader("Content-Type", "text/xml");
