@@ -8,7 +8,7 @@ import fs from "node:fs";
 import { parseCoverageFamily } from "../../lib/wm/coverage.js";
 
 const path =
-  process.argv[2] || `${process.env.HOME}/pingwe-esimbeast/wm-data/wm-coverage.json`;
+  process.argv[2] || "data/wm/wm-coverage.json";
 
 const families = JSON.parse(fs.readFileSync(path, "utf8"));
 const parsed = families.map(parseCoverageFamily);

@@ -11,8 +11,9 @@ import { parseCoverageFamily } from "../../lib/wm/coverage.js";
 import { buildMatcher } from "../../lib/wm/match.js";
 import { buildWmPlan, TWD_USD, WM_MARKUP } from "../../lib/wm/build.js";
 
-const D = `${process.env.HOME}/pingwe-esimbeast/wm-data`;
-const esim = JSON.parse(fs.readFileSync(`${D}/wm-catalog.json`, "utf8")).filter((p) => p.leSIM);
+const D = "data/wm";
+// the in-repo fixture is already eSIM-only (leSIM filtered when it was written)
+const esim = JSON.parse(fs.readFileSync(`${D}/wm-catalog.json`, "utf8"));
 const cov = JSON.parse(fs.readFileSync(`${D}/wm-coverage.json`, "utf8")).map(parseCoverageFamily);
 const match = buildMatcher(cov);
 
