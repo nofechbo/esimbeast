@@ -18,6 +18,7 @@ import {
   VerificationInput,
   PaymentTitle,
 } from "@/styles/paymentFlowStyles";
+import { getCookie } from "@/utils/referral";
 
 // 🔹 skip email verification when true
 const SKIP_EMAIL_SENDING = process.env.NEXT_PUBLIC_SKIP_EMAIL_SENDING === "true";
@@ -140,6 +141,9 @@ export default function PaymentFlow({
   const [verificationSuccess, setVerificationSuccess] = useState("");
   const [isPaymentReady, setIsPaymentReady] = useState(false);
   const codeInputRef = useRef(null);
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null); // { code, discountCents, finalCents, label }
+  const [couponMsg, setCouponMsg] = useState("");
 
   if (!plan) {
     return <p>Plan not found.</p>;
@@ -229,12 +233,43 @@ export default function PaymentFlow({
     }
   };
 
-  const createPaymentIntent = async (emailToUse) => {
+  // Validate a coupon, then (if a payment intent already exists) re-create it so
+  // the charged amount reflects the discount. Passing the coupon explicitly
+  // avoids a setState race.
+  const applyCoupon = async () => {
+    const code = couponInput.trim();
+    if (!code) return;
+    setCouponMsg("");
+    try {
+      const res = await fetch("/api/coupon/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code, uniqueName: plan.uniqueName, qty }),
+      });
+      const d = await res.json();
+      if (d.valid) {
+        setAppliedCoupon(d);
+        setCouponMsg(`✓ ${d.label} applied — you pay $${(d.finalCents / 100).toFixed(2)}`);
+        if (clientSecret || isVerified) await createPaymentIntent(email, d);
+      } else {
+        setAppliedCoupon(null);
+        setCouponMsg(d.reason || "Invalid coupon code");
+      }
+    } catch {
+      setCouponMsg("Could not check that coupon — try again");
+    }
+  };
+
+  const createPaymentIntent = async (emailToUse, couponOverride) => {
+    const coupon = couponOverride !== undefined ? couponOverride : appliedCoupon;
+    const ref = getCookie("ref");
     const requestBody = {
       uniqueName: plan.uniqueName,
       qty,
       email: emailToUse || email,
     };
+    if (ref) requestBody.ref = ref;
+    if (coupon?.code) requestBody.couponCode = coupon.code;
 
     // Include custom days and data if provided
     if (days !== undefined && days !== plan.days) {
@@ -283,6 +318,66 @@ export default function PaymentFlow({
 
   return (
     <PaymentWrapper>
+      {/* Coupon code (e.g. eSIMdb partner code) — discount enforced server-side */}
+      <div style={{ marginBottom: "1rem" }}>
+        <label
+          style={{
+            display: "block",
+            marginBottom: "0.5rem",
+            fontFamily: "Kanit",
+            fontSize: "14px",
+            fontWeight: 600,
+            color: "#374151",
+          }}
+        >
+          Coupon code
+        </label>
+        <div style={{ display: "flex", gap: "8px" }}>
+          <input
+            type="text"
+            value={couponInput}
+            onChange={(e) => setCouponInput(e.target.value)}
+            placeholder="Enter code"
+            style={{
+              flex: 1,
+              padding: "10px 12px",
+              borderRadius: "6px",
+              border: "1px solid #d1d5db",
+              fontFamily: "Kanit",
+              fontSize: "14px",
+            }}
+          />
+          <button
+            type="button"
+            onClick={applyCoupon}
+            style={{
+              padding: "10px 16px",
+              borderRadius: "6px",
+              border: "none",
+              background: "#111827",
+              color: "#fff",
+              fontFamily: "Kanit",
+              fontSize: "14px",
+              cursor: "pointer",
+            }}
+          >
+            Apply
+          </button>
+        </div>
+        {couponMsg && (
+          <p
+            style={{
+              marginTop: "6px",
+              fontSize: "13px",
+              fontFamily: "Kanit",
+              color: appliedCoupon ? "#059669" : "#dc2626",
+            }}
+          >
+            {couponMsg}
+          </p>
+        )}
+      </div>
+
       {/* 🔹 hide email verification UI if SKIP_EMAIL_SENDING */}
       {!SKIP_EMAIL_SENDING && (
         <EmailVerification verified={isVerified}>

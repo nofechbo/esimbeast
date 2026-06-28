@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export:plans": "node scripts/exportPlansToCsv.js"
+    "export:plans": "node scripts/exportPlansToCsv.js",
+    "test": "node --test \"scripts/**/*.test.js\" \"lib/**/*.test.js\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

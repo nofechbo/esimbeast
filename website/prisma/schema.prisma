@@ -26,9 +26,33 @@ model PlanOrder {
   supplier          String
   supplierOrderData Json? // WM: {rcode}. EA: {esimTranNo}}
 
+  // Attribution: ?ref= source (e.g. "esimdb") + any coupon applied at checkout.
+  // Durable per-order record (vs the referral Google Sheet) for reconciliation.
+  ref           String?
+  couponCode    String?
+  discountCents Int?
+
   @@index([intentId])
   @@index([orderId])
   @@index([supplier, status])
+  @@index([ref])
+}
+
+// Discount codes applied at checkout. The discount is computed and enforced
+// SERVER-SIDE in create-payment-intent — the client only passes the code string.
+model Coupon {
+  id             Int       @id @default(autoincrement())
+  code           String    @unique // stored UPPERCASE; matched case-insensitively
+  type           String // "percent" | "fixed"
+  value          Int // percent: 1-100 ; fixed: cents off
+  active         Boolean   @default(true)
+  expiresAt      DateTime?
+  maxRedemptions Int? // null = unlimited
+  redemptions    Int       @default(0)
+  minAmountCents Int? // minimum order subtotal (cents) to qualify
+  note           String? // e.g. "eSIMdb partner"
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Plan {
