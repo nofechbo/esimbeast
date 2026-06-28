@@ -50,9 +50,25 @@ model Coupon {
   maxRedemptions Int? // null = unlimited
   redemptions    Int       @default(0)
   minAmountCents Int? // minimum order subtotal (cents) to qualify
+  // Restrict the code to one supplier's plans (e.g. "EA" for the eSIMdb 50% code).
+  // null = any product. CRITICAL: an unscoped 50% code on cost×2 catalog sells at
+  // cost, so the eSIMdb code MUST be scoped.
+  supplierScope  String?
   note           String? // e.g. "eSIMdb partner"
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+}
+
+// Cheapest competitor price per EA plan, scraped from esimdb.com. Input to the
+// eSIMdb repricer: list = max(competitor − 1¢, cost + min margin) × 2, so the
+// 50% eSIMdb coupon nets to a 1¢ undercut — but never below our cost.
+model CompetitorPrice {
+  id              Int      @id @default(autoincrement())
+  planId          Int      @unique // Plan.id (joined in the repricer; no FK)
+  competitorCents Int // cheapest listed price on esimdb.com, in cents
+  competitor      String? // who held the cheapest price (for audit)
+  source          String   @default("esimdb")
+  scrapedAt       DateTime @default(now())
 }
 
 model Plan {

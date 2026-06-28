@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     let amount = subtotal;
     if (couponCode) {
       const coupon = await prisma.coupon.findUnique({ where: { code: normalizeCode(couponCode) } });
-      const result = evaluateCoupon(coupon, subtotal);
+      const result = evaluateCoupon(coupon, subtotal, { supplier: purchasedPlan.supplier });
       if (result.valid) {
         if (result.finalCents < STRIPE_MIN_USD_CENTS) {
           return res.status(400).json({

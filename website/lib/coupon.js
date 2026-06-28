@@ -13,14 +13,20 @@ export function normalizeCode(code) {
  * Evaluate a coupon against an order subtotal.
  * @param {object|null} coupon  a Coupon row (or null if the code didn't match)
  * @param {number} subtotalCents  price × qty, in cents
- * @param {Date} [now]
+ * @param {{ now?:Date, supplier?:string }} [opts]  supplier = the plan's supplier,
+ *   checked against coupon.supplierScope (the eSIMdb 50% code is scoped to "EA").
  * @returns {{ valid:boolean, reason?:string, discountCents:number, finalCents:number }}
  */
-export function evaluateCoupon(coupon, subtotalCents, now = new Date()) {
+export function evaluateCoupon(coupon, subtotalCents, opts = {}) {
+  const now = opts.now ?? new Date();
   const fail = (reason) => ({ valid: false, reason, discountCents: 0, finalCents: subtotalCents });
 
   if (!coupon) return fail("Invalid coupon code");
   if (!coupon.active) return fail("This coupon is no longer active");
+  // supplier scope — keeps a high-percent code off the rest of the catalog
+  if (coupon.supplierScope && opts.supplier && coupon.supplierScope !== opts.supplier) {
+    return fail("This code isn't valid for this product");
+  }
   if (coupon.expiresAt && new Date(coupon.expiresAt) < now) return fail("This coupon has expired");
   if (coupon.maxRedemptions != null && coupon.redemptions >= coupon.maxRedemptions) {
     return fail("This coupon has reached its redemption limit");

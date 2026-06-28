@@ -30,6 +30,14 @@ test("invalid / inactive / expired / limit / min-amount all reject", () => {
   assert.equal(evaluateCoupon(percent(10, { minAmountCents: 3000 }), 2000).valid, false);
 });
 
+test("supplierScope restricts the code to one supplier's plans", () => {
+  const eaOnly = percent(50, { supplierScope: "EA" });
+  assert.equal(evaluateCoupon(eaOnly, 2000, { supplier: "EA" }).valid, true);
+  assert.equal(evaluateCoupon(eaOnly, 2000, { supplier: "WM" }).valid, false);
+  // unscoped coupon works on any supplier
+  assert.equal(evaluateCoupon(percent(50), 2000, { supplier: "WM" }).valid, true);
+});
+
 test("misconfigured percent (>100) rejected, not a free order", () => {
   const r = evaluateCoupon(percent(150), 2000);
   assert.equal(r.valid, false);

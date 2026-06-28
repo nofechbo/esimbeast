@@ -26,7 +26,7 @@ export default async function handler(req, res) {
 
     const subtotal = plan.price * n;
     const coupon = await prisma.coupon.findUnique({ where: { code: normalizeCode(code) } });
-    const result = evaluateCoupon(coupon, subtotal);
+    const result = evaluateCoupon(coupon, subtotal, { supplier: plan.supplier });
 
     if (!result.valid) return res.status(200).json({ valid: false, reason: result.reason });
     return res.status(200).json({

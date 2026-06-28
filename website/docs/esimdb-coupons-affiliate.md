@@ -42,7 +42,29 @@ Three pieces for partner/affiliate traffic (eSIMdb and others).
 `20260629100000_add_coupons_attribution`. Apply on staging:
 `npx prisma migrate deploy`.
 
-## Still needed from you
-- The eSIMdb **coupon details** (code, percent vs fixed, amount, any expiry/limit).
-- Your dev's **affiliate tracking** method (S2S postback URL? or a client pixel?) —
-  so the hook matches exactly.
+## 4. eSIMdb price-war (EA channel)
+The eSIMdb 50% coupon + a competitor-driven price let us undercut the cheapest
+rival by 1¢ while the ×2 list price absorbs the coupon:
+```
+net  = max(competitor − 1¢, cost + min margin)   # floored — never below cost
+list = net × 2                                    # Plan.price; 50% coupon → net
+```
+- `lib/esimdb/reprice.js` — the formula (+ `ESIMDB_MIN_MARGIN_PCT`, default 15%).
+- `CompetitorPrice` table — cheapest esimdb.com price per EA plan (populated by the
+  scraper, below).
+- `scripts/esimdb/reprice.js` — sets `Plan.price` for EA plans from CompetitorPrice
+  (`--dry` to preview).
+- **Coupon scope** — `Coupon.supplierScope` restricts the 50% code to EA plans, so
+  it can never halve a normal `cost × 2` plan down to cost. Create it:
+  ```bash
+  node scripts/upsertCoupon.js --code=ESIMDB --type=percent --value=50 --supplier=EA --note="eSIMdb partner"
+  ```
+- ⚠️ **Floor guard:** on plans where a competitor is below our cost, the repricer
+  holds `cost + margin` instead of undercutting (we don't sell at a loss).
+
+## Still needed / next
+- The eSIMdb **coupon code string** (discount is 50%, EA-scoped — confirmed).
+- Your dev's **affiliate tracking** method (S2S postback URL? or a client pixel?).
+- **The scraper** — read each EA plan's cheapest competitor price off esimdb.com
+  into `CompetitorPrice` (the repricer's input). Not built yet; needs esimdb.com
+  page-structure inspection + plan matching.
