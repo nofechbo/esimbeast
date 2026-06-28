@@ -26,9 +26,78 @@ model PlanOrder {
   supplier          String
   supplierOrderData Json? // WM: {rcode}. EA: {esimTranNo}}
 
+  // Set only for "managed" products (synthetic-unlimited / cheaply-fulfilled
+  // metered) whose physical data is grown by the auto-refill engine. Null for
+  // ordinary one-shot orders. See lib/refill/ and scripts/refillManagedEsims.js.
+  lifecycle EsimLifecycle?
+
   @@index([intentId])
   @@index([orderId])
   @@index([supplier, status])
+}
+
+// One row per physical eSIM under managed (auto-refill) fulfillment.
+//
+// THE CORE IDEA: decouple what the customer is PROMISED (the entitlement) from
+// what we actually order from the supplier (the physical eSIM). We provision a
+// cheap base SKU and top it up just-in-time as the customer consumes, exploiting
+// (a) the fact that most customers never reach their full allowance and (b) EA's
+// end-of-pack gift. The customer always experiences their full entitlement; we
+// pay for a rolling reservoir that is smaller than the advertised allowance.
+//
+// COVERAGE MODE (chosen 2026-06-28): the EA gift (+2GB on a 10GB pack, +5GB on a
+// 20GB pack) lands at the END of the pack, so we under-provision by the gift
+// amount — for a 10GB entitlement we actively manage only an 8GB ceiling
+// (managedCeilingMb = promised - gift) of base + paid top-ups and let the gift
+// complete the rest. The gift is NEVER trusted for live coverage: if a fast user
+// nears the managed ceiling before the gift is observed landing (totalData jump),
+// the engine fires a paid SAFETY top-up rather than risk stranding them abroad.
+model EsimLifecycle {
+  id          Int       @id @default(autoincrement())
+  planOrderId Int       @unique
+  planOrder   PlanOrder @relation(fields: [planOrderId], references: [id])
+  intentId    String // Stripe paymentIntent, for tracing
+  supplier    String    @default("EA")
+
+  // --- Entitlement: what the customer was promised ---
+  entitlementType String // "metered" | "unlimited"
+  promisedDataMb  Int? // metered total (e.g. 10240). null for unlimited.
+  fairUseCapMb    Int? // unlimited hard ceiling (e.g. 5120). null for metered.
+  windowDays      Int // entitlement validity window (e.g. 3 or 30)
+  giftMb          Int    @default(0) // EA end-of-pack gift expected for this pack
+
+  // --- Physical eSIM: what we ordered / are topping up ---
+  iccid             String?
+  esimTranNo        String? // EA usage/query + (maybe) topup key
+  baseSku           String // base packageCode provisioned
+  topUpSku          String? // packageCode used for incremental top-ups
+  physicalCeilingMb Int // managed physical total so far (base + paid top-ups; excludes gift)
+  giftDetectedMb    Int     @default(0) // gift observed landing via totalData jump
+
+  // --- Refill control ---
+  managedCeilingMb   Int // target we cover with base+paid topups = entitlement - gift
+  refillThresholdPct Int @default(80) // top up when usedMb >= pct of physicalCeilingMb
+  refillIncrementMb  Int // size of one top-up (matched to an available EA top-up SKU)
+
+  // --- State & tracking ---
+  state        String    @default("provisioned") // provisioned|active|refilling|capped|expired|failed
+  usedMb       Int       @default(0)
+  lastPolledAt DateTime?
+  activatedAt  DateTime? // first observed IN_USE -> starts the entitlement clock
+  expiresAt    DateTime? // activatedAt + windowDays (entitlement governs, not physical validity)
+
+  // --- Cost accounting (per eSIM) ---
+  topUpCount       Int @default(0) // total top-ups applied
+  paidTopUpMb      Int @default(0) // MB of top-ups we paid for (excludes gift)
+  safetyTopUpCount Int @default(0) // times the gift was late and we covered with a paid topup
+
+  lastError String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([state])
+  @@index([esimTranNo])
+  @@index([iccid])
 }
 
 model Plan {
