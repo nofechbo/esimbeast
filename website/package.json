@@ -8,7 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export:plans": "node scripts/exportPlansToCsv.js"
+    "test": "node --test \"lib/**/*.test.js\"",
+    "export:plans": "node scripts/exportPlansToCsv.js",
+    "refill:list-skus": "node scripts/listEATopUpSkus.js",
+    "refill:smoke": "node scripts/smokeTestEARefill.js",
+    "refill:run": "node scripts/refillManagedEsims.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",
