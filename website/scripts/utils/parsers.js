@@ -230,6 +230,45 @@ export function isEAPlanReloadable(supportTopUpType) {
   return parseInt(supportTopUpType, 10) === 2;
 }
 
+// EA prices come in units of 1/10000 USD (e.g. 14200 = $1.42). Convert to cents.
+export function eaUnitsToCents(eaUnits) {
+  const n = parseInt(eaUnits, 10);
+  if (!Number.isFinite(n)) {
+    throw new Error(`invalid EA price units: "${eaUnits}"`);
+  }
+  return Math.round(n / 100);
+}
+
+// Resale price (cents). A hand-set "Price in cents" in the sheet always wins;
+// otherwise fall back to EA's own suggested retailPrice (a flat 2x cost across
+// the whole catalog), or 2x cost if retailPrice is somehow missing. This is what
+// lets the full ~2,853-package catalog import without each row being hand-priced
+// first — the blank-price column used to silently drop the row.
+// The eSIMdb-undercut repricer will later own this value (see docs).
+export function eaResalePriceCents(row) {
+  const hand = row["Price in cents"];
+  if (hand != null && String(hand).trim() !== "") {
+    return parseRequiredInt(hand, "Price in cents");
+  }
+  const retail = parseInt(row.retailPrice, 10);
+  if (Number.isFinite(retail) && retail > 0) return Math.round(retail / 100);
+  const cost = parseInt(row.price, 10);
+  if (Number.isFinite(cost) && cost > 0) return Math.round((cost * 2) / 100);
+  throw new Error("no price and no cost to derive EA resale price");
+}
+
+// A small note synthesized from EA catalog fields (EA has no rich note text:
+// saleNote is empty and description is just the plan name). ipExport tells the
+// customer where their IP exits — genuinely useful for a single-country plan.
+export function eaNotification(row) {
+  const bits = [];
+  if (row.ipExport && String(row.ipExport).trim()) {
+    bits.push(`Connects via ${String(row.ipExport).trim()} IP`);
+  }
+  if (parseInt(row.smsStatus, 10) === 0) bits.push("SMS not supported");
+  return bits.length ? bits.join(". ") : null;
+}
+
 export function EAIspopular() {
   return Math.random() < 0.01;
 }

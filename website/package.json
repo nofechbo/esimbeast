@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "node --test \"scripts/**/*.test.js\" \"lib/**/*.test.js\"",
     "export:plans": "node scripts/exportPlansToCsv.js"
   },
   "dependencies": {

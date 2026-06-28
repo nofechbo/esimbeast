@@ -15,6 +15,9 @@ import {
   WMIsPopular,
   generateWMUniqueName,
   generateEAUniqueName,
+  eaResalePriceCents,
+  eaUnitsToCents,
+  eaNotification,
 } from "./parsers.js";
 
 export const supplierToDBFuncMap = {
@@ -47,6 +50,8 @@ export const supplierToDBFuncMap = {
     eKYC: () => null,
     uniqueName: (row) => generateWMUniqueName(row),
     isPopular: (row) => WMIsPopular(row),
+    // capped (total-data) unless the plan has a per-day cap ("GB per day")
+    isCapped: (row) => !row["GB per day"]?.trim(),
     supplier: () => "WM",
   },
 
@@ -60,25 +65,39 @@ export const supplierToDBFuncMap = {
     fup: (row) => bytesToDataString(row.volume),
     data: (row) => parseDataValue("volume", bytesToDataString(row.volume)),
     dailyDataCap: () => null,
-    reducedSpeed: (row) => parseReducedSpeed(row.fupPolicy, "fupPolicy"),
-    price: (row) => parseRequiredInt(row["Price in cents"], "Price in cents"), // stored in cents
-    supplierPrice: (row) => parseRequiredInt(row.price, "supplier price"),
+    // FUP speed is a non-critical note; some EA fupPolicy values are malformed
+    // (e.g. the "kpbs" typo). Tolerate it -> null rather than dropping the whole
+    // sellable plan. (WM keeps the strict parse so sheet typos surface.)
+    reducedSpeed: (row) => {
+      try {
+        return parseReducedSpeed(row.fupPolicy, "fupPolicy");
+      } catch {
+        return null;
+      }
+    },
+    // Hand-set "Price in cents" wins; otherwise 2x cost (EA retailPrice). This is
+    // what unlocks the full catalog — a blank price no longer drops the row.
+    price: (row) => eaResalePriceCents(row), // stored in cents
+    supplierPrice: (row) => eaUnitsToCents(row.price), // cost, normalized to cents
     reloadable: (row) => isEAPlanReloadable(row.supportTopUpType),
     countryCodes: (row) =>
       parseCountryCodes(row.resolvedCountryCodes, "EA", row.packageCode),
     networks: (row) => parseStringList(row.locationNetworkList),
     networkSpeed: (row) => row.speed ?? null,
     apn: () => null,
-    hotspot: () => null,
+    hotspot: () => null, // EA exposes no per-package hotspot flag
     activation: (row) => parseActivationType(row.activeType) ?? null,
     delivery: () => null,
     seoText: (row) => row.description ?? null,
     planType: (row) => parseEAPlanType(row.dataType, row.smsStatus) ?? null,
-    localNumber: () => null,
-    notification: () => null,
+    localNumber: () => null, // EA exposes no per-package local-number flag
+    notification: (row) => eaNotification(row),
     eKYC: () => null,
     uniqueName: (row) => generateEAUniqueName(row),
     isPopular: () => EAIspopular(),
+    // capped = "Data in Total" (dataType 1). Daily-limit (2/3) and daily-unlimited
+    // (4) are deprioritized in listings and never used as auto-refill bases.
+    isCapped: (row) => parseInt(row.dataType, 10) === 1,
     supplier: () => "EA",
   },
 };
