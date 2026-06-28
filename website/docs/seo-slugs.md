@@ -46,3 +46,24 @@ DATABASE_URL=... node scripts/exportRedirects.js
 # 4. deploy; submit the new sitemap in Search Console; watch 301 hits
 ```
 `prebuild` should run `exportRedirects.js` so the middleware map ships fresh.
+
+## Intent landing pages ({destination} from {origin})
+
+A second SEO layer on top of the plan catalog, for keywords like
+**"esim morocco from uk"**. `destination` (Morocco) is real coverage; `modifier`
+("uk") is an audience signal, not a product dimension — so these are a marketing
+layer, not catalog rows.
+
+- `LandingPage` table — `slug` "esim/morocco/from-uk", `kind` (origin|intent),
+  `destination`, `modifier`, title/meta/intro/body/faq, `published`.
+- `lib/landing/generate.js` — templated but **origin/destination-specific** copy
+  (home carriers, real roaming cost, currency, price-from) so pages are not thin
+  doorway pages. Includes FAQPage content -> JSON-LD on the page.
+- Served by the same `/esim/[country]/[plan]` route, resolved BEFORE plan slugs
+  ("from-uk" never collides with a `{data}-{duration}` slug). Self-canonical;
+  funnels to the canonical product pages.
+- `scripts/seedLandingPages.js` — seeds {high-value destinations} x {uk, us}.
+  Re-run after syncPlans so price-from / data-options stay fresh.
+
+Flow:  google "esim morocco from uk"  ->  /esim/morocco/from-uk (intent)  ->
+        /esim/morocco/10gb-30-days (product)  ->  checkout.

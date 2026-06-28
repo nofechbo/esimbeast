@@ -1,7 +1,8 @@
 import { getPrimaryPlans } from "@/lib/db/plans";
+import { getAllLandingPages } from "@/lib/db/landing";
 import { SITE_URL } from "@/config";
 
-function generateSiteMap(plans) {
+function generateSiteMap(plans, landingPages) {
   const today = new Date().toISOString().split("T")[0];
   const countryHubs = [...new Set(
     plans.filter((p) => p.slug?.startsWith("esim/")).map((p) => p.slug.split("/")[1]),
@@ -87,12 +88,26 @@ ${plans
   </url>`
   )
   .join("\n")}
+  <!-- Intent landing pages ({destination} from {origin}, etc.) -->
+${(landingPages || [])
+  .map(
+    (lp) => `  <url>
+    <loc>${SITE_URL}/${lp.slug}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>`
+  )
+  .join("\n")}
 </urlset>`;
 }
 
 export default async function handler(req, res) {
-  const plans = await getPrimaryPlans();
-  const sitemap = generateSiteMap(plans);
+  const [plans, landingPages] = await Promise.all([
+    getPrimaryPlans(),
+    getAllLandingPages(),
+  ]);
+  const sitemap = generateSiteMap(plans, landingPages);
 
   res.setHeader("Content-Type", "text/xml");
   res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");

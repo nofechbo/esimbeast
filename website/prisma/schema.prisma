@@ -93,3 +93,29 @@ model Redirect {
 
   @@index([fromPath])
 }
+
+// Programmatic-SEO intent pages, e.g. "eSIM Morocco from the UK".
+// These are a MARKETING layer on top of the plan catalog — destination is a real
+// coverage, modifier (origin "uk" / intent "best") is an audience signal that is
+// NOT a product dimension. Content is templated but origin/destination-specific
+// (see lib/landing/generate.js) so pages are not thin doorway pages. They funnel
+// to the canonical /esim/{destination}/{data}-{duration} product pages.
+model LandingPage {
+  id              Int      @id @default(autoincrement())
+  slug            String   @unique // "esim/morocco/from-uk"
+  kind            String // "origin" | "intent"
+  destination     String // country/region slug, e.g. "morocco" -> /esim/morocco
+  modifier        String // "uk" (origin) | "best" | "cheap" | "unlimited" ...
+  title           String // <title> + <h1>
+  metaDescription String?
+  intro           String? // hero paragraph
+  body            String? // markdown sections
+  faq             Json? // [{ q, a }] -> FAQPage JSON-LD
+  published       Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([destination, kind, modifier])
+  @@index([destination])
+  @@index([kind])
+}
