@@ -25,7 +25,7 @@ export function transformCsvDataToPlan(csvRow, supplierName) {
   }
 
   try {
-    return {
+    const plan = {
       productId: funcs.productId(csvRow),
       code: funcs.code(csvRow),
       name: funcs.name(csvRow),
@@ -54,6 +54,18 @@ export function transformCsvDataToPlan(csvRow, supplierName) {
       isPopular: funcs.isPopular(csvRow),
       supplier: funcs.supplier(csvRow),
     };
+
+    // Safety gate: never publish a non-positive price. This is the $0-plan bug
+    // class (e.g. the WM Thailand DTAC row with an empty Sell Price). countryCodes
+    // already throws above when empty, so coverage is guaranteed too.
+    if (!Number.isFinite(plan.price) || plan.price <= 0) {
+      console.warn(
+        `[${supplierName}] Skipping ${plan.uniqueName}: non-positive price (${plan.price})`,
+      );
+      return;
+    }
+
+    return plan;
   } catch (error) {
     console.warn(
       `[${supplierName}] Skipping row (productId: ${csvRow["wmproductId"] ?? csvRow.packageCode ?? "unknown"}): ${error.message}`,
