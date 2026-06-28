@@ -38,6 +38,13 @@ test("supplierScope restricts the code to one supplier's plans", () => {
   assert.equal(evaluateCoupon(percent(50), 2000, { supplier: "WM" }).valid, true);
 });
 
+test("productScope=esimdb limits the code to EA 10/20GB ≤30d plans", () => {
+  const c = percent(50, { productScope: "esimdb" });
+  assert.equal(evaluateCoupon(c, 2000, { plan: { supplier: "EA", data: 10, days: 30 } }).valid, true);
+  assert.equal(evaluateCoupon(c, 2000, { plan: { supplier: "EA", data: 5, days: 30 } }).valid, false);
+  assert.equal(evaluateCoupon(c, 2000, { plan: { supplier: "EA", data: 10, days: 60 } }).valid, false);
+});
+
 test("misconfigured percent (>100) rejected, not a free order", () => {
   const r = evaluateCoupon(percent(150), 2000);
   assert.equal(r.valid, false);

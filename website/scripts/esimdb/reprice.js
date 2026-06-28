@@ -9,6 +9,7 @@
  */
 import { prisma } from "../../lib/db/prisma.js";
 import { esimdbListPriceCents } from "../../lib/esimdb/reprice.js";
+import { isEsimdbProduct } from "../../lib/esimdb/eligible.js";
 
 const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/, "").split("=")));
 const DRY = args.dry !== undefined;
@@ -17,7 +18,8 @@ const minMarginPct = args.minMargin ? Number(args.minMargin) : undefined;
 async function main() {
   const comps = await prisma.competitorPrice.findMany();
   const byPlan = new Map(comps.map((c) => [c.planId, c]));
-  const eaPlans = await prisma.plan.findMany({ where: { supplier: "EA" } });
+  // only eSIMdb-eligible plans (EA 10/20GB ≤30d) get the price-war pricing
+  const eaPlans = (await prisma.plan.findMany({ where: { supplier: "EA" } })).filter(isEsimdbProduct);
 
   let updated = 0, floored = 0, skipped = 0;
   for (const plan of eaPlans) {

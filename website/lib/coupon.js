@@ -2,6 +2,8 @@
 // validate API and create-payment-intent (which is the ONLY place the discounted
 // amount is authoritative; the client never decides the price).
 
+import { isEsimdbProduct } from "./esimdb/eligible.js";
+
 export const COUPON_TYPE = { PERCENT: "percent", FIXED: "fixed" };
 
 /** Canonical form for storage + lookup (case-insensitive, trimmed). */
@@ -19,13 +21,18 @@ export function normalizeCode(code) {
  */
 export function evaluateCoupon(coupon, subtotalCents, opts = {}) {
   const now = opts.now ?? new Date();
+  const supplier = opts.supplier ?? opts.plan?.supplier;
   const fail = (reason) => ({ valid: false, reason, discountCents: 0, finalCents: subtotalCents });
 
   if (!coupon) return fail("Invalid coupon code");
   if (!coupon.active) return fail("This coupon is no longer active");
   // supplier scope — keeps a high-percent code off the rest of the catalog
-  if (coupon.supplierScope && opts.supplier && coupon.supplierScope !== opts.supplier) {
+  if (coupon.supplierScope && supplier && coupon.supplierScope !== supplier) {
     return fail("This code isn't valid for this product");
+  }
+  // product scope — the eSIMdb 50% code only applies to EA 10/20GB ≤30d plans
+  if (coupon.productScope === "esimdb" && !isEsimdbProduct(opts.plan)) {
+    return fail("This code is only valid on 10GB and 20GB plans");
   }
   if (coupon.expiresAt && new Date(coupon.expiresAt) < now) return fail("This coupon has expired");
   if (coupon.maxRedemptions != null && coupon.redemptions >= coupon.maxRedemptions) {

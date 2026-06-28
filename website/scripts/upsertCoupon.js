@@ -39,6 +39,7 @@ async function main() {
     maxRedemptions: args.max ? parseInt(args.max, 10) : null,
     minAmountCents: args.min ? parseInt(args.min, 10) : null,
     supplierScope: args.supplier ? String(args.supplier).toUpperCase() : null,
+    productScope: args.productScope ? String(args.productScope).toLowerCase() : null,
   };
 
   const c = await prisma.coupon.upsert({ where: { code }, update: data, create: data });

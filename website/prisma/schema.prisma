@@ -50,10 +50,11 @@ model Coupon {
   maxRedemptions Int? // null = unlimited
   redemptions    Int       @default(0)
   minAmountCents Int? // minimum order subtotal (cents) to qualify
-  // Restrict the code to one supplier's plans (e.g. "EA" for the eSIMdb 50% code).
-  // null = any product. CRITICAL: an unscoped 50% code on cost×2 catalog sells at
-  // cost, so the eSIMdb code MUST be scoped.
+  // Restrict the code to one supplier's plans (e.g. "EA"). null = any product.
   supplierScope  String?
+  // Named product rule the code is limited to. "esimdb" = EA 10/20GB ≤30d only,
+  // so the 50% code can't gut the rest of the catalog. null = no product rule.
+  productScope   String?
   note           String? // e.g. "eSIMdb partner"
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
