@@ -68,6 +68,15 @@ model Plan {
   // rows aren't buried before a re-sync sets the real value.
   isCapped      Boolean  @default(true)
 
+  // Structured per-country coverage ("suppliers for multi"): for a regional plan,
+  // the operator(s) per country plus APN / network / roaming / notes / reset.
+  // Shape: { byCountry:[{country,countryCode,operators[]}], network, apn, roaming,
+  // notes, reset, family }. Null for plans without a matched coverage family.
+  coverage      Json?
+  // true if the coverage family includes phone/SMS (voice) — drives the
+  // "calls included" filter/badge.
+  hasPhone      Boolean  @default(false)
+
   @@index([productId])
   @@index([countryCodes], type: Gin)
   @@index([uniqueName])
