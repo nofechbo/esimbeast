@@ -50,6 +50,8 @@ export const supplierToDBFuncMap = {
     eKYC: () => null,
     uniqueName: (row) => generateWMUniqueName(row),
     isPopular: (row) => WMIsPopular(row),
+    // capped (total-data) unless the plan has a per-day cap ("GB per day")
+    isCapped: (row) => !row["GB per day"]?.trim(),
     supplier: () => "WM",
   },
 
@@ -93,6 +95,9 @@ export const supplierToDBFuncMap = {
     eKYC: () => null,
     uniqueName: (row) => generateEAUniqueName(row),
     isPopular: () => EAIspopular(),
+    // capped = "Data in Total" (dataType 1). Daily-limit (2/3) and daily-unlimited
+    // (4) are deprioritized in listings and never used as auto-refill bases.
+    isCapped: (row) => parseInt(row.dataType, 10) === 1,
     supplier: () => "EA",
   },
 };

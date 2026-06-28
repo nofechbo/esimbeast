@@ -52,6 +52,7 @@ export function transformCsvDataToPlan(csvRow, supplierName) {
       eKYC: funcs.eKYC(csvRow),
       uniqueName: funcs.uniqueName(csvRow),
       isPopular: funcs.isPopular(csvRow),
+      isCapped: funcs.isCapped(csvRow),
       supplier: funcs.supplier(csvRow),
     };
 

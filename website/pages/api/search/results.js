@@ -29,7 +29,10 @@ export default async function handler(req, res) {
     }
 
     if (filteredPlans.length > 1) {
-      filteredPlans.sort((a, b) => a.price - b.price);
+      // capped (total-data) plans win over daily-limit ones; then cheapest.
+      filteredPlans.sort(
+        (a, b) => Number(b.isCapped) - Number(a.isCapped) || a.price - b.price,
+      );
     }
 
     const slug = slugify(filteredPlans[0].uniqueName);

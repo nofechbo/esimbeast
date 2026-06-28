@@ -33,6 +33,12 @@ whole.)
 - **FUP typo tolerance.** Some EA `fupPolicy` values are malformed (`kpbs`); EA's
   reduced-speed parse now tolerates that (→ null) instead of dropping the plan. WM
   stays strict so sheet typos still surface.
+- **Capped-first listings.** New `Plan.isCapped` (EA `dataType=1` / WM with no
+  per-day cap). `getAllPlans`, `findPlansByFilters` and the chooser
+  (`search/results`) sort capped-first then cheapest — the deprioritized daily-limit
+  SKUs (1,281 of EA's 2,853) sink to the bottom, and the chooser only surfaces one
+  when no capped plan fits. Capped plans are the strategic primitive (they back the
+  auto-refill products).
 
 ## Result (verified via dry run)
 

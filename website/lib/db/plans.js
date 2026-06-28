@@ -8,7 +8,11 @@ function normalizePlan(plan) {
 }
 
 export async function getAllPlans() {
-  const plans = await prisma.plan.findMany();
+  // capped (total-data) plans first, then cheapest — daily-limit plans sink to
+  // the bottom of every listing (they're the deprioritized, non-refill kind).
+  const plans = await prisma.plan.findMany({
+    orderBy: [{ isCapped: "desc" }, { price: "asc" }],
+  });
 
   return plans.map(normalizePlan);
 }
@@ -44,6 +48,9 @@ export async function findPlansByFilters({ countryCode, dataSize, duration }) {
         { data: 0 }, // include plans with unlimited data
       ],
     },
+    // capped-first, then cheapest: the chooser surfaces a daily-limit plan only
+    // when no capped plan fits the request.
+    orderBy: [{ isCapped: "desc" }, { price: "asc" }],
   });
 
   return plans.map(normalizePlan);

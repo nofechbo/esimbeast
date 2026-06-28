@@ -61,6 +61,13 @@ model Plan {
   isPopular     Boolean  @default(false)
   supplier      String
 
+  // true = a "total data" bucket (EA dataType=1 / WM with no daily cap); false =
+  // a daily-limit plan. Capped plans are the strategic primitive (they back the
+  // auto-refill products), so listings sort capped-first and the chooser only
+  // surfaces a daily-limit plan when no capped plan fits. Default true so existing
+  // rows aren't buried before a re-sync sets the real value.
+  isCapped      Boolean  @default(true)
+
   @@index([productId])
   @@index([countryCodes], type: Gin)
   @@index([uniqueName])

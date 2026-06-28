@@ -73,6 +73,16 @@ test("EA mapping: full row maps with 2x price, cost in cents, notes", () => {
   assert.deepEqual(EA.networks(row), ["Türk Telekom 5G"]);
   assert.equal(EA.notification(row), "Connects via Europe IP");
   assert.equal(Number(EA.data(row)), 3);
+  assert.equal(EA.isCapped(row), true); // dataType 1 = Data in Total
+});
+
+test("isCapped: EA daily-limit (dataType 2) and WM daily plans are not capped", () => {
+  const EA = supplierToDBFuncMap.EA;
+  const WM = supplierToDBFuncMap.WM;
+  assert.equal(EA.isCapped(eaRow({ dataType: "2" })), false);
+  assert.equal(EA.isCapped(eaRow({ dataType: "1" })), true);
+  assert.equal(WM.isCapped(wmRow()), true); // no "GB per day"
+  assert.equal(WM.isCapped(wmRow({ "GB per day": "1" })), false);
 });
 
 test("transformCsvDataToPlan: EA row with blank price now imports (was dropped)", () => {
