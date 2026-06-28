@@ -61,8 +61,61 @@ model Plan {
   isPopular     Boolean  @default(false)
   supplier      String
 
+  // --- Clean-slug / programmatic-SEO layer ---
+  // slug: the public URL path segment, e.g. "esim/france/10gb-30-days".
+  //   STABLE: generated once on insert, never auto-recomputed (see syncPlans).
+  // bucketKey: groups SKUs that should share ONE canonical page,
+  //   e.g. "fr|10gb|30". One plan per bucket is isPrimary = owns the URL.
+  slug      String? @unique
+  bucketKey String?
+  isPrimary Boolean @default(false)
+
+  @@unique([supplier, productId]) // stable upsert key — decouples rows from mutable names
   @@index([productId])
   @@index([countryCodes], type: Gin)
   @@index([uniqueName])
   @@index([supplier])
+  @@index([bucketKey])
+  @@index([slug])
+}
+
+// Data-driven 301 map. middleware.js redirects on every request; rows are
+// written by backfillSlugs (old /plans/<uniqueName> -> new slug) and whenever a
+// plan is discontinued (-> its country hub) so we never serve a 404 on a URL
+// that once ranked.
+model Redirect {
+  id        Int      @id @default(autoincrement())
+  fromPath  String   @unique // "/plans/wm-wm-e-tw-500mb-10d-taiwan-10-unlimited"
+  toPath    String // "/esim/taiwan/unlimited-10-days"
+  status    Int      @default(301)
+  reason    String? // "migration" | "discontinued" | "merged"
+  createdAt DateTime @default(now())
+
+  @@index([fromPath])
+}
+
+// Programmatic-SEO intent pages, e.g. "eSIM Morocco from the UK".
+// These are a MARKETING layer on top of the plan catalog — destination is a real
+// coverage, modifier (origin "uk" / intent "best") is an audience signal that is
+// NOT a product dimension. Content is templated but origin/destination-specific
+// (see lib/landing/generate.js) so pages are not thin doorway pages. They funnel
+// to the canonical /esim/{destination}/{data}-{duration} product pages.
+model LandingPage {
+  id              Int      @id @default(autoincrement())
+  slug            String   @unique // "esim/morocco/from-uk"
+  kind            String // "origin" | "intent"
+  destination     String // country/region slug, e.g. "morocco" -> /esim/morocco
+  modifier        String // "uk" (origin) | "best" | "cheap" | "unlimited" ...
+  title           String // <title> + <h1>
+  metaDescription String?
+  intro           String? // hero paragraph
+  body            String? // markdown sections
+  faq             Json? // [{ q, a }] -> FAQPage JSON-LD
+  published       Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([destination, kind, modifier])
+  @@index([destination])
+  @@index([kind])
 }

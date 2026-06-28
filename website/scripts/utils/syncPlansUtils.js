@@ -1,5 +1,7 @@
 import { prisma } from "../../lib/db/prisma.js";
 import { supplierToDBFuncMap } from "./mapping.js";
+import { buildBucketKey, buildSlug } from "../../lib/slug.js";
+import slugify from "../../utils/formaters.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -82,10 +84,14 @@ export async function upsertAndDelete(
 
   for (const planData of transformedPlans) {
     try {
+      // bucketKey groups SKUs onto one canonical page. The clean `slug` is NOT
+      // set here — reconcileSlugsAndPrimaries() assigns it to the bucket's
+      // primary after the sync, so it stays unique and bucket-stable.
+      const withBucket = { ...planData, bucketKey: buildBucketKey(planData) };
       await prisma.plan.upsert({
-        where: { uniqueName: planData.uniqueName },
-        update: planData,
-        create: planData,
+        where: { supplier_productId: { supplier: planData.supplier, productId: planData.productId } },
+        update: withBucket,
+        create: withBucket,
       });
       upserted++;
       if (upserted % 10 === 0) {
@@ -142,4 +148,64 @@ export async function getPlanStats() {
     totalPlans: total,
     uniqueCountries: uniqueCountries.size,
   };
+}
+
+/**
+ * Assign one canonical page per bucket and keep the redirect map fresh.
+ * Run after every sync (and from scripts/backfillSlugs.js):
+ *   - group all plans by bucketKey
+ *   - pick the cheapest as isPrimary; it gets the clean, bucket-stable `slug`
+ *   - non-primary SKUs get slug = null (shown as alternatives on the primary page)
+ *   - every plan's old /plans/<uniqueName> URL 301s to its bucket's canonical
+ *
+ * The slug VALUE is derived from (country, data, duration) — the bucket itself —
+ * so it stays stable even when the primary SKU changes underneath it.
+ */
+export async function reconcileSlugsAndPrimaries() {
+  const plans = await prisma.plan.findMany();
+  const buckets = new Map();
+  for (const p of plans) {
+    const key = p.bucketKey || buildBucketKey(p);
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(p);
+  }
+
+  let primaries = 0;
+  let redirects = 0;
+  for (const [key, arr] of buckets) {
+    arr.sort((a, b) => a.price - b.price || a.id - b.id);
+    const primary = arr[0];
+    const slug = buildSlug(primary);
+
+    await prisma.plan.update({
+      where: { id: primary.id },
+      data: { isPrimary: true, slug, bucketKey: key },
+    });
+    primaries++;
+
+    for (const p of arr.slice(1)) {
+      if (p.isPrimary || p.slug) {
+        await prisma.plan.update({
+          where: { id: p.id },
+          data: { isPrimary: false, slug: null, bucketKey: key },
+        });
+      }
+    }
+
+    for (const p of arr) {
+      const fromPath = `/plans/${slugify(p.uniqueName)}`;
+      const toPath = `/${slug}`;
+      if (fromPath === toPath) continue;
+      await prisma.redirect.upsert({
+        where: { fromPath },
+        update: { toPath, reason: "migration" },
+        create: { fromPath, toPath, reason: "migration", status: 301 },
+      });
+      redirects++;
+    }
+  }
+  console.log(
+    `Reconciled ${primaries} canonical pages + ${redirects} redirects across ${buckets.size} buckets.`,
+  );
+  return { primaries, redirects, buckets: buckets.size };
 }
