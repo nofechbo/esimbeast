@@ -8,6 +8,11 @@ Disallow: /payment
 Disallow: /success
 Disallow: /test-plans
 Disallow: /plan-status
+# The sitemap lives under /api/, so it must be allowed explicitly BEFORE the
+# /api/ block — otherwise Googlebot is refused the very sitemap declared below
+# ("Couldn't fetch" in Search Console). Longest-match means this Allow wins for
+# the sitemap path while the rest of /api/ stays blocked.
+Allow: /api/sitemap.xml
 Disallow: /api/
 
 # Sitemap
