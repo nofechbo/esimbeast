@@ -19,9 +19,9 @@ test("parseProductName: unlimited + MB conversion", () => {
   assert.equal(parseProductName("X, 10 Days, 500MB /day").dataGb, 0.5);
 });
 
-test("priceCents: TWD cost → USD cost + 2x retail", () => {
-  // 1000 TWD × 0.031 = $31.00 cost; ×2 = $62.00 retail
-  assert.deepEqual(priceCents(1000), { costCents: 3100, retailCents: 6200 });
+test("priceCents: TWD → USD (0.0314) × 1.3 markup", () => {
+  // 1000 TWD × 0.0314 = $31.40 base; × 1.3 = $40.82 retail
+  assert.deepEqual(priceCents(1000), { costCents: 3140, retailCents: 4082 });
 });
 
 const fam = {
@@ -40,7 +40,7 @@ test("buildWmPlan: matched family -> coverage + capped(daily=false) + hasPhone",
   assert.equal(plan.hasPhone, true);
   assert.equal(plan.supplier, "WM");
   assert.equal(plan.reloadable, false);
-  assert.equal(plan.price, 6200);
+  assert.equal(plan.price, 4082); // 1000 TWD × 0.0314 × 1.3
   assert.ok(plan.coverage && plan.coverage.byCountry[0].operators.includes("Telstra"));
 });
 

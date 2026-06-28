@@ -5,8 +5,11 @@
 import { countryToIso } from "./coverage.js";
 
 // Overridable so the output can be re-priced without code changes.
-export const TWD_USD = Number(process.env.WM_TWD_USD || 0.031); // 1 TWD ≈ $0.031
-export const WM_MARKUP = Number(process.env.WM_MARKUP || 2); // retail = cost × markup
+export const TWD_USD = Number(process.env.WM_TWD_USD || 0.0314); // 1 TWD ≈ $0.0314 (USD/TWD ~31.9, Jun 2026)
+// retail = wm_price_usd × markup. Calibrated against live esimbeast prices
+// (2026-06-28): current retail ≈ 1.0× the converted productPrice, so 1.3× adds a
+// modest margin while staying in line with current pricing. (2× would ~double it.)
+export const WM_MARKUP = Number(process.env.WM_MARKUP || 1.3);
 
 /**
  * Parse a WM productName like "Multi-region A, 10 Days, 1GB /day, 128kbps" or
