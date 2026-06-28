@@ -11,8 +11,52 @@
 // pickTopUpPackage() below — so a Turkey eSIM gets a Turkey top-up, etc. The
 // template only declares the DESIRED increment size; the resolver matches it to a
 // real TOPUP_ package and the lifecycle records that package's true volume.
+//
+// CAPPED-ONLY INVARIANT: every managed product is built on EA "Data in Total"
+// (capped, dataType=1) packages that are top-up-able (supportTopUpType=2). The
+// refill model assumes a TOTAL-DATA bucket we can grow; EA's daily-limit (dataType
+// 2/3) and daily-unlimited (4) packages reset every day and CANNOT be meaningfully
+// topped up — using one as a base would mis-track usage and could strand a
+// customer. So bases are chosen via pickBasePackage(), which enforces this. The
+// customer-facing "unlimited" and "10/20GB" products are SYNTHETIC: a capped base
+// grown by top-ups (unlimited = capped base + top-ups under a 5GB fair-use cap;
+// 10/20GB = 5GB capped base + auto-refill). We never sell EA's native unlimited.
 
 import { ENTITLEMENT_TYPE, gbToMb } from "./constants.js";
+
+// EA dataType for "Data in Total" — the only refill-compatible package kind.
+export const EA_DATATYPE_TOTAL = 1;
+
+/**
+ * Is this raw EA package usable as a managed base / refill primitive? It must be
+ * a capped total-data bucket AND top-up-able. Daily-limit / daily-unlimited
+ * packages fail this on purpose.
+ */
+export function isRefillablePackage(pkg) {
+  return (
+    Number(pkg?.dataType) === EA_DATATYPE_TOTAL &&
+    Number(pkg?.supportTopUpType) === 2
+  );
+}
+
+/**
+ * Pick a capped, top-up-able BASE package of at least `desiredMb` from a set of
+ * candidate EA packages (the caller pre-filters to the customer's destination).
+ * Mirrors pickTopUpPackage but enforces the capped-only invariant. Returns
+ * { packageCode, volumeMb, days } or null if no usable package exists.
+ */
+export function pickBasePackage(candidates, desiredMb) {
+  const usable = (candidates || [])
+    .filter(isRefillablePackage)
+    .map((p) => ({
+      packageCode: p.packageCode,
+      volumeMb: Math.round((p.volume ?? 0) / 1_000_000),
+      days: p.duration,
+    }))
+    .sort((a, b) => a.volumeMb - b.volumeMb);
+  if (usable.length === 0) return null;
+  return usable.find((p) => p.volumeMb >= desiredMb) ?? usable[usable.length - 1];
+}
 
 /** @typedef {keyof typeof MANAGED_PRODUCTS} ManagedProductKey */
 

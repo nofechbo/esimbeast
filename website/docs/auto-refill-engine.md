@@ -37,6 +37,20 @@ user. (`safetyTopUpCount` tracks how often this happens.)
 Unlimited products are the same machine with a fair-use cap: "3-day unlimited" =
 provision a small base, grow in increments, hard-stop at **5GB** or **3 days**.
 
+## Capped-only invariant
+
+Every managed product is built on EA **"Data in Total" (capped, `dataType=1`)**
+packages that are **top-up-able (`supportTopUpType=2`)**. The refill model assumes a
+total-data bucket we can grow — EA's **daily-limit** (`dataType` 2/3) and
+**daily-unlimited** (4) packages reset every day and **cannot** be meaningfully
+topped up; using one as a base would mis-track usage and could strand a customer.
+`pickBasePackage()` / `isRefillablePackage()` in `lib/refill/products.js` enforce
+this. The catalog has ~1,545 capped + top-up-able EA packages (plenty at 1/5/10/20GB
+across regions), vs ~1,281 daily-limit packages we never use as managed bases.
+
+So the customer-facing **"unlimited"** and **"10/20GB"** products are SYNTHETIC: a
+capped base grown by top-ups. We never sell EA's native daily-unlimited.
+
 ## Components
 
 | File | Role |
