@@ -43,10 +43,24 @@ export function parseProductName(name) {
   };
 }
 
+/**
+ * Markup for a WM plan. Most plans use the flat WM_MARKUP (2×). But high-margin
+ * SEO products — multi-country eSIMs + eSIMs with calling — use a tiered markup
+ * by cost: 2.2× under $10, 1.7× $10–$20, 1.35× over $20 (keeps absolute prices
+ * sane as cost rises while protecting margin on the cheap long tail).
+ */
+export function wmMarkup(costCents, isHighMargin) {
+  if (!isHighMargin) return WM_MARKUP;
+  const costUsd = costCents / 100;
+  if (costUsd < 10) return 2.2;
+  if (costUsd < 20) return 1.7;
+  return 1.35;
+}
+
 /** WM wholesale cost (TWD) → USD cents, and the marked-up retail in cents. */
-export function priceCents(productPriceTwd) {
+export function priceCents(productPriceTwd, markup = WM_MARKUP) {
   const costCents = Math.round((Number(productPriceTwd) || 0) * TWD_USD * 100);
-  return { costCents, retailCents: Math.round(costCents * WM_MARKUP) };
+  return { costCents, retailCents: Math.round(costCents * markup) };
 }
 
 function slug(text) {
@@ -71,7 +85,10 @@ export function buildWmPlan(product, match) {
   }
   if (!countryCodes.length) return null; // no coverage → can't sell it
 
-  const { costCents, retailCents } = priceCents(product.productPrice);
+  // high-margin SEO set: multi-country eSIMs + eSIMs with calling → tiered markup
+  const isHighMargin = countryCodes.length > 1 || fam?.hasPhone === true;
+  const cost0 = Math.round((Number(product.productPrice) || 0) * TWD_USD * 100);
+  const { costCents, retailCents } = priceCents(product.productPrice, wmMarkup(cost0, isHighMargin));
   if (retailCents <= 0) return null;
 
   const isUnlimited = parsed.isUnlimited || parsed.dataGb === 0;

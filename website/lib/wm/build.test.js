@@ -1,6 +1,13 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseProductName, priceCents, buildWmPlan } from "./build.js";
+import { parseProductName, priceCents, buildWmPlan, wmMarkup } from "./build.js";
+
+test("wmMarkup: flat 2× normally; tiered for high-margin (multi-country / calling)", () => {
+  assert.equal(wmMarkup(500, false), 2); // normal plan
+  assert.equal(wmMarkup(500, true), 2.2); // < $10
+  assert.equal(wmMarkup(1500, true), 1.7); // $10–$20
+  assert.equal(wmMarkup(2500, true), 1.35); // > $20
+});
 
 test("parseProductName: daily plan with FUP speed", () => {
   const r = parseProductName("Multi-region A, 10 Days, 1GB /day, 128kbps");
@@ -40,7 +47,9 @@ test("buildWmPlan: matched family -> coverage + capped(daily=false) + hasPhone",
   assert.equal(plan.hasPhone, true);
   assert.equal(plan.supplier, "WM");
   assert.equal(plan.reloadable, false);
-  assert.equal(plan.price, 6280); // 1000 TWD × 0.0314 × 2
+  // multi-country (3) + hasPhone → high-margin tiered markup. cost = 1000×0.0314
+  // = $31.40 (>$20) → 1.35× → round(3140 × 1.35) = 4239
+  assert.equal(plan.price, 4239);
   assert.ok(plan.coverage && plan.coverage.byCountry[0].operators.includes("Telstra"));
 });
 
