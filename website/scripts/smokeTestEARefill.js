@@ -20,7 +20,13 @@
  * Usage:
  *   ESIMACCESS_ACCESS_CODE=... \
  *   node scripts/smokeTestEARefill.js \
- *     --esimTranNo=XXXX --iccid=YYYY --topUpSku=ZZZZ [--key=iccid|esimTranNo] --live
+ *     --esimTranNo=XXXX --iccid=YYYY [--topUpSku=TOPUP_ZZZZ] [--key=iccid] --live
+ *
+ * Top-up code: pass a TOPUP_ code with --topUpSku, or omit it and the test will
+ * auto-resolve the smallest TOPUP_ package for the eSIM (via package/list).
+ *
+ * VERIFIED RESULT 2026-06-28 (Turkey CKH025 eSIM, TOPUP_CKH265):
+ *   key=iccid · apply latency ~16s · +1GB applied · idempotent on replay ✅
  *
  * Note: gift TIMING (when EA's +2/+5 end-of-pack gift actually lands) can't be
  * measured here — it needs a real consumption run. Observe that in the field on
@@ -41,7 +47,7 @@ const args = Object.fromEntries(
 const LIVE = args.live === true;
 const ESIMTRANNO = args.esimTranNo;
 const ICCID = args.iccid;
-const TOPUP_SKU = args.topUpSku;
+let TOPUP_SKU = args.topUpSku; // may be auto-resolved below
 const KEY = args.key; // optional override; otherwise we try iccid then esimTranNo
 const POLL_SECONDS = Number(args.pollSeconds || 15);
 const TIMEOUT_SECONDS = Number(args.timeoutSeconds || 600);
@@ -96,7 +102,7 @@ async function main() {
   const missing = [];
   if (!ESIMACCESS_ACCESS_CODE) missing.push("ESIMACCESS_ACCESS_CODE (env)");
   if (!ESIMTRANNO) missing.push("--esimTranNo");
-  if (!TOPUP_SKU) missing.push("--topUpSku");
+  if (!TOPUP_SKU && !ICCID) missing.push("--topUpSku, or --iccid to auto-resolve one");
   if (missing.length) {
     console.error("Missing required inputs:\n  - " + missing.join("\n  - "));
     process.exit(2);
@@ -112,6 +118,23 @@ async function main() {
   if (!LIVE) {
     console.log("\nDRY RUN — re-run with --live to actually place ONE paid top-up against EA.");
     return;
+  }
+
+  // Auto-resolve a TOPUP_ code if none was given (top-up codes are per-eSIM).
+  if (!TOPUP_SKU) {
+    const res = await fetch(`${BASE.replace("/esim", "")}/package/list`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "RT-AccessCode": ESIMACCESS_ACCESS_CODE },
+      body: JSON.stringify({ iccid: ICCID, type: "TOPUP" }),
+    });
+    const j = await res.json();
+    const list = (j?.obj?.packageList || []).sort((a, b) => a.volume - b.volume);
+    if (!list.length) {
+      console.error("No TOPUP_ packages found for this eSIM.");
+      process.exit(2);
+    }
+    TOPUP_SKU = list[0].packageCode; // smallest
+    console.log(`  auto-resolved topUpSku = ${TOPUP_SKU} (${list[0].name})`);
   }
 
   // 1) baseline

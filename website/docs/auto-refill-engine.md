@@ -56,23 +56,32 @@ use a deterministic idempotency key (`refill-<id>-<seq>`) and the physical-ceili
 increment is persisted **only after EA confirms** — a failed top-up never records
 data we didn't get, and is retried next tick.
 
-## Before this goes near a paying customer — the gate
+## EA top-up mechanics — VERIFIED 2026-06-28
 
-Three EA behaviours are assumed but **unverified in our code**. Run the smoke test
-against one existing top-up-able eSIM (applies exactly one paid top-up):
+Smoke-tested live against a Turkey CKH025 eSIM (one $0.46 top-up):
+
+| Question | Answer |
+|---|---|
+| Top-up key | **`iccid`** (usage/query keys on `esimTranNo`; the iccid form of usage/query is rejected → the platform adapter's iccid usage call is broken) |
+| Top-up code | a **separate `TOPUP_`-prefixed catalog**, scoped per-eSIM. Query it with `package/list {iccid, type:"TOPUP"}`. A base `packageCode` is **rejected** (`310242`). |
+| Apply latency | **~16s** — EA applied +1GB by the first poll. Small safety buffer suffices. |
+| Idempotency | **YES** — replaying the same `transactionId` returns success but adds **zero** extra data. Auto-retry is safe. |
+
+Because apply latency is ~16s, the worst case before a top-up lands is roughly
+`min-poll (60s) + ~16s` of burn. At any realistic burn rate that's well under the
+headroom the 75–80% trigger leaves on a multi-GB base — the design is comfortably
+safe.
+
+**Still observe in the field:** gift *timing* (when EA's +2/+5 end-of-pack gift
+actually lands) — it can't be smoke-tested; watch it on the first real orders.
+
+### Re-running the gate
 
 ```bash
 ESIMACCESS_ACCESS_CODE=… node scripts/smokeTestEARefill.js \
-  --esimTranNo=… --iccid=… --topUpSku=… --live
+  --esimTranNo=… --iccid=… --live        # auto-resolves the smallest TOPUP_ code
 ```
-
-It resolves:
-1. **Key** — does `/esim/topup` accept `iccid` or `esimTranNo`? → set `EA_TOPUP_KEY_FIELD`.
-2. **Apply latency** — how long until `totalData` rises → sizes `refillThresholdPct` + safety buffer.
-3. **Idempotency** — does a replayed `transactionId` *not* double-add? → required before any auto-retry.
-
-Gift **timing** (when the +2/+5 actually lands) can't be smoke-tested — observe it
-on the first real managed orders.
+`node scripts/listEATopUpSkus.js --iccid=…` lists an eSIM's valid TOPUP_ codes.
 
 ## Wiring (still TODO, intentionally gated)
 
