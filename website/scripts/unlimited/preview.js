@@ -32,8 +32,12 @@ const bytesim = JSON.parse(
   readFileSync(path.join(__dirname, "../../data/competitor/bytesim.json"), "utf8")
 );
 
-/** Live EA min cost/GB (USD) per ISO country, from supplierPrice. */
-async function eaCostPerGbByCountry(only) {
+// EA API price unit = 1/10000 USD; volume in bytes.
+const EA_PRICE_PER_USD = 10000;
+const BYTES_PER_GB = 1024 ** 3;
+
+/** Live EA min cost/GB (USD) per ISO country, from the Plan table (supplierPrice). */
+async function eaCostPerGbFromDb(only) {
   const { prisma } = await import("../../lib/db/prisma.js");
   const plans = await prisma.plan.findMany({
     where: { supplier: "EA" },
@@ -50,6 +54,32 @@ async function eaCostPerGbByCountry(only) {
     }
   }
   await prisma.$disconnect();
+  return min;
+}
+
+/**
+ * Live EA min cost/GB (USD) per ISO, straight from the EA catalog (/package/list).
+ * This is the cost source of truth (what we actually pay to load/top up), so it
+ * doesn't need a populated DB — only ESIMACCESS_ACCESS_CODE in env.
+ * Restricted to total-data (capped) packages — the only refillable kind, which is
+ * what the unlimited top-up engine buys.
+ */
+async function eaCostPerGbFromApi(only) {
+  const { fetchEsimAccessPackages } = await import("../../lib/plans/fetchEsimAccessPackages.js");
+  const pkgs = await fetchEsimAccessPackages();
+  const min = new Map();
+  for (const p of pkgs) {
+    // dataType 1 = "Data in Total" (capped/refillable). Some payloads omit it; fall back to volume>0.
+    if (p.dataType != null && p.dataType !== 1) continue;
+    const gb = Number(p.volume) / BYTES_PER_GB;
+    const usd = Number(p.price) / EA_PRICE_PER_USD;
+    if (!gb || !usd) continue;
+    const perGb = usd / gb;
+    for (const iso of p.resolvedCountryCodes || []) {
+      if (only && iso !== only) continue;
+      if (!min.has(iso) || perGb < min.get(iso)) min.set(iso, perGb);
+    }
+  }
   return min;
 }
 
@@ -79,13 +109,22 @@ function row(iso, days, totalUsd, costPerGb) {
 async function main() {
   const only = args.country;
 
-  // No-DB probe: --country=US --cost=0.68
-  let costByIso;
+  // Cost source: --cost (probe), EA API (default if ESIMACCESS_ACCESS_CODE set), else DB.
+  let costByIso, costSrc;
   if (args.cost !== undefined) {
     costByIso = new Map([[only, Number(args.cost)]]);
+    costSrc = `flat --cost=${args.cost}`;
+  } else if (args.source === "db") {
+    costByIso = await eaCostPerGbFromDb(only);
+    costSrc = "DB Plan.supplierPrice";
+  } else if (process.env.ESIMACCESS_ACCESS_CODE || args.source === "ea") {
+    costByIso = await eaCostPerGbFromApi(only);
+    costSrc = "EA /package/list (live)";
   } else {
-    costByIso = await eaCostPerGbByCountry(only);
+    costByIso = await eaCostPerGbFromDb(only);
+    costSrc = "DB Plan.supplierPrice";
   }
+  console.log(`EA cost/GB source: ${costSrc}\n`);
 
   const isos = Object.keys(bytesim).filter((k) => k !== "_meta" && (!only || k === only));
   if (!isos.length) {
@@ -94,29 +133,42 @@ async function main() {
   }
 
   const rows = [];
-  let viableCountries = 0;
+  const byCountry = new Map(); // iso -> { anchored:[days], floored:[days] }
   for (const iso of isos) {
     const costPerGb = costByIso.get(iso);
     if (costPerGb == null) {
-      console.log(`${iso}: no EA cost/GB (no EA coverage or supplierPrice) — skipped`);
+      console.log(`${iso}: no EA cost/GB (no EA coverage in catalog) — skipped`);
       continue;
     }
     const curve = bytesim[iso];
-    let anyAnchored = false;
+    const stat = { anchored: [], floored: [] };
     for (const d of Object.keys(curve).map(Number).sort((a, b) => a - b)) {
       const r = row(iso, d, curve[String(d)], costPerGb);
-      if (r.source === "competitor") anyAnchored = true;
+      (r.source === "competitor" ? stat.anchored : stat.floored).push(d);
       rows.push(r);
     }
-    if (anyAnchored) viableCountries++;
+    byCountry.set(iso, stat);
   }
 
   console.table(rows);
   console.log(
-    `\n${rows.length} (country,duration) rows. Competitor-anchored rows undercut bytesim by $0.10; ` +
-      `'floor' rows are pinned to 2× profit (bytesim cheaper than our floor — list but not a price war).`
+    `\n${rows.length} (country,duration) rows. NOTE: nothing here is sold below cost — the ` +
+      `floor guarantees 2× profit at 2.5GB/day. 'floor' = priced ABOVE bytesim (profitable but ` +
+      `not a price war); 'competitor' = we undercut bytesim by $0.10 AND still clear 2×.`
   );
-  console.log(`${viableCountries}/${isos.length} captured countries have ≥1 competitively-viable duration.`);
+
+  // Verdict rollup, sorted worst-first so non-competitive destinations surface.
+  const fully = [], partial = [], none = [];
+  for (const [iso, s] of byCountry) {
+    const n = s.anchored.length, total = n + s.floored.length;
+    if (n === 0) none.push(iso);
+    else if (n === total) fully.push(iso);
+    else partial.push(`${iso}(${s.anchored.join("/")}d)`);
+  }
+  console.log(`\n── verdict ──`);
+  console.log(`✅ competitive at ALL durations: ${fully.join(", ") || "—"}`);
+  console.log(`🟡 competitive only at: ${partial.join(", ") || "—"}`);
+  console.log(`❌ NOT competitive at any duration (EA cost/GB > bytesim — don't list unlimited): ${none.join(", ") || "—"}`);
 }
 
 main().catch((e) => {
