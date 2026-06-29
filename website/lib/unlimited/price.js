@@ -1,15 +1,16 @@
 // Synthetic-unlimited pricing (fulfilled by the EA auto-refill engine).
 //
 // Per destination D over N days:
-//   price = max( bytesim2GBday(D)/day · N − $0.10 ,  5 · costPerGb(D) · N )
+//   price = max( bytesimTotal(D, N) − $0.10 ,  4 · costPerGb(D) · N )
 //
-// The floor term 5·c·N = 2 × (2.5 GB/day × N × c) = 2× profit even at 2.5 GB/day
-// usage. The anchor undercuts bytesim's N-day 2GB/day total by 10¢. max() takes
-// whichever is higher: we undercut bytesim when we can, but never sell below 2×
-// cost. Only list a destination as unlimited where the anchor wins (otherwise the
-// floor prices us above bytesim — profitable but not competitive).
+// The floor term 4·c·N = 2 × (2.0 GB/day × N × c) = 2× profit at 2.0 GB/day fair-use
+// (lowered from 2.5 on 2026-06-29 to make more durations price-competitive — the
+// 2.5 floor priced us above bytesim's bulk rate everywhere but day 1). The anchor
+// undercuts bytesim's real N-day 2GB/day total by 10¢. max() takes whichever is
+// higher: we undercut bytesim when we can, but never sell below 2× cost. Only list
+// a destination where the anchor wins (else the floor prices us above bytesim).
 
-export const PROFIT_USAGE_GB_PER_DAY = 2.5; // price for this even though we fulfil ~2/day
+export const PROFIT_USAGE_GB_PER_DAY = 2.0; // 2× profit guaranteed up to this daily usage
 export const PROFIT_MULTIPLE = 2;
 export const UNDERCUT_USD = 0.1;
 
