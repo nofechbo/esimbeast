@@ -153,8 +153,8 @@ async function main() {
   console.table(rows);
   console.log(
     `\n${rows.length} (country,duration) rows. NOTE: nothing here is sold below cost — the ` +
-      `floor guarantees 2× profit at 2.5GB/day. 'floor' = priced ABOVE bytesim (profitable but ` +
-      `not a price war); 'competitor' = we undercut bytesim by $0.10 AND still clear 2×.`
+      `floor guarantees 2× profit at ${PROFIT_USAGE_GB_PER_DAY}GB/day. 'floor' = priced ABOVE bytesim ` +
+      `(profitable but not a price war); 'competitor' = we undercut bytesim by $0.10 AND still clear 2×.`
   );
 
   // Verdict rollup, sorted worst-first so non-competitive destinations surface.
