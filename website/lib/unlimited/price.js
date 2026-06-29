@@ -25,17 +25,29 @@ export function initialLoadGb(days) {
  * @param {{ days:number, bytesimPerDayUsd:number, eaCostPerGbUsd:number }} p
  * @returns {{ priceUsd:number, anchorUsd:number, floorUsd:number, anchorWins:boolean }}
  */
-export function unlimitedPriceUsd({ days, bytesimPerDayUsd, eaCostPerGbUsd }) {
-  const anchorUsd = bytesimPerDayUsd * days - UNDERCUT_USD;
+export function unlimitedPriceUsd({ days, competitorPerDayUsd = [], eaCostPerGbUsd }) {
+  // undercut the CHEAPEST available competitor (bytesim and/or roamic) by 10¢
+  const totals = competitorPerDayUsd.filter((x) => x > 0).map((x) => x * days);
+  const anchorUsd = totals.length ? Math.min(...totals) - UNDERCUT_USD : null;
   const floorUsd = PROFIT_MULTIPLE * PROFIT_USAGE_GB_PER_DAY * eaCostPerGbUsd * days;
-  const anchorWins = anchorUsd >= floorUsd;
-  return { priceUsd: Math.max(anchorUsd, floorUsd), anchorUsd, floorUsd, anchorWins };
+  // never below floor; with no competitor (or competitors below floor) → floor
+  // (max revenue that still clears 2× profit @2.5GB/day)
+  const useAnchor = anchorUsd != null && anchorUsd >= floorUsd;
+  return {
+    priceUsd: useAnchor ? anchorUsd : floorUsd,
+    anchorUsd,
+    floorUsd,
+    source: useAnchor ? "competitor" : "floor",
+  };
 }
 
 /**
- * Viable to LIST as unlimited (undercut bytesim AND clear 2× profit) when EA is
- * cheap enough: costPerGb ≤ bytesimPerDay / 5 (duration-independent).
+ * Viable to LIST as unlimited competitively (undercut a competitor AND clear 2×
+ * profit) when EA is cheap enough: costPerGb ≤ cheapestCompetitorPerDay / 5.
+ * Returns null when there's no competitor price to judge against.
  */
-export function isUnlimitedViable({ bytesimPerDayUsd, eaCostPerGbUsd }) {
-  return eaCostPerGbUsd <= bytesimPerDayUsd / (PROFIT_MULTIPLE * PROFIT_USAGE_GB_PER_DAY);
+export function isUnlimitedViable({ competitorPerDayUsd = [], eaCostPerGbUsd }) {
+  const cheapest = Math.min(...competitorPerDayUsd.filter((x) => x > 0));
+  if (!Number.isFinite(cheapest)) return null;
+  return eaCostPerGbUsd <= cheapest / (PROFIT_MULTIPLE * PROFIT_USAGE_GB_PER_DAY);
 }
