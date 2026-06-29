@@ -22,16 +22,18 @@ export function initialLoadGb(days) {
 }
 
 /**
- * @param {{ days:number, bytesimPerDayUsd:number, eaCostPerGbUsd:number }} p
- * @returns {{ priceUsd:number, anchorUsd:number, floorUsd:number, anchorWins:boolean }}
+ * @param {{ days:number, competitorTotalsUsd:number[], eaCostPerGbUsd:number }} p
+ *   competitorTotalsUsd = competitors' 2GB/day TOTAL prices for this exact N-day duration.
+ * @returns {{ priceUsd:number, anchorUsd:number|null, floorUsd:number, source:"competitor"|"floor" }}
  */
-export function unlimitedPriceUsd({ days, competitorPerDayUsd = [], eaCostPerGbUsd }) {
-  // undercut the CHEAPEST available competitor (bytesim and/or roamic) by 10¢
-  const totals = competitorPerDayUsd.filter((x) => x > 0).map((x) => x * days);
-  const anchorUsd = totals.length ? Math.min(...totals) - UNDERCUT_USD : null;
+export function unlimitedPriceUsd({ days, competitorTotalsUsd = [], eaCostPerGbUsd }) {
+  // competitorTotalsUsd = the competitors' 2GB/day TOTALS for exactly this N-day
+  // duration (bytesim/roamic prices are non-linear in days, so pass the real
+  // per-duration total). Undercut the cheapest by 10¢, never below the 2× floor.
+  const valid = competitorTotalsUsd.filter((x) => x > 0);
+  const anchorUsd = valid.length ? Math.min(...valid) - UNDERCUT_USD : null;
   const floorUsd = PROFIT_MULTIPLE * PROFIT_USAGE_GB_PER_DAY * eaCostPerGbUsd * days;
-  // never below floor; with no competitor (or competitors below floor) → floor
-  // (max revenue that still clears 2× profit @2.5GB/day)
+  // with no competitor (or competitors below floor) → floor (max revenue @2× profit)
   const useAnchor = anchorUsd != null && anchorUsd >= floorUsd;
   return {
     priceUsd: useAnchor ? anchorUsd : floorUsd,
@@ -42,12 +44,11 @@ export function unlimitedPriceUsd({ days, competitorPerDayUsd = [], eaCostPerGbU
 }
 
 /**
- * Viable to LIST as unlimited competitively (undercut a competitor AND clear 2×
- * profit) when EA is cheap enough: costPerGb ≤ cheapestCompetitorPerDay / 5.
- * Returns null when there's no competitor price to judge against.
+ * Viable to LIST as unlimited competitively for an N-day plan: the price ends up
+ * on the competitor (we undercut AND clear 2× profit), not pinned to the floor.
+ * Returns null without competitor data.
  */
-export function isUnlimitedViable({ competitorPerDayUsd = [], eaCostPerGbUsd }) {
-  const cheapest = Math.min(...competitorPerDayUsd.filter((x) => x > 0));
-  if (!Number.isFinite(cheapest)) return null;
-  return eaCostPerGbUsd <= cheapest / (PROFIT_MULTIPLE * PROFIT_USAGE_GB_PER_DAY);
+export function isUnlimitedViable({ days, competitorTotalsUsd = [], eaCostPerGbUsd }) {
+  if (!competitorTotalsUsd.some((x) => x > 0)) return null;
+  return unlimitedPriceUsd({ days, competitorTotalsUsd, eaCostPerGbUsd }).source === "competitor";
 }

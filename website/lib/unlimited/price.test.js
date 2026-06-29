@@ -10,35 +10,30 @@ test("initial EA load by duration", () => {
   assert.equal(initialLoadGb(10), 20);
 });
 
-test("USA 7-day: anchor (undercut bytesim) wins, 2× profit clears", () => {
-  // bytesim $3.90/day, EA cost/GB $0.68
-  const r = unlimitedPriceUsd({ days: 7, competitorPerDayUsd: [3.9], eaCostPerGbUsd: 0.68 });
-  assert.equal(r.anchorUsd.toFixed(2), "27.20"); // 3.90×7 − 0.10
+test("USA 7-day: undercut bytesim's actual 7d total ($11.90), 2× profit clears", () => {
+  // bytesim 7d 2GB/day total = $11.90, EA cost/GB $0.68
+  const r = unlimitedPriceUsd({ days: 7, competitorTotalsUsd: [11.9], eaCostPerGbUsd: 0.68 });
+  assert.equal(r.anchorUsd.toFixed(2), "11.80"); // 11.90 − 0.10
   assert.equal(r.floorUsd.toFixed(2), "23.80"); // 5 × 0.68 × 7
-  assert.equal(r.priceUsd.toFixed(2), "27.20");
-  assert.equal(r.source, "competitor");
-});
-
-test("undercuts the CHEAPEST of bytesim/roamic", () => {
-  // bytesim $3.90, roamic $3.50 → undercut roamic
-  const r = unlimitedPriceUsd({ days: 1, competitorPerDayUsd: [3.9, 3.5], eaCostPerGbUsd: 0.5 });
-  assert.equal(r.anchorUsd.toFixed(2), "3.40"); // 3.50 − 0.10
-});
-
-test("no competitor price → floor (max revenue at 2× profit)", () => {
-  const r = unlimitedPriceUsd({ days: 7, competitorPerDayUsd: [], eaCostPerGbUsd: 0.68 });
+  // floor ($23.80) > anchor ($11.80) → bytesim is below our 2× floor here → floor wins
   assert.equal(r.source, "floor");
   assert.equal(r.priceUsd.toFixed(2), "23.80");
 });
 
-test("expensive region: floor binds → price above competitor, not viable", () => {
-  const r = unlimitedPriceUsd({ days: 7, competitorPerDayUsd: [3.9], eaCostPerGbUsd: 2.0 });
-  assert.equal(r.source, "floor");
-  assert.equal(isUnlimitedViable({ competitorPerDayUsd: [3.9], eaCostPerGbUsd: 2.0 }), false);
+test("undercuts the CHEAPEST of bytesim/roamic totals", () => {
+  const r = unlimitedPriceUsd({ days: 7, competitorTotalsUsd: [27.2, 25.0], eaCostPerGbUsd: 0.68 });
+  assert.equal(r.anchorUsd.toFixed(2), "24.90"); // 25.00 − 0.10
+  assert.equal(r.source, "competitor"); // 24.90 ≥ floor 23.80
 });
 
-test("viability threshold is cheapestCompetitor/5; null without data", () => {
-  assert.equal(isUnlimitedViable({ competitorPerDayUsd: [3.9], eaCostPerGbUsd: 0.78 }), true);
-  assert.equal(isUnlimitedViable({ competitorPerDayUsd: [3.9], eaCostPerGbUsd: 0.79 }), false);
-  assert.equal(isUnlimitedViable({ competitorPerDayUsd: [], eaCostPerGbUsd: 0.5 }), null);
+test("no competitor price → floor (max revenue at 2× profit)", () => {
+  const r = unlimitedPriceUsd({ days: 7, competitorTotalsUsd: [], eaCostPerGbUsd: 0.68 });
+  assert.equal(r.source, "floor");
+  assert.equal(r.priceUsd.toFixed(2), "23.80");
+});
+
+test("isUnlimitedViable: competitor wins → true; floor binds → false; no data → null", () => {
+  assert.equal(isUnlimitedViable({ days: 7, competitorTotalsUsd: [27.2], eaCostPerGbUsd: 0.68 }), true);
+  assert.equal(isUnlimitedViable({ days: 7, competitorTotalsUsd: [11.9], eaCostPerGbUsd: 0.68 }), false);
+  assert.equal(isUnlimitedViable({ days: 7, competitorTotalsUsd: [], eaCostPerGbUsd: 0.68 }), null);
 });
