@@ -1,0 +1,2762 @@
+[
+ {
+  "plan": "【Worldmove】台灣 \nTaiwan",
+  "carriers": [
+   "台灣 (Taiwan) Chunghwa Telecom 中華電信"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "台灣 Taiwan",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】台灣 (實名制)\nTaiwan (KYC)",
+  "carriers": [
+   "台灣 (Taiwan) Chunghwa Telecom 中華電信"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "台灣 Taiwan",
+  "notes": "*請前往實名認證網站，填寫必要資訊並完成認證後，即可啟用該方案。\nPlease visit the real-name verification website and complete the required information. Once your verification is approved, your plan will be ready to be activated.\n\n*實名認證網址/KYC website：https://kyc.esim.exchange",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】中國內地\nMainland China",
+  "carriers": [
+   "中國內地（Mainland China）China Unicom"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "中國內地（Mainland China）",
+  "notes": "*僅限中國內地之外的地區銷售\nFor sale in regions outside mainland China only.",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)\nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】中國內地A\nMainland China A",
+  "carriers": [
+   "中國內地（Mainland China）China Mobile"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "cmhk"
+  ],
+  "roaming": [
+   "CMI"
+  ],
+  "coverage": "中國內地（Mainland China）",
+  "notes": "*僅限中國內地之外的地區銷售\nFor sale in regions outside mainland China only.",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)\nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】中國內地SG\nMainland China SG",
+  "carriers": [
+   "中國內地（Mainland China）China Unicom"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "e-ideas"
+  ],
+  "roaming": [
+   "Singtel"
+  ],
+  "coverage": "中國 Mainland",
+  "notes": "*僅限中國內地之外的地區銷售\nFor sale in regions outside mainland China only.",
+  "reset": "天數：24小時 \n流量重置：按天套餐按激活時間起每24小時重置\nDuration: 24 hours\nData reset：Daily plans reset every 24 hours from activation"
+ },
+ {
+  "plan": "【Worldmove】中港澳\nChina, Hong Kong, Macao",
+  "carriers": [
+   "中國內地（Mainland China）China Unicom",
+   "香港（Hong Kong）CSL",
+   "澳門（Macao）CTM"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "中國、香港、澳門 China, Hong Kong, and Macao",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】中港澳A\nChina, Hong Kong, Macao A",
+  "carriers": [
+   "中國內地（Mainland China）China Telecom",
+   "香港（Hong Kong）China Telecom HK/HKT",
+   "澳門（Macao）China Telecom(Macau)"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "CTExcel"
+  ],
+  "roaming": [
+   "China Telecom"
+  ],
+  "coverage": "中國、香港、澳門 China, Hong Kong, and Macao",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】中港澳台\nChina, Hong Kong, Macao, Taiwan",
+  "carriers": [
+   "中國內地（Mainland China）China Unicom、China Telecom",
+   "澳門（Macao）CTM",
+   "香港（Hong Kong）CSL",
+   "台灣（Taiwan）CHT"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "中國、香港、澳門、台灣 \nChina, Hong Kong, Macao, and Taiwan",
+  "notes": "",
+  "reset": "Data reset(流量重置)  00:00 Taiwan  （UTC +8）/ \nDate reset(日期重置) 00:00 Taiwan  （UTC +8）"
+ },
+ {
+  "plan": "【Worldmove】港澳\nHong Kong, Macao",
+  "carriers": [
+   "香港（Hong Kong）China Telecom HK/HKT",
+   "澳門（Macao）China Telecom Macau (CT Macau)"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "CTExcel"
+  ],
+  "roaming": [
+   "China Telecom"
+  ],
+  "coverage": "香港、澳門 Hong Kong, and Macao",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】新馬印泰越\nSingapore, Malaysia, Indonesia, Thailand, Vietnam",
+  "carriers": [
+   "新加坡 （Singapore）Simba、Starhub",
+   "馬來西亞 （Malaysia）Digi、Celcom、U Mobile",
+   "泰國 （Thailand）AIS、True Move",
+   "印尼 （Indonesia）Telkomsel、XL、Indosat",
+   "越南 （Vietnam）Vietnamobile、Vinaphone"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "新加坡、馬來西亞、泰國、印尼、越南 Singapore, Malaysia, Indonesia, Thailand, Vietnam",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】新印泰 \nSingapore, Indonesia, Thailand",
+  "carriers": [
+   "新加坡 （Singapore）Simba、Starhub",
+   "泰國 （Thailand）AIS、True Move",
+   "印尼 （Indonesia）Telkomsel、XL、Indosat"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "新加坡、泰國、印尼 Singapore, Indonesia, Thailand",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】新馬\nSingapore, Malaysia",
+  "carriers": [
+   "新加坡 （Singapore）Simba、Starhub",
+   "馬來西亞 （Malaysia）Digi、Celcom、U Mobile"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "新加坡、馬來西亞 Singapore, Malaysia",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】澳洲\nAustralia",
+  "carriers": [
+   "澳洲（Australia）Optus"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "澳洲 Australia",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】日本 \nJapan",
+  "carriers": [
+   "日本 (Japan) Docomo、Rakuten Mobile、KDDI"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)\nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】日本softbank\n Japan softbank",
+  "carriers": [
+   "日本 (Japan) Softbank"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：plus.4g \n用户名/Username：plus\n密碼/Password：4g\n身份認證類型/Authentication Type：CHAP\nAPN類型/APN Type：default,ia,mms,supl,hipri"
+  ],
+  "roaming": [
+   "Softbank"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "",
+  "reset": "Data reset(流量重置) 23:00 Japan  (UTC +9)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】日本Softbank, 3/5/10/15/20/30/50 GB, 效期到2026/12/31\nJapan Softbank, 3/5/10/15/20/30/50 GB, EXP : 2026/12/31",
+  "carriers": [
+   "日本 (Japan) Softbank"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：plus.4g \n用户名/Username：plus\n密碼/Password：4g\n身份認證類型/Authentication Type：CHAP\nAPN類型/APN Type：default,ia,mms,supl,hipri"
+  ],
+  "roaming": [
+   "Softbank"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "*須於2026/12/31前使用完畢，逾期失效。\nMust be used by 2026/12/31.Unused portions will expire thereafter.\n\n*到達目的地後安裝觸網激活。\nAfter arriving at the destination, install and connect to the network to activate.",
+  "reset": "Date reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】日本softbank 10 天, 500MB/天, 128kbps\nJapan Softbank,  10 Days, 500MB /day, 128kbps",
+  "carriers": [
+   "日本 (Japan) Softbank"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：plus.4g \n用户名/Username：plus\n密碼/Password：4g\n身份認證類型/Authentication Type：CHAP\nAPN類型/APN Type：default,ia,mms,supl,hipri"
+  ],
+  "roaming": [
+   "Softbank"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.",
+  "reset": "Data reset(流量重置) 23:00 Japan  (UTC +9)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】日本softbank 30天, 1GB/天, 128kbps\nJapan Softbank, 30 Days, 1GB /day, 128kbps",
+  "carriers": [
+   "日本 (Japan) Softbank"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：plus.4g \n用户名/Username：plus\n密碼/Password：4g\n身份認證類型/Authentication Type：CHAP\nAPN類型/APN Type：default,ia,mms,supl,hipri"
+  ],
+  "roaming": [
+   "Softbank"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.",
+  "reset": "Data reset(流量重置) 23:00 Japan  (UTC +9)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】日本 Softbank 90天, 總量 10/15/30/50GB\nJapan Softbank 90days, Total 10/15/30/50GB",
+  "carriers": [
+   "日本 (Japan) Softbank"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：plus.4g \n用户名/Username：plus\n密碼/Password：4g\n身份認證類型/Authentication Type：CHAP\nAPN類型/APN Type：default,ia,mms,supl,hipri"
+  ],
+  "roaming": [
+   "Softbank"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "*兌換 QR Code 後即視為套餐啟用（此eSIM只能安装一次），並從當下開始計算 90 天的有效期限\n* After redeeming the QR Code, the plan will be activated immediately (this eSIM can only be installed once), and the 90-day validity period starts from the time of activation.\n\n*此方案掃碼後需要輸入確認碼：9999   (僅限輸入三次，三次錯誤即失效)\n*Scan the code and enter the confirmation code: 9999   (Only three attempts allowed. The code will be invalid after three incorrect tries.)\n\n*有效期限內可於所覆蓋地區使用總共 10/15/30/50GB 的流量，流量用完即结束、逾期未使用完的流量將失效\n* Within the validity period, a total of 10/15/30/50GB of data can be used in the covered regions. The service will end once the data is fully used. Any unused data will expire after the validity period.\n\n*流量查詢：https://c.mb.softbank.jp/r?cmcd=4100049963\n（查詢流量時請關閉 Wi-Fi，並使用本卡的行動網路進行查詢，僅適用於軟銀原生成品卡）\n* Data usage inquiry: https://c.mb.softbank.jp/r?cmcd=4100049963\n  (Please turn off Wi-Fi and use this eSIM’s mobile network to check data usage. Applicable to SoftBank original eSIM only.)",
+  "reset": "天數Duration：日本時間自然日  Japan (UTC +9)"
+ },
+ {
+  "plan": "【Worldmove】日本 Softbank 90天, 總量 10/15/30/50GB, 效期到2026/9/20\nJapan Softbank 90days, Total 10/15/30/50GB,EXP : 2026/9/20",
+  "carriers": [
+   "日本 (Japan) Softbank"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：plus.4g \n用户名/Username：plus\n密碼/Password：4g\n身份認證類型/Authentication Type：CHAP\nAPN類型/APN Type：default,ia,mms,supl,hipri"
+  ],
+  "roaming": [
+   "Softbank"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "*須於2026/9/20前使用完畢，逾期失效。\n*Must be used by 2026/9/20.Unused portions will expire thereafter.\n\n*兌換 QR Code 後即視為套餐啟用（此eSIM只能安装一次），並從當下開始計算 90 天的有效期限\n* After redeeming the QR Code, the plan will be activated immediately (this eSIM can only be installed once), and the 90-day validity period starts from the time of activation.\n\n*此方案掃碼後需要輸入確認碼：9999   (僅限輸入三次，三次錯誤即失效)\n*Scan the code and enter the confirmation code: 9999   (Only three attempts allowed. The code will be invalid after three incorrect tries.)\n\n*有效期限內可於所覆蓋地區使用總共 10/15/30/50GB 的流量，流量用完即结束、逾期未使用完的流量將失效\n* Within the validity period, a total of 10/15/30/50GB of data can be used in the covered regions. The service will end once the data is fully used. Any unused data will expire after the validity period.\n\n*流量查詢：https://c.mb.softbank.jp/r?cmcd=4100049963\n（查詢流量時請關閉 Wi-Fi，並使用本卡的行動網路進行查詢，僅適用於軟銀原生成品卡）\n* Data usage inquiry: https://c.mb.softbank.jp/r?cmcd=4100049963\n  (Please turn off Wi-Fi and use this eSIM’s mobile network to check data usage. Applicable to SoftBank original eSIM only.)",
+  "reset": "天數Duration：日本時間自然日  Japan (UTC +9)"
+ },
+ {
+  "plan": "【Worldmove】日本KDDI, 無限量/天\nJapan KDDI, unlimited per day",
+  "carriers": [
+   "日本（Japan）KDDI"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：uad5gn.au-net.ne.jp\nUsername：au@uad5gn.au-net.ne.jp\nPassword：au\nIdentity verification type：CHAP"
+  ],
+  "roaming": [
+   "AU (KDDI)"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "日本3天無限流量，全程高速不降速（熱點限制2GB）\n日本4天無限流量，全程高速不降速（熱點限制3GB）\n日本5天無限流量，全程高速不降速（熱點限制4GB）\n日本6天無限流量，全程高速不降速（熱點限制4GB）\n日本7天無限流量，全程高速不降速（熱點限制6GB）\n日本8天無限流量，全程高速不降速（熱點限制7GB）\n日本9天無限流量，全程高速不降速（熱點限制8GB）\n日本10天無限流量，全程高速不降速（熱點限制9GB）\n日本11天無限流量，全程高速不降速（熱點限制10GB）\n日本12天無限流量，全程高速不降速（熱點限制11GB）\n日本13天無限流量，全程高速不降速（熱點限制12GB）\n日本14天無限流量，全程高速不降速（熱點限制13GB）\n日本15天無限流量，全程高速不降速（熱點限制14GB）\n日本16天無限流量，全程高速不降速（熱點限制15GB）\n日本17天無限流量，全程高速不降速（熱點限制16GB）\n日本18天無限流量，全程高速不降速（熱點限制17GB）\n日本19天無限流量，全程高速不降速（熱點限制18GB）\n日本20天無限流量，全程高速不降速（熱點限制19GB）\n日本21天無限流量，全程高速不降速（熱點限制20GB）\n日本26天無限流量，全程高速不降速（熱點限制25GB）\n日本31天無限流量，全程高速不降速（熱點限制30GB）\nJapan 3-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 2GB)\nJapan 4-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 3GB)\nJapan 5-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 4GB)\nJapan 6-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 4GB)\nJapan 7-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 6GB)\nJapan 8-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 7GB)\nJapan 9-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 8GB)\nJapan 10-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 9GB)\nJapan 11-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 10GB)\nJapan 12-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 11GB)\nJapan 13-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 12GB)\nJapan 14-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 13GB)\nJapan 15-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 14GB)\nJapan 16-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 15GB)\nJapan 17-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 16GB)\nJapan 18-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 17GB)\nJapan 19-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 18GB)\nJapan 20-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 19GB)\nJapan 21-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 20GB)\nJapan 26-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 25GB)\nJapan 31-Day Unlimited Data, Full-Speed with No Throttling (Hotspot Limit: 30GB)\n\n*兌換QR CODE之後150天之內需掃描激活\n*The QR code must be scanned and activated within 150 days after redemption.\n\n*建議抵達日本當地後再掃描激活（此eSIM只能安装一次）\n*It is recommended to scan and activate the eSIM upon arrival in Japan. (This eSIM supports one-time installation only.)",
+  "reset": "日本時間 00:00 Japan（UTC+9）"
+ },
+ {
+  "plan": "【Worldmove】日本KDDI, 3/4/5/6/7/8/9/10天, 無限量/天, 10mbps\nJapan KDDI, 3/4/5/6/7/8/9/10 days, unlimited per day. 10mbps",
+  "carriers": [
+   "日本（Japan）KDDI"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：au.5g.au-net.ne.jp\nUsername：user@au.5g.au-net.ne.jp\nPassword：au\nIdentity verification type：CHAP"
+  ],
+  "roaming": [
+   "AU (KDDI)"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "日本3天無限流量，全程10Mbps（熱點限制2GB）\n日本4天無限流量，全程10Mbps（熱點限制3GB）\n日本5天無限流量，全程10Mbps（熱點限制4GB）\n日本6天無限流量，全程10Mbps（熱點限制5GB）\n日本7天無限流量，全程10Mbps（熱點限制6GB）\n日本8天無限流量，全程10Mbps（熱點限制7GB）\n日本9天無限流量，全程10Mbps（熱點限制8GB）\n日本10天無限流量，全程10Mbps（熱點限制9GB）\nJapan 3-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 2GB)\nJapan 4-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 3GB)\nJapan 5-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 4GB)\nJapan 6-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 5GB)\nJapan 7-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 6GB)\nJapan 8-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 7GB)\nJapan 9-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 8GB)\nJapan 10-Day Unlimited Data, Constant 10Mbps Speed (Hotspot Limit: 9GB)\n\n*兌換QR CODE之後150天之內需掃描激活\n*The QR code must be scanned and activated within 150 days after redemption.\n\n*建議抵達日本當地後再掃描激活（此eSIM只能安装一次）\n*It is recommended to scan and activate the eSIM upon arrival in Japan. (This eSIM supports one-time installation only.)",
+  "reset": "日本時間 00:00 Japan（UTC+9）"
+ },
+ {
+  "plan": "【Worldmove】日本 Japan IIJ",
+  "carriers": [
+   "日本（Japan）IIJ Docomo"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "vmobile.jp"
+  ],
+  "roaming": [
+   "IIJ (Docomo)"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Japan  (UTC +9)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】日本 IIJ 3/5/7/10/15/30天,50GB\nJapan IIJ 3/5/7/10/15/30days,50GB",
+  "carriers": [
+   "日本（Japan）IIJ Docomo"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "vmobile.jp"
+  ],
+  "roaming": [
+   "IIJ (Docomo)"
+  ],
+  "coverage": "日本 Japan",
+  "notes": "*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.",
+  "reset": "Data reset(流量重置) 00:00 Japan  (UTC +9)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】菲律賓\nPhilippines",
+  "carriers": [
+   "菲律賓 (Philippines) Globe"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "菲律賓 Philippines",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】韓國\nSouth Korea",
+  "carriers": [
+   "韓國 (South Korea) LG、SK Telecom"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "3gnet"
+  ],
+  "roaming": [
+   "China Unicom"
+  ],
+  "coverage": "韓國 Korea",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】韓國SKT, 無限量吃到飽/天\nKorea SKT, Unlimited Data /day",
+  "carriers": [
+   "韓國 (South Korea) SKT"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "lte.sktelecom.com"
+  ],
+  "roaming": [
+   "SKT"
+  ],
+  "coverage": "韓國 Korea",
+  "notes": "*無限流量，全程高速\nUnlimited data with full-time high-speed access.\n\n*兌換QR CODE之後30天之內需掃描激活（到達目的地後安裝觸網激活）\nThe QR code must be scanned and activated within 30 days after redemption. (After arriving at the destination, install and connect to the network to activate.)\n\n*不建議提前掃碼安裝\nIt is not recommended to scan and install the eSIM in advance.",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】澳洲, 7天, 1GB\nAustralia, 7 Days, 1GB, 128kbps",
+  "carriers": [
+   "澳大利亞（Australia）Telstra"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "Australia 澳洲",
+  "notes": "",
+  "reset": "天數：24小時(不足1小時按1小時計)\n流量重置：00:00 Taiwan（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 Taiwan (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】Plus澳洲, 12天, 1GB、2 GB/天, 128kbps \nPlus Australia, 12 Days, 1GB、2GB/day, 128kbps",
+  "carriers": [
+   "澳大利亞（Australia）Optus"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "Plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "Australia 澳洲",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】Plus澳洲, 7天, 1GB\nPlus Australia, 7 Days, 1GB, 128kbps",
+  "carriers": [
+   "澳大利亞（Australia）Optus"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "Plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "Australia 澳洲",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】Plus紐西蘭, 12天, 1GB、2 GB/天, 128kbps\nPlus New Zealand, 12 Days, 1GB、2GB/day, 128kbps",
+  "carriers": [
+   "紐西蘭（New Zealand）Vodafone"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "Plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "New Zealand 紐西蘭",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】紐澳\nNew Zealand, Australia",
+  "carriers": [
+   "澳大利亞（Australia）Telstra",
+   "紐西蘭（New Zealand）Spark"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "New Zealand、Australia 紐西蘭、澳洲",
+  "notes": "",
+  "reset": "天數：24小時(不足1小時按1小時計)\n流量重置：00:00 Taiwan（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 Taiwan (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】Plus紐澳\nPlus New Zealand, Australia",
+  "carriers": [
+   "澳大利亞（Australia）Optus",
+   "紐西蘭（New Zealand）Vodafone"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "Plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "New Zealand、Australia 紐西蘭、澳洲",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】紐澳, 7天, 1GB\nNew Zealand, Australia, 7 Days, 1GB, 128kbps",
+  "carriers": [
+   "澳大利亞（Australia）Telstra",
+   "紐西蘭（New Zealand）Spark"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "New Zealand、Australia 紐西蘭、澳洲",
+  "notes": "",
+  "reset": "天數：24小時(不足1小時按1小時計)\n流量重置：00:00 Taiwan（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 Taiwan (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】越南\nVietnam",
+  "carriers": [
+   "越南 (Vietnam) Vietnamobile、Vinaphone"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "",
+  "reset": "Data reset(流量重置)  00:00 Taiwan (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】越南,5GB、7GB/天\nVietnam, 5GB 、7GB per day,",
+  "carriers": [
+   "越南（Vietnam）Vinaphone"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "m3-world"
+  ],
+  "roaming": [
+   "VinaPhone"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "*每天5/7GB達量停\nData will be disconnected after 5/7GB per day.\n\n*兌換 QR CODE 之後需在 180 天內掃描啟動（到達目的地後安裝觸網激活）\nAfter redeeming the QR code, it must be scanned for activation within 180 days (After arriving at the destination, install and connect to the network to activate.).",
+  "reset": "Data reset(流量重置) 00:00  Vietnam  (UTC +7)/\nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】越南Mobifone, 5天, 30GB\nVietnam Mobifone, 5 Days, 30GB",
+  "carriers": [
+   "越南（Vietnam）Mobifone"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "m-wap"
+  ],
+  "roaming": [
+   "Mobifone"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "*抵達越南後撥打900按1激活/Dial 900 and press 1 to activate on arrival\n*查詢手機號碼/Check number：*0# \n*查流量/Check data usage：撥打 *090*5# 或傳送簡訊「KT_ALL」至 999\nDial *090*5# or Send a text message 'KT_ALL ' to 999\n\n*覆蓋地區5天30GB流量，免費接聽電話和收短信\n*5 days 30GB data in covered areas, free incoming calls and SMS\n\n*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.",
+  "reset": "Date reset(日期重置)  越南時間自然日Calendar day in Vietnam time  (UTC +7)"
+ },
+ {
+  "plan": "【Worldmove】越南Mobifone, 10天, 50GB\nVietnam Mobifone, 10 Days, 50GB",
+  "carriers": [
+   "越南（Vietnam）Mobifone"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "m-wap"
+  ],
+  "roaming": [
+   "Mobifone"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "*抵達越南後撥打900按1激活/Dial 900 and press 1 to activate on arrival\n*查詢手機號碼/Check number：*0# \n*查流量/Check data usage：撥打 *090*5# 或傳送簡訊「KT_ALL」至 999\nDial *090*5# or Send a text message 'KT_ALL ' to 999\n\n*覆蓋地區10天50GB流量，免費接聽電話和收短信\n*10 days 50GB data in covered areas, free incoming calls and SMS\n\n*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.",
+  "reset": "Date reset(日期重置)  越南時間自然日Calendar day in Vietnam time  (UTC +7)"
+ },
+ {
+  "plan": "【Worldmove】越南Mobifone, 15天, 11GB/天\nVietnam Mobifone, 15 Days, 11GB/day",
+  "carriers": [
+   "越南（Vietnam）Mobifone"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "m-wap"
+  ],
+  "roaming": [
+   "Mobifone"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "*覆蓋地觸網激活\nActivated upon network connection within the coverage area\n\n*覆蓋地區基礎流量為每天 4GB，在胡志明市使用時每日加贈 7GB。\n*The base data allowance in the covered areas is 4GB per day, with an additional 7GB per day when used in Ho Chi Minh City.\n\n*查流量 ：*090*5# 或者 發送 KT_ALL到 999\n* Check data : *090*5# OK or text \"KT_ALL\" to 999\n\n*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.",
+  "reset": "Date reset(日期重置)  越南時間自然日Calendar day in Vietnam time  (UTC +7)"
+ },
+ {
+  "plan": "【Worldmove】越南Vietnamobile, 20天, 5GB/天\nVietnam Vietnamobile, 20 days, 5GB per day",
+  "carriers": [
+   "越南（Vietnam）vietnamobile"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "Vietnamobile"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.\n\n查流量/Dial for data usage: *101# \n查號碼/Dial for phone No.: *123#\nfree receiving call & SMS\n (免費接聽電話和簡訊)",
+  "reset": "Data reset(流量重置) 00:00 Vietnam (UTC +7)/ \nDate reset(日期重置) 00:00 Vietnam  (UTC +7)"
+ },
+ {
+  "plan": "【Worldmove】越南Viettel 7/15/30天, 5GB/天\nVietnam Viettel 7/15/30 Days, 5GB/Day",
+  "carriers": [
+   "越南（Vietnam）viettel"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "v-internet"
+  ],
+  "roaming": [
+   "Viettel"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "*覆盖地區每天5GB流量\nThe covered area offers 5GB of data per day.\n\n*兌換 QR CODE 之後需在 30 天內掃描啟動（掃描後立即啟動）\nAfter redeeming the QR code, it must be scanned for activation within 30days (activation occurs immediately upon scanning).\n\n*查流量/Dial for data usage：發送簡訊”KTTK\"到191",
+  "reset": "Date reset(日期重置)  越南時間自然日Calendar day in Vietnam time  (UTC +7)"
+ },
+ {
+  "plan": "【Worldmove】越南Wintel 5/7/15/30天, 無限量吃到飽/天\nVietnam Wintel, 5/7/15/30 Days, Unlimited data /day",
+  "carriers": [
+   "越南（Vietnam）Wintel（Reddi）"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "m9-wintel"
+  ],
+  "roaming": [
+   "Wintel"
+  ],
+  "coverage": "越南 Vietnam",
+  "notes": "*兌換QR CODE之後30天之內需掃描激活(抵達目的地後觸網激活)\nAfter redeeming the QR code, the eSIM must be scanned and activated within 30days. Activation requires connecting to a network upon arrival at the destination.\n\n*越南每天6GB後全程5Mbps\nDaily 6GB in Vietnam, then unlimited at 5 Mbps.\n\n*查流量：發簡訊 KTTK到5596\nChecking Data：Send an SMS with KTTK to 5596",
+  "reset": "Data reset(流量重置) 00:00 Vietnam (UTC +7)/ \nDate reset(日期重置) 00:00 Vietnam  (UTC +7)"
+ },
+ {
+  "plan": "【Worldmove】阿聯酋\nUAE",
+  "carriers": [
+   "阿聯酋（UAE）DU"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "阿聯酋 UAE",
+  "notes": "",
+  "reset": "天數：24小時(不足1小時按1小時計)\n重置：東八區0:00（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】沙烏地阿拉伯 Saudi Arabia",
+  "carriers": [
+   "STC(Saudi Telecom Co)"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "沙烏地阿拉伯 Saudi Arabia",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n       流量重置：東八區0:00（UTC+8）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData Reset: 00:00 (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】Plus沙烏地阿拉伯\nPlus Saudi Arabia",
+  "carriers": [
+   "Etisalat"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "沙烏地阿拉伯 Saudi Arabia",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】海灣A\nGulf Multi-Region A",
+  "carriers": [
+   "沙烏地阿拉伯( Saudi Arabia) STC",
+   "阿聯酋（UAE）\tDU",
+   "卡達（Qatar） Vodafone",
+   "科威特（Kuwait）Zain"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "沙烏地阿拉伯,阿聯酋,卡達,科威特\nSaudi Arabia, UAE, Qatar, Kuwait",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n       流量重置：東八區0:00（UTC+8）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData Reset: 00:00 (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】俄羅斯\nRussia",
+  "carriers": [
+   "VimpelCom（Beeline）"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "俄羅斯 Russia",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：8時區0:00（UTC+8）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+8）"
+ },
+ {
+  "plan": "【Worldmove】Beeline俄羅斯, 30天, 無限量吃到飽/天\nBeeline Russia, 30 Days, Unlimited data /day",
+  "carriers": [
+   "Beeline"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "APN:internet.beeline.ru\nusername:beeline\npassword:beeline"
+  ],
+  "roaming": [
+   "Beeline"
+  ],
+  "coverage": "俄羅斯 Russia",
+  "notes": "*俄羅斯30天無限流量\nRussia 30-Day Unlimited Data\n\n*兌換QR CODE之後30天之內需掃描激活\nThe QR code must be scanned and activated within 30 days after redemption.\n\n*抵達俄羅斯後撥打*110*667#激活。請注意：若未撥打啟用指令，當數據使用達 500MB 後服務將自動停止，且停止後無法重新啟用。 \nDial *110*667# to activate on arrival. Important: If the activation command is not dialed, the service will automatically stop after 500MB of data usage, and cannot be reactivated once suspended.\n\n*請注意：Beeline俄羅斯 eSIM 受俄羅斯電信法規管制，該法規限制對某些社群媒體、搜尋引擎和AI工具的訪問。\nPlease note: Beeline Russia eSIM operates under Russian telecommunications regulations, which restrict access to certain social media, search engines, and AI tools.",
+  "reset": "Date reset(日期重置)\n俄羅斯時間自然日 Calendar day in Russia time（UTC+3）"
+ },
+ {
+  "plan": "【Worldmove】印度\nIndia",
+  "carriers": [
+   "Bharti Airtel、vodafone、idea、Jio"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "印度 India",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】Unitel蒙古\nMongolia Unitel",
+  "carriers": [
+   "蒙古（Mongolia）Unitel"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "Unitel"
+  ],
+  "coverage": "蒙古 Mongolia",
+  "notes": "*無限蒙古本地通話及短信\n*Unlimited local calls and SMS in Mongolia.\n\n*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.\n\n查流量/Dial for data usage：*1414#\n查號碼/Dial for phone No.：*1#",
+  "reset": "Date reset(日期重置)\n蒙古國時間自然日 Calendar day in  Mongolia time（UTC+8）"
+ },
+ {
+  "plan": "【Worldmove】美國\nUSA",
+  "carriers": [
+   "美國（USA）AT&T"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "美國 USA",
+  "notes": "*可以在夏威夷使用，但是不包含塞班、關島\n*Valid for use in Hawaii only; Saipan and Guam are excluded.",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】美國A\nUSA A",
+  "carriers": [
+   "美國（USA）T-Mobile、Verizon"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "美國 USA",
+  "notes": "*可以在夏威夷使用，但是不包含塞班、關島\n*Valid for use in Hawaii only; Saipan and Guam are excluded.",
+  "reset": "天數：24小時(不足1小時按1小時計)\n重置：東八區0:00（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】美加墨\nUSA, Canada, Mexico",
+  "carriers": [
+   "美國（USA）T-Mobile、Verizon",
+   "加拿大（Canada）\tRogers",
+   "墨西哥（Mexico）AT&T、Telcel"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "美國,加拿大,墨西哥\nUSA, Canada, Mexico",
+  "notes": "*不支持黃刀鎮和班夫國家公園\n*Not supported in Yellowknife and Banff National Park.",
+  "reset": "天數：24小時(不足1小時按1小時計)\n重置：東八區0:00（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】北美A\nNorth America A",
+  "carriers": [
+   "美國（USA）AT&T、Verizon",
+   "加拿大（Canada）Freedom、Bell、Telus、Rogers、SaskTel",
+   "墨西哥（Mexico）Movistar、AT&T",
+   "巴拿馬（Panama）+Movil (C&W)",
+   "哥斯達黎加（Costa Rica）movistar",
+   "薩爾瓦多（El Salvador）movistar"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "美國,加拿大,墨西哥,巴拿馬,哥斯達黎加,薩爾瓦多\nUSA, Canada, Mexico, Panama, Costa Rica, El Salvador",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】AT&T北美, 20天\nAT&T North America, 20 days",
+  "carriers": [
+   "美國（USA）AT&T",
+   "加拿大（Canada）\tRogers",
+   "墨西哥（Mexico）AT&T"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "NRPHONE"
+  ],
+  "roaming": [
+   "AT&T"
+  ],
+  "coverage": "美國,加拿大,墨西哥\nUSA, Canada, Mexico",
+  "notes": "*美國地區無限流量\n墨西哥地區無限流量（實際依所在位置訊號覆蓋情況）\n加拿大地區25GB\nUnited States: Unlimited data\nMexico: Unlimited data (actual performance may vary depending on local network coverage)\nCanada: 25GB\n\n*無限通話：\n在美國可以直撥美加墨三國。\n無法保證在加拿大或墨西哥是否可直接撥打三國，需視實際使用情況而定。\nUnlimited Calls：\nIn the United States, direct calling is available within the U.S., Canada, and Mexico.\nFor Canada and Mexico, the ability to directly call between the three countries cannot be guaranteed and may vary based on actual usage conditions.\n\n*無限簡訊：\n美國支援簡訊收發\n加拿大與墨西哥僅支援接收，無法發送\nUnlimited SMS：\nUnited States: Send & receive supported\nCanada & Mexico: Receive only (sending not supported)\n\n*熱點分享：\n美加墨三地總流量限制10GB \nHotspot / Tethering：\nShared data limit of 10GB across the U.S., Canada, and Mexico\n\n*本方案包含美國電話號碼。激活後將發送簡訊告知您的號碼；如未收到簡訊，請聯繫客服查詢。\nThis plan includes a U.S. phone number. After activation, your number will be sent to you via SMS. If you do not receive the message, please contact customer support for assistance.\n\n*不支持黃刀鎮和班夫國家公園\n*Not supported in Yellowknife and Banff National Park.\n\n*兌換成QR CODE後立即激活\nActivated immediately after redeeming the QR code.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】南美A\nSouth America A",
+  "carriers": [
+   "巴西（Brazil）Vivo、TIM",
+   "阿根廷（Argentina）Movistar",
+   "智利（Chile）WOM、Movistar",
+   "厄瓜多爾（Ecuador）Movistar",
+   "秘魯（Peru）Movistar",
+   "烏拉圭（Uruguay）Movistar",
+   "哥倫比亞 (Colombia) Movistar",
+   "法屬圭亞那（French Guiana）Bouygues、DigiCel"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "巴西、阿根廷、智利、厄瓜多爾、秘魯、烏拉圭、法屬圭亞那\nBrazil, Argentina, Chile, Ecuador, Peru, Uruguay, French Guiana",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】塞班&關島\nSaipan&Guam",
+  "carriers": [
+   "塞班、關島（Saipan、Guam）Docomo Pacific"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "塞班、關島\nSaipan、Guam",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan（UTC +8）/ \nDate reset(日期重置) 00:00 Taiwan（UTC +8）"
+ },
+ {
+  "plan": "【Worldmove】馬里亞納四島, 3天, 3GB/天\nMariana 4 Islands, 3 Days, 3GB/day, 1mbps",
+  "carriers": [
+   "關島、塞班、天寧、羅塔（Guam、Saipan、Tinian、Rota）Docomo Pacific"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "Unitel"
+  ],
+  "coverage": "關島、塞班、天寧、羅塔\nGuam、Saipan、Tinian、Rota",
+  "notes": "*每天3GB後全程1Mbps\n 3GB per day, then unlimited at 1 Mbps.\n\n*兌換QR CODE之後30天之內需掃描激活\nThe QR code must be scanned and activated within 30 days after redemption.\n\n*查流量：發送 DATA到 3282\nCheck data: text \"DATA\" to 3282",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】馬里亞納四島, 3天, 3GB/天, 無限通話及簡訊\nMariana 4 Islands, 3 Days, 3GB/day, 1mbps, Unlimited talk and msg",
+  "carriers": [
+   "關島、塞班、天寧、羅塔（Guam、Saipan、Tinian、Rota）Docomo Pacific"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "Unitel"
+  ],
+  "coverage": "關島、塞班、天寧、羅塔\nGuam、Saipan、Tinian、Rota",
+  "notes": "*每天3GB後全程1Mbps，無限通話和簡訊\n3GB per day, then unlimited at 1 Mbps, with unlimited calls and msg.\n\n*兌換QR CODE之後30天之內需掃描激活\nThe QR code must be scanned and activated within 30 days after redemption.\n\n*查流量：發送 DATA到 3282\nCheck data: text \"DATA\" to 3282",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】非洲A\nAfrica A",
+  "carriers": [
+   "阿爾及利亞（Algeria）Orascom Algeria、Oreedo",
+   "突尼斯（Tunisia）Ooredoo Tunisie、Tunisie Telecom",
+   "埃及（Egypt）Etisalat、Orange Egypt (EMS)",
+   "南非（South Africa）Telkom SA",
+   "加納（Ghana）Airtel(Tigo)",
+   "留尼汪（Reunion）TELCO"
+  ],
+  "network": [
+   "3G",
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "阿爾及利亞,突尼斯,埃及,南非,加納,留尼汪\nAlgeria, Tunisia, Egypt, South Africa, Ghana, Reunion",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】土耳其\nTurkey",
+  "carriers": [
+   "土耳其（Turkey）\tAVEA（turk telekom）"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "土耳其 Turkey",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：8時區0:00（UTC+8）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+8）"
+ },
+ {
+  "plan": "【Worldmove】斯里蘭卡\nSri Lanka",
+  "carriers": [
+   "Mobitel"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "斯里蘭卡 Sri Lanka",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】柬埔寨\nCambodia",
+  "carriers": [
+   "柬埔寨（Cambodia）Metfone 、Smart"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "柬埔寨 Cambodia",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan（UTC +8）/ \nDate reset(日期重置) 00:00 Taiwan（UTC +8）"
+ },
+ {
+  "plan": "【Worldmove】寮國\nLaos",
+  "carriers": [
+   "寮國(Laos) ETL"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "寮國 Laos",
+  "notes": "",
+  "reset": "Data reset(流量重置)  00:00 Taiwan (UTC +8)/ \nDate reset(日期重置) 00:00 Taiwan (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】阿曼\nOman",
+  "carriers": [
+   "阿曼（Oman）Ooredoo"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "Plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "阿曼（Oman）",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】摩洛哥\nMorocco",
+  "carriers": [
+   "摩洛哥（Morocco）IAM (Maroc Telecom) 4G / inwi 5G"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "Plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "摩洛哥（Morocco）",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】泰國(無限/天) \nThailand, Unlimited Data /day, 10mbps",
+  "carriers": [
+   "泰國 (Thailand) TRUE"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "泰國 Thailand",
+  "notes": "*全程10mbps不降速\nConstant speed of 10 Mbps without any reduction\n\n*兌換QR CODE之後180天之內需掃描激活(抵達目的地後觸網激活)\nAfter redeeming the QR code, the eSIM must be scanned and activated within 180 days. Activation requires connecting to a network upon arrival at the destination.",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】TRUE 泰國 - Thailand Tourist 219\nTRUE Thailand - Thailand Tourist 219",
+  "carriers": [
+   "泰國 (Thailand) TRUE"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "泰國 Thailand",
+  "notes": "※活動：高速流量由15GB升級至35GB, 活動截止日至2026.09.30\nEvent : High-speed data upgraded from 15GB to 35GB. End date: 2026.09.30\n\n*泰國7天無限流量，15G高速流量超出後降速到1Mbps，接聽免費\nThailand 7-day unlimited data plan with 15GB high-speed data; speed reduced to 1Mbps after 15GB. Free incoming calls.\n\n*兌換 QR Code 後 180 天內需掃描並完成安裝以啟動（安裝完成後立即啟動）\nAfter redeeming the QR code, you must scan and complete the installation within 180 days to activate it (activation will occur immediately after installation is complete).\n\n*注意：不可加購語音及簡訊加值包。如需恢復語音功能，需前往 True - dtac 門市重新辦理用戶身份認證。\nPlease note that voice and SMS add-on packages cannot be purchased. To restore voice services, users must visit a True or dtac store for identity verification and reactivation.\n\n*泰國實體卡和 eSIM 都不能在非覆蓋地區插卡或安裝，否則會導致方案失效且無法使用。\nBoth physical SIM cards and eSIMs from Thailand cannot be inserted or installed in non-covered areas, otherwise the plan will become invalid and unusable.\n\n查流量/Dial for data usage：*900#\n查號碼/Dial for phone No.：*833#\n查餘額/Dial for balance：*123#",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】TRUE 泰國 - Thailand Tourist 349\nTRUE Thailand - Thailand Tourist 349",
+  "carriers": [
+   "泰國 (Thailand) TRUE"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "泰國 Thailand",
+  "notes": "*活動：全程高速，不限流量，活動截止日至2026.09.30\nEvent: Unlimited high-speed data throughout the entire period.End date: 2026.09.30\n\n*泰國10天無限流量，50G高速流量超出後降速到384kbps，接聽免費\nThailand 10-day unlimited data plan with 50GB high-speed data; speed reduced to 384kbps after 50GB. Free incoming calls.\n\n*兌換 QR Code 後 180 天內需掃描並完成安裝以啟動（安裝完成後立即啟動）\nAfter redeeming the QR code, you must scan and complete the installation within 180 days to activate it (activation will occur immediately after installation is complete).\n\n*注意：不可加購語音及簡訊加值包。如需恢復語音功能，需前往 True - dtac 門市重新辦理用戶身份認證。\nPlease note that voice and SMS add-on packages cannot be purchased. To restore voice services, users must visit a True or dtac store for identity verification and reactivation.\n\n*泰國實體卡和 eSIM 都不能在非覆蓋地區插卡或安裝，否則會導致方案失效且無法使用。\nBoth physical SIM cards and eSIMs from Thailand cannot be inserted or installed in non-covered areas, otherwise the plan will become invalid and unusable.\n\n查流量/Dial for data usage：*900#\n查號碼/Dial for phone No.：*833#\n查餘額/Dial for balance：*123#",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】TRUE 泰國 - Thailand Tourist 449\nTRUE Thailand - Thailand Tourist 449",
+  "carriers": [
+   "泰國（Thailand）TrueMove"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "泰國 Thailand",
+  "notes": "*注意：為配合泰國國家廣播和電信委員會（NBTC）的網絡犯罪預防措施，從2026年5月22日起禁止Thailand Tourist 以上套餐的撥打電話和發送簡訊功能。客戶可以去True門店提供護照實名後恢覆通話功能。\nPlease note：To comply with the network crime prevention measures of the Thailand National Broadcasting and Telecommunications Commission (NBTC), starting from May 22, 2026, the calling and SMS functions for the Thailand Tourist package and above will be suspended. Customers can restore calling services by visiting a True store and completing real-name registration with their passport.\n\n*兌換 QR Code 後 180 天內需掃描並完成安裝以啟動（安裝完成後立即啟動）\nAfter redeeming the QR code, you must scan and complete the installation within 180 days to activate it (activation will occur immediately after installation is complete).\n\n*泰國8天無限流量，5G網絡全速不降速，接聽免費電話和收簡訊。\nThailand 8-Day Unlimited Data – Full-speed 5G network with no throttling, free incoming calls, and SMS reception.\n\n*泰國實體卡和 eSIM 都不能在非覆蓋地區插卡或安裝，否則會導致方案失效且無法使用。\nBoth physical SIM cards and eSIMs from Thailand cannot be inserted or installed in non-covered areas, otherwise the plan will become invalid and unusable.\n\n查流量/Dial for data usage：*900#\n查號碼/Dial for phone No.：*833#\n查餘額/Dial for balance：*123#",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】TRUE 泰國 - Thailand Tourist 699\nTRUE Thailand - Thailand Tourist 699",
+  "carriers": [
+   "泰國 (Thailand) TRUE"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "泰國 Thailand",
+  "notes": "*注意：為配合泰國國家廣播和電信委員會（NBTC）的網絡犯罪預防措施，從2026年5月22日起禁止Thailand Tourist 以上套餐的撥打電話和發送簡訊功能。客戶可以去True門店提供護照實名後恢覆通話功能。\nPlease note：To comply with the network crime prevention measures of the Thailand National Broadcasting and Telecommunications Commission (NBTC), starting from May 22, 2026, the calling and SMS functions for the Thailand Tourist package and above will be suspended. Customers can restore calling services by visiting a True store and completing real-name registration with their passport.\n\n*兌換 QR Code 後 180 天內需掃描並完成安裝以啟動（安裝完成後立即啟動）\nAfter redeeming the QR code, you must scan and complete the installation within 180 days to activate it (activation will occur immediately after installation is complete).\n\n*泰國15天無限流量，5G網絡全速不降速，接聽免費電話和收簡訊。\nThailand 15-Day Unlimited Data – Full-speed 5G network with no throttling, free incoming calls, and SMS reception.\n\n*泰國實體卡和 eSIM 都不能在非覆蓋地區插卡或安裝，否則會導致方案失效且無法使用。\nBoth physical SIM cards and eSIMs from Thailand cannot be inserted or installed in non-covered areas, otherwise the plan will become invalid and unusable.\n\n查流量/Dial for data usage：*900#\n查號碼/Dial for phone No.：*833#\n查餘額/Dial for balance：*123#",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】TRUE 泰國 - Thailand Tourist 1199\nTRUE Thailand - Thailand Tourist 1199",
+  "carriers": [
+   "泰國 (Thailand) TRUE"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "泰國 Thailand",
+  "notes": "*注意：為配合泰國國家廣播和電信委員會（NBTC）的網絡犯罪預防措施，從2026年5月22日起禁止Thailand Tourist 以上套餐的撥打電話和發送簡訊功能。客戶可以去True門店提供護照實名後恢覆通話功能。\nPlease note：To comply with the network crime prevention measures of the Thailand National Broadcasting and Telecommunications Commission (NBTC), starting from May 22, 2026, the calling and SMS functions for the Thailand Tourist package and above will be suspended. Customers can restore calling services by visiting a True store and completing real-name registration with their passport.\n\n*兌換 QR Code 後 180 天內需掃描並完成安裝以啟動（安裝完成後立即啟動）\nAfter redeeming the QR code, you must scan and complete the installation within 180 days to activate it (activation will occur immediately after installation is complete).\n\n*泰國30天無限流量，5G網絡全速不降速，接聽免費電話和收簡訊。\nThailand 30-Day Unlimited Data – Full-speed 5G network with no throttling, free incoming calls, and SMS reception.\n\n*泰國實體卡和 eSIM 都不能在非覆蓋地區插卡或安裝，否則會導致方案失效且無法使用。\n*Both physical SIM cards and eSIMs from Thailand cannot be inserted or installed in non-covered areas, otherwise the plan will become invalid and unusable.\n\n*查流量/Check data usage：*900#\n*查號碼/Check phone number：*833#\n*查餘額/Check balance：*123#",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】BICS 歐洲\nBICS Europe",
+  "carriers": [
+   "奧地利（Austria） A1 Telekom/Three",
+   "比利時（Belgium） Proximus",
+   "保加利亞（Bulgaria） Mobiltel / Yettel",
+   "冰島（Iceland） Siminn hf. / Syn hf",
+   "克羅埃西亞（Croatia） Tele2 / Vipnet",
+   "賽普勒斯（Cyprus） Cyta-Vodafone / MTN",
+   "捷克共和國（Czech Republic） O2 / Vodafone",
+   "丹麥（Denmark） TDC / Telenor",
+   "愛沙尼亞（Estonia） EMT / Tele2",
+   "芬蘭（Finland） Alands Telekom / DNA / Elisa / Telia Company",
+   "法國（France） Bouygues/Digicel/Free Mobile/Orange/SFR",
+   "法屬圭亞那（French Guiana） Outremer Telecom/Digicel Mobile Antilles/Dauphin Telecom",
+   "德國（Germany） Telefonica / Vodafone",
+   "希臘（Greece） Nova / Vodafone",
+   "匈牙利（Hungary） Yettel / Vodafone",
+   "愛爾蘭（Ireland） Meteor (eir) / O2 / Three",
+   "義大利（Italy） ILIAD / Vodafone / Wind / Wind Tre",
+   "拉脫維亞（Latvia） Bite / LMT / Tele2",
+   "列支敦士登（Liechtenstein） FL1 / Orange",
+   "立陶宛（Lithuania） Bite / Tele2 / Telia Lietuva",
+   "盧森堡（Luxembourg） POST Luxembourg / Tango",
+   "馬爾他（Malta） GO / Vodafone",
+   "荷蘭（Netherlands） KPN(iBasis) / Vodafone",
+   "挪威（Norway） NetCom / Telenor",
+   "波蘭（Poland） Orange / P4 PLAY / Plus",
+   "葡萄牙（Portugal） MEO / NOS Comunicacoes sa",
+   "羅馬尼亞（Romania） Orange / Vodafone",
+   "斯洛伐克（Slovakia） O2 / Orange",
+   "斯洛維尼亞（Slovenia） Mobitel / Telemach",
+   "西班牙（Spain） Orange / Telefonica Spain / Vodafone / Xfera",
+   "瑞典（Sweden） Tele2 / Telenor / Telia",
+   "瑞士（Switzerland） Salt Mobile SA / Sunrise",
+   "留尼旺（Reunion） Orange Reunion/Societe Reunionnaise",
+   "直布羅陀（Gibraltar） Gibtelecom Ltd.",
+   "英國（UK） O2 / Three / Vodafone"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "bicsapn or internet.proximus.be"
+  ],
+  "roaming": [
+   "BICS"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00   (UTC +0)/ \nDate reset(日期重置) 00:00   (UTC +0)"
+ },
+ {
+  "plan": "【Worldmove】歐洲, 30天, 20GB, 無限通話, 200簡訊, 全球通30分鐘\nEurope, 30 days, 20GB, unlimited calls, 200 SMS, 30 minutes global calls",
+  "carriers": [
+   "歐洲（Europe） 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange \nUser name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "安道爾、亞速爾群島、奧蘭群島、德國、奧地利、巴利阿里群島、比利時、保加利亞、加納利群島、塞浦路斯、科孚島、克里特島、基克拉澤斯群島、克羅地亞、丹麥、西班牙、愛沙尼亞、法羅群島、芬蘭、法國、直布羅陀、希臘、格恩西島、匈牙利、愛爾蘭、冰島、意大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬德拉島、馬耳他、馬恩島、挪威、荷蘭、波蘭、葡萄牙、捷克、羅德島、羅馬尼亞、英國、聖馬力諾、撒丁島、西西里島、斯洛伐克、瑞士、瑞典、梵蒂岡、斯洛文尼亞、烏克蘭、摩爾多瓦。\n\nAndorra, Azores, Åland Islands, Germany, Austria, Balearic Islands, Belgium, Bulgaria, Canary Islands, Cyprus, Corfu, Crete, Cyclades, Croatia, Denmark, Spain, Estonia, Faroe Islands, Finland, France, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Norway, Netherlands, Poland, Portugal, Czech Republic, Rhodes, Romania, United Kingdom, San Marino, Sardinia, Sicily, Slovakia, Switzerland, Sweden, Vatican City, Slovenia, Ukraine, Moldova.",
+  "notes": "Check usage：#123#\nCheck number：dial 225\n\n*覆蓋國家30天20GB流量，覆蓋地區通話無限，撥打全球30分鐘，200條覆蓋國家短信。\n30 days of coverage in the country with 20GB of data, unlimited calls in covered areas, 30 minutes of global calls, and 200 text messages to covered countries.\n\n*兌換QR CODE之後30天之內需安裝，到達目的地安裝觸網後激活（部分情況下，可能於收到激活簡訊後啟用）\nThe QR Code must be installed within thirty (30) days of redemption. Service activation shall occur upon installation and network connection at the destination; in certain circumstances, activation may be triggered upon receipt of an activation SMS message.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.",
+  "reset": "Date reset(日期重置) 00:00 France  (UTC +1)"
+ },
+ {
+  "plan": "【Worldmove】歐洲, 30天, 50GB, 無限通話, 1000簡訊, 全球通120分鐘\nEurope, 30 days, 50GB, unlimited calls, 1000 SMS, 120 minutes global calls",
+  "carriers": [
+   "歐洲（Europe） 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange\n User name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "安道爾、亞速爾群島、奧蘭群島、德國、奧地利、巴利阿里群島、比利時、保加利亞、加納利群島、塞浦路斯、科孚島、克里特島、基克拉澤斯群島、克羅地亞、丹麥、西班牙、愛沙尼亞、法羅群島、芬蘭、法國、直布羅陀、希臘、格恩西島、匈牙利、愛爾蘭、冰島、意大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬德拉島、馬耳他、馬恩島、挪威、荷蘭、波蘭、葡萄牙、捷克、羅德島、羅馬尼亞、英國、聖馬力諾、撒丁島、西西里島、斯洛伐克、瑞士、瑞典、梵蒂岡、斯洛文尼亞、烏克蘭、摩爾多瓦。\n\nAndorra, Azores, Åland Islands, Germany, Austria, Balearic Islands, Belgium, Bulgaria, Canary Islands, Cyprus, Corfu, Crete, Cyclades, Croatia, Denmark, Spain, Estonia, Faroe Islands, Finland, France, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Norway, Netherlands, Poland, Portugal, Czech Republic, Rhodes, Romania, United Kingdom, San Marino, Sardinia, Sicily, Slovakia, Switzerland, Sweden, Vatican City, Slovenia, Ukraine, Moldova.",
+  "notes": "Check usage：#123#\nCheck number：dial 225\n\n*覆蓋國家30天50GB流量，覆蓋地區通話無限，撥打全球120分鐘，1000條覆蓋國家短信。\n30 days of coverage in the country with 50GB of data, unlimited calls in covered areas, 120 minutes of global calls, and 1000 text messages to covered countries.\n\n*兌換QR CODE之後30天之內需安裝，到達目的地安裝觸網後激活（部分情況下，可能於收到激活簡訊後啟用）\nThe QR Code must be installed within thirty (30) days of redemption. Service activation shall occur upon installation and network connection at the destination; in certain circumstances, activation may be triggered upon receipt of an activation SMS message.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.",
+  "reset": "Date reset(日期重置) 00:00 France  (UTC +1)"
+ },
+ {
+  "plan": "【Worldmove】歐洲, 30天, 100GB, 無限通話, 1000簡訊, 全球通120分鐘\nEurope, 30 days, 100GB, unlimited calls, 1000 SMS, 120 minutes global calls",
+  "carriers": [
+   "歐洲（Europe） 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange \nUser name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "安道爾、亞速爾群島、奧蘭群島、德國、奧地利、巴利阿里群島、比利時、保加利亞、加納利群島、塞浦路斯、科孚島、克里特島、基克拉澤斯群島、克羅地亞、丹麥、西班牙、愛沙尼亞、法羅群島、芬蘭、法國、直布羅陀、希臘、格恩西島、匈牙利、愛爾蘭、冰島、意大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬德拉島、馬耳他、馬恩島、挪威、荷蘭、波蘭、葡萄牙、捷克、羅德島、羅馬尼亞、英國、聖馬力諾、撒丁島、西西里島、斯洛伐克、瑞士、瑞典、梵蒂岡、斯洛文尼亞、烏克蘭、摩爾多瓦。\n\nAndorra, Azores, Åland Islands, Germany, Austria, Balearic Islands, Belgium, Bulgaria, Canary Islands, Cyprus, Corfu, Crete, Cyclades, Croatia, Denmark, Spain, Estonia, Faroe Islands, Finland, France, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Norway, Netherlands, Poland, Portugal, Czech Republic, Rhodes, Romania, United Kingdom, San Marino, Sardinia, Sicily, Slovakia, Switzerland, Sweden, Vatican City, Slovenia, Ukraine, Moldova.",
+  "notes": "Check usage：#123#\nCheck number：dial 225\n\n*覆蓋國家30天100GB流量，覆蓋地區通話無限，撥打全球120分鐘，1000條覆蓋國家短信。\n30 days of coverage in the country with 100GB of data, unlimited calls in covered areas, 120 minutes of global calls, and 1000 text messages to covered countries.\n\n*兌換QR CODE之後30天之內需安裝，到達目的地安裝觸網後激活（部分情況下，可能於收到激活簡訊後啟用）\nThe QR Code must be installed within thirty (30) days of redemption. Service activation shall occur upon installation and network connection at the destination; in certain circumstances, activation may be triggered upon receipt of an activation SMS message.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.",
+  "reset": "Date reset(日期重置) 00:00 France  (UTC +1)"
+ },
+ {
+  "plan": "【Worldmove】歐洲, 30天, 200GB, 無限通話, 1000簡訊, 全球通120分鐘\nEurope, 30 days, 200GB, unlimited calls, 1000 SMS, 120 minutes global calls",
+  "carriers": [
+   "歐洲（Europe） 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange \nUser name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "安道爾、亞速爾群島、奧蘭群島、德國、奧地利、巴利阿里群島、比利時、保加利亞、加納利群島、塞浦路斯、科孚島、克里特島、基克拉澤斯群島、克羅地亞、丹麥、西班牙、愛沙尼亞、法羅群島、芬蘭、法國、直布羅陀、希臘、格恩西島、匈牙利、愛爾蘭、冰島、意大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬德拉島、馬耳他、馬恩島、挪威、荷蘭、波蘭、葡萄牙、捷克、羅德島、羅馬尼亞、英國、聖馬力諾、撒丁島、西西里島、斯洛伐克、瑞士、瑞典、梵蒂岡、斯洛文尼亞、烏克蘭、摩爾多瓦。\n\nAndorra, Azores, Åland Islands, Germany, Austria, Balearic Islands, Belgium, Bulgaria, Canary Islands, Cyprus, Corfu, Crete, Cyclades, Croatia, Denmark, Spain, Estonia, Faroe Islands, Finland, France, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Norway, Netherlands, Poland, Portugal, Czech Republic, Rhodes, Romania, United Kingdom, San Marino, Sardinia, Sicily, Slovakia, Switzerland, Sweden, Vatican City, Slovenia, Ukraine, Moldova.",
+  "notes": "Default PIN: 0000\nCheck usage：#123#\nCheck number：dial 225\n\n*覆蓋國家30天200GB流量，覆蓋地區通話無限，撥打全球120分鐘，1000條覆蓋國家短信。\n30 days of coverage in the country with 200GB of data, unlimited calls in covered areas, 120 minutes of global calls, and 1000 text messages to covered countries.\n\n*兌換QR CODE之後30天之內需安裝，到達目的地安裝觸網後激活（部分情況下，可能於收到激活簡訊後啟用）\nThe QR Code must be installed within thirty (30) days of redemption. Service activation shall occur upon installation and network connection at the destination; in certain circumstances, activation may be triggered upon receipt of an activation SMS message.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.",
+  "reset": "Date reset(日期重置) 00:00 France  (UTC +1)"
+ },
+ {
+  "plan": "【Worldmove】歐洲, 90天, 500GB, 無限通話, 3000簡訊, 全球通360分鐘\nEurope, 90 days, 500GB, unlimited calls, 3000 SMS, 360 minutes global calls",
+  "carriers": [
+   "歐洲（Europe） 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange \nUser name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "安道爾、亞速爾群島、奧蘭群島、德國、奧地利、巴利阿里群島、比利時、保加利亞、加納利群島、塞浦路斯、科孚島、克里特島、基克拉澤斯群島、克羅地亞、丹麥、西班牙、愛沙尼亞、法羅群島、芬蘭、法國、直布羅陀、希臘、格恩西島、匈牙利、愛爾蘭、冰島、意大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬德拉島、馬耳他、馬恩島、挪威、荷蘭、波蘭、葡萄牙、捷克、羅德島、羅馬尼亞、英國、聖馬力諾、撒丁島、西西里島、斯洛伐克、瑞士、瑞典、梵蒂岡、斯洛文尼亞、烏克蘭、摩爾多瓦\n\nAndorra, Azores, Åland Islands, Germany, Austria, Balearic Islands, Belgium, Bulgaria, Canary Islands, Cyprus, Corfu, Crete, Cyclades, Croatia, Denmark, Spain, Estonia, Faroe Islands, Finland, France, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Norway, Netherlands, Poland, Portugal, Czech Republic, Rhodes, Romania, United Kingdom, San Marino, Sardinia, Sicily, Slovakia, Switzerland, Sweden, Vatican City, Slovenia, Ukraine, Moldova.",
+  "notes": "Check usage：#123#\nCheck number：dial 225\n\n*覆蓋國家90天500GB流量，覆蓋地區通話無限，撥打全球360分鐘，3000條覆蓋國家短信。\n90 days of coverage in the country with 500GB of data, unlimited calls in covered areas, 360 minutes of global calls, and 3000 text messages to covered countries.\n\n*兌換QR CODE之後30天之內需安裝，到達目的地安裝觸網後激活（部分情況下，可能於收到激活簡訊後啟用）\nThe QR Code must be installed within thirty (30) days of redemption. Service activation shall occur upon installation and network connection at the destination; in certain circumstances, activation may be triggered upon receipt of an activation SMS message.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.\n\n*使用超過30天的，須通過簡訊內提供的連結完成實名認證。\nFor usage exceeding 30 days, users must complete real-name verification via the link provided in the SMS message.",
+  "reset": "Date reset(日期重置) 00:00 France  (UTC +1)"
+ },
+ {
+  "plan": "【Worldmove】Lebara ES, 10EUR",
+  "carriers": [
+   "歐洲（Europe） 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "KPN"
+  ],
+  "coverage": "西班牙、德國、奧地利、比利時、保加利亞、塞浦路斯、克羅地亞、丹麥、斯洛伐克、斯洛文尼亞、愛沙尼亞、芬蘭、法國、直布羅陀、希臘、瓜德羅普島、法屬圭亞那、荷蘭、匈牙利、愛爾蘭、馬提尼克島、留尼汪島、冰島、意大利、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬耳他、挪威、波蘭、葡萄牙（包括馬德拉島和亞速爾群島）、捷克共和國、羅馬尼亞、瑞典、梵蒂岡。\n\nSpain, Germany, Austria, Belgium, Bulgaria, Cyprus, Croatia, Denmark, Slovakia, Slovenia, Estonia, Finland, France, Gibraltar, Greece, Guadeloupe, French Guiana, Netherlands, Hungary, Ireland, Martinique, Réunion, Iceland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Norway, Poland, Portugal (including Madeira and the Azores), Czech Republic, Romania, Sweden, Vatican City.",
+  "notes": "*流量升級：覆蓋地區27天15GB（在西班牙可用100GB），包含500分鐘歐盟通話。\n*兌換QR CODE之後立即激活生效。\n*查號碼:  *123*1*1#\n*查流量: *123*1*3#\n\n*Coverage: 27 days with 15GB (100GB available in Spain), includes 500 minutes of EU calls.\n*Please note that the card will be activated immediately after redeeming the QR code.\n*Check phone number:  *123*1*1#\n*Check balance: *123*1*3#",
+  "reset": "Date reset(日期重置):西班牙時間自然日Calendar day in Spain time/（UTC+2）"
+ },
+ {
+  "plan": "【Worldmove】全球Orange World 30天\nGlobal Orange World 30 Days",
+  "carriers": [
+   "Coverage area for 30 days 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange \nUser name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "方案涵蓋國家\n全球數據總量取決於您前往的區域。\n\n🔹 區域1（涵蓋全球 70 多個目的地以及整個歐洲）：20GB 數據、15 分鐘通話、50 則簡訊\n🌎歐洲：\n安道爾、亞速群島、奧蘭群島、奧地利、巴利阿里群島、比利時、波士尼亞與赫塞哥維納、保加利亞、加那利群島、科孚島、克里特島、克羅埃西亞、賽普勒斯、基克拉澤斯群島、捷克、丹麥、愛沙尼亞、法羅群島、芬蘭、法國本土（含德西拉德島、瓜德羅普、法屬圭亞那、瑪麗-加朗特島、馬提尼克、留尼旺、聖徒群島、馬約特、聖巴泰勒米、法屬聖馬丁、聖皮埃爾和密克隆群島）、德國、喬治亞、直布羅陀、希臘、根西島、匈牙利、愛爾蘭、冰島、義大利、澤西島、拉脫維亞、列支敦斯登、立陶宛、盧森堡、馬德拉群島、馬爾他、曼島、荷蘭、挪威、波蘭、葡萄牙、羅德島、羅馬尼亞、西班牙、英國、聖馬利諾、撒丁島、塞爾維亞、西西里、斯洛伐克、斯洛維尼亞、瑞士、瑞典、烏克蘭、梵蒂岡。\n\n🌎 其他國家地區：\n美國、加拿大、南非、阿爾巴尼亞、阿爾及利亞、沙烏地阿拉伯、阿根廷、亞美尼亞、澳洲、塔斯馬尼亞、孟加拉、貝南、白俄羅斯、波札那、巴西、布吉納法索、柬埔寨、喀麥隆、中非共和國、智利、中國、香港、澳門、哥倫比亞、剛果民主共和國（剛果金）、南韓、哥斯大黎加、象牙海岸、阿拉伯聯合大公國、厄瓜多、加彭、瓜地馬拉、幾內亞比索、幾內亞、宏都拉斯、印度、印尼、以色列、日本、約旦、寮國、北馬其頓、馬達加斯加、馬來西亞、馬利、摩洛哥、墨西哥、摩爾多瓦、蒙特內哥羅、尼加拉瓜、查塔姆群島、紐西蘭、烏茲別克、巴基斯坦、秘魯、菲律賓、波多黎各、俄羅斯、薩爾瓦多、塞內加爾、新加坡、台灣、泰國、突尼西亞、土耳其、北賽普勒斯（土耳其控制）、烏拉圭、越南、多明尼加共和國、埃及、模里西斯、卡達、法屬玻里尼西亞。\n\n📶 各區域詳細資訊\n🔸 區域2（7個目的地）：15GB 數據、15 分鐘通話、50 則簡訊\n巴林、新喀里多尼亞、科威特、尼泊爾、阿曼、巴拉圭、斯里蘭卡。\n\n🔸 區域3（15個目的地）：10GB 數據、15 分鐘通話、50 則簡訊\n玻利維亞、科摩羅、迦納、牙買加、賴比瑞亞、莫三比克、尼日、奈及利亞、烏干達、盧安達、塞席爾、獅子山、坦尚尼亞、查德、尚比亞。\n\n🔸 區域4（12個目的地）：5GB 數據、10 分鐘通話、50 則簡訊\n亞塞拜然、汶萊、斐濟、伊拉克、賴索托、茅利塔尼亞、蒙古、巴勒斯坦、巴拿馬、巴布亞紐幾內亞、東加、萬那杜。\n\n🔸 區域5（30個目的地）：1GB 數據、10 分鐘通話、50 則簡訊\n阿富汗、安地卡及巴布達、阿魯巴、巴哈馬、巴貝多、維德角、古巴、庫拉索、博奈爾島、薩巴島、聖尤斯特歇斯、荷屬聖馬丁、格陵蘭、格瑞那達、赤道幾內亞、蓋亞那、哈薩克、黎巴嫩、安圭拉、蒙特色拉特、土克凱可斯群島、英屬維京群島、聖基茨與尼維斯、聖露西亞、聖文森與格瑞那丁、蘇利南、多哥、千里達與托巴哥、委內瑞拉、葉門。\n\n🔸 區域6（其餘國家與地區）：50MB 數據、10 分鐘通話、50 則簡訊。\n\n\nCountries covered by the offer\nThe global amount of data depends on the zone you are traveling to.\nZone 1: 20 GB, 15 minutes of calls and 50 SMS accross 70+ destinations worldwide and in all Europe.\nEurope：Andorra, Azores, Aland islands, Austria, Balearic islands, Belgium, Bosnia and Herzegovina, Bulgaria, Canary islands, Corfu, Crete, Croatia, Cyprus, Cyclades islands, Czech Republic, Denmark, Estonia, Faroe islands, Finland, France mainland (+Desirada Island, Guadeloup, French Guyana, Marie-Galante Island, Martinica, Reunion island, Saint islands, Mayotte, St Barthelemy, St Martin, St Pierre and Miquelon island), Germany, Georgia, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Netherlands, Norway, Poland, Portugal, Rhodes, Romania, Spain, United Kingdom, San Marino, Sardinia, Serbia, Sicily, Slovakia, Slovenia, Switzerland, Sweden, Ukraine, Vatican\n\nOther Countries:\nUSA, Canada, South Africa, Albania, Algeria, Saudi Arabia, Argentina, Armenia, Australia, Tasmania, Bangladesh, Benin, Belarus, Botswana, Brazil, Burkina Faso, Cambodia, Cameroon, Central African Republic, Chile, China, Hong Kong, Macao, Colombia, Democratic Republic of the Congo (Congo-Kinshasa), South Korea, Costa Rica, Ivory Coast, United Arab Emirates, Ecuador, Gabon, Guatemala, Guinea-Bissau, Guinea (Conakry), Honduras, India, Indonesia, Israel, Japan, Jordan, Laos, North Macedonia, Madagascar, Malaysia, Mali, Morocco, Mexico, Moldova, Montenegro, Nicaragua, Chatham Islands, New Zealand, Uzbekistan, Pakistan, Peru, Philippines, Puerto Rico, Russia, El Salvador, Senegal, Singapore, Taiwan, Thailand, Tunisia, Turkey, Northern Cyprus (Turkish), Uruguay, Vietnam, Dominican Republic, Egypt, Mauritius, French Polynesia, Qatar.\n\nZone 2 (7 destinations): 15GB, 15 minutes of calls, 50 SMS\nBahrain, New Caledonia, Kuwait, Nepal, Oman, Paraguay, Sri Lanka.\n\nZone 3 (15 destinations): 10GB, 15 minutes of calls, 50 SMS\nBolivia, Comoros, Ghana, Jamaica, Liberia, Mozambique, Niger, Nigeria, Uganda, Rwanda, Seychelles, Sierra Leone, Tanzania, Chad, Zambia.\n\nZone 4 (12 destinations): 5GB, 10 minutes of calls, 50 SMS\nAzerbaijan, Brunei, Fiji, Iraq, Lesotho, Mauritania, Mongolia, Palestine, Panama, Papua New Guinea, Tonga, Vanuatu.\n\nZone 5 (30 destinations): 1GB, 10 minutes of calls, 50 SMS\nAfghanistan, Antigua and Barbuda, Aruba, Bahamas, Barbados, Cape Verde, Cuba, Curaçao, Bonaire, Saba, Sint Eustatius, Sint Maarten (Dutch part), Greenland, Grenada, Equatorial Guinea, Guyana, Kazakhstan, Lebanon, Anguilla, Montserrat, Turks and Caicos, Turks and Caicos Islands, British Virgin Islands, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines, Suriname, Togo, Trinidad and Tobago, Venezuela, Yemen.\n\nZone 6 : 50 MB Rest of the World, 10 minutes of calls, 50 SMS.",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.\n\n*預設 PIN 碼/Default PIN: 0000\n*查號碼/Check phone number：225\n*查流量/Check usage：#123#\n\n覆蓋地區30天，\n第 1 區：20GB 流量 + 15 分鐘通話 + 50 則簡訊（涵蓋 70 多個地區）\n第 2 區：15GB 流量 + 15 分鐘通話 + 50 則簡訊（涵蓋 12 個地區）\n第 3 區：10GB 流量 + 15 分鐘通話 + 50 則簡訊（涵蓋 16 個地區）\n第 4 區：5GB 流量 + 10 分鐘通話 + 50 則簡訊（涵蓋 14 個地區）\n第 5 區：1GB 流量 + 10 分鐘通話 + 50 則簡訊（涵蓋 30 個地區）\n第 6 區：50MB 流量 + 10 分鐘通話 + 50 則簡訊（涵蓋全球其他地區)\n\n30 days of coverage in areas: \nZone 1: 20GB data + 15 minutes of voice calls + 50 SMS (covers over 70 regions)\nZone 2: 15GB data + 15 minutes of voice calls + 50 SMS (covers 12 regions)\nZone 3: 10GB data + 15 minutes of voice calls + 50 SMS (covers 16 regions)\nZone 4: 5GB data + 10 minutes of voice calls + 50 SMS (covers 14 regions)\nZone 5: 1GB data + 10 minutes of voice calls + 50 SMS (covers 30 regions)\nZone 6: 50MB data + 10 minutes of voice calls + 50 SMS (covers all other global regions)\n\n*覆蓋地區參考英語：https://travel.orange.com/en/data-only/orhldwrld/\n*Coverage areas reference in English: https://travel.orange.com/en/data-only/orhldwrld/\n\n*兌換QR CODE之後30天之內需安裝，到達目的地安裝觸網後激活（部分情況下，可能於收到激活簡訊後啟用）\nThe QR Code must be installed within thirty (30) days of redemption. Service activation shall occur upon installation and network connection at the destination; in certain circumstances, activation may be triggered upon receipt of an activation SMS message.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.",
+  "reset": "Date reset(日期重置) Reset every 24 HR(每24小時)"
+ },
+ {
+  "plan": "【Worldmove】全球Orange World Mini 30天\nGlobal Orange World Mini 30 Days",
+  "carriers": [
+   "Coverage area for 30 days 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange \nUser name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "方案涵蓋國家\n全球數據總量取決於您前往的區域。\n\n🔹 區域1（涵蓋全球 70 多個目的地以及整個歐洲）：3GB 數據\n🌎歐洲：\n安道爾、亞速群島、奧蘭群島、奧地利、巴利阿里群島、比利時、波士尼亞與赫塞哥維納、保加利亞、加那利群島、科孚島、克里特島、克羅埃西亞、賽普勒斯、基克拉澤斯群島、捷克、丹麥、愛沙尼亞、法羅群島、芬蘭、法國本土（含德西拉德島、瓜德羅普、法屬圭亞那、瑪麗-加朗特島、馬提尼克、留尼旺、聖徒群島、馬約特、聖巴泰勒米、法屬聖馬丁、聖皮埃爾和密克隆群島）、德國、喬治亞、直布羅陀、希臘、根西島、匈牙利、愛爾蘭、冰島、義大利、澤西島、拉脫維亞、列支敦斯登、立陶宛、盧森堡、馬德拉群島、馬爾他、曼島、荷蘭、挪威、波蘭、葡萄牙、羅德島、羅馬尼亞、西班牙、英國、聖馬利諾、撒丁島、塞爾維亞、西西里、斯洛伐克、斯洛維尼亞、瑞士、瑞典、烏克蘭、梵蒂岡。\n\n🌎 其他國家地區：\n美國、加拿大、南非、阿爾巴尼亞、阿爾及利亞、沙烏地阿拉伯、阿根廷、亞美尼亞、澳洲、塔斯馬尼亞、孟加拉、貝南、白俄羅斯、波札那、巴西、布吉納法索、柬埔寨、喀麥隆、中非共和國、智利、中國、香港、澳門、哥倫比亞、剛果民主共和國（剛果金）、南韓、哥斯大黎加、象牙海岸、阿拉伯聯合大公國、厄瓜多、加彭、瓜地馬拉、幾內亞比索、幾內亞、宏都拉斯、印度、印尼、以色列、日本、約旦、寮國、北馬其頓、馬達加斯加、馬來西亞、馬利、摩洛哥、墨西哥、摩爾多瓦、蒙特內哥羅、尼加拉瓜、查塔姆群島、紐西蘭、烏茲別克、巴基斯坦、秘魯、菲律賓、波多黎各、俄羅斯、薩爾瓦多、塞內加爾、新加坡、台灣、泰國、突尼西亞、土耳其、北賽普勒斯（土耳其控制）、烏拉圭、越南。\n\n📶 各區域詳細資訊\n🔸 區域2（12個目的地）：2GB 數據\n巴林、埃及、新喀里多尼亞、肯亞、科威特、模里西斯、尼泊爾、阿曼、巴拉圭、卡達、多明尼加共和國、斯里蘭卡。\n\n🔸 區域3（16個目的地）：1GB 數據\n玻利維亞、剛果（剛果布）、衣索比亞、迦納、牙買加、賴比瑞亞、莫三比克、尼日、奈及利亞、烏干達、盧安達、塞席爾、獅子山、坦尚尼亞、查德、尚比亞。\n\n\nCountries covered by the offer\nThe global amount of data depends on the zone you are traveling to.\nZone 1(accross 70+ destinations worldwide and in all Europe): 3GB\nEurope：\nAndorra, Azores, Aland islands, Austria, Balearic islands, Belgium, Bosnia and Herzegovina, Bulgaria, Canary islands, Corfu, Crete, Croatia, Cyprus, Cyclades islands, Czech Republic, Denmark, Estonia, Faroe islands, Finland, France mainland (+Desirada Island, Guadeloup, French Guyana, Marie-Galante Island, Martinica, Reunion island, Saint islands, Mayotte, St Barthelemy, St Martin, St Pierre and Miquelon island), Germany, Georgia, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Netherlands, Norway, Poland, Portugal, Rhodes, Romania, Spain, United Kingdom, San Marino, Sardinia, Serbia, Sicily, Slovakia, Slovenia, Switzerland, Sweden, Ukraine, Vatican\n\nOther Countries:\nUSA, Canada, South Africa, Albania, Algeria, Saudi Arabia, Argentina, Armenia, Australia, Tasmania, Bangladesh, Benin, Belarus, Botswana, Brazil, Burkina Faso, Cambodia, Cameroon, Central African Republic, Chile, China, Hong Kong, Macao, Colombia, Democratic Republic of the Congo (Congo-Kinshasa), South Korea, Costa Rica, Ivory Coast, United Arab Emirates, Ecuador, Gabon, Guatemala, Guinea-Bissau, Guinea (Conakry), Honduras, India, Indonesia, Israel, Japan, Jordan, Laos, North Macedonia, Madagascar, Malaysia, Mali, Morocco, Mexico, Moldova, Montenegro, Nicaragua, Chatham Islands, New Zealand, Uzbekistan, Pakistan, Peru, Philippines, Puerto Rico, Russia, El Salvador, Senegal, Singapore, Taiwan, Thailand, Tunisia, Turkey, Northern Cyprus (Turkish), Uruguay, Vietnam.\n\nZone 2 (12 destinations): 2GB\nBahrain, Egypt, New Caledonia, Kenya, Kuwait, Mauritius, Nepal, Oman, Paraguay, Qatar, Dominican Republic, Sri Lanka.\n\nZone 3 (16 destinations): 1GB\nBolivia, Republic of the Congo (Congo-Brazzaville), Ethiopia, Ghana, Jamaica, Liberia, Mozambique, Niger, Nigeria, Uganda, Rwanda, Seychelles, Sierra Leone, Tanzania, Chad, Zambia.",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.\n\n*預設 PIN 碼/Default PIN: 0000\n*查號碼/Check phone number：225\n*查流量/Check usage：#123#\n\n覆蓋地區30天，\n第 1 區：3GB 流量（涵蓋 70 多個地區）\n第 2 區：2GB 流量（涵蓋 12 個地區）\n第 3 區：1GB 流量（涵蓋 16 個地區）\n\n30 days of coverage in areas: \nZone 1: 3GB data  (covers over 70 regions)\nZone 2: 2GB data  (covers 12 regions)\nZone 3: 1GB data  (covers 16 regions)\n\n*覆蓋地區參考英語：https://boutique.orange.fr/vitrine/carte-prepayee-orange-holiday-world-en/\n*Coverage areas reference in English：https://boutique.orange.fr/vitrine/carte-prepayee-orange-holiday-world-en/\n\n*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.",
+  "reset": "Date reset(日期重置) Reset every 24 HR(每24小時)"
+ },
+ {
+  "plan": "【Worldmove】全球Orange World 30天, 50/100GB\nGlobal Orange World 30 Days, 50/100GB",
+  "carriers": [
+   "Coverage area for 30 days 自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange \nUser name：orange \nPassword：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "🔹 區域1（涵蓋全球 70 多個目的地以及整個歐洲）\n🌎歐洲：\n安道爾、亞速群島、奧蘭群島、奧地利、巴利阿里群島、比利時、波士尼亞與赫塞哥維納、保加利亞、加那利群島、科孚島、克里特島、克羅埃西亞、賽普勒斯、基克拉澤斯群島、捷克、丹麥、愛沙尼亞、法羅群島、芬蘭、法國本土（含德西拉德島、瓜德羅普、法屬圭亞那、瑪麗-加朗特島、馬提尼克、留尼旺、聖徒群島、馬約特、聖巴泰勒米、法屬聖馬丁、聖皮埃爾和密克隆群島）、德國、喬治亞、直布羅陀、希臘、根西島、匈牙利、愛爾蘭、冰島、義大利、澤西島、拉脫維亞、列支敦斯登、立陶宛、盧森堡、馬德拉群島、馬爾他、曼島、荷蘭、挪威、波蘭、葡萄牙、羅德島、羅馬尼亞、西班牙、英國、聖馬利諾、撒丁島、塞爾維亞、西西里、斯洛伐克、斯洛維尼亞、瑞士、瑞典、烏克蘭、梵蒂岡。\n\n🌎 其他國家地區：\n美國、加拿大、南非、阿爾巴尼亞、阿爾及利亞、沙烏地阿拉伯、阿根廷、亞美尼亞、澳洲、塔斯馬尼亞、孟加拉、貝南、白俄羅斯、波札那、巴西、布吉納法索、柬埔寨、喀麥隆、中非共和國、智利、中國、香港、澳門、哥倫比亞、剛果民主共和國（剛果金）、南韓、哥斯大黎加、象牙海岸、阿拉伯聯合大公國、厄瓜多、加彭、瓜地馬拉、幾內亞比索、幾內亞、宏都拉斯、印度、印尼、以色列、日本、約旦、寮國、北馬其頓、馬達加斯加、馬來西亞、馬利、摩洛哥、墨西哥、摩爾多瓦、蒙特內哥羅、尼加拉瓜、查塔姆群島、紐西蘭、烏茲別克、巴基斯坦、秘魯、菲律賓、波多黎各、俄羅斯、薩爾瓦多、塞內加爾、新加坡、台灣、泰國、突尼西亞、土耳其、北賽普勒斯（土耳其控制）、烏拉圭、越南。\n\nZone 1：Covering more than 70 destinations worldwide, as well as all of Europe\nEurope：\nAndorra, Azores, Aland islands, Austria, Balearic islands, Belgium, Bosnia and Herzegovina, Bulgaria, Canary islands, Corfu, Crete, Croatia, Cyprus, Cyclades islands, Czech Republic, Denmark, Estonia, Faroe islands, Finland, France mainland (+Desirada Island, Guadeloup, French Guyana, Marie-Galante Island, Martinica, Reunion island, Saint islands, Mayotte, St Barthelemy, St Martin, St Pierre and Miquelon island), Germany, Georgia, Gibraltar, Greece, Guernsey, Hungary, Ireland, Iceland, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Isle of Man, Netherlands, Norway, Poland, Portugal, Rhodes, Romania, Spain, United Kingdom, San Marino, Sardinia, Serbia, Sicily, Slovakia, Slovenia, Switzerland, Sweden, Ukraine, Vatican\n\nOther Countries:\nUSA, Canada, South Africa, Albania, Algeria, Saudi Arabia, Argentina, Armenia, Australia, Tasmania, Bangladesh, Benin, Belarus, Botswana, Brazil, Burkina Faso, Cambodia, Cameroon, Central African Republic, Chile, China, Hong Kong, Macao, Colombia, Democratic Republic of the Congo (Congo-Kinshasa), South Korea, Costa Rica, Ivory Coast, United Arab Emirates, Ecuador, Gabon, Guatemala, Guinea-Bissau, Guinea (Conakry), Honduras, India, Indonesia, Israel, Japan, Jordan, Laos, North Macedonia, Madagascar, Malaysia, Mali, Morocco, Mexico, Moldova, Montenegro, Nicaragua, Chatham Islands, New Zealand, Uzbekistan, Pakistan, Peru, Philippines, Puerto Rico, Russia, El Salvador, Senegal, Singapore, Taiwan, Thailand, Tunisia, Turkey, Northern Cyprus (Turkish), Uruguay, Vietnam, Dominican Republic, Egypt, Mauritius, French Polynesia, Qatar.",
+  "notes": "*30天- 區域1：50GB+30分鐘通話+50條簡訊\n*30天- 區域1：100GB+60分鐘通話+50條簡訊\n30 Days – Zone 1: 50GB data + 30 minutes of calls + 50 SMS\n30 Days – Zone 1: 100GB data + 60 minutes of calls + 50 SMS\n\n*覆蓋地區參考英語：https://boutique.orange.fr/vitrine/carte-prepayee-orange-holiday-world-en/\n*Coverage areas reference in English：https://boutique.orange.fr/vitrine/carte-prepayee-orange-holiday-world-en/\n\n*兌換QR CODE之後30天之內需掃描激活\n*The QR code must be scanned and activated within 30 days after redemption.\n\n*查流量/Check data usage：#123#\n*查號碼/Check phone number：225\n\n*僅支持安裝一次，刪除後就無法再次掃碼安裝\nSupports installation only once. After deletion, it cannot be reinstalled by scanning the QR code again.\n\n*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.",
+  "reset": "Date reset(日期重置) Reset every 24 HR(每24小時)"
+ },
+ {
+  "plan": "【Worldmove】澳洲-Vodafone, 15天, 10GB\n本地無限通話\nAustralia-Vodafone, 15 Days, 10GB\nlocal unlimited calls",
+  "carriers": [
+   "澳洲（Australia）Vodafone"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "live.vodafone.com"
+  ],
+  "roaming": [
+   "Vodafone"
+  ],
+  "coverage": "澳洲 Australia",
+  "notes": "*查流量：BAL to 126101\n*注意兌換QR CODE之後立即激活生效\n*掃碼安裝後需要輸入確認碼（確認碼會在兌換時顯示於網頁上）\n*覆蓋區域15天10GB，本地無限通話（eSIM啟用後會發簡訊告知號碼）\n*esim掃碼上限三次 重複掃描會失效\n\n*Dial for data usage：BAL to 126101\n*Please note that the card will be activated immediately after redeeming the QR code.\n*After scanning the QR code for installation, you need to enter the confirmation code. (The verification code will be displayed on the webpage when it is redeemed.)\n*Coverage area: 10GB for 15 days, unlimited local calls. (After the eSIM is activated, an SMS will be sent to notify you of the phone number.)\n*The eSIM can be scanned up to three times. Repeated scanning will render it invalid.",
+  "reset": "Date reset 00:00(日期重置) Australia  (UTC +9.5)"
+ },
+ {
+  "plan": "【Worldmove】澳洲-Vodafone, 15天, 35GB\n本地無限通話，250分鐘國際通話\nAustralia-Vodafone, 15 Days, 35GB\nLocal unlimited calls, plus 250 minutes of international calls.",
+  "carriers": [
+   "澳洲（Australia）Vodafone"
+  ],
+  "network": [
+   "4G"
+  ],
+  "apn": [
+   "live.vodafone.com"
+  ],
+  "roaming": [
+   "Vodafone"
+  ],
+  "coverage": "澳洲 Australia",
+  "notes": "*查流量：BAL to 126101\n*注意兌換QR CODE之後立即激活生效\n*掃碼安裝後需要輸入確認碼（確認碼會在兌換時顯示於網頁上）\n*覆蓋區域15天35GB，本地無限通話（eSIM啟用後會發簡訊告知號碼）\n*250分鐘國際通話國家（加拿大、美國、新加坡、馬來西亞、中國、英國、愛爾蘭、韓國、印度、新西蘭、意大利、日本、泰國、香港、印度尼西亞、台灣、法國、希臘、越南、西班牙、葡萄牙、巴基斯坦、菲律賓、孟加拉國、斯里蘭卡）\n*esim掃碼上限三次 重複掃描會失效\n\n*Dial for data usage：BAL to 126101\n*Please note that the card will be activated immediately after redeeming the QR code.\n*After scanning the QR code for installation, you need to enter the confirmation code. (The verification code will be displayed on the webpage when it is redeemed.)\n*Coverage area: 35GB for 15 days, unlimited local calls. (After the eSIM is activated, an SMS will be sent to notify you of the phone number.)\n*250 minutes of international calls to the following countries: Canada, USA, Singapore, Malaysia, China, UK, Ireland, South Korea, India, New Zealand, Italy, Japan, Thailand, Hong Kong, Indonesia, Taiwan, France, Greece, Vietnam, Spain, Portugal, Pakistan, Philippines, Bangladesh, Sri Lanka.\n*The eSIM can be scanned up to three times. Repeated scanning will render it invalid.",
+  "reset": "Date reset 00:00(日期重置) Australia  (UTC +9.5)"
+ },
+ {
+  "plan": "【Worldmove】亞洲多地A\nAsia Multi-region A",
+  "carriers": [
+   "中國內地（MainlandChina）ChinaUnicom、ChinaTelecom",
+   "香港（HongKong）CSL",
+   "澳門（Macau）CTM",
+   "新加坡（Singapore）Singtel",
+   "馬來西亞（Malaysia）Maxis",
+   "泰國（Thailand）AIS、DTAC",
+   "印尼（Indonesia）Telkomsel",
+   "越南（Vietnam）Mobifone、Vietnamobile",
+   "菲律賓（Philippines）Globe",
+   "日本（Japan）KDDI、softbank",
+   "韓國（Korea）SKT、KT"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan（UTC +8）/ \nDate reset(日期重置) 00:00 Taiwan（UTC +8）"
+ },
+ {
+  "plan": "【Worldmove】孟加拉\nBangladesh",
+  "carriers": [
+   "孟加拉（Bangladesh）Banglalink Digital"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "孟加拉Bangladesh",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】多地區 A \nMulti-region A",
+  "carriers": [
+   "澳大利亞（Australia）Telstra、Optus",
+   "澳門（Macao）CTM",
+   "巴基斯坦（Pakistan）Telenor",
+   "多明尼加共和國（Dominican Republic）Orange",
+   "俄羅斯（Russia）MTS",
+   "菲律賓（Philippines）Globe",
+   "韓國（Korea）SKT、KT、LG U+",
+   "柬埔寨（Cambodia）metfone",
+   "科威特（Kuwait）VIVA Kuwait",
+   "馬來西亞（Malaysia）Maxis、Digi",
+   "美國（America）T-Mobile",
+   "奈及利亞（Nigeria）Glo Mobile Limited, Nigeria",
+   "日本（Japan）SoftBank、KDDI",
+   "斯里蘭卡（Sri Lanka）Etisalat Lanka、Hutchison Telecom",
+   "台灣（Taiwan）CHT",
+   "泰國（Thailand）DTAC、AIS",
+   "土耳其（Turkey）Turkcell",
+   "香港（Hong Kong）HKT",
+   "新加坡（Singapore）Singtel、Starhub",
+   "新西蘭（New Zealand）TNZ、2Degrees",
+   "以色列（Israel）Pelephon、Partner",
+   "印度（India）Bharti Airtel、Vodafone",
+   "印度尼西亞（Indonesia）Telkomsel",
+   "越南（Vietnam）Mobifone、vietnamobile",
+   "中國（China）China Unicom"
+  ],
+  "network": [
+   "3G",
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile"
+  ],
+  "roaming": [
+   "CSL"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.",
+  "reset": "Data reset(流量重置) 00:00 Taiwan  (UTC +8)/\nDate reset(日期重置) 00:00 Taiwan  (UTC +8)"
+ },
+ {
+  "plan": "【Worldmove】多地區 F \nMulti-region F",
+  "carriers": [
+   "阿爾巴尼亞（Albania） One.al、Vodafone",
+   "愛爾蘭（Ireland）eir、Vodafone",
+   "愛沙尼亞（Estonia） Elisa、Telia、Tele2",
+   "奧地利（Austria） A1、Magenta",
+   "巴基斯坦（Pakistan） Jazz",
+   "保加利亞（Bulgaria） A1、Vivacom、Yettel",
+   "比利時（Belgium） Orange、Proximus、Telenet",
+   "冰島（Iceland） Vodafone",
+   "波蘭（Poland）Plus",
+   "丹麥（Denmark） TDC 、 Telenor 、 Telia",
+   "德國（Germany） O2-de、Vodafone、Telekom",
+   "法國（France） Orange、Bouygues、Free",
+   "芬蘭（Finland） Elisa 、Telia 、DNA",
+   "哈薩克斯坦（Kazakhstan）Beeline KZ、Tele2.kz",
+   "荷蘭（Netherlands） KPN、Vodafone、Odido",
+   "黑山（Montenegro） MTEL",
+   "吉爾吉斯斯坦（Kyrgyzstan）Beeline KG",
+   "捷克共和國（Czech Republic）O2-CZ、Vodafone",
+   "克羅地亞（Croatia）Telemach、A1、HT HR",
+   "拉脫維亞（Latvia）Tele2、LMT、Bite",
+   "立陶宛（Lithuania） Tele2、Telia、Bite",
+   "列支敦士登（Liechtenstein） FL1",
+   "盧森堡（Luxembourg） Tango 、 Orange",
+   "羅馬尼亞（Romania） DIGI.ro、Vodafone、Orange",
+   "馬耳他（Malta） Melita 、 GO 、 Vodafone",
+   "美國（United States）AT&T",
+   "摩爾多瓦（Moldova）Orange、Moldcell、Moldtelecom",
+   "挪威（Norway） ice 、 Telenor 、 Telia",
+   "葡萄牙（Portugal）Vodafone P 、 NOS 、 MEO",
+   "瑞典（Sweden） Tele2 、 Telenor 、 Telia",
+   "瑞士（Switzerland） Sunrise、Salt",
+   "塞爾維亞（Serbia） Yettel",
+   "塞浦路斯（Cyprus） Epic",
+   "斯洛伐克（Slovakia） O2-SK 、 Orange",
+   "斯洛文尼亞（Slovenia）Telemach 、 A1",
+   "土耳其（Turkey） Turk Telekom 、 Vodafone 、 Turkcell",
+   "烏克蘭（Ukraine）Vodafone UA 、 Kyivstar",
+   "烏茲別克斯坦（Uzbekistan）Beeline UZ",
+   "西班牙（Spain） Movistar 、 Orange 、 Vodafone",
+   "希臘（Greece） Vodafone GR 、 Nova 、 Cosmote",
+   "紐西蘭（New Zealand）One NZ",
+   "匈牙利（Hungary） One HU 、 Yettel",
+   "以色列（Israel） Pelephone 、 HOT Mobile",
+   "意大利（Italy）Vodafone IT 、 iliad",
+   "英國（United Kingdom）Vodafone UK 、 EE 、 O2-UK"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】多地區 G\nMulti-region G",
+  "carriers": [
+   "阿爾巴尼亞（Albania） One.al、Vodafone",
+   "愛爾蘭（Ireland） eir 、 Vodafone",
+   "愛沙尼亞（Estonia） Elisa 、 Telia 、 Tele2",
+   "奧地利（Austria）A1 、 Magenta",
+   "巴基斯坦（Pakistan） Jazz",
+   "保加利亞（Bulgaria） A1 、 Vivacom 、 Yettel",
+   "比利時（Belgium） Orange 、 Proximus 、 Telenet",
+   "冰島（Iceland） Vodafone",
+   "波蘭（Poland） Plus",
+   "丹麥（Denmark） TDC 、 Telenor 、 Telia",
+   "德國（Germany） O2-de 、 Vodafone 、 Telekom",
+   "法國（France） Orange 、 Bouygues 、 Free",
+   "芬蘭（Finland）Elisa 、 Telia 、 DNA",
+   "哈薩克斯坦（Kazakhstan） Beeline KZ 、 Tele2.kz",
+   "荷蘭（Netherlands）KPN 、 Vodafone 、 Odido",
+   "黑山（Montenegro） MTEL",
+   "吉爾吉斯斯坦（Kyrgyzstan） Beeline KG",
+   "捷克共和國（Czech Republic） O2-CZ 、 Vodafone",
+   "克羅地亞（Croatia） Telemach 、 A1 、 HT HR",
+   "拉脫維亞（Latvia） Tele2 、 LMT 、 Bite",
+   "立陶宛（Lithuania） Telia、Bite、Tele2",
+   "列支敦士登（Liechtenstein） FL1",
+   "盧森堡（Luxembourg） Tango 、 Orange",
+   "羅馬尼亞（Romania） DIGI.ro 、 Vodafone 、 Orange",
+   "馬爾他（Malta） Melita 、 GO 、 Vodafone",
+   "美國（United States）AT&T",
+   "摩爾多瓦（Moldova） Orange 、 Moldcell 、 Moldtelecom",
+   "挪威（Norway） Telenor 、 Ice 、 Telia",
+   "葡萄牙（Portugal） Vodafone P 、 NOS 、 MEO",
+   "瑞典（Sweden） Telenor、Telia、Tele2",
+   "瑞士（Switzerland） Sunrise、Salt",
+   "塞爾維亞（Serbia）Yettel",
+   "塞浦路斯（Cyprus） Epic",
+   "斯洛伐克（Slovakia） O2-SK 、 Orange",
+   "斯洛文尼亞（Slovenia） Telemach、A1",
+   "土耳其（Turkey） Turk Telekom 、 Vodafone 、 Turkcell",
+   "烏克蘭（Ukraine） Vodafone UA 、 Kyivstar",
+   "烏茲別克斯坦（Uzbekistan） Beeline UZ",
+   "西班牙（Spain） Movistar 、 Orange 、 Vodafone",
+   "希臘（Greece） Vodafone GR 、 Nova 、 Cosmote",
+   "紐西蘭（New Zealand） One NZ",
+   "匈牙利（Hungary） One HU 、 Yettel",
+   "以色列（Israel） Pelephone 、 Hot Mobile",
+   "意大利（Italy） Vodafone IT 、 iliad",
+   "英國（United Kingdom） Vodafone UK 、 EE 、 O2-UK",
+   "突尼斯（Tunisia） Ooredoo 、 Tunisie Telecom",
+   "科威特（Kuwait） stc",
+   "亞美尼亞（Armenia） Viva-MTS",
+   "白俄羅斯（Belarus） life:) 、 A1 、 MTS BY"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】多地區 H \nMulti-region H",
+  "carriers": [
+   "阿爾巴尼亞（Albania） One.al、Vodafone",
+   "愛爾蘭（Ireland） eir 、 Vodafone",
+   "愛沙尼亞（Estonia） Elisa 、 Telia 、 Tele2",
+   "奧地利（Austria）A1 、 Magenta",
+   "巴基斯坦（Pakistan） Jazz",
+   "保加利亞（Bulgaria） A1 、 Vivacom 、 Yettel",
+   "比利時（Belgium） Orange 、 Proximus 、 Telenet",
+   "冰島（Iceland） Vodafone",
+   "波蘭（Poland） Plus",
+   "丹麥（Denmark） TDC 、 Telenor 、 Telia",
+   "德國（Germany） O2-de 、 Vodafone 、 Telekom",
+   "法國（France） Orange 、 Bouygues 、 Free",
+   "芬蘭（Finland）Elisa 、 Telia 、 DNA",
+   "哈薩克斯坦（Kazakhstan） Beeline KZ 、 Tele2.kz",
+   "荷蘭（Netherlands）KPN 、 Vodafone 、 Odido",
+   "黑山（Montenegro） MTEL",
+   "吉爾吉斯斯坦（Kyrgyzstan） Beeline KG",
+   "捷克共和國（Czech Republic） O2-CZ 、 Vodafone",
+   "克羅地亞（Croatia） Telemach 、 A1 、 HT HR",
+   "拉脫維亞（Latvia） Tele2 、 LMT 、 Bite",
+   "立陶宛（Lithuania） Telia、Bite、Tele2",
+   "列支敦士登（Liechtenstein） FL1",
+   "盧森堡（Luxembourg） Tango 、 Orange",
+   "羅馬尼亞（Romania） DIGI.ro 、 Vodafone 、 Orange",
+   "馬爾他（Malta） Melita 、 GO 、 Vodafone",
+   "美國（United States）AT&T",
+   "摩爾多瓦（Moldova） Orange 、 Moldcell 、 Moldtelecom",
+   "挪威（Norway） Telenor 、 Ice 、 Telia",
+   "葡萄牙（Portugal） Vodafone P 、 NOS 、 MEO",
+   "瑞典（Sweden） Telenor、Telia、Tele2",
+   "瑞士（Switzerland） Sunrise、Salt",
+   "塞爾維亞（Serbia）Yettel",
+   "塞浦路斯（Cyprus） Epic",
+   "斯洛伐克（Slovakia） O2-SK 、 Orange",
+   "斯洛文尼亞（Slovenia） Telemach、A1",
+   "土耳其（Turkey） Turk Telekom 、 Vodafone 、 Turkcell",
+   "烏克蘭（Ukraine） Vodafone UA 、 Kyivstar",
+   "烏茲別克斯坦（Uzbekistan） Beeline UZ",
+   "西班牙（Spain） Movistar 、 Orange 、 Vodafone",
+   "希臘（Greece） Vodafone GR 、 Nova 、 Cosmote",
+   "紐西蘭（New Zealand） One NZ",
+   "匈牙利（Hungary） One HU 、 Yettel",
+   "以色列（Israel） Pelephone 、 Hot Mobile",
+   "意大利（Italy） Vodafone IT 、 iliad",
+   "英國（United Kingdom） Vodafone UK 、 EE 、 O2-UK",
+   "突尼斯（Tunisia） Ooredoo 、 Tunisie Telecom",
+   "科威特（Kuwait） stc",
+   "亞美尼亞（Armenia） Viva-MTS",
+   "白俄羅斯（Belarus） life:) 、 A1 、 MTS BY",
+   "斯里蘭卡（Sri Lanka）SLT Mobitel",
+   "印度（India）Vi India (Vodafone、Idea)",
+   "格魯吉亞（Georgia） Beeline GE 、 Geocell",
+   "法羅群島（Faroe Islands） Føroya Tele 、 Vodafone",
+   "阿爾及利亞（Algeria）Djezzy 、 Ooredoo",
+   "澳大利亞（Australia） Optus 、 Vodafone AU",
+   "北馬其頓（Macedonia） Telekom.mk 、 A1 MK",
+   "法屬留尼旺（French Reunion） Orange 、 TELCO",
+   "阿塞拜疆（Azerbaijan） Azercell、Bakcell",
+   "卡達（Qatar） Vodafone、Ooredoo",
+   "安道爾（Andorra） Andorra Telecom",
+   "巴林（Bahrain）stc 、 Zain",
+   "俄羅斯（Russia） Tele2、Beeline",
+   "波斯尼亞和黑塞哥維那（Bosnia and Herzegovina） BH Telecom",
+   "加納（Ghana） AirtelTigo",
+   "塔吉克 (Tajikistan) MegaFon TJ 、 Tcell",
+   "摩洛哥 (Morocco) IAM (Maroc Telecom) 、 inwi",
+   "斐濟（Fiji）Vodafone FJ"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】多地區 I \nMulti-region I",
+  "carriers": [
+   "阿爾巴尼亞（Albania） One.al、Vodafone",
+   "愛爾蘭（Ireland） eir 、 Vodafone",
+   "愛沙尼亞（Estonia） Elisa 、 Telia 、 Tele2",
+   "奧地利（Austria）A1 、 Magenta",
+   "巴基斯坦（Pakistan） Jazz",
+   "保加利亞（Bulgaria） A1 、 Vivacom 、 Yettel",
+   "比利時（Belgium） Orange 、 Proximus 、 Telenet",
+   "冰島（Iceland） Vodafone",
+   "波蘭（Poland） Plus",
+   "丹麥（Denmark） TDC 、 Telenor 、 Telia",
+   "德國（Germany） O2-de 、 Vodafone 、 Telekom",
+   "法國（France） Orange 、 Bouygues 、 Free",
+   "芬蘭（Finland）Elisa 、 Telia 、 DNA",
+   "哈薩克斯坦（Kazakhstan） Beeline KZ 、 Tele2.kz",
+   "荷蘭（Netherlands）KPN 、 Vodafone 、 Odido",
+   "黑山（Montenegro） MTEL",
+   "吉爾吉斯斯坦（Kyrgyzstan） Beeline KG",
+   "捷克共和國（Czech Republic） O2-CZ 、 Vodafone",
+   "克羅地亞（Croatia） Telemach 、 A1 、 HT HR",
+   "拉脫維亞（Latvia） Tele2 、 LMT 、 Bite",
+   "立陶宛（Lithuania） Telia、Bite、Tele2",
+   "列支敦士登（Liechtenstein） FL1",
+   "盧森堡（Luxembourg） Tango 、 Orange",
+   "羅馬尼亞（Romania） DIGI.ro 、 Vodafone 、 Orange",
+   "馬爾他（Malta） Melita 、 GO 、 Vodafone",
+   "美國（United States）AT&T",
+   "摩爾多瓦（Moldova） Orange 、 Moldcell 、 Moldtelecom",
+   "挪威（Norway） Telenor 、 Ice 、 Telia",
+   "葡萄牙（Portugal） Vodafone P 、 NOS 、 MEO",
+   "瑞典（Sweden） Telenor、Telia、Tele2",
+   "瑞士（Switzerland） Sunrise、Salt",
+   "塞爾維亞（Serbia）Yettel",
+   "塞浦路斯（Cyprus） Epic",
+   "斯洛伐克（Slovakia） O2-SK 、 Orange",
+   "斯洛文尼亞（Slovenia） Telemach、A1",
+   "土耳其（Turkey） Turk Telekom 、 Vodafone 、 Turkcell",
+   "烏克蘭（Ukraine） Vodafone UA 、 Kyivstar",
+   "烏茲別克斯坦（Uzbekistan） Beeline UZ",
+   "西班牙（Spain） Movistar 、 Orange 、 Vodafone",
+   "希臘（Greece） Vodafone GR 、 Nova 、 Cosmote",
+   "紐西蘭（New Zealand） One NZ",
+   "匈牙利（Hungary） One HU 、 Yettel",
+   "以色列（Israel） Pelephone 、 Hot Mobile",
+   "意大利（Italy） Vodafone IT 、 iliad",
+   "英國（United Kingdom） Vodafone UK 、 EE 、 O2-UK",
+   "突尼斯（Tunisia） Ooredoo 、 Tunisie Telecom",
+   "科威特（Kuwait） stc",
+   "亞美尼亞（Armenia） Viva-MTS",
+   "白俄羅斯（Belarus） life:) 、 A1 、 MTS BY",
+   "斯里蘭卡（Sri Lanka）SLT Mobitel",
+   "印度（India）Vi India (Vodafone、Idea)",
+   "格魯吉亞（Georgia） Beeline GE 、 Geocell",
+   "法羅群島（Faroe Islands） Føroya Tele 、 Vodafone",
+   "阿爾及利亞（Algeria）Djezzy 、 Ooredoo",
+   "澳大利亞（Australia） Optus 、 Vodafone AU",
+   "北馬其頓（Macedonia） Telekom.mk 、 A1 MK",
+   "法屬留尼旺（French Reunion） Orange 、 TELCO",
+   "阿塞拜疆（Azerbaijan） Azercell、Bakcell",
+   "卡達（Qatar） Vodafone、Ooredoo",
+   "安道爾（Andorra） Andorra Telecom",
+   "巴林（Bahrain）stc 、 Zain",
+   "俄羅斯（Russia） Tele2、Beeline",
+   "波斯尼亞和黑塞哥維那（Bosnia and Herzegovina） BH Telecom",
+   "加納（Ghana） AirtelTigo",
+   "塔吉克 (Tajikistan) MegaFon TJ 、 Tcell",
+   "摩洛哥 (Morocco) IAM (Maroc Telecom) 、 inwi",
+   "斐濟（Fiji）Vodafone FJ",
+   "孟加拉國（Bangladesh）Banglalink",
+   "直布羅陀（Gibraltar） Gibtelecom",
+   "加拿大（Canada） Freedom / Bell / Telus / Rogers / Eastlink",
+   "埃及（Egypt） Orange / etisalat",
+   "法屬圭亞那（French Guiana） Digicel / Bouygues",
+   "阿聯酋（UAE） Etisalat、DU",
+   "伊拉克（Iraq） Korek Telecom",
+   "沙烏地阿拉伯（Saudi Arabia）Mobily (Etisalat)",
+   "馬恩島（Isle of Man） mt (Manx Telecom) / Sure",
+   "根西島（Guernsey）Sure / JT",
+   "澤西島（Jersey） JT / Sure",
+   "寮國（Laos）ETL"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】多地區 J\nMulti-region J",
+  "carriers": [
+   "阿爾巴尼亞（Albania） One.al、Vodafone",
+   "愛爾蘭（Ireland） eir 、 Vodafone",
+   "愛沙尼亞（Estonia） Elisa 、 Telia 、 Tele2",
+   "奧地利（Austria）A1 、 Magenta",
+   "巴基斯坦（Pakistan） Jazz",
+   "保加利亞（Bulgaria） A1 、 Vivacom 、 Yettel",
+   "比利時（Belgium） Orange 、 Proximus 、 Telenet",
+   "冰島（Iceland） Vodafone",
+   "波蘭（Poland） Plus",
+   "丹麥（Denmark） TDC 、 Telenor 、 Telia",
+   "德國（Germany） O2-de 、 Vodafone 、 Telekom",
+   "法國（France） Orange 、 Bouygues 、 Free",
+   "芬蘭（Finland）Elisa 、 Telia 、 DNA",
+   "哈薩克斯坦（Kazakhstan） Beeline KZ 、 Tele2.kz",
+   "荷蘭（Netherlands）KPN 、 Vodafone 、 Odido",
+   "黑山（Montenegro） MTEL",
+   "吉爾吉斯斯坦（Kyrgyzstan） Beeline KG",
+   "捷克共和國（Czech Republic） O2-CZ 、 Vodafone",
+   "克羅地亞（Croatia） Telemach 、 A1 、 HT HR",
+   "拉脫維亞（Latvia） Tele2 、 LMT 、 Bite",
+   "立陶宛（Lithuania） Telia、Bite、Tele2",
+   "列支敦士登（Liechtenstein） FL1",
+   "盧森堡（Luxembourg） Tango 、 Orange",
+   "羅馬尼亞（Romania） DIGI.ro 、 Vodafone 、 Orange",
+   "馬爾他（Malta） Melita 、 GO 、 Vodafone",
+   "美國（United States）AT&T",
+   "摩爾多瓦（Moldova） Orange 、 Moldcell 、 Moldtelecom",
+   "挪威（Norway） Telenor 、 Ice 、 Telia",
+   "葡萄牙（Portugal） Vodafone P 、 NOS 、 MEO",
+   "瑞典（Sweden） Telenor、Telia、Tele2",
+   "瑞士（Switzerland） Sunrise、Salt",
+   "塞爾維亞（Serbia）Yettel",
+   "塞浦路斯（Cyprus） Epic",
+   "斯洛伐克（Slovakia） O2-SK 、 Orange",
+   "斯洛文尼亞（Slovenia） Telemach、A1",
+   "土耳其（Turkey） Turk Telekom 、 Vodafone 、 Turkcell",
+   "烏克蘭（Ukraine） Vodafone UA 、 Kyivstar",
+   "烏茲別克斯坦（Uzbekistan） Beeline UZ",
+   "西班牙（Spain） Movistar 、 Orange 、 Vodafone",
+   "希臘（Greece） Vodafone GR 、 Nova 、 Cosmote",
+   "紐西蘭（New Zealand） One NZ",
+   "匈牙利（Hungary） One HU 、 Yettel",
+   "以色列（Israel） Pelephone 、 Hot Mobile",
+   "意大利（Italy） Vodafone IT 、 iliad",
+   "英國（United Kingdom） Vodafone UK 、 EE 、 O2-UK",
+   "突尼斯（Tunisia） Ooredoo 、 Tunisie Telecom",
+   "科威特（Kuwait） stc",
+   "亞美尼亞（Armenia） Viva-MTS",
+   "白俄羅斯（Belarus） life:) 、 A1 、 MTS BY",
+   "斯里蘭卡（Sri Lanka）SLT Mobitel",
+   "印度（India）Vi India (Vodafone、Idea)",
+   "格魯吉亞（Georgia） Beeline GE 、 Geocell",
+   "法羅群島（Faroe Islands） Føroya Tele 、 Vodafone",
+   "阿爾及利亞（Algeria）Djezzy 、 Ooredoo",
+   "澳大利亞（Australia） Optus 、 Vodafone AU",
+   "北馬其頓（Macedonia） Telekom.mk 、 A1 MK",
+   "法屬留尼旺（French Reunion） Orange 、 TELCO",
+   "阿塞拜疆（Azerbaijan） Azercell、Bakcell",
+   "卡達（Qatar） Vodafone、Ooredoo",
+   "安道爾（Andorra） Andorra Telecom",
+   "巴林（Bahrain）stc 、 Zain",
+   "俄羅斯（Russia） Tele2、Beeline",
+   "波斯尼亞和黑塞哥維那（Bosnia and Herzegovina） BH Telecom",
+   "加納（Ghana） AirtelTigo",
+   "塔吉克 (Tajikistan) MegaFon TJ 、 Tcell",
+   "摩洛哥 (Morocco) IAM (Maroc Telecom) 、 inwi",
+   "斐濟（Fiji）Vodafone FJ",
+   "孟加拉國（Bangladesh）Banglalink",
+   "直布羅陀（Gibraltar） Gibtelecom",
+   "加拿大（Canada） Freedom / Bell / Telus / Rogers / Eastlink",
+   "埃及（Egypt） Orange / etisalat",
+   "法屬圭亞那（French Guiana） Digicel / Bouygues",
+   "阿聯酋（UAE） Etisalat、DU",
+   "伊拉克（Iraq） Korek Telecom",
+   "沙烏地阿拉伯（Saudi Arabia）Mobily (Etisalat)",
+   "馬恩島（Isle of Man） mt (Manx Telecom) / Sure",
+   "根西島（Guernsey）Sure / JT",
+   "澤西島（Jersey） JT / Sure",
+   "寮國（Laos）ETL",
+   "尼泊爾（Nepal）Ncell",
+   "尼日利亞（Nigeria）Glo / Airtel",
+   "坦桑尼亞（Tanzania） Airtel TZ",
+   "馬達加斯加（Madagascar） Airtel",
+   "肯亞（Kenya） Airtel KE",
+   "乍得（Chad） Airtel Chad",
+   "剛果民主共和國（Democratic Republic of the Congo）  Airtel",
+   "剛果共和國（Republic of Congo） Airtel",
+   "加蓬（Gabon） Airtel Gabon",
+   "馬拉維（Malawi）Airtel",
+   "墨西哥（Mexico） movistar / AT&T",
+   "烏干達（Uganda） Airtel UG",
+   "瓜德羅普（Guadeloupe） Dauphin",
+   "尼日爾（Niger） Airtel",
+   "巴西（Brazil） TIM、Vivo",
+   "薩爾瓦多（El Salvador） movistar",
+   "阿根廷（Argentina） movistar",
+   "荷屬安的列斯群島（Netherlands Antilles）SETAR",
+   "開曼群島（Cayman Islands）FLOW",
+   "蒙特塞拉特（Montserrat）FLOW",
+   "聖基茨和尼維斯（Saint Kitts and Nevis） FLOW",
+   "聖盧西亞（Saint Lucia） FLOW",
+   "聖文森特和格林納丁斯（Saint Vincent and the Grenadines）FLOW",
+   "巴巴多斯（Barbados） FLOW",
+   "安圭拉（Anguilla） FLOW",
+   "安提瓜和巴布達（Antigua and Barbuda） FLOW",
+   "特克斯和凱科斯群島（Turks & Caicos Islands） FLOW",
+   "英屬維爾京群島（British Virgin Islands）FLOW",
+   "多米尼克（Dominica） FLOW",
+   "格林納達（Grenada） FLOW",
+   "牙買加（Jamaica） FLOW",
+   "約旦（Jordan）Zain JO",
+   "哥倫比亞（Colombia） movistar",
+   "巴拉圭（Paraguay） Personal / Tigo",
+   "貝寧（Benin ） Celtiis",
+   "巴拿馬（Panama ） +Movil (C&W)",
+   "烏拉圭（Uruguay ）Movistar",
+   "模里西斯（Mauritius）Chili / Orange",
+   "贊比亞（Zambia）Airtel",
+   "阿富汗（Afghanistan）Roshan",
+   "哥斯達黎加（Costa Rica）movistar",
+   "厄瓜多爾（Ecuador）movistar",
+   "秘魯（Peru）Movistar Peru",
+   "蒙古（Mongolia）MobiCom",
+   "衣索比亞 (Ethiopia)  \tSafaricom",
+   "盧安達 (Rwanda)\t  Airtel (Tigo)"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】多地區 TT\nMulti-Region TT",
+  "carriers": [
+   "香港（Hong Kong）3HK",
+   "澳門（Macau）3 Macau",
+   "中國內地（Mainland China）China Telecom、China Unicom",
+   "台灣（Taiwan）Chunghwa",
+   "馬來西亞（Malaysia）Digi、Celcom、U Mobile",
+   "泰國（Thailand）DTAC、AIS",
+   "菲律賓（Philippines）Globe",
+   "新加坡（Singapore）Singtel",
+   "印度尼西亞（Indonesia）XL、Telkomsel、smartfren",
+   "韓國（Korea）SKT",
+   "紐西蘭（New Zealand）One NZ (Vodafone)",
+   "澳大利亞（Australia）Optus、Vodafone AU",
+   "越南（Vietnam）Vinaphone",
+   "柬埔寨（Cambodia）Metfone"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n         流量重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】TRUE-Travel Asia399",
+  "carriers": [
+   "澳大利亞（Australia）Optus AU、Telstra、vodafone AU",
+   "澳門（Macau）3 Macau、CTM",
+   "巴基斯坦（Pakistan）Jazz、ZONG",
+   "巴林（Bahrain）BATELCO、Zain BH",
+   "菲律賓（Philippines）Globe Telecom-PH、Smart",
+   "塞班關島（Northern Mariana Islands）DOCOMO PACIFIC、IT&E",
+   "哈薩克斯坦（Kazakhstan）Beeline KZ、Tele2",
+   "韓國（South Korea）KOR SK Telecom、KT",
+   "吉爾吉斯斯坦（Kyrgyzstan）Beeline KG、MEGA",
+   "卡塔爾（Qatar）Ooredoo、vodafone",
+   "科威特（Kuwait）Ooredoo、ZAIN KW",
+   "老撾（Laos）ETL MOBILE、LAO GSM、Unitel",
+   "馬來西亞（Malaysia）Digi、CELCOM、MAXIS、U MOBILE",
+   "蒙古（Mongolia）MN MobiCom、MONGOLIA UNITEL LLC",
+   "孟加拉國（Bangladesh）Banglalink、robi axiata",
+   "尼泊爾（Nepal）Ncell、Nepal Telecom",
+   "格魯吉亞（Georgia）Cellfie",
+   "日本（Japan）JP DOCOMO、KDDI、SoftBank",
+   "沙特阿拉伯（Saudi Arabia）stc、Zain KSA",
+   "斯里蘭卡（Sri Lanka）DIALOG、Hutch、Mobitel LK",
+   "台灣（Taiwan）Chunghwa Telecom、Far EasTone、TW Mobile",
+   "土耳其（Turkey）TR TURKCELL、Vodafone",
+   "文萊（Brunei）DSTCom",
+   "烏茲別克斯坦（Uzbekistan）Beeline UZ、UZB Ucell",
+   "香港（Hong Kong）3、China Mobile HK、CSL",
+   "新加坡（Singapore）SGP-M1、Singtel、StarHub",
+   "亞美尼亞（Armenia）Beeline AM、MTS ARM",
+   "以色列（Israel）Hot Mobile Ltd.、Partner IL",
+   "印度（India）IND airtel、Vi India",
+   "印度尼西亞（Indonesia）3、INDOSAT、TELKOMSEL、XL",
+   "約旦（Jordan）Zain JO",
+   "越南（Vietnam）Vietnamobile、VIETTEL、VN Mobifone、VN VINAPHONE",
+   "中國（China）CHINA MOBILE、CHN-UNICOM"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "*查流量/Dial for data usage：*116*1#\n*覆蓋地區10天無限流量，總量6GB高速流量超出後降速至128kbps\n*兌換QR CODE之後180天之內需掃描激活(掃碼立即激活） \n\n*Dial for data usage：*116*1#\n*Unlimited data for 10 days with a total of 6GB of high-speed data. After exceeding this limit, the speed will be reduced to 128kbps. \n*The QR code must be scanned for activation within 180 days after redemption (scan to activate immediately).",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】TRUE-Travel World899",
+  "carriers": [
+   "阿爾巴尼亞（Albania） VODA AL",
+   "阿根廷（Argentina） AR - Movistar",
+   "阿聯酋（包括迪拜）（UAE） du",
+   "埃及（Egypt） Orange EG、vodafone EG",
+   "愛爾蘭（Ireland） 3、IRL - METEOR、vodafone IE",
+   "愛沙尼亞（Estonia） Tele2 EE、Telia",
+   "奧地利（Austria） 3 AT、A1、Magenta-T",
+   "澳大利亞（Australia） Optus AU、Telstra Mobile、vodafone AU",
+   "澳門（Macau） 3 Macau、CTM",
+   "巴基斯坦（Pakistan） Jazz、ZONG",
+   "巴林（Bahrain） BATELCO、Zain BH",
+   "巴拿馬（Panama） Movistar",
+   "巴西（Brazil） VIVO",
+   "白俄羅斯（Belarus） BY VELCOM",
+   "保加利亞（Bulgaria） A1 Bulgaria、Telenor BG",
+   "北愛爾蘭（Northern Ireland） 3 UK、EE、O2 - UK、vodafone UK",
+   "比利時（Belgium） BASE、Orange B、ProXimus",
+   "冰島（Iceland） NOVA IS、Vodafone",
+   "波多黎各（Puerto Rico） AT&T",
+   "波蘭（Poland） Orange PL、Plus、T-Mobile.pl",
+   "波斯尼亞和黑塞哥維那（Bosnia and Herzegovina） BH Mobile",
+   "丹麥（Denmark） 3 DK、TDC、Telenor DK、Telia DK",
+   "德國（Germany） o2 - de、Telekom.de、vodafone.de",
+   "俄羅斯（Russia） Beeline、MegaFon RUS、MTS RUS、t2",
+   "厄瓜多爾（Ecuador） Movistar",
+   "法國（France） F SFR、F-Bouygues Telecom、Free、Orange F",
+   "法羅群島（Faroe Islands） Foroya Tele",
+   "法屬圭亞那（French Guiana） F-Orange",
+   "梵蒂岡城邦（Vatican City-State） I TIM、ILIAD、vodafone IT、WINDTRE",
+   "菲律賓（Philippines） Globe Telecom-PH、Smart",
+   "斐濟（Fiji） FJ VODAFONE",
+   "芬蘭（Finland） FI DNA、FI elisa、Telia",
+   "哥倫比亞（Colombia） Movistar",
+   "格陵蘭（Greenland） Tusass",
+   "瓜德羅普島（Guadeloupe） F-Orange",
+   "塞班關島（Northern Mariana Islands） DOCOMO PACIFIC、IT&E",
+   "哈薩克斯坦（Kazakhstan） Beeline KZ、Tele2",
+   "韓國（South Korea） KOR SK Telecom、KT",
+   "荷蘭（Netherlands） NL KPN、vodafone NL",
+   "吉爾吉斯斯坦（Kyrgyzstan） Beeline KG、MEGA",
+   "加拿大（Canada） Bell、Rogers Wireless、SaskTel、TELUS、Videotron",
+   "加納（Ghana） GH Vodafone",
+   "捷克共和國（Czech Republic） O2-CZ、T-Mobile CZ、Vodafone CZ",
+   "卡塔爾（Qatar） Ooredoo、Vodafone",
+   "科威特（Kuwait） Ooredoo、ZAIN KW",
+   "克羅地亞（Croatia） HT HR、Tele2 HR",
+   "拉脫維亞（Latvia） BITE LV、LV LMT、Tele2 LV",
+   "老撾（Laos） ETL MOBILE NETWORK、LAO GSM、Unitel",
+   "立陶宛（Lithuania） LT BITE GSM、Tele2 LT、Telia LT",
+   "列支敦士登（Liechtenstein） FL1、Salt.li、Swisscom",
+   "盧森堡（Luxembourg） L Orange-LU、L TANGO、POST",
+   "羅馬尼亞（Romania） RO ORANGE、RO Vodafone RO",
+   "馬耳他（Malta） epic",
+   "馬來西亞（Malaysia） Digi、MY CELCOM、MY MAXIS、U MOBILE",
+   "馬提尼克島 （Martinique ） F-Orange",
+   "美國（包括夏威夷）（USA） AT&T、T-Mobile",
+   "美屬維爾京群島（U.S. Virgin Islands） AT&T",
+   "蒙古（Mongolia） MN MobiCom、MONGOLIA UNITEL LLC",
+   "孟加拉國（Bangladesh） Banglalink、robi axiata",
+   "摩爾多瓦（Moldova） Orange MD",
+   "摩洛哥（Morocco） inwi",
+   "摩納哥（Monaco） F SFR、F-Bouygues Telecom、Free、Orange F",
+   "莫桑比克（Mozambique） VodaCom-MZ",
+   "墨西哥（Mexico） Movistar",
+   "南非（South Africa） VodaCom-SA",
+   "尼泊爾（Nepal） Ncell、Nepal Telecom",
+   "挪威（Norway） N Telenor、Telia",
+   "葡萄牙（Portugal） NOS、vodafone P",
+   "格魯吉亞（Georgia） Cellfie",
+   "日本（Japan） JP DOCOMO、KDDI、SoftBank",
+   "瑞典（Sweden） 3 SE、Tele2、Telenor SE、TELIA S",
+   "瑞士（Switzerland） Salt、Sunrise、Swisscom",
+   "塞爾維亞（Serbia） Telenor SRB",
+   "塞內加爾（Senegal） Free",
+   "塞浦路斯（Cyprus） epic、PrimeTel PLC",
+   "沙特阿拉伯（Saudi Arabia） stc、Zain KSA",
+   "聖巴泰勒米 （St. Barthelemy ） F-Orange",
+   "聖馬丁（St. Martin (French)） F-Orange",
+   "聖馬力諾（San Marino） I TIM、ILIAD、vodafone IT、WINDTRE",
+   "斯里蘭卡（Sri Lanka） DIALOG、Hutch、Mobitel LK",
+   "斯洛伐克（Slovakia） O2 - SK、Orange SK、Telekom SK",
+   "斯洛文尼亞（Slovenia） A1 SI、TELEMACH",
+   "蘇格蘭（Scotland） 3 UK、EE、O2 - UK、vodafone UK",
+   "塔吉克斯坦（Tajikistan） TCELL",
+   "台灣（Taiwan） Chunghwa Telecom、Far EasTone、TW Mobile",
+   "坦桑尼亞（Tanzania） VodaCom",
+   "土耳其（Turkey (Turkey)） TR TURKCELL、Vodafone Türkiye",
+   "威爾士（Wales） 3 UK、EE、O2 - UK、vodafone UK",
+   "文萊（Brunei） DSTCom",
+   "烏克蘭（Ukraine） UA-KYIVSTAR",
+   "烏茲別克斯坦（Uzbekistan） Beeline UZ、UZB Ucell",
+   "西班牙（Spain） Movistar、Orange SP、vodafone ES",
+   "希臘（Greece） GR COSMOTE、vodafone GR",
+   "香港（Hong Kong） 3、China Mobile HK、CSL",
+   "新加坡（Singapore） SGP-M1、Singtel、StarHub",
+   "新西蘭（New Zealand） 2degrees、Spark NZ、vodafone NZ",
+   "匈牙利（Hungary） Telekom HU、Telenor HU、vodafone HU",
+   "亞美尼亞（Armenia） Beeline AM、MTS ARM",
+   "以色列（Israel） Hot Mobile Ltd.、Partner IL",
+   "意大利（Italy） I TIM、ILIAD、vodafone IT、WINDTRE",
+   "印度（India） IND airtel、Vi India",
+   "印度尼西亞（Indonesia） 3、IND INDOSAT、IND TELKOMSEL、IND XL",
+   "英國（ UK)） 3 UK、EE、O2 - UK、vodafone UK",
+   "約旦（Jordan） Zain JO",
+   "越南（Vietnam） Vietnamobile、VIETTEL、VN Mobifone、VN VINAPHONE",
+   "中國（China） CHINA MOBILE、CHN-UNICOM"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "True"
+  ],
+  "coverage": "同電信欄 Same as the telecommunications column",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.\n\n*查流量/Dial for data usage：*116*1#\n*15天無限流量覆蓋，總共提供6GB高速數據。超過此限額後，網速將降低到128kbps。\n*兌換QR CODE之後180天之內需掃描激活(掃碼立即激活） \n\n*Dial for data usage：*116*1#\n*Unlimited data coverage for 15 days with a total of 6GB of high-speed data. After exceeding this limit, the speed will be reduced to 128kbps.\n*The QR code must be scanned for activation within 180 days after redemption (scan to activate immediately).",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】O2歐盟, 30天, 35GB\nO2 EU, 30 days, 35GB",
+  "carriers": [
+   "歐洲（Europe）O2"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "自動偵測 Auto Detect"
+  ],
+  "roaming": [
+   "O2"
+  ],
+  "coverage": "48個目的地：奧地利、亞速爾群島、比利時、保加利亞、加那利群島、克羅地亞、塞浦路斯、捷克共和國、丹麥、愛沙尼亞、芬蘭、法國、法屬圭亞那、德國、直布羅陀、希臘、瓜德羅普島、根西島、匈牙利、冰島、愛爾蘭、馬恩島、意大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬德拉島、馬耳他、馬提尼克島、馬約特島、摩納哥、荷蘭、挪威、波蘭、葡萄牙、留尼旺島、羅馬尼亞、聖馬丁島、聖馬力諾、斯洛伐克、斯洛文尼亞、西班牙、瑞典、瑞士、英國、梵蒂岡\n\n48 destinations: Austria, Azores, Belgium, Bulgaria, Canary Islands, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, French Guiana, Germany, Gibraltar, Greece, Guadeloupe, Guernsey, Hungary, Iceland, Ireland, Isle of Man, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Madeira, Malta, Martinique, Mayotte, Monaco, Netherlands, Norway, Poland, Portugal, Reunion Island, Romania, Saint Martin, San Marino, Slovakia, Slovenia, Spain, Sweden, Switzerland, United Kingdom, Vatican City.",
+  "notes": "（非覆蓋地區禁止安裝，會導致無法使用，不能退款及更換）\n*兌換QR CODE之後立即激活生效，非覆蓋地區禁止安裝，注意不可以使用套餐外的內容，否則會欠費停機。\n*覆蓋地區30天35GB（英國可用50GB），500分鐘歐盟通話，英國無限本地通話和短信，接聽免費，注意在英國僅限撥打英國，不可撥打非本地電話。注意不可以使用套餐外的內容，否則會欠費停機。\n*查詢號碼(英國號碼)：發送短信NUMBER至2020\n\n(Installation prohibited in non-covered areas, it may result in product malfunction. In such cases, refunds and exchanges will not be offered.)\n*Activation takes effect immediately after redeeming the QR code. Installation is prohibited in non-covered areas. Please note that you cannot use services outside of the plan; otherwise, you may incur charges and have your service suspended.\n*In covered areas, you get 30 days and 35GB (50GB available in the UK), 500 minutes of EU calls, unlimited local calls and texts in the UK, free incoming calls. Please note that in the UK, calls are limited to UK numbers and cannot be made to non-local numbers. You cannot use services outside of the plan; otherwise, you may incur charges and have your service suspended.\n*To inquire about the number (UK number): Send SMS with the word NUMBER to 2020.",
+  "reset": "Date reset(日期重置) 英國時間自然日 UK local time, calendar day (UTC+0)"
+ },
+ {
+  "plan": "【Worldmove】歐洲A\n Europe A",
+  "carriers": [
+   "愛爾蘭（Ireland）\tMeteor / 3",
+   "愛沙尼亞（Estonia）Tele2 / Telia",
+   "奧地利（Austria）A1 / Drei",
+   "保加利亞（Bulgaria）A1 / Vivacom / Yettel",
+   "比利時（Belgium）BASE / Orange / Proximus",
+   "冰島（Iceland）Síminn",
+   "波蘭（Poland）Orange / Play",
+   "丹麥（Denmark）3 / TDC / Telenor",
+   "德國（Germany）O2 / Telefonica",
+   "芬蘭（Finland）DNA / Telia",
+   "荷蘭（Netherlands）KPN",
+   "捷克共和國（Czech Republic）O2 / CETIN",
+   "克羅地亞（Croatia）A1 / Telemach",
+   "立陶宛（Lithuania）Tele2 / Telia",
+   "列支敦士登（Liechtenstein）Salt 4G / FL1",
+   "留尼旺（Reunion）Orange",
+   "盧森堡（Luxembourg）Orange / POST / Tango",
+   "羅馬尼亞（Romania）\tOrange",
+   "馬耳他（Malta）epic / GO",
+   "挪威（Norway）Telenor / Telia",
+   "葡萄牙（Portugal）NOS",
+   "瑞典（Sweden）3 / Svenska UMTS / Telenor",
+   "塞浦路斯（Cyprus）epic / PrimeTel 4G",
+   "斯洛伐克（Slovak Republic）O2 / Orange",
+   "斯洛文尼亞（Slovenia）Telekom SLO / Telemach",
+   "西班牙（Spain）Orange",
+   "希臘（Greece）WIND / Nova",
+   "匈牙利（Hungary）Yettel",
+   "意大利（Italy）TIM / WIND TRE",
+   "英國（United Kingdom）EE / 3 4G"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：orange\n用户名/username：orange\n密碼/password：orange"
+  ],
+  "roaming": [
+   "Orange"
+  ],
+  "coverage": "30個目的地：克羅地亞、斯洛文尼亞、塞浦路斯、愛爾蘭、列支敦士登、馬耳他、丹麥、意大利、瑞典、奧地利、比利時、保加利亞、捷克共和國、愛沙尼亞、芬蘭、德國、希臘、匈牙利、冰島、立陶宛、盧森堡、荷蘭、挪威、波蘭、葡萄牙、留尼汪島、羅馬尼亞、斯洛伐克、西班牙、英國\n\n30destinations:Croatia, Slovenia, Cyprus, Ireland, Liechtenstein, Malta, Denmark, Italy, Sweden, Austria, Belgium, Bulgaria, Czech Republic, Estonia, Finland, Germany, Greece, Hungary, Iceland, Lithuania, Luxembourg, Netherlands, Norway, Poland, Portugal, Réunion Island, Romania, Slovakia, Spain, United Kingdom.",
+  "notes": "注意不包含法國\nNote: France not included",
+  "reset": "天數：24小時(不足1小時按1小時計)\n重置：套餐激活國家所在時區自然日\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: Calendar day based on the time zone of the country where the plan is activated"
+ },
+ {
+  "plan": "【Worldmove】歐洲B\nEurope B",
+  "carriers": [
+   "奧地利 (Austria)  Hutchison Drei / T-Mobile / A1 Telekom",
+   "比利時 (Belgium)   Telenet (BASE) / Orange",
+   "保加利亞 (Bulgaria)  Yettel / BTC Vivacom",
+   "克羅地亞 (Croatia)  Telemach / A1",
+   "塞浦路斯 (Cyprus)   CYTA /Epic",
+   "捷克共和國 (Czech Republic)   Vodafone / O2",
+   "丹麥 (Denmark)  \tTelenor / Telia",
+   "愛沙尼亞 (Estonia)  Telia / Tele2",
+   "芬蘭 (Finland)   DNA / Telia",
+   "法國 (France)   Bouygues / Free Mobile",
+   "德國 (Germany)   Vodafone / O2",
+   "希臘 (Greece)   Vodafone / Wind",
+   "匈牙利 (Hungary)   Yettel/ Vodafone",
+   "冰島 (Iceland)  Nova / Siminn",
+   "愛爾蘭 (Ireland)   Three Ireland",
+   "意大利 (Italy)  iliad(Free)/ Wind",
+   "拉脫維亞 (Latvia)   Tele2 / LMT",
+   "立陶宛 (Lithuania)  Tele2 / Telia",
+   "盧森堡 (Luxembourg)   POST / Orange",
+   "馬耳他 (Malta)   Go Mobile / Melita",
+   "挪威 (Norway)   Telia (NetCom) / Telenor",
+   "波蘭 (Poland)   Plus / P4",
+   "葡萄牙 (Portugal)   NOS / Vodafone",
+   "羅馬尼亞 (Romania)   RCS / Orange",
+   "斯洛伐克 (Slovakia)   Orange / O2",
+   "斯洛文尼亞 (Slovenia)   Mobitel (Telekom) / Telemach",
+   "西班牙 (Spain)   \tVodafone / Movistar",
+   "瑞典 (Sweden)   Telenor / Telia",
+   "英國 (United Kingdom)   O2",
+   "瑞士 (Switzerland)   Swisscom",
+   "土耳其 (Turkey)   Turkcell",
+   "列支敦士登 ((Liechtenstein)   Telecom FL / 2 roam"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "internet"
+  ],
+  "roaming": [
+   "KPN"
+  ],
+  "coverage": "31個目的地：奧地利、比利時、保加利亞、克羅地亞、塞浦路斯、捷克、丹麥、愛沙尼亞、芬蘭、法國、德國、希臘、匈牙利、冰島、愛爾蘭、意大利、拉脫維亞、立陶宛、盧森堡、馬耳他、挪威、波蘭、葡萄牙、羅馬尼亞、斯洛伐克、斯洛文尼亞、西班牙、瑞典、英國、瑞士、土耳其、列支敦士登\n\n31 destinations:Austria、Belgium、Bulgaria、Croatia、Cyprus、Czech 、Republic、Denmark、Estonia、Finland、France、Germany、Greece、Hungary、Iceland、Ireland、Italy、Latvia、Lithuania、Luxembourg、Malta、Norway、Poland、Portugal、Romania、Slovakia、Slovenia、Spain、Sweden、United Kingdom、Switzerland、Turkey、Liechtenstein",
+  "notes": "注意不包含荷蘭\nNote: The Netherlands is not included.",
+  "reset": "天數：24小時(不足1小時按1小時計)\n按天套餐重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】歐洲C\n Europe C",
+  "carriers": [
+   "阿爾巴尼亞 (Albania) One.al / Vodafone",
+   "愛爾蘭 (Ireland) eir / Vodafone",
+   "愛沙尼亞 (Estonia) Elisa / Telia / Tele2",
+   "奧地利 (Austria) A1 / Magenta",
+   "保加利亞 (Bulgaria) A1 / Vivacom / Yettel",
+   "比利時 (Belgium) Orange / Telenet / Proximus",
+   "冰島 (Iceland) Vodafone",
+   "波蘭 (Poland) Plus",
+   "丹麥 (Denmark) TDC / Telenor / Telia",
+   "德國 (Germany) O2-de / Vodafone / Telekom",
+   "法國 (France) Orange / Bouygues / Free",
+   "芬蘭 (Finland) Elisa / Telia / DNA",
+   "荷蘭 (Netherlands) KPN / Vodafone / Odido",
+   "黑山 (Montenegro) MTEL",
+   "捷克共和國 (Czech Republic) O2-CZ / Vodafone",
+   "克羅埃西亞 (Croatia) Telemach / A1 / HT HR",
+   "拉脫維亞 (Latvia) Tele2 / LMT / Bite",
+   "立陶宛 (Lithuania) Tele2 / Telia / Bite",
+   "列支敦士登 (Liechtenstein) FL1",
+   "盧森堡 (Luxembourg) Tango / Orange",
+   "羅馬尼亞 (Romania) DIGI.ro / Vodafone / Orange",
+   "馬爾他 (Malta) Melita / GO / Vodafone",
+   "摩爾多瓦 (Moldova) Orange / Moldcell / Moldtelecom",
+   "挪威 (Norway) ice / Telenor / Telia",
+   "葡萄牙 (Portugal) Vodafone P / NOS / MEO",
+   "瑞典 (Sweden) Tele2 / Telenor / Telia",
+   "瑞士 (Switzerland) Salt / Sunrise",
+   "塞爾維亞 (Serbia) Yettel",
+   "賽普勒斯 (Cyprus) Epic",
+   "斯洛伐克 (Slovakia) O2-SK / Orange",
+   "斯洛維尼亞 (Slovenia) A1 / Telemach",
+   "土耳其 (Turkey) Turk Telekom / Vodafone",
+   "烏克蘭 (Ukraine) Vodafone UA / Kyivstar",
+   "西班牙 (Spain) movistar / Orange / Vodafone",
+   "希臘 (Greece) Vodafone GR / Nova / Cosmote",
+   "匈牙利 (Hungary) One HU / Yettel",
+   "義大利 (Italy) Vodafone IT / iliad",
+   "梵蒂岡 (Vatican City) Vodafone IT / iliad",
+   "英國 (United Kingdom) Vodafone UK / EE / O2-UK"
+  ],
+  "network": [
+   "4G/3G",
+   "5G/4G"
+  ],
+  "apn": [
+   "plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "39個目的地：阿爾巴尼亞、愛爾蘭、愛沙尼亞、奧地利、保加利亞、比利時、冰島、波蘭、丹麥、德國、法國、芬蘭、荷蘭、黑山、捷克、克羅埃西亞、拉脫維亞、立陶宛、列支敦士登、盧森堡、羅馬尼亞、馬爾他、莫爾達瓦、挪威、葡萄牙、瑞典、瑞士、塞爾維亞、賽普勒斯、斯洛伐克、斯洛維尼亞、土耳其、烏克蘭、西班牙、希臘、匈牙利、義大利、梵蒂岡、英國\n\n\n39destinationsAlbania、Ireland、Estonia、Austria、Bulgaria、Belgium、Iceland、Poland、Denmark、Germany、France、Finland、Netherlands、Montenegro、Czech Republic、Croatia、Latvia、Lithuania、Liechtenstein、Luxembourg、Romania、Malta、Moldova、Norway、Portugal、Sweden、Switzerland、Serbia、Cyprus、Slovakia、Slovenia、Turkey、Ukraine、Spain、Greece、Hungary、Italy、Vatican City、United Kingdom",
+  "notes": "",
+  "reset": "天數：24小時(不足1小時按1小時計)\n按天套餐重置：0時區0:00（UTC+0）\nDate reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nData reset: 00:00 (UTC+0）"
+ },
+ {
+  "plan": "【Worldmove】歐洲E\nEurope E",
+  "carriers": [
+   "愛爾蘭 (Ireland)3 / Vodafone",
+   "愛沙尼亞 (Estonia)Tele2",
+   "奧地利 (Austria)3",
+   "保加利亞 (Bulgaria)Yettel",
+   "比利時 (Belgium)Orange",
+   "波蘭 (Poland)Play / Plus",
+   "丹麥 (Denmark)3",
+   "德國 (Germany)Vodafone",
+   "俄羅斯 (Russia)Beeline",
+   "法國 (France)Free / Orange",
+   "芬蘭 (Finland)DNA",
+   "荷蘭 (Netherlands)Vodafone",
+   "捷克 (Czechia)O2 / Vodafone",
+   "拉脫維亞 (Latvia)Tele2",
+   "列支敦士登 (Liechtenstein)Salt",
+   "立陶宛 (Lithuania)Tele2",
+   "羅馬尼亞 (Romania)Vodafone",
+   "盧森堡 (Luxembourg)Orange",
+   "馬爾他 (Malta)Epic",
+   "摩爾多瓦 (Moldova)Orange",
+   "挪威 (Norway)Telenor",
+   "葡萄牙 (Portugal)Vodafone",
+   "瑞典 (Sweden)3 / Tele2",
+   "瑞士 (Switzerland)Salt",
+   "賽普勒斯 (Cyprus)Epic",
+   "斯洛伐克 (Slovakia)O2",
+   "土耳其 (Turkey)Turk Telekom",
+   "西班牙 (Spain)Orange / Vodafone",
+   "希臘 (Greece)Vodafone",
+   "匈牙利 (Hungary)Yettel / Vodafone",
+   "義大利 (Italy)3 / Iliad",
+   "英國 (United Kingdom)3 / Vodafone",
+   "以色列 (Israel)Partner"
+  ],
+  "network": [
+   "4G",
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "33個目的地：愛爾蘭、愛沙尼亞、奧地利、保加利亞、比利時、波蘭、丹麥、德國、俄羅斯、法國、芬蘭、荷蘭、捷克、拉脫維亞、列支敦士登、立陶宛、羅馬尼亞、盧森堡、馬爾他、摩爾多瓦、挪威、葡萄牙、瑞典、瑞士、賽普勒斯、斯洛伐克、土耳其、西班牙、希臘、匈牙利、義大利、英國、以色列\n\n33 destinations: Ireland, Estonia, Austria, Bulgaria, Belgium, Poland, Denmark, Germany, Russia, France, Finland, the Netherlands, the Czech Republic, Latvia, Liechtenstein, Lithuania, Romania, Luxembourg, Malta, Moldova, Norway, Portugal, Sweden, Switzerland, Cyprus, Slovakia, Turkey, Spain, Greece, Hungary, Italy, the United Kingdom, and Israel.",
+  "notes": "",
+  "reset": "天數：24小時(不足1小時按1小時計)\n重置：00:00 Taiwan（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 Taiwan (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】全球, 365天, 15GB, 128kbps\nGlobal, 365 Days, 15GB, 128kbps",
+  "carriers": [
+   "自動偵測 Auto Detect"
+  ],
+  "network": [
+   "5G/4G/3G"
+  ],
+  "apn": [
+   "Plus"
+  ],
+  "roaming": [
+   "Plus Telecom"
+  ],
+  "coverage": "愛爾蘭、愛沙尼亞、奧地利、保加利亞、比利時、冰島、波蘭、巴基斯坦、丹麥、德國、法國、芬蘭、荷蘭、克羅地亞、拉脫維亞、立陶宛、羅馬尼亞、馬耳他、美國、挪威、葡萄牙、瑞典、瑞士、塞浦路斯、土耳其、烏克蘭、西班牙、希臘、以色列、意大利、英國、黑山、新西蘭、突尼斯、科威特、斯里蘭卡、印度、格魯吉亞、法羅群島、阿爾及利亞、澳大利亞、法屬留尼汪、卡塔爾、巴西、巴林、俄羅斯、波斯尼亞和黑塞哥維那、加納、孟加拉國、直布羅陀、加拿大、埃及、法屬圭亞那、阿聯酋、伊拉克、沙特阿拉伯、馬恩島、根西島、澤西島、摩洛哥、尼泊爾、尼日利亞、波黑、坦桑尼亞、馬達加斯加、肯尼亞、加蓬、墨西哥、瓜德羅普、薩爾瓦多、阿根廷、荷屬安的列斯群島、開曼群島、蒙特塞拉特、聖基茨和尼維斯、聖盧西亞、聖文森特和格林納丁斯、巴巴多斯、安圭拉、安提瓜和巴布達、特克斯和凱科斯群島、英屬維爾京群島、多米尼克、格林納達、牙買加、哥倫比亞、貝寧、巴拿馬、烏拉圭、南非、香港、澳門、中國內地、台灣、馬來西亞、泰國、菲律賓、新加坡、印度尼西亞、韓國、紐西蘭、澳大利亞、日本、柬埔寨\n\nIreland, Estonia, Austria, Bulgaria, Belgium, Iceland, Poland, Pakistan, Denmark, Germany, France, Finland, Netherlands, Croatia, Latvia, Lithuania, Romania, Malta, United States, Norway, Portugal, Sweden, Switzerland, Cyprus, Turkey, Ukraine, Spain, Greece, Israel, Italy, United Kingdom, Montenegro, New Zealand, Tunisia, Kuwait, Sri Lanka, India, Georgia, Faroe Islands, Algeria, Australia, French Reunion, Qatar, Brazil, Bahrain, Russia, Bosnia and Herzegovina, Ghana, Bangladesh, Gibraltar, Canada, Egypt, French Guiana, UAE, Iraq, Saudi Arabia, Isle of Man, Guernsey, Jersey, Morocco, Nepal, Nigeria, Bosnia and Herzegovina, Tanzania, Madagascar, Kenya, Gabon, Mexico, Guadeloupe, El Salvador, Argentina, Netherlands Antilles, Cayman Islands, Montserrat, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines, Barbados, Anguilla, Antigua and Barbuda, Turks & Caicos Islands, British Virgin Islands, Dominica, Grenada, Jamaica, Colombia, Benin, Panama, Uruguay, South Africa, Hong Kong, Macau, Mainland China, Taiwan, Malaysia, Thailand, Philippines, Singapore, Indonesia, Korea, New Zealand, Australia, Japan, Cambodia",
+  "notes": "*俄羅斯系列產品在俄羅斯境內連網時，需手動選擇網路營運商 Beeline，並等待接收來自營運商的簡訊。點擊簡訊中的連結進入頁面後，選擇【解除限制】（部分情況下可能需要進行 KYC 認證）。操作完成後，即可開啟數據漫遊並正常上網。\n*For Russia-series products, when connecting to the network in Russia, you need to manually select the network operator Beeline and wait for an SMS from the operator. Tap the link in the SMS, then click “Remove Restriction” on the page (in some cases, KYC verification may be required). After the process is completed successfully, enable data roaming to access the internet.",
+  "reset": "日期重置：24小時(不足1小時按1小時計)\n    Date reset: 24 hours (any time less than 1 hour will be rounded up to 1 hour)"
+ },
+ {
+  "plan": "【Worldmove】馬爾地夫-40USD\nDhiraagu (MDV)-40USD",
+  "carriers": [
+   "馬爾地夫（Maldives）Dhiraagu"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "internet.dhimobile"
+  ],
+  "roaming": [
+   "Dhiraagu"
+  ],
+  "coverage": "馬爾代夫（Maldives）",
+  "notes": "*覆蓋地區10天20GB，150分鐘本地通話+150條本地短信+6.5美金話費余額（可直撥全球各地，大部分地區約0.2美金-0.4美金/分鐘），到馬爾代夫撥打123激活\n*查流量：發短信myusage 發到 727 \n*查號碼： *2# \n*兌換QR CODE之後30天之內需掃描激活\n\n*10-day coverage with 20GB of data, 150 local call minutes, 150 local SMS messages, and a $6.50 credit balance (usable for direct international calls; most destinations cost approximately $0.20–$0.40 per minute). To activate, dial 123 upon arrival in the Maldives.\n*To check data usage: Send an SMS with the text \"myusage\" to 727\n*To check your phone number: Dial *2#\n*The QR code must be scanned and activated within 30 days after redemption.\n\n*購買前請先至以下網址查閱官方支援型號列表\nhttps://www.dhiraagu.com.mv/dhiraagu-esim#seeSupportedDevices\n*Before purchasing, please visit the following link to review the list of officially supported phone models.\nhttps://www.dhiraagu.com.mv/dhiraagu-esim#seeSupportedDevices",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】馬爾地夫-50USD\nDhiraagu (MDV)-50USD",
+  "carriers": [
+   "馬爾地夫（Maldives）Dhiraagu"
+  ],
+  "network": [
+   "4G/3G"
+  ],
+  "apn": [
+   "internet.dhimobile"
+  ],
+  "roaming": [
+   "Dhiraagu"
+  ],
+  "coverage": "馬爾代夫（Maldives）",
+  "notes": "*覆蓋地區30天30GB通用流量+70GB社交流量（WhatsApp、WeChat、Facebook、Instagram、Viber‌、Snapchat‌、X、Threads），300分鐘本地通話+300條本地短信+9.5美金話費余額（可直撥全球各地，大部分地區約0.2美金-0.4美金/分鐘），到馬爾代夫撥打123激活\n*查流量：發短信myusage 發到 727 \n*查號碼： *2# \n*兌換QR CODE之後30天之內需掃描激活\n\n*30-day coverage with 30GB of general data + 70GB of social media data (WhatsApp, WeChat, Facebook, Instagram, Viber, Snapchat, X, Threads), 300 local call minutes, 300 local SMS messages, and a $9.50 credit balance (can be used for direct international calls; most destinations cost approximately $0.20–$0.40 per minute). To activate, dial 123 upon arrival in the Maldives.\n*To check data usage: Send an SMS with the text \"myusage\" to 727\n*To check your phone number: Dial *2#\n*The QR code must be scanned and activated within 30 days after redemption.\n\n*購買前請先至以下網址查閱官方支援型號列表\nhttps://www.dhiraagu.com.mv/dhiraagu-esim#seeSupportedDevices\n*Before purchasing, please visit the following link to review the list of officially supported phone models.\nhttps://www.dhiraagu.com.mv/dhiraagu-esim#seeSupportedDevices",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】日韓通用\nJapan, Korea",
+  "carriers": [
+   "日本(Japan)Rakuten、Softbank",
+   "韓國(Korea)LG、SKT"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "日本、韓國 \nJapan、Korea",
+  "notes": "",
+  "reset": "Data reset(流量重置) 00:00 Taiwan（UTC +8）/ \nDate reset(日期重置) 00:00 Taiwan（UTC +8）"
+ },
+ {
+  "plan": "【Worldmove】亞太多地區A\nAPAC Multi-region A",
+  "carriers": [
+   "日本 (Japan)Rakuten 、 Softbank 、 Docomo、 KDDI",
+   "韓國  (Korea) SK Telecom 、 LG 、KT",
+   "新加坡  (Singapore) Simba 、 Starhub",
+   "馬來西亞  (Malaysia) Digi 、 Celcom 、 U Mobile",
+   "泰國 (Thailand) AIS 、 True Move",
+   "印尼  (Indonesia) Telkomsel 、 XL (4G)、Indosat",
+   "菲律賓 (Philippines) Globe 、Smart",
+   "越南 (Vietnam) Vinaphone",
+   "柬埔寨  (Cambodia) Metfone 、Smart",
+   "澳大利亞 (Australia) Telstra",
+   "紐西蘭  (New Zealand) Spark",
+   "中國大陸  (Mainland China ) China Unicom 、 China Telecom(4G)",
+   "香港 (Hong Kong) 3",
+   "澳門 (Macau) 3",
+   "臺灣 (Taiwan) Chunghwa"
+  ],
+  "network": [
+   "4G/3G",
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "日本、韓國、新加坡、馬來西亞、泰國、印尼、菲律賓、越南、柬埔寨、澳大利亞、紐西蘭、中國大陸、香港、澳門、臺灣\n\nJapan、Korea、Singapore、Malaysia、Thailand、Indonesia、Philippines、Vietnam、Cambodia、Australia、New Zealand、Mainland China、Hong Kong、Macau、Taiwan",
+  "notes": "*不開放給中港澳台的渠道銷售",
+  "reset": "天數：24小時(不足1小時按1小時計)\n重置：東八區0:00（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】亞太多地區B\nAPAC Multi-region B",
+  "carriers": [
+   "日本（Japan）\tRakuten 、Softbank 、Docomo 、KDDI",
+   "韓國（Korea）\tSK Telecom 、LG 、KT",
+   "新加坡（Singapore）Simba 、Starhub",
+   "馬來西亞（Malaysia）Digi 、Celcom 、U Mobile",
+   "泰國（Thailand）\tAIS 、True Move",
+   "印尼（Indonesia）Telkomsel 、XL (4G) 、Indosat",
+   "菲律賓（Philippines）\tGlobe 、Smart",
+   "越南（Vietnam）Vinaphone",
+   "柬埔寨（Cambodia）\tMetfone 、Smart",
+   "澳大利亞（Australia）\tTelstra",
+   "紐西蘭（New Zealand）\tSpark"
+  ],
+  "network": [
+   "4G/3G",
+   "5G/4G"
+  ],
+  "apn": [
+   "mobile.three.com.hk"
+  ],
+  "roaming": [
+   "3HK"
+  ],
+  "coverage": "日本、韓國、新加坡、馬來西亞、印尼、泰國、菲律賓、越南、柬埔寨、澳大利亞、新西蘭\n\nJapan、Korea、Singapore、Malaysia、Indonesia、Thailand、Philippines、Vietnam、Cambodia、 Australia、New Zealand",
+  "notes": "",
+  "reset": "天數：24小時(不足1小時按1小時計)\n重置：東八區0:00（UTC+8）\nDuration: 24 hours (any time less than 1 hour will be rounded up to 1 hour)\nReset: 00:00 (UTC+8)"
+ },
+ {
+  "plan": "【Worldmove】CTE（中國+英國）-22/50/120 GB\nCTE（CN+UK）-22/50/120 GB",
+  "carriers": [
+   "自動偵測 Auto Detect"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "everywhere"
+  ],
+  "roaming": [
+   "CTExcel (EE)"
+  ],
+  "coverage": "中國內地、英國、奧地利、比利時、保加利亞、克羅埃西亞、賽普勒斯、捷克共和國、丹麥、愛沙尼亞、芬蘭、法國、德國、直布羅陀、希臘、匈牙利、冰島、馬恩島、義大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬爾他、荷蘭、挪威、波蘭、葡萄牙、愛爾蘭共和國、羅馬尼亞、聖馬利諾、斯洛伐克、斯洛維尼亞、西班牙、瑞典\n\nMainland China, United Kingdom, Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Gibraltar, Greece, Hungary, Iceland, Isle of Man, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Republic of Ireland, Romania, San Marino, Slovakia, Slovenia, Spain, Sweden",
+  "notes": "*中國內地+英國30天22GB流量，5GB歐盟漫遊流量，英國本地500分鐘通話\n*Mainland China + UK 30 days 22GB data, 5GB EU roaming data, 500 UK local call minutes\n\n*中國內地+英國30天50GB流量，8GB歐盟漫遊流量，英國本地2000分鐘通話，英國無限海外通話（中國、香港、澳門、臺灣、日本、韓國、澳大利亞、美國、加拿大、印度、新加坡、馬來西亞、泰國、巴基斯坦、孟加拉）\n*Mainland China + UK 30 days 50GB data, 8GB EU roaming data, 2000 UK local call minutes, unlimited UK international calls (China, Hong Kong, Macau, Taiwan, Japan, South Korea, Australia, USA, Canada, India, Singapore, Malaysia, Thailand, Pakistan, Bangladesh)\n\n*中國內地+英國30天120GB流量，12GB歐盟漫遊流量，英國本地無限通話，英國無限海外通話（中國、香港、澳門、臺灣、日本、韓國、澳大利亞、美國、加拿大、印度、新加坡、馬來西亞、泰國、巴基斯坦、孟加拉） \n*Mainland China + UK 30 days 120GB data, 12GB EU roaming data, unlimited UK local calls, unlimited UK international calls (China, Hong Kong, Macau, Taiwan, Japan, South Korea, Australia, USA, Canada, India, Singapore, Malaysia, Thailand, Pakistan, Bangladesh)\n\n*需在中國內地、香港及澳門以外地區激活(掃碼立即激活）\n*Must be activated outside Mainland China、Hong Kong and Macau(scan to activate immediately).\n\n*兌換QR CODE之後30天之內需掃描激活.\n*The QR code must be scanned and activated within 30 days after redemption\n\n*安裝好撥打888，之後會收到一條短信，確保已激活，再帶到目的地使用。\nAfter installation, dial 888. You will receive an SMS to confirm activation. Ensure activation is complete before using it at your destination.\n\n*查流量/餘額：在英國發短信BAL到888\nChecking Balance/Data：Send an SMS with BAL to 888\nCustomer service: Call 888\n*Check data/balance: Send SMS “BAL” to 888 in the UK\nChecking Balance/Data: Send an SMS with BAL to 888\nCustomer service: Call 888",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】CTE（英國）-30/60/150 GB\nCTE（UK）-30/60/150 GB",
+  "carriers": [
+   "自動偵測 Auto Detect"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "everywhere"
+  ],
+  "roaming": [
+   "CTExcel (EE)"
+  ],
+  "coverage": "英國、奧地利、比利時、保加利亞、克羅地亞、塞浦路斯、捷克共和國、丹麥、愛沙尼亞、芬蘭、法國、德國、直布羅陀、希臘、匈牙利、冰島、馬恩島、意大利、澤西島、拉脫維亞、列支敦士登、立陶宛、盧森堡、馬耳他、荷蘭、挪威、波蘭、葡萄牙、愛爾蘭共和國、羅馬尼亞、聖馬力諾、斯洛伐克、斯洛文尼亞、西班牙、瑞典\n\nUnited Kingdom, Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Gibraltar, Greece, Hungary, Iceland, Isle of Man, Italy, Jersey, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Republic of Ireland, Romania, San Marino, Slovakia, Slovenia, Spain, Sweden",
+  "notes": "*英國30天30GB流量，含2GB歐盟漫遊流量，英國本地無限通話，100分鐘海外通話（中國大陸、香港、澳門、台灣、日本、韓國、澳大利亞、美國、加拿大、印度、新加坡、馬來西亞、泰國、巴基斯坦、孟加拉國）\n*UK 30 days 30GB data, including 2GB EU roaming data, unlimited local calls within the UK, and 100 minutes of international calls (Mainland China, Hong Kong, Macau, Taiwan, Japan, South Korea, Australia, the United States, Canada, India, Singapore, Malaysia, Thailand, Pakistan, Bangladesh).\n\n*英國30天60GB流量，含2GB歐盟漫遊流量，英國本地無限通話，100分鐘海外通話（中國大陸、香港、澳門、台灣、日本、韓國、澳大利亞、美國、加拿大、印度、新加坡、馬來西亞、泰國、巴基斯坦、孟加拉國）\n*UK 30 days 60GB data, including 2GB EU roaming data, unlimited local calls within the UK, and 100 minutes of international calls (Mainland China, Hong Kong, Macau, Taiwan, Japan, South Korea, Australia, the United States, Canada, India, Singapore, Malaysia, Thailand, Pakistan, Bangladesh).\n\n*英國30天150GB流量，含2GB歐盟漫遊流量，英國本地無限通話，100分鐘海外通話（中國大陸、香港、澳門、台灣、日本、韓國、澳大利亞、美國、加拿大、印度、新加坡、馬來西亞、泰國、巴基斯坦、孟加拉國）\nUK 30 days 150GB data, including 2GB EU roaming data, unlimited local calls within the UK, and 100 minutes of international calls (Mainland China, Hong Kong, Macau, Taiwan, Japan, South Korea, Australia, the United States, Canada, India, Singapore, Malaysia, Thailand, Pakistan, Bangladesh).\n\n*兌換QR CODE之後30天之內需安裝，到達目的地安裝激活\n*The QR code must be installed within 30 days after redemption and activated upon arrival at the destination.\n\n*查流量/餘額：在英國發短信BAL到888\nChecking Balance/Data：Send an SMS with BAL to 888\nCustomer service: Call 888\n*Check data/balance: Send SMS “BAL” to 888 in the UK\nChecking Balance/Data: Send an SMS with BAL to 888\nCustomer service: Call 888",
+  "reset": "天數：24小時\nDuration: 24 hours"
+ },
+ {
+  "plan": "【Worldmove】Vodafone Travel M/XL/XXL",
+  "carriers": [
+   "歐洲多國（Europe）自動/Automatic"
+  ],
+  "network": [
+   "5G/4G"
+  ],
+  "apn": [
+   "APN：airtelwap.es \n用戶名/username：wap@wap \n密碼/password：wap125"
+  ],
+  "roaming": [
+   "Vodafone"
+  ],
+  "coverage": "比利時、法國、德國、意大利、盧森堡、荷蘭、丹麥、愛爾蘭、希臘、葡萄牙、西班牙、奧地利、芬蘭、瑞典、塞浦路斯、捷克共和國、愛沙尼亞、匈牙利、拉脫維亞、立陶宛、馬耳他、波蘭、斯洛伐克、斯洛文尼亞、保加利亞、羅馬尼亞、克羅地亞、冰島、列支敦士登、挪威、瑞士、土耳其、梵蒂岡、摩納哥、英國、馬恩島、聖馬丁、直布羅陀、烏克蘭、摩爾多瓦、根西島、澤西島、聖馬力諾\n\nBelgium, France, Germany, Italy, Luxembourg, Netherlands, Denmark, Ireland, Greece, Portugal, Spain, Austria, Finland, Sweden, Cyprus, Czech Republic, Estonia, Hungary, Latvia, Lithuania, Malta, Poland, Slovakia, Slovenia, Bulgaria, Romania, Croatia, Iceland, Liechtenstein, Norway, Switzerland, Türkiye, Vatican City, Monaco, United Kingdom, Isle of Man, Saint Martin, Gibraltar, Ukraine, Moldova, Guernsey, Jersey, San Marino",
+  "notes": "M : 覆蓋地區27天13GB，50分鐘歐盟地區通話\nXL : 覆蓋地區27天26GB，100分鐘歐盟地區通話\nXXL : 覆蓋地區27天40GB，200分鐘歐盟地區通話\nM : Coverage area 27 days 13GB, 50 minutes EU region calls\nXL : Coverage area 27 days 26GB, 100 minutes EU region calls\nXXL : Coverage area 27 days 40GB, 200 minutes EU region calls\n\n*兌換成二維碼後即開始計算天數。掃碼安裝時需要輸入確認碼（確認碼會在兌換時顯示於網頁上），無需輸入PIN碼。 \nOnce converted into a QR code, the validity period will begin to count. When scanning the code to install, you will need to enter a verification code (the verification code will be displayed on the webpage at the time of redemption). No PIN code is required.\n\n*此方案為西班牙手機號碼\nThis plan includes a Spanish phone number.\n\n*查號碼/Check phone number：*138#\n*查流量/Check data usage：*128#4",
+  "reset": "Date reset(日期重置):西班牙時間自然日Calendar day in Spain time（UTC+1）"
+ }
+]
