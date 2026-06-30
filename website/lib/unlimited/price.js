@@ -1,16 +1,17 @@
 // Synthetic-unlimited pricing (fulfilled by the EA auto-refill engine).
 //
 // Per destination D over N days:
-//   price = max( bytesimTotal(D, N) − $0.10 ,  4 · costPerGb(D) · N )
+//   price = max( bytesimTotal(D, N) − $0.10 ,  floorUsd(D, N) )
 //
-// The floor term 4·c·N = 2 × (2.0 GB/day × N × c) = 2× profit at 2.0 GB/day fair-use
-// (lowered from 2.5 on 2026-06-29 to make more durations price-competitive — the
-// 2.5 floor priced us above bytesim's bulk rate everywhere but day 1). The anchor
-// undercuts bytesim's real N-day 2GB/day total by 10¢. max() takes whichever is
-// higher: we undercut bytesim when we can, but never sell below 2× cost. Only list
-// a destination where the anchor wins (else the floor prices us above bytesim).
+// The anchor undercuts bytesim's real N-day 2GB/day total by 10¢. The floor is the
+// MINIMUM sale price and is computed by the caller via one of the floor*() helpers:
+//   • floorFrom2GBDayUsd  — min price = EA's own "2GB/Day" catalog price × N
+//     (never sell unlimited below what EA charges to deliver the 2GB/day fair-use).
+//   • floorFromTopupCostUsd — 2× profit on the cheap total-data top-up cost.
+// max() takes whichever is higher: we undercut bytesim when we can, but never below
+// the floor. Only list a destination where the anchor wins (else floor > bytesim).
 
-export const PROFIT_USAGE_GB_PER_DAY = 2.0; // 2× profit guaranteed up to this daily usage
+export const PROFIT_USAGE_GB_PER_DAY = 2.0; // fair-use cap the floor is priced for
 export const PROFIT_MULTIPLE = 2;
 export const UNDERCUT_USD = 0.1;
 
@@ -22,19 +23,25 @@ export function initialLoadGb(days) {
   return 20;
 }
 
+/** Min price = EA's "2GB/Day" daily-plan price held for the whole duration. */
+export function floorFrom2GBDayUsd(ea2gbDayUsd, days) {
+  return ea2gbDayUsd * days;
+}
+
+/** Min price = 2× profit on the cheap total-data top-up cost of the fair-use bundle. */
+export function floorFromTopupCostUsd(costPerGbUsd, days) {
+  return PROFIT_MULTIPLE * PROFIT_USAGE_GB_PER_DAY * costPerGbUsd * days;
+}
+
 /**
- * @param {{ days:number, competitorTotalsUsd:number[], eaCostPerGbUsd:number }} p
+ * @param {{ days:number, competitorTotalsUsd:number[], floorUsd:number }} p
  *   competitorTotalsUsd = competitors' 2GB/day TOTAL prices for this exact N-day duration.
+ *   floorUsd = the minimum sale price for the whole N-day plan (see floor*() helpers).
  * @returns {{ priceUsd:number, anchorUsd:number|null, floorUsd:number, source:"competitor"|"floor" }}
  */
-export function unlimitedPriceUsd({ days, competitorTotalsUsd = [], eaCostPerGbUsd }) {
-  // competitorTotalsUsd = the competitors' 2GB/day TOTALS for exactly this N-day
-  // duration (bytesim/roamic prices are non-linear in days, so pass the real
-  // per-duration total). Undercut the cheapest by 10¢, never below the 2× floor.
+export function unlimitedPriceUsd({ days, competitorTotalsUsd = [], floorUsd }) {
   const valid = competitorTotalsUsd.filter((x) => x > 0);
   const anchorUsd = valid.length ? Math.min(...valid) - UNDERCUT_USD : null;
-  const floorUsd = PROFIT_MULTIPLE * PROFIT_USAGE_GB_PER_DAY * eaCostPerGbUsd * days;
-  // with no competitor (or competitors below floor) → floor (max revenue @2× profit)
   const useAnchor = anchorUsd != null && anchorUsd >= floorUsd;
   return {
     priceUsd: useAnchor ? anchorUsd : floorUsd,
@@ -45,11 +52,11 @@ export function unlimitedPriceUsd({ days, competitorTotalsUsd = [], eaCostPerGbU
 }
 
 /**
- * Viable to LIST as unlimited competitively for an N-day plan: the price ends up
- * on the competitor (we undercut AND clear 2× profit), not pinned to the floor.
+ * Viable to LIST as unlimited competitively for an N-day plan: the price ends up on
+ * the competitor (we undercut AND stay above the floor), not pinned to the floor.
  * Returns null without competitor data.
  */
-export function isUnlimitedViable({ days, competitorTotalsUsd = [], eaCostPerGbUsd }) {
+export function isUnlimitedViable({ days, competitorTotalsUsd = [], floorUsd }) {
   if (!competitorTotalsUsd.some((x) => x > 0)) return null;
-  return unlimitedPriceUsd({ days, competitorTotalsUsd, eaCostPerGbUsd }).source === "competitor";
+  return unlimitedPriceUsd({ days, competitorTotalsUsd, floorUsd }).source === "competitor";
 }
