@@ -1,6 +1,7 @@
 import { getPlanByuniqueName } from "@/lib/db/plans";
 import { prisma } from "@/lib/db/prisma";
 import { appendReferralRow } from "@/lib/googleSheets";
+import { fireAffiliatePostback } from "@/lib/affiliate";
 import { isValidMetadata } from "@/lib/VerifyMetadata";
 import { formatDataSize } from "@/utils/formaters";
 import "dotenv/config";
@@ -15,8 +16,9 @@ import {
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-async function createOrderInDB(intentId, email, plan) {
+async function createOrderInDB(intentId, email, plan, attribution = {}) {
   const { productId, name, countryCodes, data, days, price, supplier } = plan;
+  const { ref = null, couponCode = null, discountCents = null } = attribution;
 
   const newOrder = await prisma.planOrder.create({
     data: {
@@ -30,6 +32,9 @@ async function createOrderInDB(intentId, email, plan) {
       price,
       orderTime: new Date(),
       supplier,
+      ref,
+      couponCode,
+      discountCents,
     },
   });
 
@@ -108,11 +113,43 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Invalid qty", intent });
   }
 
+  // attribution from the (server-set) PaymentIntent metadata; ref falls back to
+  // the cookie-sourced referralCode the client also sends.
+  const ref = metadata.ref ?? (referralCode || null);
+  const couponCode = metadata.couponCode || null;
+  const totalDiscount = metadata.discountCents ? parseInt(metadata.discountCents, 10) : null;
+  const attribution = {
+    ref,
+    couponCode,
+    discountCents: totalDiscount != null ? Math.round(totalDiscount / qty) : null, // per-line share
+  };
+
   //create row in db qty times
   await Promise.all(
-    Array.from({ length: qty }, () => createOrderInDB(intentId, email, plan)),
+    Array.from({ length: qty }, () => createOrderInDB(intentId, email, plan, attribution)),
   );
-  log(`Created ${qty} order records in DB for intentId: ${intentId}`);
+  log(`Created ${qty} order records in DB for intentId: ${intentId}${couponCode ? ` (coupon ${couponCode}, ref ${ref})` : ""}`);
+
+  // count one redemption per paid order (best-effort; never blocks fulfillment)
+  if (couponCode) {
+    try {
+      await prisma.coupon.update({
+        where: { code: couponCode },
+        data: { redemptions: { increment: 1 } },
+      });
+    } catch (e) {
+      log(`Could not increment redemptions for coupon ${couponCode}: ${e.message}`);
+    }
+  }
+
+  // affiliate conversion postback (no-op unless AFFILIATE_POSTBACK_URL + ref set)
+  await fireAffiliatePostback({
+    ref,
+    orderId: intentId,
+    amountCents: plan.price * qty - (totalDiscount || 0),
+    couponCode,
+    email,
+  });
 
   const supplier = plan.supplier;
   if (!supplier) {

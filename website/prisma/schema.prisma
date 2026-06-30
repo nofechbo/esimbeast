@@ -26,9 +26,50 @@ model PlanOrder {
   supplier          String
   supplierOrderData Json? // WM: {rcode}. EA: {esimTranNo}}
 
+  // Attribution: ?ref= source (e.g. "esimdb") + any coupon applied at checkout.
+  // Durable per-order record (vs the referral Google Sheet) for reconciliation.
+  ref           String?
+  couponCode    String?
+  discountCents Int?
+
   @@index([intentId])
   @@index([orderId])
   @@index([supplier, status])
+  @@index([ref])
+}
+
+// Discount codes applied at checkout. The discount is computed and enforced
+// SERVER-SIDE in create-payment-intent — the client only passes the code string.
+model Coupon {
+  id             Int       @id @default(autoincrement())
+  code           String    @unique // stored UPPERCASE; matched case-insensitively
+  type           String // "percent" | "fixed"
+  value          Int // percent: 1-100 ; fixed: cents off
+  active         Boolean   @default(true)
+  expiresAt      DateTime?
+  maxRedemptions Int? // null = unlimited
+  redemptions    Int       @default(0)
+  minAmountCents Int? // minimum order subtotal (cents) to qualify
+  // Restrict the code to one supplier's plans (e.g. "EA"). null = any product.
+  supplierScope  String?
+  // Named product rule the code is limited to. "esimdb" = EA 10/20GB ≤30d only,
+  // so the 50% code can't gut the rest of the catalog. null = no product rule.
+  productScope   String?
+  note           String? // e.g. "eSIMdb partner"
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+// Cheapest competitor price per EA plan, scraped from esimdb.com. Input to the
+// eSIMdb repricer: list = max(competitor − 1¢, cost + min margin) × 2, so the
+// 50% eSIMdb coupon nets to a 1¢ undercut — but never below our cost.
+model CompetitorPrice {
+  id              Int      @id @default(autoincrement())
+  planId          Int      @unique // Plan.id (joined in the repricer; no FK)
+  competitorCents Int // cheapest listed price on esimdb.com, in cents
+  competitor      String? // who held the cheapest price (for audit)
+  source          String   @default("esimdb")
+  scrapedAt       DateTime @default(now())
 }
 
 model Plan {
