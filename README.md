@@ -43,31 +43,29 @@ The project combines a customer-facing storefront with backend APIs, payment pro
 
 ## Architecture
 
-```text
-Customer
-   |
-   v
-Next.js Storefront
-   |
-   +-- Plan search and filtering
-   +-- Checkout
-   +-- Order status
-   +-- Customer support
-   |
-   v
-Next.js API Layer
-   |
-   +-- Stripe
-   +-- eSIM supplier APIs
-   +-- Email services
-   +-- AI assistant
-   +-- Google services
-   |
-   v
-PostgreSQL / Prisma
-```
+flowchart LR
+    User[Customer] --> Next[Next.js storefront]
 
-The database stores both available plans and customer orders, including payment state, supplier-specific fulfillment data, activation details, and order status.
+    Next --> Search[Plan search & filtering]
+    Next --> API[Next.js API routes]
+    Next --> Admin[Admin tools]
+
+    API --> Stripe[Stripe]
+    API --> Suppliers[eSIM supplier APIs]
+    API --> Email[Email delivery]
+    API --> AI[Anthropic assistant]
+    API --> Google[Google services]
+
+    Search --> DB[(PostgreSQL)]
+    API --> DB
+    Admin --> DB
+
+    Suppliers --> Fulfillment[eSIM fulfillment]
+    Fulfillment --> DB
+
+The application combines the customer storefront and backend API layer in a single Next.js project. Prisma provides the persistence layer for plans and orders, while API routes coordinate payments, supplier ordering, email delivery, plan-status checks, and external integrations.
+
+The purchase workflow persists order state before and after payment, connects successful transactions to the relevant supplier, stores fulfillment information such as activation data and QR links, and exposes that state back to the customer-facing application.
 
 ## Project Structure
 
