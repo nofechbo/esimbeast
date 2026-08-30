@@ -42,7 +42,7 @@ The project combines a customer-facing storefront with backend APIs, payment pro
 | Styling | CSS Modules, Tailwind CSS, Emotion |
 
 ## Architecture
-
+```mermaid
 flowchart LR
     User[Customer] --> Next[Next.js storefront]
 
@@ -62,6 +62,7 @@ flowchart LR
 
     Suppliers --> Fulfillment[eSIM fulfillment]
     Fulfillment --> DB
+ ```
 
 The application combines the customer storefront and backend API layer in a single Next.js project. Prisma provides the persistence layer for plans and orders, while API routes coordinate payments, supplier ordering, email delivery, plan-status checks, and external integrations.
 
